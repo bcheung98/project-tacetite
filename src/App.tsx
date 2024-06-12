@@ -1,6 +1,12 @@
 import React, { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "./redux/store"
+import { connect } from "react-redux"
+import { AppDispatch, useAppDispatch, useAppSelector } from "./redux/store"
+
+// Fetch imports
 import { fetchCharacters } from "./redux/actions/fetchCharacters"
+
+// Type imports
+import { RootState } from "./redux/store"
 
 const App = () => {
 
@@ -28,4 +34,12 @@ const App = () => {
     )
 }
 
-export default App
+const mapStateToProps = (state: RootState) => ({
+    characters: state.characters
+})
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+    fetchCharacters: () => dispatch(fetchCharacters())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
