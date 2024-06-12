@@ -22,8 +22,14 @@ const CharacterMaterialGrid = (props: any) => {
     }
 
     return (
-        <Box sx={{ ml: "10px" }}>
-            <Grid container spacing={1}>
+        <Box
+            sx={{
+                display: "block",
+                margin: "auto",
+                width: "100%",
+            }}
+        >
+            <Grid container spacing={0.5}>
                 <Grid xs="auto">
                     <CustomTooltip title={forgeryMat} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/talent_mats/${forgeryMat}3.png`)} alt={forgeryMat} onError={ErrorLoadingImage} />

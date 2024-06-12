@@ -49,7 +49,7 @@ const CharacterBrowser = (props: any) => {
                         {characters.characters.length > 0 &&
                             <React.Fragment>
                                 {
-                                    characters.characters.map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} />)
+                                    characters.characters.map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} showMaterials />)
 
                                 }
                             </React.Fragment>
