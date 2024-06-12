@@ -29,3 +29,37 @@ code {
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(187, 163, 140);
 }
+
+.text-highlight {
+    color: #FFE7B9
+}
+
+.text-aero {
+    color: #2FC79F;
+    font-weight: bold;
+}
+
+.text-electro {
+    color: #A732B0;
+    font-weight: bold;
+}
+
+.text-fusion {
+    color: #C72A4C;
+    font-weight: bold;
+}
+
+.text-glacio {
+    color: #38B0D2;
+    font-weight: bold;
+}
+
+.text-havoc {
+    color: #9A1754;
+    font-weight: bold;
+}
+
+.text-spectro {
+    color: #BCA81D;
+    font-weight: bold;
+}
