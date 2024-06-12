@@ -9,9 +9,14 @@ import { fetchCharacters } from "./redux/actions/fetchCharacters"
 import Home from "./components/Home"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
 
+// MUI imports
+import { defaultTheme as theme } from "./theme"
+import { ThemeProvider } from "@mui/material/styles"
+
 // Type imports
 import { RootState } from "./redux/store"
 import { AppDispatch } from "./redux/store"
+
 
 const router = createBrowserRouter([
     {
@@ -33,7 +38,9 @@ const App = (props: any) => {
     let { fetchCharacters } = props
 
     return (
-        <RouterProvider router={router} />
+        <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+        </ThemeProvider>
     )
 }
 
