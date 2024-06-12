@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "./redux/store"
+import { fetchCharacters } from "./redux/actions/fetchCharacters"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+    const { loading, characters } = useAppSelector(state => state.characters)
+    const characterDispatch = useAppDispatch()
+
+    useEffect(() => {
+        characterDispatch(fetchCharacters())
+    }, [])
+
+    return (
+        <div>
+            <>
+                {loading ?
+                    "...loading"
+                    :
+                    <ul>
+                        {
+                            characters.map((char) => <li key={char.id}>{char.name}</li>)
+                        }
+                    </ul>
+                }
+            </>
+        </div>
+    )
 }
 
-export default App;
+export default App
