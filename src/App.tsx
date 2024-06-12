@@ -1,16 +1,17 @@
 import React, { useEffect } from "react"
 import { connect } from "react-redux"
-import { AppDispatch, useAppSelector } from "./redux/store"
+import { AppDispatch } from "./redux/store"
 
 // Fetch imports
 import { fetchCharacters } from "./redux/actions/fetchCharacters"
+
+// Component imports
+import CharacterBrowser from "./components/characters/CharacterBrowser"
 
 // Type imports
 import { RootState } from "./redux/store"
 
 const App = (props: any) => {
-
-    const { loading, characters } = useAppSelector(state => state.characters)
 
     useEffect(() => {
         fetchCharacters()
@@ -20,17 +21,7 @@ const App = (props: any) => {
 
     return (
         <div>
-            <>
-                {loading ?
-                    "...loading"
-                    :
-                    <ul>
-                        {
-                            characters.map((char) => <li key={char.id}>{char.name}</li>)
-                        }
-                    </ul>
-                }
-            </>
+            <CharacterBrowser />
         </div>
     )
 }
