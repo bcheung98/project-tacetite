@@ -1,11 +1,16 @@
 import React, { useEffect } from "react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { connect } from "react-redux"
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
 // Fetch imports
 import { fetchCharacters } from "./redux/actions/fetchCharacters"
 
 // Component imports
+import Nav from "./components/Nav"
 import Home from "./components/Home"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
 
@@ -17,18 +22,6 @@ import { ThemeProvider } from "@mui/material/styles"
 import { RootState } from "./redux/store"
 import { AppDispatch } from "./redux/store"
 
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />
-    },
-    {
-        path: "/characters",
-        element: <CharacterBrowser />
-    }
-])
-
 const App = (props: any) => {
 
     useEffect(() => {
@@ -39,7 +32,13 @@ const App = (props: any) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
+            <Router basename="project-tacetite">
+                <Nav />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/characters" component={CharacterBrowser} />
+                </Switch>
+            </Router>
         </ThemeProvider>
     )
 }
