@@ -76,6 +76,15 @@ declare module "@mui/material/styles" {
 }
 
 export const defaultTheme = createTheme({
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    fontFamily: "Segoe UI, Roboto",
+                }
+            }
+        }
+    },
     appbar: {
         backgroundColor: "rgb(20, 19, 17)",
     },
