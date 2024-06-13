@@ -23,19 +23,18 @@ const CharacterCard = (props: any) => {
         marginLeft: "2px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
         backgroundSize: "100%",
-        border: `3px solid ${theme.border.color}`,
+        border: `2px solid ${GetRarityColor(rarity)}`,
         borderRadius: "15px",
         width: "100px",
         height: "100px",
-        boxShadow: `inset 0 0 30px ${GetBackgroundColor(rarity)}`,
-        borderBottom: `8px solid ${GetRarityColor(rarity)}`,
+        boxShadow: `inset 0 0 30px 5px ${GetBackgroundColor(rarity)}`,
     }
 
     return (
         <Card variant="outlined"
             sx={{
                 width: 320,
-                height: 195,
+                height: 180,
                 mr: "15px",
                 mb: "15px",
                 backgroundColor: `${theme.card.backgroundColor}`,
@@ -76,15 +75,6 @@ const CharacterCard = (props: any) => {
                             <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                                 <img src={`${process.env.REACT_APP_URL}/characters/icons/${name}.png`} alt={name} style={characterIconBackground} onError={ErrorLoadingImage} />
                             </ButtonBase>
-                            <img src={(`${process.env.REACT_APP_URL}/stars/${rarity}Star.png`)} alt={rarity}
-                                style={{
-                                    display: "block",
-                                    margin: "auto",
-                                    marginTop: "5px",
-                                    width: "95%",
-                                }}
-                                onError={ErrorLoadingImage}
-                            />
                         </Box>
                     </Grid>
                     <Grid xs={7}>
