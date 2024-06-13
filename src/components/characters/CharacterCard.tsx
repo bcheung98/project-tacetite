@@ -50,7 +50,7 @@ const CharacterCard = (props: any) => {
                     }}
                 >
                     <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                        <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "500" }}>
+                        <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bolder" }}>
                             {name}
                         </Typography>
                     </ButtonBase>
@@ -62,7 +62,7 @@ const CharacterCard = (props: any) => {
                         }}
                     >
                         <CustomTooltip title={element} arrow placement="top">
-                            <img style={{ height: "36px", width: "36px", marginRight: "1px" }} src={(`${process.env.REACT_APP_URL}/elements/${element}.png`)} alt={element} onError={ErrorLoadingImage} />
+                            <img style={{ height: "32px", width: "32px", marginRight: "2px", marginTop: "2px" }} src={(`${process.env.REACT_APP_URL}/elements/icons/${element}.png`)} alt={element} onError={ErrorLoadingImage} />
                         </CustomTooltip>
                         <CustomTooltip title={weapon} arrow placement="top">
                             <img style={{ height: "36px", width: "36px" }} src={(`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`)} alt={weapon} onError={ErrorLoadingImage} />

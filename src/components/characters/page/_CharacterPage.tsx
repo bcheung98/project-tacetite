@@ -95,7 +95,7 @@ const CharacterPage = (props: any) => {
                             <Box sx={{ display: "flex" }}>
                                 <CustomTooltip title={`${element}`} arrow placement="top">
                                     <img
-                                        src={`${process.env.REACT_APP_URL}/elements/${element}.png`} alt={`${element}`}
+                                        src={`${process.env.REACT_APP_URL}/elements/ui/${element}.png`} alt={`${element}`}
                                         style={{
                                             marginRight: "-20px",
                                             height: "128px",
@@ -126,7 +126,7 @@ const CharacterPage = (props: any) => {
                                             my: "2px",
                                             display: { xs: "none", md: "flex" },
                                             color: `${theme.text.color}`,
-                                            fontWeight: "450",
+                                            fontWeight: "500",
                                             fontStyle: "italic",
                                         }}
                                     >
@@ -152,7 +152,7 @@ const CharacterPage = (props: any) => {
                                             {[...Array(rarity).keys()].map(() => "✦")}
                                         </Typography>
                                         <Box sx={{ marginLeft: "5px" }}>
-                                            <Typography variant="h6" sx={{ fontWeight: "450", mb: "5px" }}>
+                                            <Typography variant="h6" sx={{ fontWeight: "500", mb: "5px" }}>
                                                 • {weapon}
                                             </Typography>
                                         </Box>
@@ -166,6 +166,7 @@ const CharacterPage = (props: any) => {
                                     mb: "20px",
                                     mx: "25px",
                                     fontFamily: "Genshin, sans-serif",
+                                    fontWeight: "500",
                                     color: `${theme.text.color}`,
                                 }}
                             >
