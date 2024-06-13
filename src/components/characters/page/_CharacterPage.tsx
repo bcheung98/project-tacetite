@@ -71,7 +71,7 @@ const CharacterPage = (props: any) => {
                                     <Typography variant="body2"><b>Voice Actor (EN)</b></Typography>
                                     <Typography variant="body2"><b>Voice Actor (JP)</b></Typography>
                                 </Box>
-                                <Box sx={{ textAlign: "right" }}>
+                                <Box sx={{ textAlign: "right", maxWidth: "200px" }}>
                                     <Typography variant="body2">{nation}</Typography>
                                     <Typography variant="body2">{birthday}</Typography>
                                     <Typography variant="body2">{`${release.date} (${release.version})`}</Typography>
