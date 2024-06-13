@@ -110,7 +110,6 @@ const CharacterPage = (props: any) => {
                                         sx={{
                                             mt: "10px",
                                             display: { xs: "none", md: "flex" },
-                                            fontFamily: "Genshin, sans-serif",
                                             fontWeight: "bolder",
                                             color: `${theme.text.color}`,
                                             textDecoration: "none",
