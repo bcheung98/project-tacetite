@@ -140,9 +140,17 @@ const CharacterPage = (props: any) => {
                                             color: `${theme.text.color}`
                                         }}
                                     >
-                                        <Box sx={{ marginLeft: "-5px" }}>
-                                            <img style={{ height: "30px" }} src={`${process.env.REACT_APP_URL}/stars/${rarity}Star.png`} alt={rarity} onError={ErrorLoadingImage} />
-                                        </Box>
+                                        <Typography
+                                            variant="h4"
+                                            sx={{
+                                                mt: "-6px",
+                                                ml: "-5px",
+                                                color: "rgb(255, 208, 112)",
+                                                textShadow: "#e3721b 1px 1px 10px"
+                                            }}
+                                        >
+                                            {[...Array(rarity).keys()].map(() => "✦")}
+                                        </Typography>
                                         <Box sx={{ marginLeft: "5px" }}>
                                             <Typography variant="h6" sx={{ fontWeight: "450", mb: "5px" }}>
                                                 • {weapon}
