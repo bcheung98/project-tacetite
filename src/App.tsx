@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { connect } from "react-redux"
 import {
     BrowserRouter as Router,
@@ -13,6 +13,7 @@ import { fetchCharacters } from "./redux/actions/fetchCharacters"
 import Nav from "./components/Nav"
 import Home from "./components/Home"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
+import CharacterPage from "./components/characters/page/_CharacterPage"
 
 // MUI imports
 import { defaultTheme as theme } from "./theme"
@@ -36,7 +37,8 @@ const App = (props: any) => {
                 <Nav />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/characters" component={CharacterBrowser} />
+                    <Route exact path="/characters" component={CharacterBrowser} />
+                    <Route path="/character/:char_name" children={<CharacterPage />} />
                 </Switch>
             </Router>
         </ThemeProvider>
