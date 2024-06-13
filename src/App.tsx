@@ -48,7 +48,7 @@ const App = (props: any) => {
                     pt: 2,
                     textAlign: "center",
                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                    borderTop: `1px solid ${theme.border.color}`,
+                    borderTop: `2px solid ${theme.border.color}`,
                 }}>
                     <Typography sx={{ fontWeight: "bold", mb: "5px" }} variant="body2">Project Tacetite is not affiliated with Kuro Games.<br />Wuthering Waves, images and data are registered trademarks of Kuro Games.</Typography>
                     <Box>

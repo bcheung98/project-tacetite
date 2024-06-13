@@ -16,7 +16,7 @@ const CharacterMaterialGrid = (props: any) => {
 
     const materialImage = {
         height: props.size,
-        border: `1px solid ${theme.border.color}`,
+        border: `2px solid ${theme.border.color}`,
         borderRadius: "15px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
     }
@@ -29,7 +29,7 @@ const CharacterMaterialGrid = (props: any) => {
                 width: "100%",
             }}
         >
-            <Grid container spacing={1}>
+            <Grid container spacing={0.6}>
                 <Grid xs="auto">
                     <CustomTooltip title={forgeryMat} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}4.png`)} alt={forgeryMat} onError={ErrorLoadingImage} />

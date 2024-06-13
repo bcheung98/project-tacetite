@@ -10,7 +10,7 @@ const Nav = () => {
         <AppBar position="static"
             sx={{
                 backgroundColor: `${theme.appbar.backgroundColor}`,
-                borderBottom: `1px solid ${theme.border.color}`
+                borderBottom: `2px solid ${theme.border.color}`
             }}
         >
             <Container maxWidth="xl" sx={{ m: 0 }}>

@@ -40,7 +40,7 @@ const CharacterPage = (props: any) => {
                                 objectFit: "contain",
                                 marginLeft: "15px",
                                 marginTop: "15px",
-                                border: `1px solid ${theme.border.color}`,
+                                border: `2px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                                 // cursor: "pointer",
@@ -49,7 +49,7 @@ const CharacterPage = (props: any) => {
                         />
                         <Box
                             sx={{
-                                border: `1px solid ${theme.border.color}`,
+                                border: `2px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 color: `${theme.text.color}`,
                                 backgroundColor: `${theme.paper.backgroundColor}`,
@@ -87,7 +87,7 @@ const CharacterPage = (props: any) => {
                                 p: "5px",
                                 mx: "15px",
                                 marginTop: "15px",
-                                border: `1px solid ${theme.border.color}`,
+                                border: `2px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                             }}
@@ -170,7 +170,7 @@ const CharacterPage = (props: any) => {
                                 p: 0,
                                 mx: "15px",
                                 marginTop: "15px",
-                                border: `1px solid ${theme.border.color}`,
+                                border: `2px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                             }}
@@ -178,7 +178,7 @@ const CharacterPage = (props: any) => {
                             <AppBar position="static"
                                 sx={{
                                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                                    borderBottom: `1px solid ${theme.border.color}`,
+                                    borderBottom: `2px solid ${theme.border.color}`,
                                     borderRadius: "5px 5px 0px 0px",
                                 }}
                             >
