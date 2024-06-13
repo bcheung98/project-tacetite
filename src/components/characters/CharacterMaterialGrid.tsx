@@ -29,10 +29,15 @@ const CharacterMaterialGrid = (props: any) => {
                 width: "100%",
             }}
         >
-            <Grid container spacing={0.5}>
+            <Grid container spacing={1}>
                 <Grid xs="auto">
                     <CustomTooltip title={forgeryMat} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}4.png`)} alt={forgeryMat} onError={ErrorLoadingImage} />
+                    </CustomTooltip>
+                </Grid>
+                <Grid >
+                    <CustomTooltip title={bossMat} arrow placement="top">
+                        <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`)} alt={bossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 </Grid>
                 <Grid >
@@ -43,11 +48,6 @@ const CharacterMaterialGrid = (props: any) => {
                 <Grid>
                     <CustomTooltip title={commonMat} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/common/${commonMat}4.png`)} alt={commonMat} onError={ErrorLoadingImage} />
-                    </CustomTooltip>
-                </Grid>
-                <Grid >
-                    <CustomTooltip title={bossMat} arrow placement="top">
-                        <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`)} alt={bossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 </Grid>
                 <Grid >
