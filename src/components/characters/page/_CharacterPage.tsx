@@ -9,6 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports
@@ -17,6 +18,11 @@ import { RootState } from "../../../redux/store"
 const CharacterPage = (props: any) => {
 
     const theme = useTheme()
+
+    const [tabValue, setTabValue] = React.useState(0);
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue);
+    }
 
     let { char_name } = useParams<{ char_name: string }>()
     let { characters } = props
@@ -190,7 +196,16 @@ const CharacterPage = (props: any) => {
                                     borderRadius: "5px 5px 0px 0px",
                                 }}
                             >
+                                <StyledTabs value={tabValue} onChange={handleTabChange}>
+                                    <StyledTab label="Stats" />
+                                    <StyledTab label="Ascension" />
+                                </StyledTabs>
+                                <TabPanel value={tabValue} index={0}>
 
+                                </TabPanel>
+                                <TabPanel value={tabValue} index={1}>
+
+                                </TabPanel>
                             </AppBar>
                         </Box>
                     </Grid>
