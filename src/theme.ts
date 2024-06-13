@@ -77,31 +77,31 @@ declare module "@mui/material/styles" {
 
 export const defaultTheme = createTheme({
     appbar: {
-        backgroundColor: "rgb(15, 15, 15)",
+        backgroundColor: "rgb(20, 19, 17)",
     },
     border: {
-        color: "rgb(168, 147, 105)",
+        color: "rgb(83, 71, 69)",
     },
     paper: {
-        backgroundColor: "rgb(30, 30, 30)",
+        backgroundColor: "rgb(25, 21, 26)",
     },
     card: {
-        backgroundColor: "rgb(30, 30, 30)",
+        backgroundColor: "rgb(25, 21, 26)",
     },
     table: {
         header: {
-            backgroundColor: "rgb(15, 15, 15)",
+            backgroundColor: "rgb(20, 19, 17)",
         },
         body: {
-            backgroundColor: "rgb(26, 22, 24)",
-            hover: "rgb(50, 50, 50)",
+            backgroundColor: "rgb(34, 28, 36)",
+            hover: "rgb(45, 41, 46)",
         },
     },
     toolbar: {
-        backgroundColor: "rgb(15, 15, 15)",
+        backgroundColor: "rgb(20, 19, 17)",
     },
     materialImage: {
-        backgroundColor: "rgb(20, 20, 20)",
+        backgroundColor: "rgb(15, 11, 16)",
     },
     text: {
         color: "white",
