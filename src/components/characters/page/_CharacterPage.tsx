@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 // Component imports
 import CharacterStatsTable from "./CharacterStatsTable"
 import CharacterForteDisplay from "./CharacterForteDisplay"
+import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 
 // MUI imports
 import { Typography, Box, AppBar } from "@mui/material"
@@ -103,7 +104,7 @@ const CharacterPage = (props: any) => {
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
-                                <CustomTooltip title={`${element}`} arrow placement="top">
+                                <CustomTooltip title={`${element}`} arrow placement="bottom">
                                     <img
                                         src={`${process.env.REACT_APP_URL}/elements/ui/${element}.png`} alt={`${element}`}
                                         style={{
@@ -131,7 +132,7 @@ const CharacterPage = (props: any) => {
                                         {!character.displayName && !character.fullName && name}
                                     </Typography>
                                     <Typography
-                                        variant="body1"
+                                        variant="h6"
                                         sx={{
                                             my: "2px",
                                             display: { xs: "none", md: "flex" },
@@ -169,13 +170,12 @@ const CharacterPage = (props: any) => {
                                     </Box>
                                 </Box>
                             </Box>
-                            <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "0px 15px 15px 15px" }} />
+                            <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "15px" }} />
                             <Typography
-                                variant="body2"
+                                variant="body1"
                                 sx={{
                                     mb: "20px",
                                     mx: "25px",
-                                    fontFamily: "Genshin, sans-serif",
                                     fontWeight: "500",
                                     color: `${theme.text.color}`,
                                 }}
@@ -202,19 +202,20 @@ const CharacterPage = (props: any) => {
                             >
                                 <StyledTabs value={tabValue} onChange={handleTabChange}>
                                     <StyledTab label="Stats" />
-                                    <StyledTab label="Ascension" />
+                                    {/* <StyledTab label="Ascension" /> */}
                                 </StyledTabs>
                             </AppBar>
                             <TabPanel value={tabValue} index={0}>
                                 <CharacterStatsTable character={character} />
                             </TabPanel>
-                            <TabPanel value={tabValue} index={1}>
+                            {/* <TabPanel value={tabValue} index={1}>
 
-                            </TabPanel>
+                            </TabPanel> */}
                         </Box>
                     </Grid>
                 </Grid>
                 <CharacterForteDisplay character={character} />
+                <CharacterResonanceChainDisplay character={character} />
             </React.Fragment>
         )
 
