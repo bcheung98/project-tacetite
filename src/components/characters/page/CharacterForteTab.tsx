@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles"
 import { Typography, Box, CardHeader, Paper, AppBar } from "@mui/material"
 
 // Helper imports
+import { Accordion, AccordionDetails, AccordionSummary } from "../../../helpers/CustomAccordion"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterForteTab = (props: any) => {
@@ -46,7 +47,14 @@ const CharacterForteTab = (props: any) => {
                         border: "none",
                     }}
                 >
-                    <CharacterForteScalingTable stats={skills[key].scaling} />
+                    <Accordion sx={{ ml: "-20px" }}>
+                        <AccordionSummary>
+                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Talent Scaling</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <CharacterForteScalingTable stats={skills[key].scaling} />
+                        </AccordionDetails>
+                    </Accordion>
                 </Paper>
             }
             {
