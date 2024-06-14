@@ -30,8 +30,12 @@ code {
     background: rgb(187, 163, 140);
 }
 
-.text-highlight {
+.text-header {
     color: #FFE7B9
+}
+
+.text-highlight {
+    color: #F7CA2F
 }
 
 .text-aero {
