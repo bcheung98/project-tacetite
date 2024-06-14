@@ -19,7 +19,7 @@ const CharacterForteScalingTable = (props: any) => {
                 border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 ml: "20px",
-                width: "90%",
+                width: "98%",
             }}
         >
             <Table sx={{ backgroundColor: `${theme.table.body.backgroundColor}` }}>
