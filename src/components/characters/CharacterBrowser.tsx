@@ -36,7 +36,7 @@ const CharacterBrowser = (props: any) => {
                         display: { xs: "none", md: "flex" },
                         letterSpacing: ".2rem",
                         color: `${theme.text.color}`,
-                        textDecoration: "none",
+                        fontWeight: "500",
                         textAlign: "center",
                     }}
                 >
