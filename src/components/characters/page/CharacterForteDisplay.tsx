@@ -62,7 +62,7 @@ const CharacterForteDisplay = (props: any) => {
             {
                 Object.keys(forte).map((key, index) => (
                     <TabPanel key={key} index={index} value={tabValue}>
-                        <CharacterForteTab skillKey={key} skills={forte} element={element} materials={props.character.materials} />
+                        <CharacterForteTab character={name} skillKey={key} skills={forte} element={element} materials={props.character.materials} />
                     </TabPanel>
                 ))
             }
