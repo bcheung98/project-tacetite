@@ -3,6 +3,9 @@ import { useTheme } from "@mui/material/styles"
 import { connect } from "react-redux"
 import { useParams } from "react-router-dom"
 
+// Component imports
+import CharacterStatsTable from "./CharacterStatsTable"
+
 // MUI imports
 import { Typography, Box, AppBar } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
@@ -200,13 +203,13 @@ const CharacterPage = (props: any) => {
                                     <StyledTab label="Stats" />
                                     <StyledTab label="Ascension" />
                                 </StyledTabs>
-                                <TabPanel value={tabValue} index={0}>
-
-                                </TabPanel>
-                                <TabPanel value={tabValue} index={1}>
-
-                                </TabPanel>
                             </AppBar>
+                            <TabPanel value={tabValue} index={0}>
+                                <CharacterStatsTable character={character} />
+                            </TabPanel>
+                            <TabPanel value={tabValue} index={1}>
+
+                            </TabPanel>
                         </Box>
                     </Grid>
                 </Grid>
