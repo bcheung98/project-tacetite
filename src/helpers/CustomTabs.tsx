@@ -50,6 +50,7 @@ export const StyledTab = styled((props: CustomTabProps) =>
 )(
     ({ theme }) => ({
         color: `${theme.text.color}`,
+        fontFamily: "Segoe UI, Roboto",
         fontWeight: "bold",
         "&.Mui-selected": {
             color: `${theme.text.highlight}`,
