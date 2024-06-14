@@ -21,13 +21,13 @@ const Nav = () => {
                                 <Avatar src={`${process.env.REACT_APP_URL}/elements/ui/Spectro.png`} alt="PROJECT TACETITE" sx={{ height: "64px", width: "64px", backgroundColor: `${theme.appbar.backgroundColor}` }} />
                             }
                             title={
-                                <Typography variant="h6"
+                                <Typography variant="h5"
                                     sx={{
                                         mr: 2,
                                         display: { xs: "none", md: "flex" },
                                         letterSpacing: ".3rem",
                                         color: `${theme.text.color}`,
-                                        textDecoration: "none",
+                                        fontWeight: "bold",
                                     }}
                                 >
                                     PROJECT TACETITE
@@ -46,7 +46,6 @@ const Nav = () => {
                                         sx={{
                                             letterSpacing: ".1rem",
                                             color: `${theme.text.color}`,
-                                            textDecoration: "none",
                                             fontWeight: "500",
                                         }}
                                     >
@@ -65,7 +64,6 @@ const Nav = () => {
                                         sx={{
                                             letterSpacing: ".1rem",
                                             color: `${theme.text.color}`,
-                                            textDecoration: "none",
                                             fontWeight: "500",
                                         }}
                                     >
@@ -84,7 +82,6 @@ const Nav = () => {
                                         sx={{
                                             letterSpacing: ".1rem",
                                             color: `${theme.text.color}`,
-                                            textDecoration: "none",
                                             fontWeight: "500",
                                         }}
                                     >
