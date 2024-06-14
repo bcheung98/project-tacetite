@@ -31,41 +31,41 @@ code {
 }
 
 .text-header {
-    color: #FFE7B9;
+    color: #ffe7b9;
     font-weight: bold;
 }
 
 .text-highlight {
-    color: #F7CA2F;
+    color: #f7ca2f;
     font-weight: bold;
 }
 
 .text-aero {
-    color: #2FC79F;
+    color: #2fc79f;
     font-weight: bold;
 }
 
 .text-electro {
-    color: #A732B0;
+    color: #a732b0;
     font-weight: bold;
 }
 
 .text-fusion {
-    color: #C72A4C;
+    color: #f0744e;
     font-weight: bold;
 }
 
 .text-glacio {
-    color: #38B0D2;
+    color: #38b0d2;
     font-weight: bold;
 }
 
 .text-havoc {
-    color: #9A1754;
+    color: #9a1754;
     font-weight: bold;
 }
 
 .text-spectro {
-    color: #BCA81D;
+    color: #bca81d;
     font-weight: bold;
 }
