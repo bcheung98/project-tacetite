@@ -1,7 +1,8 @@
 import * as React from "react"
-import { useTheme } from "@mui/material/styles"
+import parse from "html-react-parser"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Typography, Box } from "@mui/material"
 
 const CharacterForteTab = (props: any) => {
@@ -16,11 +17,11 @@ const CharacterForteTab = (props: any) => {
             <Typography variant="subtitle1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                 <i>{FormatSkillKey(key)}</i>
             </Typography>
-            <Typography variant="h4" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
+            <Typography variant="h4" sx={{ color: `${theme.text.color}`, mb: "20px" }}>
                 <b>{skills[key].name}</b>
             </Typography>
             <Typography variant="body1" sx={{ color: `${theme.text.color}` }}>
-
+                {parse(skills[key].description)}
             </Typography>
         </React.Fragment>
     )
