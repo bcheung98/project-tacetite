@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 
 // Component imports
 import CharacterStatsTable from "./CharacterStatsTable"
+import CharacterForteDisplay from "./CharacterForteDisplay"
 
 // MUI imports
 import { Typography, Box, AppBar } from "@mui/material"
@@ -213,6 +214,7 @@ const CharacterPage = (props: any) => {
                         </Box>
                     </Grid>
                 </Grid>
+                <CharacterForteDisplay character={character} />
             </React.Fragment>
         )
 
