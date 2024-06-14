@@ -42,7 +42,7 @@ export const StyledTabs = styled((props: CustomTabsProps) => (
 })
 
 interface CustomTabProps {
-    label: string
+    label: string | any
 }
 
 export const StyledTab = styled((props: CustomTabProps) =>
