@@ -1,9 +1,12 @@
 import * as React from "react"
 import parse from "html-react-parser"
 
+// Component imports
+import CharacterForteScalingTable from "./CharacterForteScalingTable"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Typography, Box, CardHeader } from "@mui/material"
+import { Typography, Box, CardHeader, Paper, AppBar } from "@mui/material"
 
 // Helper imports
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
@@ -25,17 +28,27 @@ const CharacterForteTab = (props: any) => {
 
     return (
         <React.Fragment>
-            <Box>
-                <Typography variant="subtitle1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
-                    <i>{FormatSkillKey(key)}</i>
-                </Typography>
-                <Typography variant="h4" sx={{ color: `${theme.text.color}`, mb: "20px" }}>
-                    <b>{skills[key].name}</b>
-                </Typography>
-                <Typography variant="body1" sx={{ color: `${theme.text.color}` }}>
-                    {parse(skills[key].description)}
-                </Typography>
-            </Box>
+            <Typography variant="subtitle1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
+                <i>{FormatSkillKey(key)}</i>
+            </Typography>
+            <Typography variant="h4" sx={{ color: `${theme.text.color}`, mb: "20px" }}>
+                <b>{skills[key].name}</b>
+            </Typography>
+            <Typography variant="body1" sx={{ color: `${theme.text.color}` }}>
+                {parse(skills[key].description)}
+            </Typography>
+            <br />
+            {
+                ["attack", "skill", "ultimate", "circuit", "intro"].includes(key) &&
+                <Paper variant="outlined"
+                    sx={{
+                        color: `${theme.text.color}`,
+                        border: "none",
+                    }}
+                >
+                    <CharacterForteScalingTable stats={skills[key].scaling} />
+                </Paper>
+            }
             {
                 skills[key].nodes &&
                 <React.Fragment>
