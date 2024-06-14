@@ -31,11 +31,13 @@ code {
 }
 
 .text-header {
-    color: #FFE7B9
+    color: #FFE7B9;
+    font-weight: bold;
 }
 
 .text-highlight {
-    color: #F7CA2F
+    color: #F7CA2F;
+    font-weight: bold;
 }
 
 .text-aero {
