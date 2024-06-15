@@ -9,12 +9,13 @@ import CharacterForteDisplay from "./CharacterForteDisplay"
 import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 
 // MUI imports
-import { Typography, Box, AppBar } from "@mui/material"
+import { Typography, Box, AppBar, Dialog, CardHeader } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
+import { Tags } from "../../../helpers/CharacterTags"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports
@@ -24,9 +25,19 @@ const CharacterPage = (props: any) => {
 
     const theme = useTheme()
 
-    const [tabValue, setTabValue] = React.useState(0);
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
+    const [tabValue, setTabValue] = React.useState(0)
+    const handleTabChange = (e: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue)
+    }
+
+    const [open, setOpen] = React.useState(false)
+    const [tag, setTag] = React.useState("")
+    const handleClickOpen = (e: React.BaseSyntheticEvent) => {
+        setTag(e.target.alt)
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
     }
 
     let { char_name } = useParams<{ char_name: string }>()
@@ -35,7 +46,7 @@ const CharacterPage = (props: any) => {
 
     if (character !== undefined) {
 
-        let { name, title, rarity, element, weapon, description, birthday, nation, release, voiceActors } = character
+        let { name, title, rarity, element, weapon, tags, description, birthday, nation, release, voiceActors } = character
 
         if (character.displayName) document.title = `${character.displayName} - Project Tacetite`
         if (character.fullName) document.title = `${character.fullName} - Project Tacetite`
@@ -171,6 +182,27 @@ const CharacterPage = (props: any) => {
                                 </Box>
                             </Box>
                             <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "15px" }} />
+                            <Box sx={{ ml: "20px" }}>
+                                {
+                                    tags.map((tag: string, index: number) => (
+                                        <CustomTooltip key={index} title={tag} arrow placement="top">
+                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
+                                                style={{
+                                                    height: "36px",
+                                                    marginRight: "10px",
+                                                    padding: "2.5px",
+                                                    border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                                    borderRadius: "15px",
+                                                    cursor: "pointer",
+                                                }}
+                                                onClick={(e) => handleClickOpen(e)}
+                                                onError={ErrorLoadingImage}
+                                            />
+                                        </CustomTooltip>
+                                    ))
+                                }
+                            </Box>
+                            <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "15px" }} />
                             <Typography
                                 variant="body1"
                                 sx={{
@@ -216,6 +248,47 @@ const CharacterPage = (props: any) => {
                 </Grid>
                 <CharacterForteDisplay character={character} />
                 <CharacterResonanceChainDisplay character={character} />
+                {
+                    tag !== "" &&
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        maxWidth={false}
+                    >
+                        <Box
+                            sx={{
+                                p: "15px",
+                                backgroundColor: `${theme.paper.backgroundColor}`,
+                                border: `2px solid ${theme.border.color}`,
+                                borderRadius: "5px",
+                            }}
+                        >
+                            <CardHeader
+                                sx={{ ml: "-15px" }}
+                                avatar={
+                                    <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
+                                        style={{
+                                            height: "40px",
+                                            padding: "2.5px",
+                                            border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                            borderRadius: "15px",
+                                        }}
+                                        onError={ErrorLoadingImage}
+                                    />
+                                }
+                                title={
+                                    <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
+                                        {tag}
+                                    </Typography>
+                                }
+                            />
+                            <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "10px" }} />
+                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
+                                {Tags[tag as keyof typeof Tags].description}
+                            </Typography>
+                        </Box>
+                    </Dialog>
+                }
             </React.Fragment>
         )
 
