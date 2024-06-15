@@ -1,6 +1,7 @@
 // Component imports
 import CharacterElementFilter from "./CharacterElementFilter"
 import CharacterWeaponFilter from "./CharacterWeaponFilter"
+import CharacterRarityFilter from "./CharacterRarityFilter"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -55,6 +56,16 @@ const CharacterFilters = () => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterWeaponFilter />
+                    </AccordionDetails>
+                </Accordion>
+
+                {/* RARITY */}
+                <Accordion>
+                    <AccordionSummary>
+                        <Typography variant="body1" className="filter-text-off" id="rarity-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Rarity</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <CharacterRarityFilter />
                     </AccordionDetails>
                 </Accordion>
 

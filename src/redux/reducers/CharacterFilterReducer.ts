@@ -37,11 +37,15 @@ export const CharacterFilterSlice = createSlice({
         setWeapon: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.weapon.includes(action.payload) ? state.weapon.push(action.payload) : state.weapon.splice(state.weapon.indexOf(action.payload), 1)
+        },
+        setRarity: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.rarity.includes(action.payload) ? state.rarity.push(action.payload) : state.rarity.splice(state.rarity.indexOf(action.payload), 1)
         }
     }
 })
 
-export const { setElement, setWeapon } = CharacterFilterSlice.actions
+export const { setElement, setWeapon, setRarity } = CharacterFilterSlice.actions
 export default CharacterFilterSlice.reducer
 
 const changeButton = (target: string) => {
