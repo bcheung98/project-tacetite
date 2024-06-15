@@ -15,7 +15,7 @@ const CharacterMaterialGrid = (props: any) => {
     let { forgeryMat, commonMat, ascensionMat, bossMat, weeklyBossMat } = props.character.materials
 
     const materialImage = {
-        height: props.size,
+        height: "48px",
         border: `2px solid ${theme.border.color}`,
         borderRadius: "15px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
@@ -59,10 +59,6 @@ const CharacterMaterialGrid = (props: any) => {
         </Box>
     )
 
-}
-
-CharacterMaterialGrid.defaultProps = {
-    size: "48px",
 }
 
 export default CharacterMaterialGrid
