@@ -17,16 +17,16 @@ export const CharacterSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchCharacters.pending, (state) => {
-            state.loading = true;
-        });
+            state.loading = true
+        })
         builder.addCase(fetchCharacters.fulfilled, (state, action) => {
-            state.characters = action.payload;
-            state.loading = false;
-        });
+            state.characters = action.payload
+            state.loading = false
+        })
         builder.addCase(fetchCharacters.rejected, (state) => {
-            state.loading = false;
-        });
+            state.loading = false
+        })
     }
-});
+})
 
-export default CharacterSlice.reducer;
+export default CharacterSlice.reducer
