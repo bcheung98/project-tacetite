@@ -24,7 +24,16 @@ const CharacterForteTab = (props: any) => {
         height: "56px",
         border: `2px solid ${theme.border.color}`,
         borderRadius: "56px",
-        backgroundColor: `${theme.paper.backgroundColor}`
+        backgroundColor: `${theme.materialImage.backgroundColor}`
+    }
+
+    const skillIconSmall = {
+        width: "34px",
+        height: "34px",
+        padding: "5px",
+        border: `2px solid ${theme.border.color}`,
+        borderRadius: "56px",
+        backgroundColor: `${theme.materialImage.backgroundColor}`
     }
 
     return (
@@ -73,7 +82,7 @@ const CharacterForteTab = (props: any) => {
                                                     alignItems: "center",
                                                 }}
                                                 avatar={
-                                                    <img src={`${process.env.REACT_APP_URL}/characters/skills/${props.character.split(" ").join("_").toLowerCase()}_passive${index}.png`} alt={`Passive ${index}`} style={skillIcon} onError={ErrorLoadingImage} />
+                                                    <img src={`${process.env.REACT_APP_URL}/characters/skills/${props.character.split(" ").join("_").toLowerCase()}_passive${index + 1}.png`} alt={`Passive ${index}`} style={skillIcon} onError={ErrorLoadingImage} />
                                                 }
                                                 title={
                                                     <Typography variant="h5" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
@@ -88,11 +97,11 @@ const CharacterForteTab = (props: any) => {
                                                     alignItems: "center",
                                                 }}
                                                 avatar={
-                                                    <img src={`${process.env.REACT_APP_URL}/stat_icons/${node.type}`} alt={`${node.type}+`} style={skillIcon} onError={ErrorLoadingImage} />
+                                                    <img src={`${process.env.REACT_APP_URL}/stat_icons/${node.type}.png`} alt={`${node.type}+`} style={skillIconSmall} onError={ErrorLoadingImage} />
                                                 }
                                                 title={
-                                                    <Typography variant="h6" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
-                                                        <b>{node.type}+</b>
+                                                    <Typography variant="h6" sx={{ color: `${theme.text.color}`, mb: "5px", fontWeight: "bold" }}>
+                                                        {node.type}+
                                                     </Typography>
                                                 }
                                             />
