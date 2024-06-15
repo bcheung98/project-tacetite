@@ -20,7 +20,7 @@ export const CharacterSlice = createSlice({
             state.loading = true
         })
         builder.addCase(fetchCharacters.fulfilled, (state, action) => {
-            state.characters = action.payload
+            state.characters = action.payload.sort((a, b) => a.name.localeCompare(b.name))
             state.loading = false
         })
         builder.addCase(fetchCharacters.rejected, (state) => {
