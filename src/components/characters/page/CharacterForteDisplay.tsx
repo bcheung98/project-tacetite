@@ -22,6 +22,7 @@ const CharacterForteDisplay = (props: any) => {
         height: "56px",
         border: `2px solid ${theme.border.color}`,
         borderRadius: "56px",
+        backgroundColor: `${theme.materialImage.backgroundColor}`,
     }
 
     const [tabValue, setTabValue] = React.useState(0);

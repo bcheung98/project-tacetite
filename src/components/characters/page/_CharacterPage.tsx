@@ -193,6 +193,7 @@ const CharacterPage = (props: any) => {
                                                     padding: "2.5px",
                                                     border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
                                                     borderRadius: "15px",
+                                                    backgroundColor: `${theme.materialImage.backgroundColor}`,
                                                     cursor: "pointer",
                                                 }}
                                                 onClick={(e) => handleClickOpen(e)}
@@ -271,6 +272,7 @@ const CharacterPage = (props: any) => {
                                             height: "40px",
                                             padding: "2.5px",
                                             border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                            backgroundColor: `${theme.materialImage.backgroundColor}`,
                                             borderRadius: "15px",
                                         }}
                                         onError={ErrorLoadingImage}

@@ -50,6 +50,7 @@ const CharacterResonanceChainDisplay = (props: any) => {
                                             width: iconSize,
                                             height: iconSize,
                                             border: `2px solid ${theme.border.color}`,
+                                            backgroundColor: `${theme.materialImage.backgroundColor}`,
                                         }}
                                     >
                                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: iconSize, backgroundColor: `${theme.paper.backgroundColor}` }} />
