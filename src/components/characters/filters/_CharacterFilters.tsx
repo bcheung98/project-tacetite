@@ -1,5 +1,6 @@
 // Component imports
 import CharacterElementFilter from "./CharacterElementFilter"
+import CharacterWeaponFilter from "./CharacterWeaponFilter"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -25,7 +26,7 @@ const CharacterFilters = () => {
                     color: `${theme.text.color}`,
                     backgroundColor: `${theme.appbar.backgroundColor}`,
                     border: `2px solid ${theme.border.color}`,
-                    borderRadius: "15px",
+                    borderRadius: "25px 25px 5px 5px",
                 }}
             >
                 <Typography variant="h6"
@@ -40,10 +41,20 @@ const CharacterFilters = () => {
                 {/* ELEMENT */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="element-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Combat Type</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="element-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Attribute</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterElementFilter />
+                    </AccordionDetails>
+                </Accordion>
+
+                {/* WEAPON */}
+                <Accordion>
+                    <AccordionSummary>
+                        <Typography variant="body1" className="filter-text-off" id="weapon-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Weapon Type</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <CharacterWeaponFilter />
                     </AccordionDetails>
                 </Accordion>
 

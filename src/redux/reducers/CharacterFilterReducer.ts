@@ -33,11 +33,15 @@ export const CharacterFilterSlice = createSlice({
         setElement: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.element.includes(action.payload) ? state.element.push(action.payload) : state.element.splice(state.element.indexOf(action.payload), 1)
+        },
+        setWeapon: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.weapon.includes(action.payload) ? state.weapon.push(action.payload) : state.weapon.splice(state.weapon.indexOf(action.payload), 1)
         }
     }
 })
 
-export const { setElement } = CharacterFilterSlice.actions
+export const { setElement, setWeapon } = CharacterFilterSlice.actions
 export default CharacterFilterSlice.reducer
 
 const changeButton = (target: string) => {
