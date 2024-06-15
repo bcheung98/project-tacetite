@@ -15,7 +15,7 @@ const CharacterForteDisplay = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, element, forte } = props.character
+    let { name, weapon, forte } = props.character
 
     const skillIcon = {
         width: "56px",
@@ -51,10 +51,10 @@ const CharacterForteDisplay = (props: any) => {
             </AppBar>
             <Box sx={{ mt: "10px" }}>
                 <StyledTabs value={tabValue} onChange={handleTabChange}>
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_attack.png`} style={skillIcon} alt="Basic ATK" onError={ErrorLoadingImage} />} />
+                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/basic_attacks/${weapon}.png`} style={skillIcon} alt="Basic ATK" onError={ErrorLoadingImage} />} />
                     <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_skill.png`} style={skillIcon} alt="Resonance Skill" onError={ErrorLoadingImage} />} />
                     <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_ultimate.png`} style={skillIcon} alt="Resonance Liberation" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_forte.png`} style={skillIcon} alt="Forte Circuit" onError={ErrorLoadingImage} />} />
+                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_circuit.png`} style={skillIcon} alt="Forte Circuit" onError={ErrorLoadingImage} />} />
                     <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_intro.png`} style={skillIcon} alt="Intro Skill" onError={ErrorLoadingImage} />} />
                     <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_outro.png`} style={skillIcon} alt="Outro Skill" onError={ErrorLoadingImage} />} />
                 </StyledTabs>
@@ -62,7 +62,7 @@ const CharacterForteDisplay = (props: any) => {
             {
                 Object.keys(forte).map((key, index) => (
                     <TabPanel key={key} index={index} value={tabValue}>
-                        <CharacterForteTab character={name} skillKey={key} skills={forte} element={element} materials={props.character.materials} />
+                        <CharacterForteTab character={name} skillKey={key} skills={forte} materials={props.character.materials} />
                     </TabPanel>
                 ))
             }
