@@ -69,3 +69,43 @@ code {
     color: #f3e483;
     font-weight: bold;
 }
+
+.filter-text-off,
+.filter-text-on {
+    font-weight: bold;
+    margin: 0;
+}
+
+.filter-text-off {
+    color: white;
+}
+
+.filter-text-on {
+    color: rgb(30, 175, 255);
+}
+
+.filter-off,
+.filter-on {
+    height: 32px;
+    padding: 3px;
+    margin: 3px;
+    border: 2px solid rgb(168, 147, 105);
+    border-radius: 5px;
+}
+
+.filter-off:hover,
+.filter-on:hover {
+    box-shadow: 0 0 5px 1px gold;
+    border: 2px solid gold;
+    cursor: pointer;
+}
+
+.filter-off {
+    background-color: rgb(15, 15, 15);
+    opacity: 0.35;
+}
+
+.filter-on {
+    background-color: rgb(15, 15, 15);
+    opacity: 1;
+}
