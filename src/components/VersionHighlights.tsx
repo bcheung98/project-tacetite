@@ -79,7 +79,7 @@ const VersionHighlights = (props: any) => {
                 {/* NEW CHARACTERS */}
                 {
                     characters.length > 0 &&
-                    <Grid xs={6}>
+                    <Grid xs>
                         <Box sx={{ mx: "30px", my: "20px" }}>
                             <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
                                 New Characters
