@@ -1,10 +1,10 @@
 import * as React from "react"
-import { useTheme } from "@mui/material/styles"
 
 // Component imports
 import CharacterForteTab from "./CharacterForteTab"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Typography, Box, AppBar } from "@mui/material"
 
 // Helper imports

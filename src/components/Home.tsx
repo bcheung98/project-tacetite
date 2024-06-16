@@ -1,10 +1,10 @@
 import * as React from "react"
-import { useTheme } from "@mui/material/styles"
 
 // Component imports
 import VersionHighlights from "./VersionHighlights"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Box, Typography } from "@mui/material"
 
 const Home = () => {

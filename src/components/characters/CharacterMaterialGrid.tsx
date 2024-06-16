@@ -1,6 +1,5 @@
-import { useTheme } from "@mui/material/styles"
-
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Box } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 

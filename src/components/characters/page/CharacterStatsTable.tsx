@@ -1,6 +1,5 @@
-import { useTheme } from "@mui/material/styles";
-
 // MUI imports
+import { useTheme } from "@mui/material/styles";
 import { Table, TableBody, TableContainer, TableHead, Paper, Typography } from "@mui/material";
 
 // Helper imports

@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useTheme } from "@mui/material/styles"
 import { connect } from "react-redux"
 
 // Component imports
@@ -7,6 +6,7 @@ import CharacterCard from "./CharacterCard"
 import CharacterFilters from "./filters/_CharacterFilters"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Box, Typography, Paper, InputBase, Stack, ToggleButtonGroup } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 

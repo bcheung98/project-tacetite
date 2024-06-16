@@ -1,9 +1,8 @@
-import { useTheme } from "@mui/material/styles"
-
 // Component imports
 import CharacterMaterialGrid from "./CharacterMaterialGrid"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Typography, Card, CardContent, ButtonBase, Box } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 

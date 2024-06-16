@@ -1,5 +1,4 @@
 import React from "react"
-import { useTheme } from "@mui/material/styles"
 import { connect } from "react-redux"
 import { useParams } from "react-router-dom"
 
@@ -9,6 +8,7 @@ import CharacterForteDisplay from "./CharacterForteDisplay"
 import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 
 // MUI imports
+import { useTheme } from "@mui/material/styles"
 import { Typography, Box, AppBar, Dialog, CardHeader } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 
