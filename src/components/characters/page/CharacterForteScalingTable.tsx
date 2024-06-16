@@ -18,7 +18,7 @@ const CharacterForteScalingTable = (props: any) => {
     return (
         <TableContainer
             sx={{
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 ml: "20px",
                 width: "98%",

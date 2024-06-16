@@ -30,7 +30,7 @@ export const StyledTableCell = styled((props: CustomTableCellProps) => (
     },
     color: `${theme.text.color}`,
     fontSize: "10pt",
-    border: `1px solid ${theme.border.color}`,
+    border: `2px solid ${theme.border.color}`,
 }))
 
 export const StyledTableCellNoVert = styled((props: CustomTableCellProps) => (
@@ -41,6 +41,6 @@ export const StyledTableCellNoVert = styled((props: CustomTableCellProps) => (
         color: `${theme.text.color}`,
     },
     color: `${theme.text.color}`,
-    borderTop: `1px solid ${theme.border.color}`,
-    borderBottom: `1px solid ${theme.border.color}`,
+    borderTop: `2px solid ${theme.border.color}`,
+    borderBottom: `2px solid ${theme.border.color}`,
 }))

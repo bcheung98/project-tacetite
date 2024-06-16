@@ -16,7 +16,7 @@ const Home = () => {
             <Box
                 sx={{
                     backgroundColor: `${theme.paper.backgroundColor}`,
-                    border: `1px solid ${theme.border.color}`,
+                    border: `2px solid ${theme.border.color}`,
                     borderRadius: "5px",
                     display: "block",
                     margin: "auto",

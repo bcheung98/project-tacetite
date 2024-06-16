@@ -34,7 +34,7 @@ const VersionHighlights = (props: any) => {
         <Box
             sx={{
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                border: `1px solid ${theme.border.color}`,
+                border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 display: "block",
                 margin: "auto",
@@ -46,7 +46,7 @@ const VersionHighlights = (props: any) => {
             <AppBar position="static"
                 sx={{
                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                    borderBottom: `1px solid ${theme.border.color}`,
+                    borderBottom: `2px solid ${theme.border.color}`,
                     borderRadius: "5px 5px 0px 0px",
                     p: "10px",
                 }}

@@ -20,7 +20,7 @@ const CharacterResonanceChainDisplay = (props: any) => {
                 mt: "15px",
                 color: `${theme.text.color}`,
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                border: `1px solid ${theme.border.color}`,
+                border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
             }}
         >

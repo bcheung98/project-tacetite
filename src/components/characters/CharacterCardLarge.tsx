@@ -21,7 +21,7 @@ const CharacterCardLarge = (props: any) => {
         width: "32px",
         height: "32px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        border: `1px solid ${theme.border.color}`,
+        border: `2px solid ${theme.border.color}`,
         borderRadius: "32px",
         marginBottom: "10px",
         marginLeft: "3px",
@@ -33,7 +33,7 @@ const CharacterCardLarge = (props: any) => {
                 mr: "18px",
                 mb: "20px",
                 backgroundColor: `${theme.card.backgroundColor}`,
-                border: `1px solid ${theme.border.color}`,
+                border: `2px solid ${theme.border.color}`,
                 borderRadius: "25px 50px 25px 25px",
             }}
         >
