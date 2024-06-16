@@ -9,18 +9,19 @@ import { Typography, Box, AppBar } from "@mui/material"
 
 // Helper imports
 import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
+import { ElementalBorderColor } from "../../../helpers/ElementColors"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterForteDisplay = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, weapon, forte } = props.character
+    let { name, weapon, element, forte } = props.character
 
     const skillIcon = {
         width: "56px",
         height: "56px",
-        border: `2px solid ${theme.border.color}`,
+        border: `2px solid ${ElementalBorderColor(element)}`,
         borderRadius: "56px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
     }
@@ -63,7 +64,7 @@ const CharacterForteDisplay = (props: any) => {
             {
                 Object.keys(forte).map((key, index) => (
                     <TabPanel key={key} index={index} value={tabValue}>
-                        <CharacterForteTab character={name} skillKey={key} skills={forte} materials={props.character.materials} />
+                        <CharacterForteTab character={name} skillKey={key} skills={forte} element={element} materials={props.character.materials} />
                     </TabPanel>
                 ))
             }

@@ -5,11 +5,14 @@ import parse from "html-react-parser"
 import { useTheme } from "@mui/material/styles"
 import { Typography, Box, AppBar, CardHeader, Avatar } from "@mui/material"
 
+// Helper imports
+import { ElementalBorderColor } from "../../../helpers/ElementColors"
+
 const CharacterResonanceChainDisplay = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, resonanceChain } = props.character
+    let { name, element, resonanceChain } = props.character
 
     const iconSize = "56px"
 
@@ -49,7 +52,7 @@ const CharacterResonanceChainDisplay = (props: any) => {
                                         sx={{
                                             width: iconSize,
                                             height: iconSize,
-                                            border: `2px solid ${theme.border.color}`,
+                                            border: `2px solid ${ElementalBorderColor(element)}`,
                                             backgroundColor: `${theme.materialImage.backgroundColor}`,
                                         }}
                                     >

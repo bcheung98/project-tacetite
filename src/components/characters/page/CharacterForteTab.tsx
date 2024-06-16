@@ -6,10 +6,11 @@ import CharacterForteScalingTable from "./CharacterForteScalingTable"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Typography, Box, CardHeader, Paper, AppBar } from "@mui/material"
+import { Typography, Box, CardHeader, Paper } from "@mui/material"
 
 // Helper imports
 import { Accordion, AccordionDetails, AccordionSummary } from "../../../helpers/CustomAccordion"
+import { ElementalBorderColor } from "../../../helpers/ElementColors"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterForteTab = (props: any) => {
@@ -22,7 +23,7 @@ const CharacterForteTab = (props: any) => {
     const skillIcon = {
         width: "56px",
         height: "56px",
-        border: `2px solid ${theme.border.color}`,
+        border: `2px solid ${ElementalBorderColor(props.element)}`,
         borderRadius: "56px",
         backgroundColor: `${theme.materialImage.backgroundColor}`
     }
@@ -31,7 +32,7 @@ const CharacterForteTab = (props: any) => {
         width: "34px",
         height: "34px",
         padding: "5px",
-        border: `2px solid ${theme.border.color}`,
+        border: `2px solid ${ElementalBorderColor(props.element)}`,
         borderRadius: "56px",
         backgroundColor: `${theme.materialImage.backgroundColor}`
     }
@@ -58,7 +59,7 @@ const CharacterForteTab = (props: any) => {
                 >
                     <Accordion sx={{ ml: "-20px" }}>
                         <AccordionSummary>
-                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Talent Scaling</Typography>
+                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Attribute Scaling</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <CharacterForteScalingTable stats={skills[key].scaling} />
