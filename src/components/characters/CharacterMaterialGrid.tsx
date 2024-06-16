@@ -5,6 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { formatBossMats, formatCommonMats, formatWeeklyBossMats } from "../../helpers/TooltipText"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const CharacterMaterialGrid = (props: any) => {
@@ -35,17 +36,17 @@ const CharacterMaterialGrid = (props: any) => {
                     </CustomTooltip>
                 </Grid>
                 <Grid >
-                    <CustomTooltip title={bossMat} arrow placement="top">
+                    <CustomTooltip title={formatBossMats(bossMat)} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`)} alt={bossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 </Grid>
                 <Grid >
-                    <CustomTooltip title={weeklyBossMat} arrow placement="top">
+                    <CustomTooltip title={formatWeeklyBossMats(weeklyBossMat)} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/weekly/${weeklyBossMat}.png`)} alt={weeklyBossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 </Grid>
                 <Grid>
-                    <CustomTooltip title={commonMat} arrow placement="top">
+                    <CustomTooltip title={formatCommonMats(commonMat)} arrow placement="top">
                         <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/common/${commonMat}4.png`)} alt={commonMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 </Grid>

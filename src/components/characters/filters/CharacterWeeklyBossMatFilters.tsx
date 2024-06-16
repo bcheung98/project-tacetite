@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 // Helper imports
 import { setWeeklyBossMats } from "../../../redux/reducers/CharacterFilterReducer"
 import { WeeklyBossMats } from "../../../helpers/MaterialList"
+import { formatWeeklyBossMats } from "../../../helpers/TooltipText"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
@@ -19,7 +20,7 @@ const CharacterWeeklyBossMatFilters = () => {
         <React.Fragment>
             {
                 WeeklyBossMats.map((material, index) => (
-                    <CustomTooltip key={index} title={material} arrow placement="top">
+                    <CustomTooltip key={index} title={formatWeeklyBossMats(material)} arrow placement="top">
                         <img className="filter-off" id={`${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/weekly/${material}.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
