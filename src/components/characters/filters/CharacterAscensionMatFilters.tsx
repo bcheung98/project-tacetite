@@ -20,7 +20,7 @@ const CharacterAscensionMatFilters = () => {
             {
                 AscensionMats.map((material, index) => (
                     <CustomTooltip key={index} title={material} arrow placement="top">
-                        <img className="filter-off" id={`${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/forgery/${material}.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/ascension/${material}.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }
