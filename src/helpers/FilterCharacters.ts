@@ -9,5 +9,8 @@ export const filterCharacters = (characters: any, filters: any, searchValue: str
     if (filters.rarity.length > 0) {
         chars = chars.filter(char => filters.rarity.includes(char.rarity.toString()))
     }
+    if (filters.tags.length > 0) {
+        chars = chars.filter(char => filters.tags.some((f: string) => char.tags.includes(f)))
+    }
     return chars
 }
