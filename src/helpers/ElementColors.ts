@@ -3,7 +3,7 @@ export const ElementalBorderColor = (element: string) => {
         case "Aero":
             return "#2fc79f"
         case "Electro":
-            return "#a732b0"
+            return "#f127ff"
         case "Fusion":
             return "#f0744e"
         case "Glacio":
