@@ -88,7 +88,7 @@ const CharacterFilters = () => {
                 {/* FORGERY MATS */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="forgeryMats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Forgery Material</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="forgerymats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Forgery Material</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterForgeryMatFilters />
@@ -98,7 +98,7 @@ const CharacterFilters = () => {
                 {/* COMMON MATS */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="commonMats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Common Material</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="commonmats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Common Material</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterCommonMatFilters />
@@ -108,7 +108,7 @@ const CharacterFilters = () => {
                 {/* ASCENSION MATS */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="ascensionMats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Ascension Material</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="ascensionmats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Ascension Material</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterAscensionMatFilters />
@@ -118,7 +118,7 @@ const CharacterFilters = () => {
                 {/* BOSS MATS */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="bossMats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Boss Material</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="bossmats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Boss Material</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterBossMatFilters />
@@ -128,7 +128,7 @@ const CharacterFilters = () => {
                 {/* WEEKLY BOSS MATS */}
                 <Accordion>
                     <AccordionSummary>
-                        <Typography variant="body1" className="filter-text-off" id="weeklyBossMats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Weekly Boss Material</Typography>
+                        <Typography variant="body1" className="filter-text-off" id="weeklybossmats-filter-text" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Weekly Boss Material</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <CharacterWeeklyBossMatFilters />

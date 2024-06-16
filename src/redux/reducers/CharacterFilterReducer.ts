@@ -33,38 +33,47 @@ export const CharacterFilterSlice = createSlice({
         setElement: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.element.includes(action.payload) ? state.element.push(action.payload) : state.element.splice(state.element.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setWeapon: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.weapon.includes(action.payload) ? state.weapon.push(action.payload) : state.weapon.splice(state.weapon.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setRarity: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.rarity.includes(action.payload) ? state.rarity.push(action.payload) : state.rarity.splice(state.rarity.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setTags: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.tags.includes(action.payload) ? state.tags.push(action.payload) : state.tags.splice(state.tags.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setForgeryMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.forgeryMat.includes(action.payload) ? state.forgeryMat.push(action.payload) : state.forgeryMat.splice(state.forgeryMat.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setCommonMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.commonMat.includes(action.payload) ? state.commonMat.push(action.payload) : state.commonMat.splice(state.commonMat.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setAscensionMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.ascensionMat.includes(action.payload) ? state.ascensionMat.push(action.payload) : state.ascensionMat.splice(state.ascensionMat.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setBossMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.bossMat.includes(action.payload) ? state.bossMat.push(action.payload) : state.bossMat.splice(state.bossMat.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
         setWeeklyBossMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.weeklyBossMat.includes(action.payload) ? state.weeklyBossMat.push(action.payload) : state.weeklyBossMat.splice(state.weeklyBossMat.indexOf(action.payload), 1)
+            changeText(action.type, state.element)
         },
     }
 })
@@ -83,4 +92,9 @@ const changeButton = (target: string) => {
         }
         targetButton.className === "filter-off" ? targetButton.className = "filter-on" : targetButton.className = "filter-off"
     }
+}
+
+const changeText = (type: string, arr: any) => {
+    let text = document.getElementById(`${type.split("/")[1].slice(3).toLowerCase()}-filter-text`)!
+    text.className === "filter-text-on" && arr.length === 0 ? text.className = "filter-text-off" : text.className = "filter-text-on"
 }
