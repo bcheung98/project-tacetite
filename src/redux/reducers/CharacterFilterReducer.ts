@@ -46,10 +46,30 @@ export const CharacterFilterSlice = createSlice({
             changeButton(action.payload)
             !state.tags.includes(action.payload) ? state.tags.push(action.payload) : state.tags.splice(state.tags.indexOf(action.payload), 1)
         },
+        setForgeryMats: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.forgeryMat.includes(action.payload) ? state.forgeryMat.push(action.payload) : state.forgeryMat.splice(state.forgeryMat.indexOf(action.payload), 1)
+        },
+        setCommonMats: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.commonMat.includes(action.payload) ? state.commonMat.push(action.payload) : state.commonMat.splice(state.commonMat.indexOf(action.payload), 1)
+        },
+        setAscensionMats: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.ascensionMat.includes(action.payload) ? state.ascensionMat.push(action.payload) : state.ascensionMat.splice(state.ascensionMat.indexOf(action.payload), 1)
+        },
+        setBossMats: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.bossMat.includes(action.payload) ? state.bossMat.push(action.payload) : state.bossMat.splice(state.bossMat.indexOf(action.payload), 1)
+        },
+        setWeeklyBossMats: (state, action: PayloadAction<any>) => {
+            changeButton(action.payload)
+            !state.weeklyBossMat.includes(action.payload) ? state.weeklyBossMat.push(action.payload) : state.weeklyBossMat.splice(state.weeklyBossMat.indexOf(action.payload), 1)
+        },
     }
 })
 
-export const { setElement, setWeapon, setRarity, setTags } = CharacterFilterSlice.actions
+export const { setElement, setWeapon, setRarity, setTags, setForgeryMats, setCommonMats, setAscensionMats, setBossMats, setWeeklyBossMats } = CharacterFilterSlice.actions
 export default CharacterFilterSlice.reducer
 
 const changeButton = (target: string) => {

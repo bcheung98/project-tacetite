@@ -12,5 +12,20 @@ export const filterCharacters = (characters: any, filters: any, searchValue: str
     if (filters.tags.length > 0) {
         chars = chars.filter(char => filters.tags.some((f: string) => char.tags.includes(f)))
     }
+    if (filters.forgeryMat.length > 0) {
+        chars = chars.filter(char => filters.forgeryMat.includes(char.materials.forgeryMat))
+    }
+    if (filters.commonMat.length > 0) {
+        chars = chars.filter(char => filters.commonMat.includes(char.materials.commonMat))
+    }
+    if (filters.ascensionMat.length > 0) {
+        chars = chars.filter(char => filters.ascensionMat.includes(char.materials.ascensionMat))
+    }
+    if (filters.bossMat.length > 0) {
+        chars = chars.filter(char => filters.bossMat.includes(char.materials.bossMat))
+    }
+    if (filters.weeklyBossMat.length > 0) {
+        chars = chars.filter(char => filters.weeklyBossMat.includes(char.materials.weeklyBossMat))
+    }
     return chars
 }
