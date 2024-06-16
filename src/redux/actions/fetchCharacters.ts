@@ -5,7 +5,8 @@ export interface CharacterData {
     name: string
 }
 
-const CharacterURL = "http://localhost:3000/characters";
+// https://bcheung98.github.io/project-tacetite-db/characters.json
+const CharacterURL = "https://bcheung98.github.io/project-tacetite-db/characters.json";
 
 export const fetchCharacters = createAsyncThunk("GET/characters", async (): Promise<[CharacterData]> => {
     const response = await fetch(CharacterURL)
