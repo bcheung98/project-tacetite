@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/project-tacetite/static/css/main.37e75545.css",
+    "main.js": "/project-tacetite/static/js/main.654265b1.js",
+    "index.html": "/project-tacetite/index.html",
+    "main.37e75545.css.map": "/project-tacetite/static/css/main.37e75545.css.map",
+    "main.654265b1.js.map": "/project-tacetite/static/js/main.654265b1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.37e75545.css",
+    "static/js/main.654265b1.js"
+  ]
+}
