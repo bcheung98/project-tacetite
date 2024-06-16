@@ -1,4 +1,9 @@
-export const ElementalBorderColor = (element: string) => {
+import { useTheme } from "@mui/material/styles"
+
+export const ElementalBorderColor = (element: string | undefined) => {
+
+    const theme = useTheme()
+
     switch (element) {
         case "Aero":
             return "#2fc79f"
@@ -13,6 +18,6 @@ export const ElementalBorderColor = (element: string) => {
         case "Spectro":
             return "#f3e483"
         default:
-            return "gray"
+            return `${theme.text.highlight}`
     }
 }
