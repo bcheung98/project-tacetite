@@ -21,25 +21,25 @@ export const TabPanel = (props: any) => {
 interface CustomTabsProps {
     children?: React.ReactNode,
     value: number,
-    onChange: (event: React.SyntheticEvent, newValue: number) => void
+    onChange: (event: React.SyntheticEvent, newValue: number) => void,
+    element?: string | undefined
 }
 
-export const StyledTabs = styled((props: CustomTabsProps) => (
-    <Tabs
-        {...props}
-        TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
-    />
-))({
-    "& .MuiTabs-indicator": {
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "transparent",
-    },
-    "& .MuiTabs-indicatorSpan": {
-        width: "100%",
-        backgroundColor: "rgb(202, 166, 112)",
-    },
-})
+export const StyledTabs = styled((props: CustomTabsProps) =>
+    <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
+)(
+    ({ theme }) => ({
+        "& .MuiTabs-indicator": {
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "transparent",
+        },
+        "& .MuiTabs-indicatorSpan": {
+            width: "100%",
+            backgroundColor: `${theme.text.highlight}`,
+        },
+    })
+)
 
 interface CustomTabProps {
     label: string | any
