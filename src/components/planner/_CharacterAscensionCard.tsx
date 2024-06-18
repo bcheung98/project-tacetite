@@ -29,7 +29,7 @@ const CharacterAscensionCard = (props: any) => {
         <Box
             sx={{
                 width: "750px",
-                border: `1px solid ${theme.border.color}`,
+                border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
                 mr: "30px",
@@ -40,7 +40,7 @@ const CharacterAscensionCard = (props: any) => {
             <CardHeader
                 avatar={
                     <Box sx={{ position: "relative" }}>
-                        <ButtonBase disableRipple href={`/project-stellaron/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <img alt={name} src={(`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`)} style={{ width: "64px", border: `2px solid ${theme.border.color}`, borderRadius: "64px" }} onError={ErrorLoadingImage} />
                         </ButtonBase>
                         <Box sx={{ position: "absolute", top: "50px", left: "-5px" }}>
@@ -57,7 +57,7 @@ const CharacterAscensionCard = (props: any) => {
                 }
                 title={
                     <React.Fragment>
-                        <ButtonBase disableRipple href={`/project-stellaron/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <Typography variant="h6" sx={{ color: `${theme.text.color}` }}>
                                 {props.character.displayName && props.character.displayName}
                                 {props.character.fullName && props.character.fullName}
