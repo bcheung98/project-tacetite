@@ -14,6 +14,7 @@ import Nav from "./components/Nav"
 import Home from "./components/Home"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
 import CharacterPage from "./components/characters/page/_CharacterPage"
+import AscensionPlanner from "./components/planner/_AscensionPlanner"
 
 // MUI imports
 import { defaultTheme as theme } from "./theme"
@@ -41,6 +42,7 @@ const App = (props: any) => {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/characters" component={CharacterBrowser} />
                     <Route path="/character/:char_name" children={<CharacterPage />} />
+                    <Route path="/planner" component={AscensionPlanner} />
                 </Switch>
                 <AppBar position="static" sx={{
                     mt: 10,
