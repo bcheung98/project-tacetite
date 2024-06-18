@@ -1,6 +1,7 @@
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { AppBar, Box, Toolbar, Typography, Container, ButtonBase, Avatar, CardHeader } from "@mui/material"
+import ChecklistIcon from "@mui/icons-material/Checklist"
 
 const Nav = () => {
 
@@ -90,6 +91,24 @@ const Nav = () => {
                                 }
                             />
                         </ButtonBase> */}
+                        <ButtonBase disableRipple href={`/project-tacetite/planner`}>
+                            <CardHeader
+                                avatar={
+                                    <ChecklistIcon sx={{ height: "32px", width: "32px" }} />
+                                }
+                                title={
+                                    <Typography variant="body2" noWrap
+                                        sx={{
+                                            letterSpacing: ".1rem",
+                                            color: `${theme.text.color}`,
+                                            fontWeight: "500",
+                                        }}
+                                    >
+                                        ASCENSION PLANNER
+                                    </Typography>
+                                }
+                            />
+                        </ButtonBase>
                     </Box>
                 </Toolbar>
             </Container>
