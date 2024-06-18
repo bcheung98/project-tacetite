@@ -3,10 +3,12 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { combineReducers } from "redux"
 import CharacterReducer from "./reducers/CharacterReducer"
 import CharacterFilterReducer from "./reducers/CharacterFilterReducer"
+import AscensionPlannerReducer from "./reducers/AscensionPlannerReducer"
 
 const rootReducer = combineReducers({
     characters: CharacterReducer,
-    characterFilters: CharacterFilterReducer
+    characterFilters: CharacterFilterReducer,
+    ascensionPlanner: AscensionPlannerReducer,
 })
 
 const store = configureStore({
