@@ -2,6 +2,7 @@ import { connect } from "react-redux"
 
 // Component imports
 import CharacterAscensionCard from "./_CharacterAscensionCard"
+import CharacterSelector from "./CharacterSelector"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -36,14 +37,14 @@ const AscensionPlanner = (props: any) => {
             </Typography>
             <Box sx={{ display: "block", my: "30px" }}>
                 <Box sx={{ display: "flex" }}>
-
+                    <CharacterSelector />
                 </Box>
             </Box>
 
             <Box sx={{ mx: "20px" }}>
                 <Grid container>
                     <Grid>
-                        {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)}
+                        {/* {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)} */}
                     </Grid>
                     <br />
                     <Grid>
