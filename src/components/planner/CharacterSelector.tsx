@@ -1,9 +1,10 @@
 import * as React from "react"
 import { connect } from "react-redux"
+import { useDispatch } from "react-redux"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Autocomplete, ClickAwayListener, CardHeader, AutocompleteCloseReason } from "@mui/material"
+import { Box, Typography, Autocomplete, ClickAwayListener, CardHeader, AutocompleteCloseReason, Chip } from "@mui/material"
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp"
 import CloseIcon from "@mui/icons-material/Close"
 import DoneIcon from "@mui/icons-material/Done"
@@ -12,6 +13,7 @@ import DoneIcon from "@mui/icons-material/Done"
 import { Button, PopperComponent, StyledPopper, StyledInput } from "../../helpers/CustomAutocomplete"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
 import { GetRarityColor } from "../../helpers/RarityColors"
+import { setPlannerCharacters, updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 // Type imports
@@ -26,8 +28,14 @@ interface LabelType {
 const CharacterSelector = (props: any) => {
 
     const theme = useTheme()
+    const dispatch = useDispatch()
 
     let { characters } = props.characters
+
+    React.useEffect(() => {
+        dispatch(setPlannerCharacters(value))
+        dispatch(updateCharacterCosts([]))
+    })
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const [value, setValue] = React.useState<LabelType[]>([])
@@ -102,7 +110,11 @@ const CharacterSelector = (props: any) => {
                                 renderTags={() => null}
                                 noOptionsText="No characters"
                                 renderOption={(props, option, { selected }) => (
-                                    <li {...props} style={{ backgroundColor: selected ? `${theme.table.body.hover}` : `${theme.paper.backgroundColor}`, borderLeft: `10px solid ${GetRarityColor(option.rarity)}` }}>
+                                    <li
+                                        {...props}
+                                        key={option.name}
+                                        style={{ backgroundColor: selected ? `${theme.table.body.hover}` : `${theme.paper.backgroundColor}`, borderLeft: `10px solid ${GetRarityColor(option.rarity)}` }}
+                                    >
                                         <Box
                                             component={DoneIcon}
                                             sx={{ width: 17, height: 17, mr: "5px", ml: "-2px" }}

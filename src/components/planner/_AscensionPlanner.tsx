@@ -44,7 +44,7 @@ const AscensionPlanner = (props: any) => {
             <Box sx={{ mx: "20px" }}>
                 <Grid container>
                     <Grid>
-                        {/* {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)} */}
+                        {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)}
                     </Grid>
                     <br />
                     <Grid>
@@ -58,7 +58,7 @@ const AscensionPlanner = (props: any) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    characters: state.characters
+    characters: state.ascensionPlanner.characters
 })
 
 export default connect(mapStateToProps)(AscensionPlanner)

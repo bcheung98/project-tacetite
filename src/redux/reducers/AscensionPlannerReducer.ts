@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 interface State {
     totalCost: {},
-    characters: [],
+    characters: any,
     characterCosts: [
         {
             name: string,
@@ -42,7 +42,7 @@ export const PlannerSlice = createSlice({
     name: "ascension planner",
     initialState,
     reducers: {
-        setCharacters: (state, action: PayloadAction<any>) => {
+        setPlannerCharacters: (state, action: PayloadAction<any>) => {
             action.payload.map((char: any) => {
                 let costs
                 let currentCharacter = state.characterCosts.find((c: any) => char.name === c.name)
@@ -79,9 +79,13 @@ export const PlannerSlice = createSlice({
                     })
                 )
             })
+            state.characters = action.payload
+        },
+        updateCharacterCosts: (state, action: PayloadAction<any>) => {
+        
         }
     }
 })
 
-export const { setCharacters } = PlannerSlice.actions
+export const { setPlannerCharacters, updateCharacterCosts } = PlannerSlice.actions
 export default PlannerSlice.reducer
