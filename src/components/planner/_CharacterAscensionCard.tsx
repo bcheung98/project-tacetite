@@ -1,5 +1,8 @@
 import * as React from "react"
 
+// Component imports
+import CharacterAscensionSkillDisplay from "./CharacterAscensionSkillDisplay"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
@@ -70,6 +73,24 @@ const CharacterAscensionCard = (props: any) => {
                     </React.Fragment>
                 }
             />
+            <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "15px" }} />
+            <Box sx={{ ml: "15px" }}>
+                <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
+                    Materials Required
+                </Typography>
+
+            </Box>
+            <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "15px" }} />
+            <Accordion>
+                <AccordionSummary sx={{ mb: "5px" }}>
+                    <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
+                        Edit
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <CharacterAscensionSkillDisplay character={props.character} />
+                </AccordionDetails>
+            </Accordion>
         </Box>
     )
 
