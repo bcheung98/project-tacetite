@@ -106,7 +106,7 @@ const CharacterAscensionCircuit = (props: any) => {
             >
                 <Avatar
                     id="circuit_node0"
-                    src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_passive1.png`}
+                    src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_circuit.png`}
                     alt={forte.circuit.nodes[0].type}
                     sx={skillIcon}
                     style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}

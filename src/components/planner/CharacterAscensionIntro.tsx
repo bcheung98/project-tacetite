@@ -123,7 +123,7 @@ const CharacterAscensionIntro = (props: any) => {
                 }}
             >
                 <Typography variant="body2" sx={{ color: `${theme.text.color}`, fontWeight: "bold", width: "64px", textAlign: "center" }}>
-                    Resonance Liberation
+                    Intro Skill
                 </Typography>
                 <CustomSwitch checked={selectedMainNode} onChange={handleSelectMainNode} element={element} />
             </Box>
