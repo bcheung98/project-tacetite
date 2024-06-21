@@ -37,7 +37,6 @@ const CharacterAscensionSkill = (props: any) => {
         border: `2px solid ${theme.border.color}`,
         borderRadius: "48px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        cursor: "pointer"
     }
 
     const skillIconSmall = {
@@ -109,7 +108,7 @@ const CharacterAscensionSkill = (props: any) => {
                     src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_skill.png`}
                     alt={forte.skill.nodes[0].type}
                     sx={skillIcon}
-                    style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}
+                    style={selectedMainNode ? { opacity: "1", cursor: "pointer" } : { opacity: "0.35" }}
                 >
                     <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                 </Avatar>
@@ -121,6 +120,7 @@ const CharacterAscensionSkill = (props: any) => {
                     width: "70%",
                     alignItems: "center",
                 }}
+                style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}
             >
                 <Typography variant="body2" sx={{ color: `${theme.text.color}`, fontWeight: "bold", width: "64px", textAlign: "center" }}>
                     Resonance Skill
