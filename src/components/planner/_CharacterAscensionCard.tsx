@@ -1,6 +1,7 @@
 import * as React from "react"
 
 // Component imports
+import CharacterAscensionLevel from "./CharacterAscensionLevel"
 import CharacterAscensionSkillDisplay from "./CharacterAscensionSkillDisplay"
 
 // MUI imports
@@ -88,6 +89,7 @@ const CharacterAscensionCard = (props: any) => {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
+                    <CharacterAscensionLevel character={props.character} />
                     <CharacterAscensionSkillDisplay character={props.character} />
                 </AccordionDetails>
             </Accordion>
