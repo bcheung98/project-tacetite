@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Autocomplete, ClickAwayListener, CardHeader, AutocompleteCloseReason, Chip } from "@mui/material"
+import { Box, Typography, Autocomplete, ClickAwayListener, CardHeader, AutocompleteCloseReason } from "@mui/material"
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp"
 import CloseIcon from "@mui/icons-material/Close"
 import DoneIcon from "@mui/icons-material/Done"
