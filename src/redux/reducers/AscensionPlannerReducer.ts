@@ -90,6 +90,9 @@ export const PlannerSlice = createSlice({
                         case "level":
                             state.characterCosts[indexChar].costs[key as keyof {}][0] = action.payload[2][key as keyof {}]
                             break
+                        case "attack":
+                            state.characterCosts[indexChar].costs[key as keyof {}][1][0] = action.payload[2][key as keyof {}]
+                            break
                         default:
                             break
                     }

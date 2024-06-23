@@ -30,19 +30,62 @@ export const CharacterCosts = (type: string) => {
         ]
 
     }
-    else {
+    if (["attack", "skill", "ultimate", "circuit", "intro"].includes(type)) {
+        // Level [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        /*
+           Credits
+           T1 Forgery Material
+           T2 Forgery Material
+           T3 Forgery Material
+           T4 Forgery Material
+           T1 Common Material
+           T2 Common Material
+           T3 Common Material
+           T4 Common Material
+           Weekly Boss Material
+        */
         return [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1500, 2000, 4500, 6000, 16000, 30000, 50000, 70000, 100000],
+            [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 3, 5, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 2, 3, 6],
+            [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 2, 3, 4],
+            [0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
         ]
+    }
+    if (type === "node1") {
+        /*
+           Credits
+           T1 Forgery Material
+           T2 Forgery Material
+           T3 Forgery Material
+           T4 Forgery Material
+           T1 Common Material
+           T2 Common Material
+           T3 Common Material
+           T4 Common Material
+           Weekly Boss Material
+        */
+        return [
+        ]
+    }
+    if (type === "node2") {
+        return [
+        ]
+    }
+    if (type === "passive1") {
+        return [
+        ]
+    }
+    if (type === "passive2") {
+        return [
+        ]
+    }
+    else {
+        return []
     }
 }
