@@ -22,26 +22,26 @@ const CharacterAscensionBasicATK = (props: any) => {
 
     let { name, element, weapon, forte } = props.character
 
-    const minDistance = 1;
-    let maxValue = 10;
-    const levels = [...Array(maxValue).keys()].map((i) => i + 1);
-    const [sliderValue, setSliderValue] = React.useState([1, maxValue]);
+    const minDistance = 1
+    let maxValue = 10
+    const levels = [...Array(maxValue).keys()].map((i) => i + 1)
+    const [sliderValue, setSliderValue] = React.useState([1, maxValue])
     const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
-            return;
+            return
         }
         if (newValue[1] - newValue[0] < minDistance) {
             if (activeThumb === 0) {
-                const clamped = Math.min(newValue[0], maxValue - minDistance);
-                setSliderValue([clamped, clamped + minDistance]);
+                const clamped = Math.min(newValue[0], maxValue - minDistance)
+                setSliderValue([clamped, clamped + minDistance])
             }
             else {
-                const clamped = Math.max(newValue[1], minDistance + 1);
-                setSliderValue([clamped - minDistance, clamped]);
+                const clamped = Math.max(newValue[1], minDistance + 1)
+                setSliderValue([clamped - minDistance, clamped])
             }
         }
         else {
-            setSliderValue(newValue);
+            setSliderValue(newValue)
         }
     }
 
@@ -82,23 +82,23 @@ const CharacterAscensionBasicATK = (props: any) => {
         dispatch(updateCharacterCosts([name, "attack", getCost(sliderValue[0], sliderValue[1])]))
     })
 
-    const [selectedMainNode, setSelectedMainNode] = React.useState(true);
+    const [selectedMainNode, setSelectedMainNode] = React.useState(true)
     const handleSelectMainNode = () => {
         setSelectedMainNode(!selectedMainNode)
     }
-    const [selectedNode1, setSelectedNode1] = React.useState(true);
+    const [selectedNode1, setSelectedNode1] = React.useState(true)
     const handleSelectNode1 = () => {
         setSelectedNode1(!selectedNode1)
     }
 
-    const [selectedNode2, setSelectedNode2] = React.useState(true);
+    const [selectedNode2, setSelectedNode2] = React.useState(true)
     const handleSelectNode2 = () => {
         setSelectedNode2(!selectedNode2)
     }
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
     const handleClickOpenMainNode = (event: React.BaseSyntheticEvent) => {
-        setAnchorEl(event.target);
+        if (selectedMainNode) setAnchorEl(event.target)
     }
     const handleCloseMainNode = () => {
         setAnchorEl(null)
