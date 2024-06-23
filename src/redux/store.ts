@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { combineReducers } from "redux"
 import CharacterReducer from "./reducers/CharacterReducer"
+import WeaponReducer from "./reducers/WeaponReducer"
 import CharacterFilterReducer from "./reducers/CharacterFilterReducer"
 import AscensionPlannerReducer from "./reducers/AscensionPlannerReducer"
 
 const rootReducer = combineReducers({
     characters: CharacterReducer,
+    weapons: WeaponReducer,
     characterFilters: CharacterFilterReducer,
     ascensionPlanner: AscensionPlannerReducer,
 })
