@@ -1,6 +1,9 @@
 import * as React from "react"
 import { connect } from "react-redux"
 
+// Component imports
+import WeaponCard from "./WeaponCard"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, Paper, InputBase, Stack, ToggleButtonGroup } from "@mui/material"
@@ -46,7 +49,7 @@ const WeaponBrowser = (props: any) => {
                         {weapons.weapons.length > 0 &&
                             <React.Fragment>
                                 {
-                                    null
+                                    weapons.weapons.map((wep: { [key: string]: any }) => <WeaponCard key={wep.id} weapon={wep} />)
                                 }
                             </React.Fragment>
                         }
