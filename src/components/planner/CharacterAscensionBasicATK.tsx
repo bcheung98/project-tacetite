@@ -150,7 +150,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                 <Avatar
                     id={`${name}-attack_node0`}
                     src={`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`}
-                    alt={forte.attack.nodes[0].type}
+                    alt={`${name.split(" ").join("_").toLowerCase()}_attack`}
                     sx={skillIcon}
                     style={selectedMainNode ? { opacity: "1", cursor: "pointer" } : { opacity: "0.35" }}
                     onClick={handleClickOpenMainNode}
