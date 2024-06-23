@@ -1,6 +1,7 @@
 import * as React from "react"
 
 // Component imports
+import CharacterAscensionCardMaterials from "./_CharacterAscensionCardMaterials"
 import CharacterAscensionLevel from "./CharacterAscensionLevel"
 import CharacterAscensionSkillDisplay from "./CharacterAscensionSkillDisplay"
 
@@ -79,7 +80,7 @@ const CharacterAscensionCard = (props: any) => {
                 <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                     Materials Required
                 </Typography>
-
+                <CharacterAscensionCardMaterials character={props.character} />
             </Box>
             <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "15px" }} />
             <Accordion>

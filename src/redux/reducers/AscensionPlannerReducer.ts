@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-interface State {
+interface PlannerState {
     totalCost: {},
-    characters: any,
+    characters: [],
     characterCosts: [
         {
             name: string,
@@ -25,12 +25,12 @@ interface State {
                 weeklyBossMat: (number | number[])[],
             }
         }
-    ] | any,
+    ] | [],
     weapons: [],
     weaponCosts: [],
 }
 
-const initialState: State = {
+const initialState: PlannerState = {
     totalCost: {},
     characters: [],
     characterCosts: [],
@@ -43,7 +43,7 @@ export const PlannerSlice = createSlice({
     initialState,
     reducers: {
         setPlannerCharacters: (state, action: PayloadAction<any>) => {
-            action.payload.map((char: any) => {
+            let tempCharCosts = action.payload.map((char: any) => {
                 let costs
                 let currentCharacter = state.characterCosts.find((c: any) => char.name === c.name)
                 // If the character is not already in the list, initialize the material array
@@ -73,16 +73,29 @@ export const PlannerSlice = createSlice({
                     costs = currentCharacter.costs
                 }
                 return (
-                    state.characterCosts.push({
+                    {
                         name: char.name,
                         costs: costs,
-                    })
+                    }
                 )
             })
             state.characters = action.payload
+            state.characterCosts = tempCharCosts
         },
-        updateCharacterCosts: (state, action: PayloadAction<any>) => {
-        
+        updateCharacterCosts: (state, action: PayloadAction<[string, string, {}]>) => {
+            let indexChar = state.characterCosts.indexOf((state.characterCosts.find((char: any) => char.name === action.payload[0])) as never)
+            if (indexChar !== -1) {
+                Object.keys(action.payload[2] as {}).forEach((key: string) => {
+                    switch (action.payload[1]) {
+                        case "level":
+                            state.characterCosts[indexChar].costs[key as keyof {}][0] = action.payload[2][key as keyof {}]
+                            break
+                        default:
+                            break
+                    }
+                })
+
+            }
         }
     }
 })

@@ -49,24 +49,30 @@ const CharacterAscensionLevel = (props: any) => {
             return {
                 credits: costArray[0],
                 bossMat: costArray[1],
-                common1: costArray[2],
-                common2: costArray[3],
-                common3: costArray[4],
-                xp1: costArray[5],
-                xp2: costArray[6],
-                xp3: costArray[7],
+                ascensionMat: costArray[2],
+                common1: costArray[3],
+                common2: costArray[4],
+                common3: costArray[5],
+                common4: costArray[6],
+                xp1: costArray[7],
+                xp2: costArray[8],
+                xp3: costArray[9],
+                xp4: costArray[10]
             }
         }
         else {
             return {
                 credits: 0,
                 bossMat: 0,
+                ascensionMat: 0,
                 common1: 0,
                 common2: 0,
                 common3: 0,
+                common4: 0,
                 xp1: 0,
                 xp2: 0,
                 xp3: 0,
+                xp4: 0,
             }
         }
     }
