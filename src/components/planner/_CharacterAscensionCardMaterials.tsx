@@ -6,9 +6,10 @@ import { Box, Typography } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
+import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
 import { formatXPMats, formatForgeryMats, formatCommonMats, formatBossMats, formatWeeklyBossMats } from "../../helpers/TooltipText"
-import { Backgrounds } from "../../helpers/Backgrounds"
+// import { Backgrounds } from "../../helpers/Backgrounds"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 // Type imports
@@ -32,24 +33,28 @@ const CharacterAscensionCardMaterials = (props: any) => {
         width: "72px",
         mr: "15px",
         mb: "15px",
-        backgroundColor: "rgb(34, 35, 36)",
-        border: `1px solid ${theme.border.color}`,
+        backgroundColor: "rgb(31, 30, 31)",
+        border: `2px solid ${theme.border.color}`,
         borderRadius: "5px",
     }
 
-    const MaterialImageBig = (rarity: string) => {
+    const MaterialImageBig = (rarity: number) => {
         return {
-            backgroundImage: "url(" + Backgrounds[rarity as keyof typeof Backgrounds] + ")",
+            // backgroundImage: "url(" + Backgrounds[rarity as keyof typeof Backgrounds] + ")",
             width: "72px",
             backgroundColor: `${theme.materialImage.backgroundColor}`,
             backgroundSize: "contain",
-            borderRadius: "5px 5px 0px 0px"
+            borderRadius: "3px 3px 0px 0px",
+            boxShadow: `inset 0 0 35px 10px ${GetBackgroundColor(rarity)}`,
         }
     }
 
-    const MaterialTextContainer = {
-        textAlign: "center",
-        mt: "-5px",
+    const MaterialTextContainer = (rarity: number) => {
+        return {
+            borderTop: `5px solid ${GetRarityColor(rarity)}`,
+            textAlign: "center",
+            mt: "-5px",
+        }
     }
 
     const MaterialText = {
@@ -66,9 +71,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 credits > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title="Shell Credits" arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/Credits.png`} style={MaterialImageBig("3")} alt="Shell Credits" onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/Credits.png`} style={MaterialImageBig(3)} alt="Shell Credits" onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {credits.toLocaleString()}
                         </Typography>
@@ -80,9 +85,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 xp1 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatXPMats("Character1")} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character1.png`} style={MaterialImageBig("2")} alt={formatXPMats("Character1")} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character1.png`} style={MaterialImageBig(2)} alt={formatXPMats("Character1")} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(2)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {xp1}
                         </Typography>
@@ -94,9 +99,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 xp2 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatXPMats("Character2")} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character2.png`} style={MaterialImageBig("3")} alt={formatXPMats("Character2")} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character2.png`} style={MaterialImageBig(3)} alt={formatXPMats("Character2")} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {xp2}
                         </Typography>
@@ -108,9 +113,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 xp3 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatXPMats("Character3")} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character3.png`} style={MaterialImageBig("4")} alt={formatXPMats("Character3")} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character3.png`} style={MaterialImageBig(4)} alt={formatXPMats("Character3")} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {xp3}
                         </Typography>
@@ -122,9 +127,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 xp4 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatXPMats("Character4")} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character4.png`} style={MaterialImageBig("5")} alt={formatXPMats("Character4")} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/xp/Character4.png`} style={MaterialImageBig(5)} alt={formatXPMats("Character4")} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(5)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {xp4}
                         </Typography>
@@ -136,9 +141,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 boss_mat > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatBossMats(`${bossMat}`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`} style={MaterialImageBig(name.startsWith("Rover-") ? "5" : "4")} alt={bossMat} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`} style={MaterialImageBig(name.startsWith("Rover-") ? 5 : 4)} alt={bossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(name.startsWith("Rover-") ? 5 : 4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {boss_mat}
                         </Typography>
@@ -150,9 +155,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 ascension_mat > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={ascensionMat} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/ascension/${ascensionMat}.png`} style={MaterialImageBig("1")} alt={ascensionMat} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/ascension/${ascensionMat}.png`} style={MaterialImageBig(1)} alt={ascensionMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(1)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {ascension_mat}
                         </Typography>
@@ -164,9 +169,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 forgery1 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}1`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}1.png`} style={MaterialImageBig("2")} alt={`${forgeryMat}1`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}1.png`} style={MaterialImageBig(2)} alt={`${forgeryMat}1`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(2)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {forgery1}
                         </Typography>
@@ -178,9 +183,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 forgery2 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}2`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}2.png`} style={MaterialImageBig("3")} alt={`${forgeryMat}2`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}2.png`} style={MaterialImageBig(3)} alt={`${forgeryMat}2`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {forgery2}
                         </Typography>
@@ -192,9 +197,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 forgery3 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}3`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}3.png`} style={MaterialImageBig("4")} alt={`${forgeryMat}3`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}3.png`} style={MaterialImageBig(4)} alt={`${forgeryMat}3`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {forgery3}
                         </Typography>
@@ -206,9 +211,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 forgery4 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}4`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}4.png`} style={MaterialImageBig("5")} alt={`${forgeryMat}4`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}4.png`} style={MaterialImageBig(5)} alt={`${forgeryMat}4`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(5)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {forgery4}
                         </Typography>
@@ -220,9 +225,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 common1 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}1`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}1.png`} style={MaterialImageBig("2")} alt={`${commonMat}1`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}1.png`} style={MaterialImageBig(2)} alt={`${commonMat}1`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(2)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {common1}
                         </Typography>
@@ -234,9 +239,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 common2 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}2`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}2.png`} style={MaterialImageBig("3")} alt={`${commonMat}2`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}2.png`} style={MaterialImageBig(3)} alt={`${commonMat}2`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {common2}
                         </Typography>
@@ -248,9 +253,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 common3 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}3`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}3.png`} style={MaterialImageBig("4")} alt={`${commonMat}3`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}3.png`} style={MaterialImageBig(4)} alt={`${commonMat}3`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {common3}
                         </Typography>
@@ -262,9 +267,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 common4 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}4`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}4.png`} style={MaterialImageBig("5")} alt={`${commonMat}4`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}4.png`} style={MaterialImageBig(5)} alt={`${commonMat}4`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(5)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {common4}
                         </Typography>
@@ -275,9 +280,9 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 weekly_boss_mat > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatWeeklyBossMats(`${weeklyBossMat}`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/weekly/${weeklyBossMat}.png`} style={MaterialImageBig("4")} alt={weeklyBossMat} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/weekly/${weeklyBossMat}.png`} style={MaterialImageBig(4)} alt={weeklyBossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
-                    <Box sx={MaterialTextContainer}>
+                    <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
                             {weekly_boss_mat}
                         </Typography>
