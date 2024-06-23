@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchCharacters, CharacterData } from "../actions/fetchCharacters"
+import { fetchCharacters, CharacterData } from "../actions/fetch"
 
 interface State {
     loading: boolean,

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 // Fetch imports
-import { fetchCharacters } from "./redux/actions/fetchCharacters"
+import { fetchCharacters } from "./redux/actions/fetch"
 
 // Component imports
 import Nav from "./components/Nav"
