@@ -12,7 +12,7 @@ import { CustomSlider } from "../../helpers/CustomSlider"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
 import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { SetCharacterCostsLevel } from "../../helpers/AscensionCostIndex"
+import { SetCharacterCostsSkill, SetCharacterCostsNode } from "../../helpers/AscensionCostIndex"
 
 const CharacterAscensionBasicATK = (props: any) => {
 
@@ -46,7 +46,9 @@ const CharacterAscensionBasicATK = (props: any) => {
     }
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "attack", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selectedMainNode)]))
+        dispatch(updateCharacterCosts([name, "attack", SetCharacterCostsSkill(sliderValue[0], sliderValue[1], selectedMainNode)]))
+        dispatch(updateCharacterCosts([name, "attack_node1", SetCharacterCostsNode(1, selectedNode1)]))
+        dispatch(updateCharacterCosts([name, "attack_node2", SetCharacterCostsNode(2, selectedNode2)]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true)

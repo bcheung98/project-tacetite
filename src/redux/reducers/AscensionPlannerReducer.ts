@@ -83,6 +83,7 @@ export const PlannerSlice = createSlice({
             state.characterCosts = tempCharCosts
         },
         updateCharacterCosts: (state, action: PayloadAction<[string, string, {}]>) => {
+            let skillIndex = ["attack", "skill", "ultimate", "circuit", "intro"]
             let indexChar = state.characterCosts.indexOf((state.characterCosts.find((char: any) => char.name === action.payload[0])) as never)
             if (indexChar !== -1) {
                 Object.keys(action.payload[2] as {}).forEach((key: string) => {
@@ -92,6 +93,12 @@ export const PlannerSlice = createSlice({
                             break
                         case "attack":
                             state.characterCosts[indexChar].costs[key as keyof {}][1][0] = action.payload[2][key as keyof {}]
+                            break
+                        case "attack_node1":
+                            state.characterCosts[indexChar].costs[key as keyof {}][1][1] = action.payload[2][key as keyof {}]
+                            break
+                        case "attack_node2":
+                            state.characterCosts[indexChar].costs[key as keyof {}][1][2] = action.payload[2][key as keyof {}]
                             break
                         default:
                             break

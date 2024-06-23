@@ -1,6 +1,6 @@
-export const CharacterCosts = (type: string) => {
+export const SetCharacterCostsLevel = (start: number, stop: number, selected: boolean) => {
 
-    if (type === "level") {
+    let materialArray = [
         // Level ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
         /*
             Credits
@@ -15,84 +15,18 @@ export const CharacterCosts = (type: string) => {
             T3 Character EXP Material
             T4 Character EXP Material
         */
-        return [
-            [0, 0, 5000, 0, 10000, 0, 15000, 0, 20000, 0, 40000, 0, 80000, 0],
-            [0, 0, 0, 0, 3, 0, 6, 0, 9, 0, 12, 0, 16, 0],
-            [0, 0, 0, 0, 4, 0, 8, 0, 12, 0, 16, 0, 20, 0],
-            [0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ]
-
-    }
-    if (type === "skill") {
-        // Level [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        /*
-           Credits
-           T1 Forgery Material
-           T2 Forgery Material
-           T3 Forgery Material
-           T4 Forgery Material
-           T1 Common Material
-           T2 Common Material
-           T3 Common Material
-           T4 Common Material
-           Weekly Boss Material
-        */
-        return [
-            [0, 1500, 2000, 4500, 6000, 16000, 30000, 50000, 70000, 100000],
-            [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 3, 5, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 2, 3, 6],
-            [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 2, 3, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 2, 3, 4],
-            [0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-        ]
-    }
-    if (type === "node1") {
-        /*
-           Credits
-           T1 Forgery Material
-           T2 Forgery Material
-           T3 Forgery Material
-           T4 Forgery Material
-           T1 Common Material
-           T2 Common Material
-           T3 Common Material
-           T4 Common Material
-           Weekly Boss Material
-        */
-        return [
-        ]
-    }
-    if (type === "node2") {
-        return [
-        ]
-    }
-    if (type === "passive1") {
-        return [
-        ]
-    }
-    if (type === "passive2") {
-        return [
-        ]
-    }
-    else {
-        return []
-    }
-}
-
-export const SetCharacterCostsLevel = (start: number, stop: number, selected: boolean) => {
-
-    let materialArray = CharacterCosts("level")
+        [0, 0, 5000, 0, 10000, 0, 15000, 0, 20000, 0, 40000, 0, 80000, 0],
+        [0, 0, 0, 0, 3, 0, 6, 0, 9, 0, 12, 0, 16, 0],
+        [0, 0, 0, 0, 4, 0, 8, 0, 12, 0, 16, 0, 20, 0],
+        [0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]
 
     if (selected) {
         let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
@@ -130,7 +64,31 @@ export const SetCharacterCostsLevel = (start: number, stop: number, selected: bo
 
 export const SetCharacterCostsSkill = (start: number, stop: number, selected: boolean) => {
 
-    let materialArray = CharacterCosts("skill")
+    let materialArray = [
+        // Level [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        /*
+           Credits
+           T1 Forgery Material
+           T2 Forgery Material
+           T3 Forgery Material
+           T4 Forgery Material
+           T1 Common Material
+           T2 Common Material
+           T3 Common Material
+           T4 Common Material
+           Weekly Boss Material
+        */
+        [0, 1500, 2000, 4500, 6000, 16000, 30000, 50000, 70000, 100000],
+        [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 3, 5, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 2, 3, 6],
+        [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 2, 3, 4],
+        [0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+    ]
 
     if (selected) {
         let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
@@ -156,6 +114,34 @@ export const SetCharacterCostsSkill = (start: number, stop: number, selected: bo
             forgery4: 0,
             common1: 0,
             common2: 0,
+            common3: 0,
+            common4: 0,
+            weeklyBossMat: 0
+        }
+    }
+
+}
+
+export const SetCharacterCostsNode = (nodeType: number, selected: boolean) => {
+
+    // [Credits, T3 Forgery Material, T4 Forgery Material, T3 Common Material, T4 Common Material, Weekly Boss Material]
+    let costArray = nodeType === 1 ? [50000, 3, 0, 3, 0, 0] : [100000, 0, 3, 0, 3, 1]
+
+    if (selected) {
+        return {
+            credits: costArray[0],
+            forgery3: costArray[1],
+            forgery4: costArray[2],
+            common3: costArray[3],
+            common4: costArray[4],
+            weeklyBossMat: costArray[5]
+        }
+    }
+    else {
+        return {
+            credits: 0,
+            forgery3: 0,
+            forgery4: 0,
             common3: 0,
             common4: 0,
             weeklyBossMat: 0
