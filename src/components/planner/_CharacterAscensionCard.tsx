@@ -70,7 +70,7 @@ const CharacterAscensionCard = (props: any) => {
                 title={
                     <React.Fragment>
                         <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <Typography variant="h6" sx={{ color: `${theme.text.color}` }}>
+                            <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                                 {props.character.displayName && props.character.displayName}
                                 {props.character.fullName && props.character.fullName}
                                 {!props.character.displayName && !props.character.fullName && name}
