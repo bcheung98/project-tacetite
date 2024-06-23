@@ -55,7 +55,7 @@ const Nav = () => {
                                 }
                             />
                         </ButtonBase>
-                        {/* <ButtonBase disableRipple href={`/project-tacetite/weapons`}>
+                        <ButtonBase disableRipple href={`/project-tacetite/weapons`}>
                             <CardHeader
                                 avatar={
                                     <Avatar src={(`${process.env.REACT_APP_URL}/icons/Weapon.png`)} alt="Weapons" sx={{ height: "32px", width: "32px" }} />
@@ -73,7 +73,7 @@ const Nav = () => {
                                 }
                             />
                         </ButtonBase>
-                        <ButtonBase disableRipple href={`/project-tacetite/echoes`}>
+                        {/* <ButtonBase disableRipple href={`/project-tacetite/echoes`}>
                             <CardHeader
                                 avatar={
                                     <Avatar src={(`${process.env.REACT_APP_URL}/icons/Echo.png`)} alt="Echoes" sx={{ height: "32px", width: "32px" }} />
