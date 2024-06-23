@@ -12,7 +12,7 @@ import { CustomSlider } from "../../helpers/CustomSlider"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
 import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { CharacterCosts } from "../../helpers/AscensionCostIndex"
+import { SetCharacterCostsLevel } from "../../helpers/AscensionCostIndex"
 
 const CharacterAscensionBasicATK = (props: any) => {
 
@@ -45,41 +45,8 @@ const CharacterAscensionBasicATK = (props: any) => {
         }
     }
 
-    let materialArray = CharacterCosts("attack")
-    const getCost = (start: number, stop: number) => {
-        if (selectedMainNode) {
-            let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
-            return {
-                credits: costArray[0],
-                forgery1: costArray[1],
-                forgery2: costArray[2],
-                forgery3: costArray[3],
-                forgery4: costArray[4],
-                common1: costArray[5],
-                common2: costArray[6],
-                common3: costArray[7],
-                common4: costArray[8],
-                weeklyBossMat: costArray[9]
-            }
-        }
-        else {
-            return {
-                credits: 0,
-                forgery1: 0,
-                forgery2: 0,
-                forgery3: 0,
-                forgery4: 0,
-                common1: 0,
-                common2: 0,
-                common3: 0,
-                common4: 0,
-                weeklyBossMat: 0
-            }
-        }
-    }
-
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "attack", getCost(sliderValue[0], sliderValue[1])]))
+        dispatch(updateCharacterCosts([name, "attack", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selectedMainNode)]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true)

@@ -9,7 +9,7 @@ import { Box, Typography } from "@mui/material"
 import { CustomSlider } from "../../helpers/CustomSlider"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { CharacterCosts } from "../../helpers/AscensionCostIndex"
+import { SetCharacterCostsLevel } from "../../helpers/AscensionCostIndex"
 
 const CharacterAscensionLevel = (props: any) => {
 
@@ -42,43 +42,8 @@ const CharacterAscensionLevel = (props: any) => {
         }
     }
 
-    let materialArray = CharacterCosts("level")
-    const getCost = (start: number, stop: number) => {
-        if (selected) {
-            let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
-            return {
-                credits: costArray[0],
-                bossMat: costArray[1],
-                ascensionMat: costArray[2],
-                common1: costArray[3],
-                common2: costArray[4],
-                common3: costArray[5],
-                common4: costArray[6],
-                xp1: costArray[7],
-                xp2: costArray[8],
-                xp3: costArray[9],
-                xp4: costArray[10]
-            }
-        }
-        else {
-            return {
-                credits: 0,
-                bossMat: 0,
-                ascensionMat: 0,
-                common1: 0,
-                common2: 0,
-                common3: 0,
-                common4: 0,
-                xp1: 0,
-                xp2: 0,
-                xp3: 0,
-                xp4: 0,
-            }
-        }
-    }
-
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "level", getCost(sliderValue[0], sliderValue[1])]))
+        dispatch(updateCharacterCosts([name, "level", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selected)]))
     })
 
     const [selected, setSelected] = React.useState(true);

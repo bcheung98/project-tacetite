@@ -30,7 +30,7 @@ export const CharacterCosts = (type: string) => {
         ]
 
     }
-    if (["attack", "skill", "ultimate", "circuit", "intro"].includes(type)) {
+    if (type === "skill") {
         // Level [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         /*
            Credits
@@ -88,4 +88,78 @@ export const CharacterCosts = (type: string) => {
     else {
         return []
     }
+}
+
+export const SetCharacterCostsLevel = (start: number, stop: number, selected: boolean) => {
+
+    let materialArray = CharacterCosts("level")
+
+    if (selected) {
+        let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
+        return {
+            credits: costArray[0],
+            bossMat: costArray[1],
+            ascensionMat: costArray[2],
+            common1: costArray[3],
+            common2: costArray[4],
+            common3: costArray[5],
+            common4: costArray[6],
+            xp1: costArray[7],
+            xp2: costArray[8],
+            xp3: costArray[9],
+            xp4: costArray[10]
+        }
+    }
+    else {
+        return {
+            credits: 0,
+            bossMat: 0,
+            ascensionMat: 0,
+            common1: 0,
+            common2: 0,
+            common3: 0,
+            common4: 0,
+            xp1: 0,
+            xp2: 0,
+            xp3: 0,
+            xp4: 0,
+        }
+    }
+
+}
+
+export const SetCharacterCostsSkill = (start: number, stop: number, selected: boolean) => {
+
+    let materialArray = CharacterCosts("skill")
+
+    if (selected) {
+        let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
+        return {
+            credits: costArray[0],
+            forgery1: costArray[1],
+            forgery2: costArray[2],
+            forgery3: costArray[3],
+            forgery4: costArray[4],
+            common1: costArray[5],
+            common2: costArray[6],
+            common3: costArray[7],
+            common4: costArray[8],
+            weeklyBossMat: costArray[9]
+        }
+    }
+    else {
+        return {
+            credits: 0,
+            forgery1: 0,
+            forgery2: 0,
+            forgery3: 0,
+            forgery4: 0,
+            common1: 0,
+            common2: 0,
+            common3: 0,
+            common4: 0,
+            weeklyBossMat: 0
+        }
+    }
+
 }
