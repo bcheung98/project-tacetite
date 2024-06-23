@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useDispatch } from "react-redux"
 import parse from "html-react-parser"
 import Xarrow from "react-xarrows"
 
@@ -9,12 +10,19 @@ import { Box, Typography, Avatar } from "@mui/material"
 // Helper imports
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
 
 const CharacterAscensionCircuit = (props: any) => {
 
     const theme = useTheme()
 
+    const dispatch = useDispatch()
+    
     let { name, element, forte } = props.character
+
+    React.useEffect(() => {
+        dispatch(updateCharacterCosts([name, "circuit"]))
+    })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);
     const handleSelectMainNode = () => {
@@ -61,7 +69,7 @@ const CharacterAscensionCircuit = (props: any) => {
             >
                 <CustomTooltip title={parse(forte.circuit.nodes[1].name)} arrow placement="top">
                     <Avatar
-                        id="circuit_node2"
+                        id={`${name}-circuit_node2`}
                         src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_passive2.png`}
                         alt={forte.circuit.nodes[1].type}
                         sx={skillIconSmall}
@@ -71,7 +79,7 @@ const CharacterAscensionCircuit = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start="circuit_node2" end="circuit_node1" showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-circuit_node2`} end={`${name}-circuit_node1`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -83,7 +91,7 @@ const CharacterAscensionCircuit = (props: any) => {
             >
                 <CustomTooltip title={parse(forte.circuit.nodes[0].name)} arrow placement="top">
                     <Avatar
-                        id="circuit_node1"
+                        id={`${name}-circuit_node1`}
                         src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_passive1.png`}
                         alt={forte.circuit.nodes[0].type}
                         sx={skillIconSmall}
@@ -93,7 +101,7 @@ const CharacterAscensionCircuit = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start="circuit_node1" end="circuit_node0" showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-circuit_node1`} end={`${name}-circuit_node0`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -104,7 +112,7 @@ const CharacterAscensionCircuit = (props: any) => {
                 }}
             >
                 <Avatar
-                    id="circuit_node0"
+                    id={`${name}-circuit_node0`}
                     src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_circuit.png`}
                     alt={forte.circuit.nodes[0].type}
                     sx={skillIcon}

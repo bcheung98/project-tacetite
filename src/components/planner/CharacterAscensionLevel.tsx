@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useDispatch } from "react-redux"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -7,10 +8,13 @@ import { Box, Typography } from "@mui/material"
 // Helper imports
 import { CustomSlider } from "../../helpers/CustomSlider"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
+import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
 
 const CharacterAscensionLevel = (props: any) => {
 
     const theme = useTheme()
+
+    const dispatch = useDispatch()
 
     let { name, element } = props.character
 
@@ -36,6 +40,10 @@ const CharacterAscensionLevel = (props: any) => {
             setSliderValue(newValue);
         }
     }
+
+    React.useEffect(() => {
+        dispatch(updateCharacterCosts([name, "level"]))
+    })
 
     const [selected, setSelected] = React.useState(true);
     const handleSelect = () => {

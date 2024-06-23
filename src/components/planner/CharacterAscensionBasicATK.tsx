@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useDispatch } from "react-redux"
 import parse from "html-react-parser"
 import Xarrow from "react-xarrows"
 
@@ -9,12 +10,19 @@ import { Box, Typography, Avatar } from "@mui/material"
 // Helper imports
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
 
 const CharacterAscensionBasicATK = (props: any) => {
 
     const theme = useTheme()
 
-    let { element, weapon, forte } = props.character
+    const dispatch = useDispatch()
+
+    let { name, element, weapon, forte } = props.character
+
+    React.useEffect(() => {
+        dispatch(updateCharacterCosts([name, "attack"]))
+    })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);
     const handleSelectMainNode = () => {
@@ -61,7 +69,7 @@ const CharacterAscensionBasicATK = (props: any) => {
             >
                 <CustomTooltip title={parse(forte.attack.nodes[1].description)} arrow placement="top">
                     <Avatar
-                        id="attack_node2"
+                        id={`${name}-attack_node2`}
                         src={`${process.env.REACT_APP_URL}/stat_icons/${forte.attack.nodes[1].type}.png`}
                         alt={forte.attack.nodes[1].type}
                         sx={skillIconSmall}
@@ -71,7 +79,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start="attack_node2" end="attack_node1" showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-attack_node2`} end={`${name}-attack_node1`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -83,7 +91,7 @@ const CharacterAscensionBasicATK = (props: any) => {
             >
                 <CustomTooltip title={parse(forte.attack.nodes[0].description)} arrow placement="top">
                     <Avatar
-                        id="attack_node1"
+                        id={`${name}-attack_node1`}
                         src={`${process.env.REACT_APP_URL}/stat_icons/${forte.attack.nodes[0].type}.png`}
                         alt={forte.attack.nodes[0].type}
                         sx={skillIconSmall}
@@ -93,7 +101,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start="attack_node1" end="attack_node0" showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-attack_node1`} end={`${name}-attack_node0`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -104,7 +112,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                 }}
             >
                 <Avatar
-                    id="attack_node0"
+                    id={`${name}-attack_node0`}
                     src={`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`}
                     alt={forte.attack.nodes[0].type}
                     sx={skillIcon}
