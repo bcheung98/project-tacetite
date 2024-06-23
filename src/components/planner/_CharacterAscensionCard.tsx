@@ -3,7 +3,11 @@ import * as React from "react"
 // Component imports
 import CharacterAscensionCardMaterials from "./_CharacterAscensionCardMaterials"
 import CharacterAscensionLevel from "./CharacterAscensionLevel"
-import CharacterAscensionSkillDisplay from "./CharacterAscensionSkillDisplay"
+import CharacterAscensionBasicATK from "./CharacterAscensionBasicATK"
+import CharacterAscensionSkill from "./CharacterAscensionSkill"
+import CharacterAscensionUltimate from "./CharacterAscensionUltimate"
+import CharacterAscensionCircuit from "./CharacterAscensionCircuit"
+import CharacterAscensionIntro from "./CharacterAscensionIntro"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -29,6 +33,9 @@ const CharacterAscensionCard = (props: any) => {
         borderRadius: "24px",
         marginBottom: "10px",
     }
+
+    const inner = "0px" // 20
+    const outer = "0px" // 70
 
     return (
         <Box
@@ -91,7 +98,23 @@ const CharacterAscensionCard = (props: any) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <CharacterAscensionLevel character={props.character} />
-                    <CharacterAscensionSkillDisplay character={props.character} />
+                    <Grid container spacing={2}>
+                        <Grid xs={2} sx={{ mt: outer }}>
+                            <CharacterAscensionBasicATK character={props.character} />
+                        </Grid>
+                        <Grid xs={2} sx={{ mt: inner }}>
+                            <CharacterAscensionSkill character={props.character} />
+                        </Grid>
+                        <Grid xs={2}>
+                            <CharacterAscensionCircuit character={props.character} />
+                        </Grid>
+                        <Grid xs={2} sx={{ mt: inner }}>
+                            <CharacterAscensionUltimate character={props.character} />
+                        </Grid>
+                        <Grid xs={2} sx={{ mt: outer }}>
+                            <CharacterAscensionIntro character={props.character} />
+                        </Grid>
+                    </Grid>
                 </AccordionDetails>
             </Accordion>
         </Box>
