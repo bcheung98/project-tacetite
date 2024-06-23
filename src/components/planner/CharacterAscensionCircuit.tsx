@@ -21,7 +21,7 @@ const CharacterAscensionCircuit = (props: any) => {
     let { name, element, forte } = props.character
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "circuit"]))
+        dispatch(updateCharacterCosts([name, "circuit", []]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);

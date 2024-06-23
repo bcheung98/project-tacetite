@@ -9,6 +9,7 @@ import { Box, Typography } from "@mui/material"
 import { CustomSlider } from "../../helpers/CustomSlider"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
+import { CharacterCosts } from "../../helpers/AscensionCostIndex"
 
 const CharacterAscensionLevel = (props: any) => {
 
@@ -18,7 +19,7 @@ const CharacterAscensionLevel = (props: any) => {
 
     let { name, element } = props.character
 
-    const levels = ["1", "20", "40", "50", "60", "70", "80", "90"]
+    const levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
     const minDistance = 1
     let maxValue = levels.length
     const [sliderValue, setSliderValue] = React.useState([1, maxValue]);
@@ -41,8 +42,37 @@ const CharacterAscensionLevel = (props: any) => {
         }
     }
 
+    let materialArray = CharacterCosts("level")
+    const getCost = (start: number, stop: number) => {
+        if (selected) {
+            let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
+            return {
+                credits: costArray[0],
+                bossMat: costArray[1],
+                common1: costArray[2],
+                common2: costArray[3],
+                common3: costArray[4],
+                xp1: costArray[5],
+                xp2: costArray[6],
+                xp3: costArray[7],
+            }
+        }
+        else {
+            return {
+                credits: 0,
+                bossMat: 0,
+                common1: 0,
+                common2: 0,
+                common3: 0,
+                xp1: 0,
+                xp2: 0,
+                xp3: 0,
+            }
+        }
+    }
+
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "level"]))
+        dispatch(updateCharacterCosts([name, "level", getCost(sliderValue[0], sliderValue[1])]))
     })
 
     const [selected, setSelected] = React.useState(true);
@@ -65,11 +95,11 @@ const CharacterAscensionLevel = (props: any) => {
                 </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, mr: "25px", width: "70px", fontWeight: "bold" }}>
+                <Typography variant="body1" sx={{ color: `${theme.text.color}`, mr: "25px", width: "75px", fontWeight: "bold" }}>
                     Lv. {levels[sliderValue[0] - 1]}
                 </Typography>
                 <CustomSlider disabled={!selected} value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element={element} disableSwap />
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, ml: "25px", width: "70px", fontWeight: "bold" }}>
+                <Typography variant="body1" sx={{ color: `${theme.text.color}`, ml: "25px", width: "75px", fontWeight: "bold" }}>
                     Lv. {levels[sliderValue[1] - 1]}
                 </Typography>
             </Box>

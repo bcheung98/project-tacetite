@@ -21,7 +21,7 @@ const CharacterAscensionSkill = (props: any) => {
     let { name, element, forte } = props.character
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "skill"]))
+        dispatch(updateCharacterCosts([name, "skill", []]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);

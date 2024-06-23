@@ -21,7 +21,7 @@ const CharacterAscensionBasicATK = (props: any) => {
     let { name, element, weapon, forte } = props.character
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "attack"]))
+        dispatch(updateCharacterCosts([name, "attack", []]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);

@@ -21,7 +21,7 @@ const CharacterAscensionUltimate = (props: any) => {
     let { name, element, forte } = props.character
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "ultimate"]))
+        dispatch(updateCharacterCosts([name, "ultimate", []]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);

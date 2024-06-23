@@ -21,7 +21,7 @@ const CharacterAscensionIntro = (props: any) => {
     let { name, element, forte } = props.character
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "intro"]))
+        dispatch(updateCharacterCosts([name, "intro", []]))
     })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true);

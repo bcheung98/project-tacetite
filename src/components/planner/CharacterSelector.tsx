@@ -34,7 +34,7 @@ const CharacterSelector = (props: any) => {
 
     React.useEffect(() => {
         dispatch(setPlannerCharacters(value))
-        dispatch(updateCharacterCosts([]))
+        dispatch(updateCharacterCosts(["", "", {}]))
     })
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
