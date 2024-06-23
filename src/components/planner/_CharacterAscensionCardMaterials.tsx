@@ -136,7 +136,7 @@ const CharacterAscensionCardMaterials = (props: any) => {
                 boss_mat > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatBossMats(`${bossMat}`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`} style={MaterialImageBig("4")} alt={bossMat} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/boss/${bossMat}.png`} style={MaterialImageBig(name.startsWith("Rover-") ? "5" : "4")} alt={bossMat} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer}>
                         <Typography variant="subtitle2" sx={MaterialText}>

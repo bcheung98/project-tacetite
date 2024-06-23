@@ -1,32 +1,52 @@
-export const SetCharacterCostsLevel = (start: number, stop: number, selected: boolean) => {
+export const SetCharacterCostsLevel = (start: number, stop: number, selected: boolean, name: string) => {
 
-    let materialArray = [
-        // Level ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
-        /*
-            Credits
-            Boss Material
-            Ascension Material
-            T1 Common Material
-            T2 Common Material
-            T3 Common Material
-            T4 Common Material
-            T1 Character EXP Material
-            T2 Character EXP Material
-            T3 Character EXP Material
-            T4 Character EXP Material
-        */
-        [0, 0, 5000, 0, 10000, 0, 15000, 0, 20000, 0, 40000, 0, 80000, 0],
-        [0, 0, 0, 0, 3, 0, 6, 0, 9, 0, 12, 0, 16, 0],
-        [0, 0, 0, 0, 4, 0, 8, 0, 12, 0, 16, 0, 20, 0],
-        [0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]
+    let materialArray: [number[], number[], number[], number[], number[], number[], number[], number[], number[], number[], number[]]
+    // Level ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
+    /*
+        Credits
+        Boss Material
+        Ascension Material
+        T1 Common Material
+        T2 Common Material
+        T3 Common Material
+        T4 Common Material
+        T1 Character EXP Material
+        T2 Character EXP Material
+        T3 Character EXP Material
+        T4 Character EXP Material
+    */
+
+    // Special case for Rover
+    if (name.startsWith("Rover-")) {
+        materialArray = [
+            [0, 0, 5000, 0, 10000, 0, 15000, 0, 20000, 0, 40000, 0, 80000, 0],
+            [0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 0, 0, 0, 4, 0, 8, 0, 12, 0, 16, 0, 20, 0],
+            [0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+    }
+    else {
+        materialArray = [
+            [0, 0, 5000, 0, 10000, 0, 15000, 0, 20000, 0, 40000, 0, 80000, 0],
+            [0, 0, 0, 0, 3, 0, 6, 0, 9, 0, 12, 0, 16, 0],
+            [0, 0, 0, 0, 4, 0, 8, 0, 12, 0, 16, 0, 20, 0],
+            [0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+    }
 
     if (selected) {
         let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))

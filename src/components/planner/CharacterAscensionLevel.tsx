@@ -43,7 +43,7 @@ const CharacterAscensionLevel = (props: any) => {
     }
 
     React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "level", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selected)]))
+        dispatch(updateCharacterCosts([name, "level", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selected, name)]))
     })
 
     const [selected, setSelected] = React.useState(true);
