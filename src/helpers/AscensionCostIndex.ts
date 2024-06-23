@@ -149,3 +149,31 @@ export const SetCharacterCostsNode = (nodeType: number, selected: boolean) => {
     }
 
 }
+
+export const SetCharacterCostsPassive = (nodeType: number, selected: boolean) => {
+
+    // [Credits, T2 Forgery Material, T3 Forgery Material, T2 Common Material, T3 Common Material, Weekly Boss Material]
+    let costArray = nodeType === 1 ? [10000, 3, 0, 3, 0, 1] : [20000, 0, 3, 0, 3, 1]
+
+    if (selected) {
+        return {
+            credits: costArray[0],
+            forgery2: costArray[1],
+            forgery3: costArray[2],
+            common2: costArray[3],
+            common3: costArray[4],
+            weeklyBossMat: costArray[5]
+        }
+    }
+    else {
+        return {
+            credits: 0,
+            forgery2: 0,
+            forgery3: 0,
+            common2: 0,
+            common3: 0,
+            weeklyBossMat: 0
+        }
+    }
+
+}

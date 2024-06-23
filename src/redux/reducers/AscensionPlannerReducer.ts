@@ -108,6 +108,15 @@ export const PlannerSlice = createSlice({
                         case "skill_node2":
                             state.characterCosts[indexChar].costs[key as keyof {}][2][2] = action.payload[2][key as keyof {}]
                             break
+                        case "circuit":
+                            state.characterCosts[indexChar].costs[key as keyof {}][4][0] = action.payload[2][key as keyof {}]
+                            break
+                        case "circuit_node1":
+                            state.characterCosts[indexChar].costs[key as keyof {}][4][1] = action.payload[2][key as keyof {}]
+                            break
+                        case "circuit_node2":
+                            state.characterCosts[indexChar].costs[key as keyof {}][4][2] = action.payload[2][key as keyof {}]
+                            break
                         default:
                             break
                     }
