@@ -150,7 +150,7 @@ const CharacterAscensionUltimate = (props: any) => {
                 <Avatar
                     id={`${name}-ultimate_node0`}
                     src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_ultimate.png`}
-                    alt={forte.ultimate.nodes[0].type}
+                    alt={`${name.split(" ").join("_").toLowerCase()}_ultimate.png`}
                     sx={skillIcon}
                     style={selectedMainNode ? { opacity: "1", cursor: "pointer" } : { opacity: "0.35" }}
                     onClick={handleClickOpenMainNode}
