@@ -21,7 +21,7 @@ const VersionHighlights = (props: any) => {
 
     // MAKE SURE TO CHANGE THIS EVERY UPDATE!
     let updates = [
-        { version: "1.0", name: "Version 1.0" }
+        { version: "1.0", name: "Global Release" }
     ]
     const [version, setVersion] = React.useState(updates[0].version);
     const handleVersionChange = (e: any) => {
@@ -87,7 +87,7 @@ const VersionHighlights = (props: any) => {
                             <Box>
                                 <Grid container spacing={2}>
                                     {
-                                        characters.sort((a: any, b:any) => a.id > b.id ? 1 : -1).map((char: any, index: number) => <CharacterCardLarge key={index} character={char} />)
+                                        characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: any, index: number) => <CharacterCardLarge key={index} character={char} />)
                                     }
                                 </Grid>
                             </Box>
