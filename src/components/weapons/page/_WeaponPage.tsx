@@ -137,11 +137,11 @@ const WeaponPage = (props: any) => {
                             }}
                         >
                             <Typography variant="h6" sx={{ fontWeight: "bold", mx: "15px", }}>
-                                {weapon.stats.passive.name}
+                                {stats.passive.name}
                             </Typography>
                             <br />
                             <Typography variant="body1" sx={{ color: `${theme.text.color}`, mx: "15px" }}>
-                                {parse(weapon.stats.passive.description)}
+                                {parse(stats.passive.description)}
                             </Typography>
                             <Box sx={{ display: "flex", alignItems: "center", width: "20%", mt: "15px", mx: "15px", }}>
                                 <Typography variant="h6" sx={{ fontWeight: "500", color: `${theme.text.color}`, width: "75px" }}>
@@ -194,10 +194,8 @@ const WeaponPage = (props: any) => {
 
 }
 
-const mapStateToProps = (state: RootState) => {
-    return {
-        weapons: state.weapons
-    }
-}
+const mapStateToProps = (state: RootState) => ({
+    weapons: state.weapons
+})
 
 export default connect(mapStateToProps)(WeaponPage)
