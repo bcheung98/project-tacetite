@@ -73,7 +73,7 @@ const Nav = () => {
                                 }
                             />
                         </ButtonBase>
-                        {/* <ButtonBase disableRipple href={`/project-tacetite/echoes`}>
+                        <ButtonBase disableRipple href={`/project-tacetite/echoes`}>
                             <CardHeader
                                 avatar={
                                     <Avatar src={(`${process.env.REACT_APP_URL}/icons/Echo.png`)} alt="Echoes" sx={{ height: "32px", width: "32px" }} />
@@ -90,7 +90,7 @@ const Nav = () => {
                                     </Typography>
                                 }
                             />
-                        </ButtonBase> */}
+                        </ButtonBase>
                         <ButtonBase disableRipple href={`/project-tacetite/planner`}>
                             <CardHeader
                                 avatar={
