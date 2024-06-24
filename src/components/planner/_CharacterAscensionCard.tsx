@@ -16,6 +16,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
 import { Accordion, AccordionDetails, AccordionSummary } from "../../helpers/CustomAccordion"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
@@ -29,7 +30,7 @@ const CharacterAscensionCard = (props: any) => {
         width: "24px",
         height: "24px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        border: `1px solid ${theme.border.color}`,
+        border: `2px solid ${theme.border.color}`,
         borderRadius: "24px",
         marginBottom: "10px",
     }
@@ -53,7 +54,18 @@ const CharacterAscensionCard = (props: any) => {
                 avatar={
                     <Box sx={{ position: "relative" }}>
                         <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <img alt={name} src={(`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`)} style={{ width: "64px", border: `2px solid ${theme.border.color}`, borderRadius: "64px" }} onError={ErrorLoadingImage} />
+                            <img
+                                src={(`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`)}
+                                alt={name}
+                                style={{
+                                    width: "64px",
+                                    border: `2px solid ${GetRarityColor(rarity)}`,
+                                    borderRadius: "64px",
+                                    backgroundColor: `${theme.materialImage.backgroundColor}`,
+                                    backgroundSize: "100%",
+                                    boxShadow: `inset 0 0 25px 5px ${GetBackgroundColor(rarity)}`,
+                                }}
+                                onError={ErrorLoadingImage} />
                         </ButtonBase>
                         <Box sx={{ position: "absolute", top: "50px", left: "-5px" }}>
                             <CustomTooltip title={element} arrow placement="top">

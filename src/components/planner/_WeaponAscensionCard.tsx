@@ -25,7 +25,7 @@ const WeaponAscensionCard = (props: any) => {
         width: "24px",
         height: "24px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        border: `1px solid ${theme.border.color}`,
+        border: `2px solid ${theme.border.color}`,
         borderRadius: "24px",
         marginBottom: "10px",
     }
