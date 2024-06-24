@@ -33,7 +33,7 @@ const CharacterFilters = () => {
                     color: `${theme.text.color}`,
                     backgroundColor: `${theme.appbar.backgroundColor}`,
                     border: `2px solid ${theme.border.color}`,
-                    borderRadius: "25px 25px 5px 5px",
+                    borderRadius: "5px",
                 }}
             >
                 <Typography variant="h6"

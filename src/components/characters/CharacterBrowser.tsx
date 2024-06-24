@@ -18,9 +18,15 @@ import { RootState } from "../../redux/store"
 
 const CharacterBrowser = (props: any) => {
 
-    const theme = useTheme();
+    const theme = useTheme()
 
-    let { characters, characterFilters } = props;
+    const [searchValue, setSearchValue] = React.useState("")
+
+    const handleInputChange = (event: React.BaseSyntheticEvent) => {
+        setSearchValue(event.target.value)
+    }
+
+    let { characters, characterFilters } = props
 
     document.title = "Resonators - Project Tacetite"
 
@@ -53,13 +59,36 @@ const CharacterBrowser = (props: any) => {
                         {characters.characters.length > 0 &&
                             <React.Fragment>
                                 {
-                                    filterCharacters(characters.characters, characterFilters, "").map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} />)
+                                    filterCharacters(characters.characters, characterFilters, searchValue).map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} />)
                                 }
                             </React.Fragment>
                         }
                     </Grid>
                 </Grid>
                 <Grid xs={3}>
+                    <Paper sx={{
+                        border: `2px solid ${theme.border.color}`,
+                        borderRadius: "5px",
+                        backgroundColor: `${theme.paper.backgroundColor}`,
+                        display: "flex",
+                        margin: "auto",
+                        height: "40px",
+                        width: "84.5%",
+                        marginBottom: "10px",
+                        marginLeft: "35px",
+                    }}>
+                        <InputBase
+                            sx={{
+                                marginLeft: "10px",
+                                flex: 1,
+                                color: `${theme.text.color}`,
+                                fontFamily: "Segoe UI, Roboto",
+                                fontWeight: "500",
+                            }}
+                            placeholder="Search"
+                            onChange={handleInputChange}
+                        />
+                    </Paper>
                     <CharacterFilters />
                 </Grid>
             </Grid>
