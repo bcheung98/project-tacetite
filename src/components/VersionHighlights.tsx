@@ -24,7 +24,7 @@ const VersionHighlights = (props: any) => {
     let updates = [
         { version: "1.0", name: "Global Release" }
     ]
-    const [version, setVersion] = React.useState(updates[0].version);
+    const [version, setVersion] = React.useState(updates[0].version)
     const handleVersionChange = (e: any) => {
         setVersion(e.target.value)
     }

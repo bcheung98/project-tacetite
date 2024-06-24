@@ -26,7 +26,7 @@ const WeaponBrowser = (props: any) => {
         setSearchValue(event.target.value)
     }
 
-    let { weapons, weaponFilters } = props;
+    let { weapons, weaponFilters } = props
 
     document.title = "Weapons - Project Tacetite"
 

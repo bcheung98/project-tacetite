@@ -22,23 +22,23 @@ const CharacterAscensionLevel = (props: any) => {
     const levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
     const minDistance = 1
     let maxValue = levels.length
-    const [sliderValue, setSliderValue] = React.useState([1, maxValue]);
+    const [sliderValue, setSliderValue] = React.useState([1, maxValue])
     const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
-            return;
+            return
         }
         if (newValue[1] - newValue[0] < minDistance) {
             if (activeThumb === 0) {
-                const clamped = Math.min(newValue[0], maxValue - minDistance);
-                setSliderValue([clamped, clamped + minDistance]);
+                const clamped = Math.min(newValue[0], maxValue - minDistance)
+                setSliderValue([clamped, clamped + minDistance])
             }
             else {
-                const clamped = Math.max(newValue[1], minDistance + 1);
-                setSliderValue([clamped - minDistance, clamped]);
+                const clamped = Math.max(newValue[1], minDistance + 1)
+                setSliderValue([clamped - minDistance, clamped])
             }
         }
         else {
-            setSliderValue(newValue);
+            setSliderValue(newValue)
         }
     }
 
@@ -46,7 +46,7 @@ const CharacterAscensionLevel = (props: any) => {
         dispatch(updateCharacterCosts([name, "level", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selected, name)]))
     })
 
-    const [selected, setSelected] = React.useState(true);
+    const [selected, setSelected] = React.useState(true)
     const handleSelect = () => {
         setSelected(!selected)
     }

@@ -16,7 +16,7 @@ export const filterWeapons = (weapons: any, filters: any, searchValue: string) =
         weps = weps.filter(wep => filters.commonMat.includes(wep.materials.commonMat))
     }
     if (searchValue !== "") {
-        weps = weps.filter(wep => wep.name.toLowerCase().includes(searchValue.toLowerCase()));
+        weps = weps.filter(wep => wep.name.toLowerCase().includes(searchValue.toLowerCase()))
     }
     return weps
 }

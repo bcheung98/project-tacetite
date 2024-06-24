@@ -26,9 +26,9 @@ const CharacterForteDisplay = (props: any) => {
         backgroundColor: `${theme.materialImage.backgroundColor}`,
     }
 
-    const [tabValue, setTabValue] = React.useState(0);
+    const [tabValue, setTabValue] = React.useState(0)
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
+        setTabValue(newValue)
     }
 
     return (
