@@ -15,6 +15,7 @@ import Home from "./components/Home"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
 import CharacterPage from "./components/characters/page/_CharacterPage"
 import WeaponBrowser from "./components/weapons/WeaponBrowser"
+import WeaponPage from "./components/weapons/page/_WeaponPage"
 import AscensionPlanner from "./components/planner/_AscensionPlanner"
 
 // MUI imports
@@ -45,6 +46,7 @@ const App = (props: any) => {
                     <Route exact path="/characters" component={CharacterBrowser} />
                     <Route path="/character/:char_name" children={<CharacterPage />} />
                     <Route exact path="/weapons" component={WeaponBrowser} />
+                    <Route path="/weapon/:wep_name" children={<WeaponPage />} />
                     <Route path="/planner" component={AscensionPlanner} />
                 </Switch>
                 <AppBar position="static" sx={{
