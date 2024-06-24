@@ -5,5 +5,7 @@ A database website for the action role-playing game *[Wuthering Waves](https://w
 ## Current Features:
 
 - Character viewer
+- Weapon viewer
+- Ascension planner
 
 The website uses this [script](https://github.com/rafgraph/spa-github-pages) to deploy single page apps on GitHub Pages. 
