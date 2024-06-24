@@ -13,8 +13,16 @@ const StyledAutocompletePopper = styled("div")(({ theme }) => ({
     [`& .${autocompleteClasses.paper}`]: {
         boxShadow: "none",
         margin: 0,
-        color: "inherit",
+        color: `${theme.text.color}`,
         fontSize: 13,
+    },
+    [`& .${autocompleteClasses.noOptions}`]: {
+        backgroundColor: `${theme.paper.backgroundColor}`,
+        margin: 0,
+        color: `${theme.text.color}`,
+        fontSize: "16px",
+        fontFamily: "Segoe UI, Roboto",
+        fontWeight: 500,
     },
     [`& .${autocompleteClasses.listbox}`]: {
         backgroundColor: `${theme.paper.backgroundColor}`,
@@ -24,7 +32,7 @@ const StyledAutocompletePopper = styled("div")(({ theme }) => ({
             minHeight: "auto",
             alignItems: "flex-start",
             padding: 8,
-            borderBottom: `1px solid  ${theme.border.color}`,
+            borderBottom: `1px solid ${theme.border.color}`,
         },
     },
     [`&.${autocompleteClasses.popperDisablePortal}`]: {
@@ -33,7 +41,7 @@ const StyledAutocompletePopper = styled("div")(({ theme }) => ({
 }))
 
 export function PopperComponent(props: PopperComponentProps) {
-    const { disablePortal, anchorEl, open, ...other } = props
+    const { disablePortal, anchorEl, open, ...other } = props;
     return <StyledAutocompletePopper {...other} />
 }
 
@@ -63,7 +71,9 @@ export const StyledInput = styled(InputBase)(({ theme }) => ({
         padding: 8,
         transition: theme.transitions.create(["border-color", "box-shadow"]),
         border: `1px solid ${theme.border.color}`,
+        fontFamily: "Segoe UI, Roboto",
         fontSize: 14,
+        fontWeight: 500,
         color: `${theme.text.color}`,
         "&:focus": {
             borderColor: `${theme.border.color}`,
