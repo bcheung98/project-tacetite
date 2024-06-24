@@ -258,7 +258,7 @@ const CharacterPage = (props: any) => {
                     >
                         <Box
                             sx={{
-                                p: "15px",
+                                px: "15px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                                 border: `2px solid ${theme.border.color}`,
                                 borderRadius: "5px",
@@ -284,9 +284,8 @@ const CharacterPage = (props: any) => {
                                     </Typography>
                                 }
                             />
-                            <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "10px" }} />
-                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
-                                {Tags[tag as keyof typeof Tags].description}
+                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "15px", fontWeight: 500 }}>
+                                <i>{Tags[tag as keyof typeof Tags].description}</i>
                             </Typography>
                         </Box>
                     </Dialog>
