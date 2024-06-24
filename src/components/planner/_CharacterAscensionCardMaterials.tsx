@@ -275,7 +275,8 @@ const CharacterAscensionCardMaterials = (props: any) => {
                         </Typography>
                     </Box>
                 </Box>
-            }            {
+            }
+            {
                 /* Weekly Boss Material */
                 weekly_boss_mat > 0 &&
                 <Box sx={MaterialImageRootBig}>
