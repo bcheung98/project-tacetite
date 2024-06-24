@@ -3,9 +3,12 @@ import { connect } from "react-redux"
 import { useParams } from "react-router-dom"
 import parse from "html-react-parser"
 
+// Component imports
+import WeaponStatsTable from "./WeaponStatsTable"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Typography, Box, Avatar, AppBar, Dialog, CardHeader } from "@mui/material"
+import { Typography, Box, Avatar, AppBar } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
@@ -13,7 +16,6 @@ import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColor
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import { CustomSlider } from "../../../helpers/CustomSlider"
 import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
-import { Tags } from "../../../helpers/CharacterTags"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports
@@ -147,6 +149,35 @@ const WeaponPage = (props: any) => {
                                 </Typography>
                                 <CustomSlider value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element="" />
                             </Box>
+                        </Box>
+                        <Box
+                            sx={{
+                                p: 0,
+                                mx: "15px",
+                                marginTop: "15px",
+                                border: `1px solid ${theme.border.color}`,
+                                borderRadius: "5px",
+                                backgroundColor: `${theme.paper.backgroundColor}`,
+                            }}
+                        >
+                            <AppBar position="static"
+                                sx={{
+                                    backgroundColor: `${theme.appbar.backgroundColor}`,
+                                    borderBottom: `2px solid ${theme.border.color}`,
+                                    borderRadius: "5px 5px 0px 0px",
+                                }}
+                            >
+                                <StyledTabs value={tabValue} onChange={handleTabChange}>
+                                    <StyledTab label="Stats" />
+                                    {/* <StyledTab label="Ascension" /> */}
+                                </StyledTabs>
+                            </AppBar>
+                            <TabPanel value={tabValue} index={0}>
+                                <WeaponStatsTable weapon={weapon} />
+                            </TabPanel>
+                            {/* <TabPanel value={tabValue} index={1}>
+
+                            </TabPanel> */}
                         </Box>
                     </Grid>
                 </Grid>
