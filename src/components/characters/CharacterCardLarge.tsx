@@ -55,7 +55,6 @@ const CharacterCardLarge = (props: any) => {
                     </Box>
                     <CardMedia
                         image={`${process.env.REACT_APP_URL}/characters/avatars/${name}.png`}
-                        title={name}
                         sx={{ width: "220px", height: "303px" }}
                     />
                     <Box

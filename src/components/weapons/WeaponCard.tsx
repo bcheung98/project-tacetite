@@ -52,7 +52,6 @@ const WeaponCard = (props: any) => {
                     </Box>
                     <CardMedia
                         image={`${process.env.REACT_APP_URL}/weapons/${name}.png`}
-                        title={name}
                         sx={{ width: width, height: "200px" }}
                     />
                     <Box
