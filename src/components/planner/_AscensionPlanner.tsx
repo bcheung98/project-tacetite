@@ -1,8 +1,10 @@
 import { connect } from "react-redux"
 
 // Component imports
-import CharacterAscensionCard from "./_CharacterAscensionCard"
 import CharacterSelector from "./CharacterSelector"
+import CharacterAscensionCard from "./_CharacterAscensionCard"
+import WeaponSelector from "./WeaponSelector"
+import WeaponAscensionCard from "./_WeaponAscensionCard"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -16,7 +18,7 @@ const AscensionPlanner = (props: any) => {
 
     const theme = useTheme()
 
-    let { characters } = props
+    let { characters, weapons } = props
 
     document.title = "Ascension Planner - Project Tacetite"
 
@@ -38,6 +40,7 @@ const AscensionPlanner = (props: any) => {
             <Box sx={{ display: "block", my: "30px" }}>
                 <Box sx={{ display: "flex" }}>
                     <CharacterSelector />
+                    <WeaponSelector />
                 </Box>
             </Box>
 
@@ -48,7 +51,7 @@ const AscensionPlanner = (props: any) => {
                     </Grid>
                     <br />
                     <Grid>
-
+                        {weapons.map((weapon: any) => <WeaponAscensionCard key={weapon.id} weapon={weapon} />)}
                     </Grid>
                 </Grid>
             </Box>
@@ -58,7 +61,8 @@ const AscensionPlanner = (props: any) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    characters: state.ascensionPlanner.characters
+    characters: state.ascensionPlanner.characters,
+    weapons: state.ascensionPlanner.weapons
 })
 
 export default connect(mapStateToProps)(AscensionPlanner)
