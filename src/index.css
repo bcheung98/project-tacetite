@@ -35,7 +35,8 @@ code {
     font-weight: bold;
 }
 
-.text-highlight {
+.text-highlight,
+.text-refinement {
     color: #f7ca2f;
     font-weight: bold;
 }
