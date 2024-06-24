@@ -30,7 +30,7 @@ const VersionHighlights = (props: any) => {
     }
 
     let characters = props.characters.characters.filter((char: any) => char.release.version === version)
-    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version)
+    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || b.name.localeCompare(a.name))
 
     return (
         <Box
@@ -108,7 +108,7 @@ const VersionHighlights = (props: any) => {
                             <Box>
                                 <Grid container spacing={2}>
                                     {
-                                        weapons.sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
+                                        weapons.sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
                                     }
                                 </Grid>
                             </Box>
