@@ -21,8 +21,6 @@ import { RootState } from "../../redux/store"
 
 interface LabelType {
     name: string
-    color: string
-    description?: string
 }
 
 const CharacterSelector = (props: any) => {
