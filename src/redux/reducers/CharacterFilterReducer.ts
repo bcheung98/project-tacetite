@@ -38,42 +38,42 @@ export const CharacterFilterSlice = createSlice({
         setWeapon: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.weapon.includes(action.payload) ? state.weapon.push(action.payload) : state.weapon.splice(state.weapon.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.weapon)
         },
         setRarity: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.rarity.includes(action.payload) ? state.rarity.push(action.payload) : state.rarity.splice(state.rarity.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.rarity)
         },
         setTags: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.tags.includes(action.payload) ? state.tags.push(action.payload) : state.tags.splice(state.tags.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.tags)
         },
         setForgeryMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.forgeryMat.includes(action.payload) ? state.forgeryMat.push(action.payload) : state.forgeryMat.splice(state.forgeryMat.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.forgeryMat)
         },
         setCommonMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.commonMat.includes(action.payload) ? state.commonMat.push(action.payload) : state.commonMat.splice(state.commonMat.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.commonMat)
         },
         setAscensionMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.ascensionMat.includes(action.payload) ? state.ascensionMat.push(action.payload) : state.ascensionMat.splice(state.ascensionMat.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.ascensionMat)
         },
         setBossMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.bossMat.includes(action.payload) ? state.bossMat.push(action.payload) : state.bossMat.splice(state.bossMat.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.bossMat)
         },
         setWeeklyBossMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.weeklyBossMat.includes(action.payload) ? state.weeklyBossMat.push(action.payload) : state.weeklyBossMat.splice(state.weeklyBossMat.indexOf(action.payload), 1)
-            changeText(action.type, state.element)
+            changeText(action.type, state.weeklyBossMat)
         },
     }
 })
