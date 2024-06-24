@@ -22,7 +22,7 @@ const CharacterBrowser = (props: any) => {
 
     let { characters, characterFilters } = props;
 
-    document.title = "Characters - Project Tacetite"
+    document.title = "Resonators - Project Tacetite"
 
     return (
         <React.Fragment>
