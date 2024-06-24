@@ -56,10 +56,10 @@ const changeButton = (target: string) => {
     if (target !== undefined) {
         let targetButton: any
         if (target === "4" || target === "5") {
-            targetButton = document.getElementById(`${target}-button`)
+            targetButton = document.getElementById(`weapon-${target}-button`)
         }
         else {
-            targetButton = document.getElementById(`${target.toLowerCase()}-button`)
+            targetButton = document.getElementById(`weapon-${target.toLowerCase()}-button`)
         }
         targetButton.className === "filter-off" ? targetButton.className = "filter-on" : targetButton.className = "filter-off"
     }
