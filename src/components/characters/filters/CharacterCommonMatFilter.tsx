@@ -8,7 +8,7 @@ import { formatCommonMats } from "../../../helpers/TooltipText"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterCommonMatFilters = () => {
+const CharacterCommonMatFilter = () => {
 
     const dispatch = useDispatch()
 
@@ -30,4 +30,4 @@ const CharacterCommonMatFilters = () => {
 
 }
 
-export default CharacterCommonMatFilters
+export default CharacterCommonMatFilter

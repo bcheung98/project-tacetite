@@ -8,7 +8,7 @@ import { formatBossMats } from "../../../helpers/TooltipText"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterBossMatFilters = () => {
+const CharacterBossMatFilter = () => {
 
     const dispatch = useDispatch()
 
@@ -30,4 +30,4 @@ const CharacterBossMatFilters = () => {
 
 }
 
-export default CharacterBossMatFilters
+export default CharacterBossMatFilter

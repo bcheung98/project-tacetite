@@ -7,7 +7,7 @@ import { ForgeryMats } from "../../../helpers/MaterialList"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterForgeryMatFilters = () => {
+const CharacterForgeryMatFilter = () => {
 
     const dispatch = useDispatch()
 
@@ -29,4 +29,4 @@ const CharacterForgeryMatFilters = () => {
 
 }
 
-export default CharacterForgeryMatFilters
+export default CharacterForgeryMatFilter

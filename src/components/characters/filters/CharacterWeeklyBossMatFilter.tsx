@@ -8,7 +8,7 @@ import { formatWeeklyBossMats } from "../../../helpers/TooltipText"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterWeeklyBossMatFilters = () => {
+const CharacterWeeklyBossMatFilter = () => {
 
     const dispatch = useDispatch()
 
@@ -30,4 +30,4 @@ const CharacterWeeklyBossMatFilters = () => {
 
 }
 
-export default CharacterWeeklyBossMatFilters
+export default CharacterWeeklyBossMatFilter

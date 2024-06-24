@@ -7,7 +7,7 @@ import { AscensionMats } from "../../../helpers/MaterialList"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterAscensionMatFilters = () => {
+const CharacterAscensionMatFilter = () => {
 
     const dispatch = useDispatch()
 
@@ -29,4 +29,4 @@ const CharacterAscensionMatFilters = () => {
 
 }
 
-export default CharacterAscensionMatFilters
+export default CharacterAscensionMatFilter
