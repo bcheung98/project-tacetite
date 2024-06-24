@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 
 // Component imports
 import CharacterCardLarge from "./characters/CharacterCardLarge"
+import WeaponCard from "./weapons/WeaponCard"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -29,6 +30,7 @@ const VersionHighlights = (props: any) => {
     }
 
     let characters = props.characters.characters.filter((char: any) => char.release.version === version)
+    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version)
 
     return (
         <Box
@@ -76,8 +78,8 @@ const VersionHighlights = (props: any) => {
 
             <Grid container spacing={2}>
 
-                {/* NEW CHARACTERS */}
                 {
+                    // NEW CHARACTERS
                     characters.length > 0 &&
                     <Grid xs>
                         <Box sx={{ mx: "30px", my: "20px" }}>
@@ -95,6 +97,25 @@ const VersionHighlights = (props: any) => {
                     </Grid>
                 }
 
+                {
+                    // NEW WEAPONS
+                    weapons.length > 0 &&
+                    <Grid xs={6}>
+                        <Box sx={{ mx: "30px", my: "20px" }}>
+                            <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
+                                New Weapons
+                            </Typography>
+                            <Box>
+                                <Grid container spacing={2}>
+                                    {
+                                        weapons.sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
+                                    }
+                                </Grid>
+                            </Box>
+                        </Box>
+                    </Grid>
+                }
+
             </Grid>
 
         </Box>
@@ -103,7 +124,8 @@ const VersionHighlights = (props: any) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    characters: state.characters
+    characters: state.characters,
+    weapons: state.weapons
 })
 
 export default connect(mapStateToProps)(VersionHighlights)
