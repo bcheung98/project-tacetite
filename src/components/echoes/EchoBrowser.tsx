@@ -59,7 +59,7 @@ const EchoBrowser = (props: any) => {
                         {echoes.echoes.length > 0 &&
                             <React.Fragment>
                                 {
-                                    filterEchoes(echoes.echoes, echoFilters, searchValue).sort((a, b) => b.cost - a.cost || a.name.localeCompare(b.name)).map((echo: { [key: string]: any }) => <EchoCard key={echo.id} echo={echo} />)
+                                    filterEchoes(echoes.echoes, echoFilters, searchValue).sort((a, b) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name)).map((echo: { [key: string]: any }) => <EchoCard key={echo.id} echo={echo} />)
                                 }
                             </React.Fragment>
                         }
@@ -103,3 +103,10 @@ const mapStateToProps = (state: RootState) => ({
 })
 
 export default connect(mapStateToProps)(EchoBrowser)
+
+export const echoClassId = {
+    "Calamity": 5,
+    "Overlord": 4,
+    "Elite": 3,
+    "Common": 1
+}

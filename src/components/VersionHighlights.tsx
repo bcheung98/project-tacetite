@@ -13,6 +13,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomSelect } from "../helpers/CustomSelect"
+import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
 import { RootState } from "../redux/store"
@@ -32,7 +33,7 @@ const VersionHighlights = (props: any) => {
 
     let characters = props.characters.characters.filter((char: any) => char.release.version === version)
     let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
-    let echoes = props.echoes.echoes.filter((echo: any) => echo.release.version === version).sort((a: any, b: any) => b.cost - a.cost || a.name.localeCompare(b.name))
+    let echoes = props.echoes.echoes.filter((echo: any) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
 
     return (
         <Box
