@@ -41,7 +41,7 @@ const StyledAutocompletePopper = styled("div")(({ theme }) => ({
 }))
 
 export function PopperComponent(props: PopperComponentProps) {
-    const { disablePortal, anchorEl, open, ...other } = props;
+    const { disablePortal, anchorEl, open, ...other } = props
     return <StyledAutocompletePopper {...other} />
 }
 

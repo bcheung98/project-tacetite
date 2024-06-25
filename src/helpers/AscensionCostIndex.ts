@@ -269,7 +269,7 @@ export const SetWeaponCostsLevel = (start: number, stop: number, rarity: number)
         ]
     }
 
-    let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)));
+    let costArray = materialArray.map((material, index) => (materialArray[index].slice(start, stop).reduce((a, c) => a + c)))
 
     return {
         credits: costArray[0],
