@@ -1,5 +1,8 @@
 import * as React from "react"
 
+// Component imports
+import EchoPopup from "./EchoPopup"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Typography, Card, CardContent, Box, Dialog } from "@mui/material"
@@ -15,11 +18,12 @@ const EchoCard = (props: any) => {
 
     let { name, sonata } = props.echo
 
-    const echoCosts = {
-        "Calamity": 4,
-        "Overlord": 4,
-        "Elite": 3,
-        "Common": 1
+    const [open, setOpen] = React.useState(false)
+    const handleClickOpen = () => {
+        setOpen(true)
+    }
+    const handleClose = () => {
+        setOpen(false)
     }
 
     return (
@@ -50,11 +54,23 @@ const EchoCard = (props: any) => {
                                 cursor: "pointer"
                             }}
                             onError={ErrorLoadingImage}
+                            onClick={() => handleClickOpen()}
                         />
                     </Grid>
                     <Grid xs={7.75}>
                         <Box sx={{ maxWidth: "155px" }}>
-                            <Typography noWrap sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "-10px", fontSize: "11.5pt", cursor: "pointer" }} variant="body2">
+                            <Typography
+                                noWrap
+                                variant="body2"
+                                sx={{
+                                    color: `${theme.text.color}`,
+                                    fontWeight: "bold",
+                                    ml: "-10px",
+                                    fontSize: "11.5pt",
+                                    cursor: "pointer"
+                                }}
+                                onClick={() => handleClickOpen()}
+                            >
                                 {name}
                             </Typography>
                         </Box>
@@ -84,8 +100,8 @@ const EchoCard = (props: any) => {
                         </Box>
                         <Box sx={{ display: "flex", ml: "-10px", mt: "10px" }}>
                             {
-                                sonata.map((sonata: string) => (
-                                    <CustomTooltip title={sonata} arrow placement="top">
+                                sonata.map((sonata: string, index: number) => (
+                                    <CustomTooltip title={sonata} arrow placement="top" key={index}>
                                         <img
                                             src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`}
                                             alt={sonata}
@@ -103,9 +119,23 @@ const EchoCard = (props: any) => {
                     </Grid>
                 </Grid>
             </CardContent>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                maxWidth={false}
+            >
+                <EchoPopup echo={props.echo} />
+            </Dialog>
         </Card>
     )
 
 }
 
 export default EchoCard
+
+export const echoCosts = {
+    "Calamity": 4,
+    "Overlord": 4,
+    "Elite": 3,
+    "Common": 1
+}
