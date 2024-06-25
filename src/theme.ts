@@ -35,6 +35,9 @@ declare module "@mui/material/styles" {
         },
         button: {
             selected: string,
+        },
+        chip: {
+            color: string
         }
     }
     interface ThemeOptions {
@@ -71,6 +74,9 @@ declare module "@mui/material/styles" {
         },
         button?: {
             selected?: string,
+        },
+        chip?: {
+            color?: string,
         }
     }
 }
@@ -118,5 +124,8 @@ export const defaultTheme = createTheme({
     },
     button: {
         selected: "rgb(169, 142, 84)",
+    },
+    chip: {
+        color: "rgb(160, 134, 80)"
     }
 })

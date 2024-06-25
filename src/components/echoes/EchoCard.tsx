@@ -88,7 +88,7 @@ const EchoCard = (props: any) => {
                                     top: "-32px",
                                     width: "35px",
                                     height: "35px",
-                                    backgroundColor: "rgb(149, 134, 131)",
+                                    backgroundColor: `${theme.chip.color}`,
                                     borderRadius: "0px 5px 0px 5px",
                                     alignItems: "center"
                                 }}

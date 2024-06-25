@@ -39,7 +39,7 @@ const EchoPopup = (props: any) => {
         px: "5px",
         mr: "10px",
         mb: "10px",
-        backgroundColor: "rgb(149, 134, 131)",
+        backgroundColor: `${theme.chip.color}`,
     }
 
     let URL
