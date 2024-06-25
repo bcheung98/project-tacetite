@@ -6,7 +6,7 @@ import { setElement } from "../../../redux/reducers/CharacterFilterReducer"
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const Elements = ["Aero", "Electro", "Fusion", "Glacio", "Havoc", "Spectro"]
+const Elements = ["Glacio", "Fusion", "Electro", "Aero", "Spectro", "Havoc"]
 
 const CharacterElementFilter = () => {
 
