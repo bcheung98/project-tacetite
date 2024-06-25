@@ -10,6 +10,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomSlider } from "../../helpers/CustomSlider"
 import { SonataEffects } from "../../helpers/SonataEffects"
+import { EchoColor } from "./EchoCard"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoPopup = (props: any) => {
@@ -34,14 +35,7 @@ const EchoPopup = (props: any) => {
     const handleSelect = () => {
         setSelected(!selected)
     }
-
-    const ChipStyle = {
-        px: "5px",
-        mr: "10px",
-        mb: "10px",
-        backgroundColor: `${theme.chip.color}`,
-    }
-
+    
     let URL
     if (!selected) {
         URL = `${process.env.REACT_APP_URL}/echoes/${name}.png`
@@ -117,7 +111,12 @@ const EchoPopup = (props: any) => {
                                     {props.echo.class} Class
                                 </Typography>
                             }
-                            sx={ChipStyle}
+                            sx={{
+                                px: "5px",
+                                mr: "10px",
+                                mb: "10px",
+                                backgroundColor: EchoColor(props.echo.class)
+                            }}
                         />
                         <Chip
                             label={
@@ -125,7 +124,12 @@ const EchoPopup = (props: any) => {
                                     Cost: {cost}
                                 </Typography>
                             }
-                            sx={ChipStyle}
+                            sx={{
+                                px: "5px",
+                                mr: "10px",
+                                mb: "10px",
+                                backgroundColor: `${theme.chip.color}`
+                            }}
                         />
                         {
                             // props.echo.type !== "" &&

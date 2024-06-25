@@ -51,6 +51,7 @@ const EchoCard = (props: any) => {
                                 marginTop: "-15px",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
                                 borderRight: `2px solid ${theme.border.color}`,
+                                boxShadow: `inset 0 0 30px 5px ${EchoColor(props.echo.class)}`,
                                 cursor: "pointer"
                             }}
                             onError={ErrorLoadingImage}
@@ -132,3 +133,22 @@ const EchoCard = (props: any) => {
 }
 
 export default EchoCard
+
+export const EchoColor = (echoClass: string) => {
+
+    const theme = useTheme()
+
+    switch (echoClass) {
+        case "Calamity":
+            return "rgb(255, 69, 69)"
+        case "Overlord":
+            return "rgb(243, 239, 90)"
+        case "Elite":
+            return "rgb(100, 231, 93)"
+        case "Common":
+            return "rgb(140, 140, 140)"
+        default:
+            return `${theme.chip.color}`
+    }
+
+}
