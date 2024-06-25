@@ -42,12 +42,12 @@ code {
 }
 
 .text-aero {
-    color: #2fc79f;
+    color: #55ffb5;
     font-weight: bold;
 }
 
 .text-electro {
-    color: #f127ff;
+    color: #ac70f1;
     font-weight: bold;
 }
 
@@ -57,17 +57,18 @@ code {
 }
 
 .text-glacio {
-    color: #31d0fc;
+    color: #49abf7;
     font-weight: bold;
 }
 
+/* #f11f81 */
 .text-havoc {
-    color: #f11f81;
+    color: #c989b1;
     font-weight: bold;
 }
 
 .text-spectro {
-    color: #f3e483;
+    color: #fae56c;
     font-weight: bold;
 }
 

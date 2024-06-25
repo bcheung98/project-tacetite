@@ -6,17 +6,17 @@ export const ElementalBorderColor = (element: string | undefined) => {
 
     switch (element) {
         case "Aero":
-            return "#2fc79f"
+            return "#55ffb5"
         case "Electro":
-            return "#f127ff"
+            return "#ac70f1"
         case "Fusion":
             return "#f0744e"
         case "Glacio":
-            return "#31d0fc"
+            return "#49abf7"
         case "Havoc":
-            return "#f11f81"
+            return "#c989b1"
         case "Spectro":
-            return "#f3e483"
+            return "#fae56c"
         default:
             return `${theme.text.highlight}`
     }
@@ -25,17 +25,17 @@ export const ElementalBorderColor = (element: string | undefined) => {
 export const SwitchColor = (element: string) => {
     switch (element) {
         case "Aero":
-            return "#2fc79f"
+            return "#55ffb5"
         case "Electro":
-            return "#f127ff"
+            return "#ac70f1"
         case "Fusion":
             return "#f0744e"
         case "Glacio":
-            return "#31d0fc"
+            return "#49abf7"
         case "Havoc":
-            return "#f11f81"
+            return "#c989b1"
         case "Spectro":
-            return "#f3e483"
+            return "#fae56c"
         default:
             return "#1976d2"
     }
