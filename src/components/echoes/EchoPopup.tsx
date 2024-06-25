@@ -61,30 +61,43 @@ const EchoPopup = (props: any) => {
             }}
         >
             <Grid container sx={{ mt: "10px" }}>
-                <Grid xs={2.65}>
-                    <img
-                        src={URL}
-                        alt={name}
-                        style={{
-                            backgroundColor: `${theme.materialImage.backgroundColor}`,
-                            backgroundSize: "100%",
-                            border: `2px solid ${theme.border.color}`,
-                            borderRadius: "15px",
-                            width: "256px",
-                            height: "256px",
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column"
+                    }}
+                >
+                    <Box
+                        sx={{
+                            position: "relative",
+                            ml: "15px",
+                            mr: "25px",
                         }}
-                        onError={ErrorLoadingImage}
-                    />
-                    {
-                        props.echo.hasPhantom &&
-                        <Box sx={{ display: "flex", alignItems: "center", mt: "5px" }}>
-                            <CustomSwitch checked={selected} onChange={handleSelect} element="" />
-                            <Typography variant="body1" sx={{ fontWeight: "bold", color: `${theme.text.color}`, mt: "-3px", ml: "5px" }} >
-                                Phantom
-                            </Typography>
-                        </Box>
-                    }
-                </Grid>
+                    >
+                        <img
+                            src={URL}
+                            alt={name}
+                            style={{
+                                backgroundColor: `${theme.materialImage.backgroundColor}`,
+                                backgroundSize: "100%",
+                                border: `2px solid ${theme.border.color}`,
+                                borderRadius: "15px",
+                                width: "256px",
+                                height: "256px",
+                            }}
+                            onError={ErrorLoadingImage}
+                        />
+                        {
+                            props.echo.hasPhantom &&
+                            <Box sx={{ display: "flex", alignItems: "center", mt: "5px" }}>
+                                <CustomSwitch checked={selected} onChange={handleSelect} element="" />
+                                <Typography variant="body1" sx={{ fontWeight: "bold", color: `${theme.text.color}`, mt: "-3px", ml: "5px" }} >
+                                    Phantom
+                                </Typography>
+                            </Box>
+                        }
+                    </Box>
+                </Box>
                 <Grid xs>
                     <Box
                         sx={{
