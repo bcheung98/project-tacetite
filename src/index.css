@@ -74,6 +74,7 @@ code {
 .filter-text-off,
 .filter-text-on {
     font-weight: bold;
+    font-family: Segoe UI, Roboto;
     margin: 0;
 }
 
@@ -107,6 +108,35 @@ code {
 }
 
 .filter-on {
+    background-color: rgb(15, 15, 15);
+    opacity: 1;
+}
+
+.filter-button-off,
+.filter-button-on {
+    font-family: Segoe UI, Roboto;
+    font-weight: 500;
+    color: white;
+    height: 24px;
+    padding: 5px;
+    margin: 3px;
+    border: 2px solid rgb(168, 147, 105);
+    border-radius: 5px;
+}
+
+.filter-button-off:hover,
+.filter-button-on:hover {
+    box-shadow: 0 0 5px 1px gold;
+    border: 2px solid gold;
+    cursor: pointer;
+}
+
+.filter-button-off {
+    background-color: rgb(15, 15, 15);
+    opacity: 0.35;
+}
+
+.filter-button-on {
     background-color: rgb(15, 15, 15);
     opacity: 1;
 }
