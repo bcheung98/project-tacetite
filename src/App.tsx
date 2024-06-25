@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 
 // Fetch imports
-import { fetchCharacters, fetchWeapons } from "./redux/actions/fetch"
+import { fetchCharacters, fetchEchoes, fetchWeapons } from "./redux/actions/fetch"
 
 // Component imports
 import Nav from "./components/Nav"
@@ -26,7 +26,6 @@ import { AppBar, Typography, Box, IconButton } from "@mui/material"
 import GitHubIcon from "@mui/icons-material/GitHub"
 
 // Type imports
-import { RootState } from "./redux/store"
 import { AppDispatch } from "./redux/store"
 
 const App = (props: any) => {
@@ -34,9 +33,10 @@ const App = (props: any) => {
     useEffect(() => {
         fetchCharacters()
         fetchWeapons()
+        fetchEchoes()
     }, [])
 
-    let { fetchCharacters, fetchWeapons } = props
+    let { fetchCharacters, fetchWeapons, fetchEchoes } = props
 
     return (
         <ThemeProvider theme={theme}>
@@ -71,13 +71,10 @@ const App = (props: any) => {
     )
 }
 
-const mapStateToProps = (state: RootState) => ({
-    characters: state.characters
-})
-
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
     fetchCharacters: () => dispatch(fetchCharacters()),
-    fetchWeapons: () => dispatch(fetchWeapons())
+    fetchWeapons: () => dispatch(fetchWeapons()),
+    fetchEchoes: () => dispatch(fetchEchoes()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)

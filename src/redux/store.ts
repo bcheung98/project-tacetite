@@ -5,6 +5,7 @@ import CharacterReducer from "./reducers/CharacterReducer"
 import WeaponReducer from "./reducers/WeaponReducer"
 import CharacterFilterReducer from "./reducers/CharacterFilterReducer"
 import WeaponFilterReducer from "./reducers/WeaponFilterReducer"
+import EchoReducer from "./reducers/EchoReducer"
 import AscensionPlannerReducer from "./reducers/AscensionPlannerReducer"
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     weapons: WeaponReducer,
     characterFilters: CharacterFilterReducer,
     weaponFilters: WeaponFilterReducer,
+    echoes: EchoReducer,
     ascensionPlanner: AscensionPlannerReducer,
 })
 
