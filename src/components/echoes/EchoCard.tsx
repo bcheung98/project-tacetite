@@ -134,7 +134,7 @@ const EchoCard = (props: any) => {
 
 export default EchoCard
 
-export const EchoColor = (echoClass: string) => {
+const EchoColor = (echoClass: string) => {
 
     const theme = useTheme()
 
