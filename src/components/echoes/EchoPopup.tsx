@@ -16,7 +16,7 @@ const EchoPopup = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, code, cost, skill, sonata, type } = props.echo
+    let { name, code, cost, skill, sonata } = props.echo
 
     let minValue = 2
     let maxValue = 5
@@ -128,15 +128,15 @@ const EchoPopup = (props: any) => {
                             sx={ChipStyle}
                         />
                         {
-                            type !== "" &&
-                            <Chip
-                                label={
-                                    <Typography sx={{ fontWeight: "500", color: `${theme.text.color}` }} variant="body1">
-                                        {type}
-                                    </Typography>
-                                }
-                                sx={ChipStyle}
-                            />
+                            // props.echo.type !== "" &&
+                            // <Chip
+                            //     label={
+                            //         <Typography sx={{ fontWeight: "500", color: `${theme.text.color}` }} variant="body1">
+                            //             {type}
+                            //         </Typography>
+                            //     }
+                            //     sx={ChipStyle}
+                            // />
                         }
                     </Box>
                     <Box
