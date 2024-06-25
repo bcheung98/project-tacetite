@@ -1,6 +1,6 @@
 // Component imports
 import EchoClassFilter from "./EchoClassFilter"
-import EchoSonataFilter from "./CharacterElementFilter"
+import EchoSonataFilter from "./EchoSonataFilter"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
