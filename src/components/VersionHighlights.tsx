@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 // Component imports
 import CharacterCardLarge from "./characters/CharacterCardLarge"
 import WeaponCard from "./weapons/WeaponCard"
+import EchoCard from "./echoes/EchoCard"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
@@ -30,7 +31,8 @@ const VersionHighlights = (props: any) => {
     }
 
     let characters = props.characters.characters.filter((char: any) => char.release.version === version)
-    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || b.name.localeCompare(a.name))
+    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
+    let echoes = props.echoes.echoes.filter((echo: any) => echo.release.version === version).sort((a: any, b: any) => b.cost - a.cost || a.name.localeCompare(b.name))
 
     return (
         <Box
@@ -94,6 +96,26 @@ const VersionHighlights = (props: any) => {
                                 </Grid>
                             </Box>
                         </Box>
+
+                        {
+                            // NEW ECHOES
+                            echoes.length > 0 &&
+                            <Grid xs>
+                                <Box sx={{ mx: "30px", my: "20px" }}>
+                                    <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
+                                        New Echoes
+                                    </Typography>
+                                    <Box>
+                                        <Grid container spacing={2}>
+                                            {
+                                                echoes.map((echo: any, index: number) => <EchoCard key={index} echo={echo} />)
+                                            }
+                                        </Grid>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        }
+
                     </Grid>
                 }
 
@@ -108,7 +130,7 @@ const VersionHighlights = (props: any) => {
                             <Box>
                                 <Grid container spacing={2}>
                                     {
-                                        weapons.sort((a: any, b: any) => a.rarity < b.rarity ? 1 : -1).map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
+                                        weapons.map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
                                     }
                                 </Grid>
                             </Box>
@@ -125,7 +147,8 @@ const VersionHighlights = (props: any) => {
 
 const mapStateToProps = (state: RootState) => ({
     characters: state.characters,
-    weapons: state.weapons
+    weapons: state.weapons,
+    echoes: state.echoes
 })
 
 export default connect(mapStateToProps)(VersionHighlights)
