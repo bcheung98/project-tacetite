@@ -1,0 +1,111 @@
+import * as React from "react"
+
+// MUI imports
+import { useTheme } from "@mui/material/styles"
+import { Typography, Card, CardContent, Box, Dialog } from "@mui/material"
+import Grid from "@mui/material/Unstable_Grid2"
+
+// Helper imports
+import { CustomTooltip } from "../../helpers/CustomTooltip"
+import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+
+const EchoCard = (props: any) => {
+
+    const theme = useTheme()
+
+    let { name, sonata } = props.echo
+
+    const echoCosts = {
+        "Calamity": 4,
+        "Overlord": 4,
+        "Elite": 3,
+        "Common": 1
+    }
+
+    return (
+        <Card
+            sx={{
+                width: "320px",
+                height: "90px",
+                mr: "15px",
+                mb: "20px",
+                backgroundColor: `${theme.card.backgroundColor}`,
+                border: `2px solid ${theme.border.color}`,
+                borderRadius: "15px 25px 15px 15px",
+            }}
+        >
+            <CardContent sx={{ py: "10px" }}>
+                <Grid container>
+                    <Grid xs>
+                        <img
+                            src={`${process.env.REACT_APP_URL}/echoes/${name}.png`}
+                            alt={name}
+                            style={{
+                                width: "96px",
+                                height: "96px",
+                                marginLeft: "-18px",
+                                marginTop: "-15px",
+                                backgroundColor: `${theme.materialImage.backgroundColor}`,
+                                borderRight: `2px solid ${theme.border.color}`,
+                                cursor: "pointer"
+                            }}
+                            onError={ErrorLoadingImage}
+                        />
+                    </Grid>
+                    <Grid xs={7.75}>
+                        <Box sx={{ maxWidth: "155px" }}>
+                            <Typography noWrap sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "-10px", fontSize: "11.5pt", cursor: "pointer" }} variant="body2">
+                                {name}
+                            </Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                position: "relative"
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    position: "absolute",
+                                    right: "-18px",
+                                    top: "-32px",
+                                    width: "35px",
+                                    height: "35px",
+                                    backgroundColor: "rgb(149, 134, 131)",
+                                    borderRadius: "0px 5px 0px 5px",
+                                    alignItems: "center"
+                                }}
+                            >
+                                <Typography sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "12px", userSelect: "none" }} variant="body2">
+                                    {echoCosts[props.echo.class as keyof typeof echoCosts]}
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: "flex", ml: "-10px", mt: "10px" }}>
+                            {
+                                sonata.map((sonata: string) => (
+                                    <CustomTooltip title={sonata} arrow placement="top">
+                                        <img
+                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`}
+                                            alt={sonata}
+                                            style={{
+                                                width: "24px",
+                                                height: "24px",
+                                                marginRight: "5px"
+                                            }}
+                                            onError={ErrorLoadingImage}
+                                        />
+                                    </CustomTooltip>
+                                ))
+                            }
+                        </Box>
+                    </Grid>
+                </Grid>
+            </CardContent>
+        </Card>
+    )
+
+}
+
+export default EchoCard
