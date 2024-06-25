@@ -23,11 +23,11 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(168, 147, 105);
+    background: rgb(83, 71, 69);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(187, 163, 140);
+    background: rgb(141, 127, 114);
 }
 
 .text-header {
