@@ -23,6 +23,9 @@ export const ElementalBorderColor = (element: string | undefined) => {
 }
 
 export const SwitchColor = (element: string) => {
+
+    const theme = useTheme()
+
     switch (element) {
         case "Aero":
             return "#55ffb5"
@@ -37,6 +40,6 @@ export const SwitchColor = (element: string) => {
         case "Spectro":
             return "#fae56c"
         default:
-            return "#1976d2"
+            return `${theme.text.highlight}`
     }
 }
