@@ -10,14 +10,13 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { CustomSlider } from "../../helpers/CustomSlider"
 import { SonataEffects } from "../../helpers/SonataEffects"
-import { echoCosts } from "./EchoCard"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoPopup = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, code, skill, sonata } = props.echo
+    let { name, code, cost, skill, sonata } = props.echo
 
     let minValue = 2
     let maxValue = 5
@@ -110,7 +109,7 @@ const EchoPopup = (props: any) => {
                         <Chip
                             label={
                                 <Typography sx={{ fontWeight: "500", color: `${theme.text.color}` }} variant="body1">
-                                    Cost: {echoCosts[props.echo.class as keyof typeof echoCosts]}
+                                    Cost: {cost}
                                 </Typography>
                             }
                             sx={ChipStyle}

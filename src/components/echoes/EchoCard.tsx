@@ -16,7 +16,7 @@ const EchoCard = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, sonata } = props.echo
+    let { name, cost, sonata } = props.echo
 
     const [open, setOpen] = React.useState(false)
     const handleClickOpen = () => {
@@ -94,7 +94,7 @@ const EchoCard = (props: any) => {
                                 }}
                             >
                                 <Typography sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "12px", userSelect: "none" }} variant="body2">
-                                    {echoCosts[props.echo.class as keyof typeof echoCosts]}
+                                    {cost}
                                 </Typography>
                             </Box>
                         </Box>
@@ -132,10 +132,3 @@ const EchoCard = (props: any) => {
 }
 
 export default EchoCard
-
-export const echoCosts = {
-    "Calamity": 4,
-    "Overlord": 4,
-    "Elite": 3,
-    "Common": 1
-}

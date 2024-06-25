@@ -6,7 +6,6 @@ import { Box } from "@mui/material"
 
 // Helper imports
 import { setClass } from "../../../redux/reducers/EchoFilterReducer"
-import { echoCosts } from "../EchoCard"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const Classes = ["Calamity", "Overlord", "Elite", "Common"]
@@ -37,3 +36,10 @@ const EchoClassFilter = () => {
 }
 
 export default EchoClassFilter
+
+const echoCosts = {
+    "Calamity": 4,
+    "Overlord": 4,
+    "Elite": 3,
+    "Common": 1
+}
