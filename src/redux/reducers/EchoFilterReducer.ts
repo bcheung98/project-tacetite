@@ -2,12 +2,14 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 interface CharacterFiltersState {
     class: String[],
-    sonata: String[]
+    sonata: String[],
+    uniqueSonata: boolean
 }
 
 const initialState: CharacterFiltersState = {
     class: [],
-    sonata: []
+    sonata: [],
+    uniqueSonata: false
 }
 
 export const EchoFilterSlice = createSlice({
@@ -24,10 +26,13 @@ export const EchoFilterSlice = createSlice({
             !state.sonata.includes(action.payload) ? state.sonata.push(action.payload) : state.sonata.splice(state.sonata.indexOf(action.payload), 1)
             changeText(action.type, state.sonata)
         },
+        setUniqueSonata: (state, action: PayloadAction<any>) => {
+            state.uniqueSonata = action.payload
+        }
     }
 })
 
-export const { setClass, setSonata } = EchoFilterSlice.actions
+export const { setClass, setSonata, setUniqueSonata } = EchoFilterSlice.actions
 export default EchoFilterSlice.reducer
 
 const changeButton = (target: string) => {
