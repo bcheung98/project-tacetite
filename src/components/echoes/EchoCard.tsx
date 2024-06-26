@@ -59,22 +59,21 @@ const EchoCard = (props: any) => {
                         />
                     </Grid>
                     <Grid xs={7.75}>
-                        <Box sx={{ maxWidth: "155px" }}>
-                            <Typography
-                                noWrap
-                                variant="body2"
-                                sx={{
-                                    color: `${theme.text.color}`,
-                                    fontWeight: "bold",
-                                    ml: "-10px",
-                                    fontSize: "11.5pt",
-                                    cursor: "pointer"
-                                }}
-                                onClick={() => handleClickOpen()}
-                            >
-                                {name}
-                            </Typography>
-                        </Box>
+                        <Typography
+                            noWrap
+                            variant="body2"
+                            sx={{
+                                color: `${theme.text.color}`,
+                                fontWeight: "bold",
+                                ml: "-10px",
+                                mt: "-5px",
+                                fontSize: "11.5pt",
+                                cursor: "pointer",
+                            }}
+                            onClick={() => handleClickOpen()}
+                        >
+                            {name}
+                        </Typography>
                         <Box
                             sx={{
                                 display: "flex",
@@ -85,8 +84,8 @@ const EchoCard = (props: any) => {
                                 sx={{
                                     display: "flex",
                                     position: "absolute",
-                                    right: "-18px",
-                                    top: "-32px",
+                                    right: "-20px",
+                                    top: "-30px",
                                     width: "35px",
                                     height: "35px",
                                     backgroundColor: `${theme.chip.color}`,
@@ -94,7 +93,7 @@ const EchoCard = (props: any) => {
                                     alignItems: "center"
                                 }}
                             >
-                                <Typography sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "12px", userSelect: "none" }} variant="body2">
+                                <Typography sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "10px", userSelect: "none" }} variant="body2">
                                     {cost}
                                 </Typography>
                             </Box>
