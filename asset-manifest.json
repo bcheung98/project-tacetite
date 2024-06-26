@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/project-tacetite/static/css/main.d399d1c2.css",
-    "main.js": "/project-tacetite/static/js/main.0c68078b.js",
+    "main.js": "/project-tacetite/static/js/main.3edcc2b2.js",
     "index.html": "/project-tacetite/index.html",
     "main.d399d1c2.css.map": "/project-tacetite/static/css/main.d399d1c2.css.map",
-    "main.0c68078b.js.map": "/project-tacetite/static/js/main.0c68078b.js.map"
+    "main.3edcc2b2.js.map": "/project-tacetite/static/js/main.3edcc2b2.js.map"
   },
   "entrypoints": [
     "static/css/main.d399d1c2.css",
-    "static/js/main.0c68078b.js"
+    "static/js/main.3edcc2b2.js"
   ]
 }
