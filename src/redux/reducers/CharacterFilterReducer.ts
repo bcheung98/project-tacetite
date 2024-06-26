@@ -5,6 +5,7 @@ interface CharacterFiltersState {
     weapon: String[],
     rarity: number[],
     tags: String[],
+    uniqueTag: boolean,
     forgeryMat: String[],
     commonMat: String[],
     ascensionMat: String[],
@@ -18,6 +19,7 @@ const initialState: CharacterFiltersState = {
     weapon: [],
     rarity: [],
     tags: [],
+    uniqueTag: false,
     forgeryMat: [],
     commonMat: [],
     ascensionMat: [],
@@ -50,6 +52,9 @@ export const CharacterFilterSlice = createSlice({
             !state.tags.includes(action.payload) ? state.tags.push(action.payload) : state.tags.splice(state.tags.indexOf(action.payload), 1)
             changeText(action.type, state.tags)
         },
+        setUniqueTag: (state, action: PayloadAction<any>) => {
+            state.uniqueTag = action.payload
+        },
         setForgeryMats: (state, action: PayloadAction<any>) => {
             changeButton(action.payload)
             !state.forgeryMat.includes(action.payload) ? state.forgeryMat.push(action.payload) : state.forgeryMat.splice(state.forgeryMat.indexOf(action.payload), 1)
@@ -78,7 +83,7 @@ export const CharacterFilterSlice = createSlice({
     }
 })
 
-export const { setElement, setWeapon, setRarity, setTags, setForgeryMats, setCommonMats, setAscensionMats, setBossMats, setWeeklyBossMats } = CharacterFilterSlice.actions
+export const { setElement, setWeapon, setRarity, setTags, setUniqueTag, setForgeryMats, setCommonMats, setAscensionMats, setBossMats, setWeeklyBossMats } = CharacterFilterSlice.actions
 export default CharacterFilterSlice.reducer
 
 const changeButton = (target: string) => {
