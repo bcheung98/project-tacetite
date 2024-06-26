@@ -72,7 +72,7 @@ const EchoCard = (props: any) => {
                             }}
                             onClick={() => handleClickOpen()}
                         >
-                            {name}
+                            {props.echo.displayName ? props.echo.displayName : name}
                         </Typography>
                         <Box
                             sx={{

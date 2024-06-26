@@ -100,7 +100,7 @@ const EchoPopup = (props: any) => {
                         }}
                     >
                         <Typography variant="h4" sx={{ fontWeight: "bold", color: `${theme.text.color}` }} >
-                            {name} ({code})
+                            {props.echo.displayName ? props.echo.displayName : name} ({code})
                         </Typography>
                     </Box>
                     <Box sx={{ mb: "10px" }}>
