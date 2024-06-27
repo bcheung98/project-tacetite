@@ -7,4 +7,4 @@ export const CustomToggleButton = styled(ToggleButton)(({ theme }) => ({
             backgroundColor: `${theme.button.selected}`,
         }
     }
-}));
+}))
