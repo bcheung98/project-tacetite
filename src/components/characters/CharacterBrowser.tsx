@@ -3,15 +3,19 @@ import { connect } from "react-redux"
 
 // Component imports
 import CharacterCard from "./CharacterCard"
+import CharacterList from "./CharacterList"
 import CharacterFilters from "./filters/_CharacterFilters"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, Paper, InputBase, Stack, ToggleButtonGroup } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
+import AppsSharpIcon from "@mui/icons-material/AppsSharp"
+import ListSharpIcon from "@mui/icons-material/ListSharp"
 
 // Helper imports
 import { filterCharacters } from "../../helpers/FilterCharacters"
+import { CustomToggleButton } from "../../helpers/CustomToggleButton"
 
 // Type imports
 import { RootState } from "../../redux/store"
@@ -21,9 +25,15 @@ const CharacterBrowser = (props: any) => {
     const theme = useTheme()
 
     const [searchValue, setSearchValue] = React.useState("")
-
     const handleInputChange = (event: React.BaseSyntheticEvent) => {
         setSearchValue(event.target.value)
+    }
+
+    const [view, setView] = React.useState("grid")
+    const handleView = (event: React.BaseSyntheticEvent, newView: string) => {
+        if (newView !== null) {
+            setView(newView)
+        }
     }
 
     let { characters, characterFilters } = props
@@ -52,6 +62,16 @@ const CharacterBrowser = (props: any) => {
                 >
                     RESONATORS
                 </Typography>
+                <Stack direction="row" spacing={4}>
+                    <ToggleButtonGroup value={view} exclusive onChange={handleView} sx={{ border: `2px solid ${theme.border.color}` }}>
+                        <CustomToggleButton value="grid">
+                            <AppsSharpIcon sx={{ color: "white" }} />
+                        </CustomToggleButton>
+                        <CustomToggleButton value="list">
+                            <ListSharpIcon sx={{ color: "white" }} />
+                        </CustomToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
             </Box>
             <Grid container sx={{ margin: "auto", width: "98%" }}>
                 <Grid xs={9}>
@@ -59,7 +79,10 @@ const CharacterBrowser = (props: any) => {
                         {characters.characters.length > 0 &&
                             <React.Fragment>
                                 {
-                                    filterCharacters(characters.characters, characterFilters, searchValue).map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} />)
+                                    view === "grid" ?
+                                        filterCharacters(characters.characters, characterFilters, searchValue).map((char: { [key: string]: any }) => <CharacterCard key={char.id} character={char} />)
+                                        :
+                                        <CharacterList characters={filterCharacters(characters.characters, characterFilters, searchValue)} />
                                 }
                             </React.Fragment>
                         }
