@@ -1,7 +1,10 @@
 import * as React from "react"
+
+// MUI imports
+import { Box, ButtonBase, CardHeader, Typography } from "@mui/material"
+
+// Helper imports
 import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTable"
-import { Box } from "@mui/system"
-import { ButtonBase, CardHeader, Typography } from "@mui/material"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const CharacterRow = (props: any) => {
