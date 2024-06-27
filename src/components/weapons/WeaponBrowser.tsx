@@ -3,15 +3,19 @@ import { connect } from "react-redux"
 
 // Component imports
 import WeaponCard from "./WeaponCard"
+import WeaponList from "./WeaponList"
 import WeaponFilters from "./filters/_WeaponFilters"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, Paper, InputBase, Stack, ToggleButtonGroup } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
+import AppsSharpIcon from "@mui/icons-material/AppsSharp"
+import ListSharpIcon from "@mui/icons-material/ListSharp"
 
 // Helper imorts
 import { filterWeapons } from "../../helpers/FilterWeapons"
+import { CustomToggleButton } from "../../helpers/CustomToggleButton"
 
 // Type imports
 import { RootState } from "../../redux/store"
@@ -21,9 +25,15 @@ const WeaponBrowser = (props: any) => {
     const theme = useTheme()
 
     const [searchValue, setSearchValue] = React.useState("")
-
     const handleInputChange = (event: React.BaseSyntheticEvent) => {
         setSearchValue(event.target.value)
+    }
+
+    const [view, setView] = React.useState("grid")
+    const handleView = (event: React.BaseSyntheticEvent, newView: string) => {
+        if (newView !== null) {
+            setView(newView)
+        }
     }
 
     let { weapons, weaponFilters } = props
@@ -52,6 +62,16 @@ const WeaponBrowser = (props: any) => {
                 >
                     WEAPONS
                 </Typography>
+                <Stack direction="row" spacing={4}>
+                    <ToggleButtonGroup value={view} exclusive onChange={handleView} sx={{ border: `1px solid ${theme.border.color}` }}>
+                        <CustomToggleButton value="grid">
+                            <AppsSharpIcon sx={{ color: "white" }} />
+                        </CustomToggleButton>
+                        <CustomToggleButton value="list">
+                            <ListSharpIcon sx={{ color: "white" }} />
+                        </CustomToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
             </Box>
             <Grid container sx={{ margin: "auto", width: "98%" }}>
                 <Grid xs={9}>
@@ -59,7 +79,10 @@ const WeaponBrowser = (props: any) => {
                         {weapons.weapons.length > 0 &&
                             <React.Fragment>
                                 {
-                                    filterWeapons(weapons.weapons, weaponFilters, searchValue).sort((a, b) => b.rarity - a.rarity || a.name.localeCompare(b.name)).map((wep: { [key: string]: any }) => <WeaponCard key={wep.id} weapon={wep} />)
+                                    view === "grid" ?
+                                        filterWeapons(weapons.weapons, weaponFilters, searchValue).sort((a, b) => b.rarity - a.rarity || a.name.localeCompare(b.name)).map((wep: { [key: string]: any }) => <WeaponCard key={wep.id} weapon={wep} />)
+                                        :
+                                        <WeaponList weapons={filterWeapons(weapons.weapons, weaponFilters, searchValue)} />
                                 }
                             </React.Fragment>
                         }
