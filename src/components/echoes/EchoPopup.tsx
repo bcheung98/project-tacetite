@@ -151,9 +151,31 @@ const EchoPopup = (props: any) => {
                             borderRadius: "5px",
                         }}
                     >
-                        <Typography variant="h5" sx={{ fontWeight: "bold", color: `${theme.text.color}`, mb: "20px" }} >
-                            Echo Skill
-                        </Typography>
+                        <CardHeader
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                ml: "-10px",
+                            }}
+                            avatar={
+                                <img
+                                    src={`${process.env.REACT_APP_URL}/echoes/skills/${name}.png`}
+                                    alt={name}
+                                    style={{
+                                        width: "64px",
+                                        height: "64px",
+                                        border: `2px solid ${theme.border.color}`,
+                                        borderRadius: "64px"
+                                    }}
+                                    onError={ErrorLoadingImage}
+                                />
+                            }
+                            title={
+                                <Typography variant="h5" sx={{ fontWeight: "bold", color: `${theme.text.color}`, mb: "5px" }} >
+                                    Echo Skill
+                                </Typography>
+                            }
+                        />
                         <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "20px" }} >
                             {parse(skill.description)}
                         </Typography>
