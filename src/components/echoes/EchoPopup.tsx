@@ -246,7 +246,7 @@ const EchoPopup = (props: any) => {
 
 export default EchoPopup
 
-const EchoChipColor = (echoClass: string) => {
+export const EchoChipColor = (echoClass: string) => {
 
     const theme = useTheme()
 
