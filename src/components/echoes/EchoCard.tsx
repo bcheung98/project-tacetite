@@ -42,7 +42,7 @@ const EchoCard = (props: any) => {
                 <Grid container>
                     <Grid xs>
                         <img
-                            src={`${process.env.REACT_APP_URL}/echoes/${name}.png`}
+                            src={`${process.env.REACT_APP_URL}/echoes/icons/${name}.png`}
                             alt={name}
                             style={{
                                 width: "96px",

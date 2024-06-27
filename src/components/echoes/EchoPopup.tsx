@@ -37,10 +37,10 @@ const EchoPopup = (props: any) => {
 
     let URL
     if (!selected) {
-        URL = `${process.env.REACT_APP_URL}/echoes/${name}.png`
+        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name}.png`
     }
     else {
-        URL = `${process.env.REACT_APP_URL}/echoes/${name} Phantom.png`
+        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name} Phantom.png`
     }
 
     return (
