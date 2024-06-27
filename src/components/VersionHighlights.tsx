@@ -8,7 +8,7 @@ import EchoCard from "./echoes/EchoCard"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Select, MenuItem, AppBar } from "@mui/material"
+import { Box, Typography, Select, MenuItem, AppBar, SelectChangeEvent } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
@@ -27,8 +27,8 @@ const VersionHighlights = (props: any) => {
         { version: "1.0", name: "Global Release" }
     ]
     const [version, setVersion] = React.useState(updates[0].version)
-    const handleVersionChange = (e: any) => {
-        setVersion(e.target.value)
+    const handleVersionChange = (event: SelectChangeEvent) => {
+        setVersion(event.target.value)
     }
 
     let characters = props.characters.characters.filter((char: any) => char.release.version === version)
@@ -140,7 +140,6 @@ const VersionHighlights = (props: any) => {
                 }
 
             </Grid>
-
         </Box>
     )
 
