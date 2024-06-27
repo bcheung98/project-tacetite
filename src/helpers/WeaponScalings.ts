@@ -1,3 +1,5 @@
+import { WeaponData } from "../redux/actions/fetch"
+
 export const baseATKScaling = {
     "47": [47, 122, 153, 232, 264, 303, 335, 374, 406, 445, 476, 516, 547, 587],
     "40": [40, 104, 130, 198, 224, 258, 285, 318, 345, 379, 405, 439, 466, 500],
@@ -10,7 +12,13 @@ export const baseATKScaling = {
     "20": [20, 52, 65, 99, 112, 129, 142, 159, 172, 189]
 }
 
-export const subStatScaling = {
+type SubStatScaling = {
+    [level: string]: {
+        [key in WeaponData["stats"]["subStat"]]?: string[] // Make the keys optional
+    }
+}
+
+export const subStatScaling: SubStatScaling = {
     "47": {
         "ATK": ["8.1%", "14.3%", "14.3%", "20.6%", "20.6%", "23.8%", "23.8%", "26.9%", "26.9%", "30.1%", "30.1%", "33.2%", "33.2%", "36.4%"],
         "Crit Rate": ["5.4%", "9.5%", "9.5%", "13.7%", "13.7%", "15.8%", "15.8%", "17.9%", "17.9%", "20.0%", "20.0%", "22.1%", "22.1%", "24.3%"],
