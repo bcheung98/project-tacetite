@@ -1,4 +1,4 @@
-import { WeaponData } from "../redux/actions/fetch"
+import { WeaponData } from "../types/WeaponData"
 
 export const baseATKScaling = {
     "47": [47, 122, 153, 232, 264, 303, 335, 374, 406, 445, 476, 516, 547, 587],

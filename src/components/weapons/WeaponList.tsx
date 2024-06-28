@@ -12,7 +12,7 @@ import { EnhancedTableHead, getComparator, stableSort } from "../../helpers/Cust
 import { baseATKScaling, subStatScaling } from "../../helpers/WeaponScalings"
 
 // Type imports
-import { WeaponData } from "../../redux/actions/fetch"
+import { WeaponData } from "../../types/WeaponData"
 
 const WeaponList = (props: any) => {
 

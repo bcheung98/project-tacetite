@@ -12,7 +12,7 @@ import { EnhancedTableHead, getComparator, stableSort } from "../../helpers/Cust
 import { echoClassId } from "./EchoBrowser"
 
 // Type imports
-import { EchoData } from "../../redux/actions/fetch"
+import { EchoData } from "../../types/EchoData"
 
 const EchoList = (props: any) => {
 

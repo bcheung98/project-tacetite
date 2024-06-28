@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchEchoes, EchoData } from "../actions/fetch"
+import { fetchEchoes } from "../actions/fetch"
+import { EchoData } from "../../types/EchoData"
 
 interface State {
     loading: boolean,
