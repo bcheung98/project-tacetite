@@ -17,6 +17,9 @@ import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
 import { RootState } from "../redux/store"
+import { CharacterData } from "../types/CharacterData"
+import { WeaponData } from "../types/WeaponData"
+import { EchoData } from "../types/EchoData"
 
 const VersionHighlights = (props: any) => {
 
@@ -32,9 +35,9 @@ const VersionHighlights = (props: any) => {
         setVersion(event.target.value)
     }
 
-    let characters = props.characters.characters.filter((char: any) => char.release.version === version)
-    let weapons = props.weapons.weapons.filter((wep: any) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
-    let echoes = props.echoes.echoes.filter((echo: any) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
+    let characters = props.characters.characters.filter((char: CharacterData) => char.release.version === version)
+    let weapons = props.weapons.weapons.filter((wep: WeaponData) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
+    let echoes = props.echoes.echoes.filter((echo: EchoData) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
 
     return (
         <Box
@@ -93,7 +96,7 @@ const VersionHighlights = (props: any) => {
                             <Box>
                                 <Grid container spacing={2}>
                                     {
-                                        characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: any, index: number) => <CharacterCardLarge key={index} character={char} />)
+                                        characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: CharacterData, index: number) => <CharacterCardLarge key={index} character={char} />)
                                     }
                                 </Grid>
                             </Box>
@@ -110,7 +113,7 @@ const VersionHighlights = (props: any) => {
                                     <Box>
                                         <Grid container spacing={2}>
                                             {
-                                                echoes.map((echo: any, index: number) => <EchoCard key={index} echo={echo} />)
+                                                echoes.map((echo: EchoData, index: number) => <EchoCard key={index} echo={echo} />)
                                             }
                                         </Grid>
                                     </Box>
@@ -132,7 +135,7 @@ const VersionHighlights = (props: any) => {
                             <Box>
                                 <Grid container spacing={2}>
                                     {
-                                        weapons.map((wep: any, index: number) => <WeaponCard key={index} weapon={wep} />)
+                                        weapons.map((wep: WeaponData, index: number) => <WeaponCard key={index} weapon={wep} />)
                                     }
                                 </Grid>
                             </Box>

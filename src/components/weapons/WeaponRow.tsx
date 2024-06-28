@@ -9,12 +9,15 @@ import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTabl
 import { GetBackgroundColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
+// Type imports
+import { WeaponData } from "../../types/WeaponData"
+
 const WeaponRow = (props: any) => {
 
     const theme = useTheme()
 
     let { row, index, weapons } = props
-    const currentWeapon = weapons.filter((wep: any) => wep.name === row.name)[0]
+    const currentWeapon = weapons.filter((wep: WeaponData) => wep.name === row.name)[0]
 
     return (
         <React.Fragment>
