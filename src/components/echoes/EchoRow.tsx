@@ -29,7 +29,15 @@ const EchoRow = (props: any) => {
 
     return (
         <React.Fragment>
-            <StyledTableRows key={index} sx={{ backgroundImage: `linear-gradient(to left, ${theme.table.body.backgroundColor}, 92%, ${EchoRowColor(currentEcho.class)})` }}>
+            <StyledTableRows
+                key={index}
+                sx={{
+                    backgroundImage: `linear-gradient(to left, ${theme.table.body.backgroundColor}, 92%, ${EchoRowColor(currentEcho.class)})`,
+                    "&:hover": {
+                        backgroundImage: `linear-gradient(to left, ${theme.table.body.hover}, 92%, ${EchoRowColor(currentEcho.class)})`
+                    }
+                }}
+            >
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>
@@ -132,7 +140,7 @@ export default EchoRow
 export const EchoRowColor = (echoClass: string) => {
 
     const theme = useTheme()
-    const opacity = 0.5
+    const opacity = 0.45
 
     switch (echoClass) {
         case "Calamity":

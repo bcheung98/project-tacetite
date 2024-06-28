@@ -1,17 +1,32 @@
 import * as React from "react"
+
+// MUI imports
+import { useTheme } from "@mui/material/styles"
+import { Box, ButtonBase, CardHeader, Typography } from "@mui/material"
+
+// Helper imports
 import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTable"
-import { Box } from "@mui/system"
-import { ButtonBase, CardHeader, Typography } from "@mui/material"
+import { GetBackgroundColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const WeaponRow = (props: any) => {
+
+    const theme = useTheme()
 
     let { row, index, weapons } = props
     const currentWeapon = weapons.filter((wep: any) => wep.name === row.name)[0]
 
     return (
         <React.Fragment>
-            <StyledTableRows key={index}>
+            <StyledTableRows
+                key={index}
+                sx={{
+                    backgroundImage: `linear-gradient(to left, ${theme.table.body.backgroundColor}, 92%, ${GetBackgroundColor(row.rarity)})`,
+                    "&:hover": {
+                        backgroundImage: `linear-gradient(to left, ${theme.table.body.hover}, 92%, ${GetBackgroundColor(row.rarity)})`
+                    }
+                }}
+            >
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>
