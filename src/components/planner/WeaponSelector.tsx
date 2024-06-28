@@ -11,7 +11,6 @@ import DoneIcon from "@mui/icons-material/Done"
 
 // Helper imports
 import { Button, PopperComponent, StyledPopper, StyledInput } from "../../helpers/CustomAutocomplete"
-import { CustomTooltip } from "../../helpers/CustomTooltip"
 import { GetRarityColor } from "../../helpers/RarityColors"
 import { setPlannerWeapons, updateWeaponCosts } from "../../redux/reducers/AscensionPlannerReducer"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"

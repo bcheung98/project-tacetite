@@ -7,7 +7,6 @@ import { Box, Typography } from "@mui/material"
 
 // Helper imports
 import { CustomSlider } from "../../helpers/CustomSlider"
-import { CustomSwitch } from "../../helpers/CustomSwitch"
 import { updateWeaponCosts } from "../../redux/reducers/AscensionPlannerReducer"
 import { SetWeaponCostsLevel } from "../../helpers/AscensionCostIndex"
 

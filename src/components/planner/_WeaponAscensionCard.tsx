@@ -7,7 +7,6 @@ import WeaponAscensionLevel from "./WeaponAscensionLevel"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../helpers/CustomTooltip"
