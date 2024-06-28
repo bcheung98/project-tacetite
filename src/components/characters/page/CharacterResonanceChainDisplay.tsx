@@ -70,7 +70,7 @@ const CharacterResonanceChainDisplay = (props: any) => {
                                     </Box>
                                 }
                             />
-                            <Typography variant="body1" sx={{ fontSize: "11pt", mx: "20px" }}>
+                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, mx: "20px" }}>
                                 {parse(resonanceChain[key].description)}
                             </Typography>
                             <br />
