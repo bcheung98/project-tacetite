@@ -9,12 +9,15 @@ import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTabl
 import { GetBackgroundColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
+// Type imports
+import { CharacterData } from "../../types/CharacterData"
+
 const CharacterRow = (props: any) => {
 
     const theme = useTheme()
 
     let { row, index, characters } = props
-    const currentCharacter = characters.filter((char: any) => char.name === row.name)[0]
+    const currentCharacter = characters.filter((char: CharacterData) => char.name === row.name)[0]
 
     return (
         <React.Fragment>

@@ -10,6 +10,9 @@ import { Box, Table, TableBody, TableContainer, Toolbar, Typography, Paper } fro
 // Helper imports
 import { EnhancedTableHead, getComparator, stableSort } from "../../helpers/CustomSortTable"
 
+// Type imports
+import { CharacterData } from "../../types/CharacterData"
+
 const CharacterList = (props: any) => {
 
     const theme = useTheme()
@@ -23,7 +26,7 @@ const CharacterList = (props: any) => {
         setOrderBy(property)
     }
 
-    const rows = props.characters.map((char: any) => createData(char.name, char.rarity, char.element, char.weapon, char.nation, char.release.date, char.release.version, char.id))
+    const rows = props.characters.map((char: CharacterData) => createData(char.name, char.rarity, char.element, char.weapon, char.nation, char.release.date, char.release.version, char.id))
 
     return (
         <Box sx={{ width: "100%" }}>

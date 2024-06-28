@@ -1,4 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { WeaponData } from "../../types/WeaponData"
+import { CharacterData } from "../../types/CharacterData"
 
 interface PlannerState {
     totalCost: {},
@@ -65,7 +67,7 @@ export const PlannerSlice = createSlice({
     initialState,
     reducers: {
         setPlannerCharacters: (state, action: PayloadAction<any>) => {
-            let tempCharCosts = action.payload.map((char: any) => {
+            let tempCharCosts = action.payload.map((char: CharacterData) => {
                 let costs
                 let currentCharacter = state.characterCosts.find((c: any) => char.name === c.name)
                 // If the character is not already in the list, initialize the material array
@@ -162,7 +164,7 @@ export const PlannerSlice = createSlice({
             })
         },
         setPlannerWeapons: (state, action: PayloadAction<any>) => {
-            let tempWeaponCosts = action.payload.map((wep: any) => {
+            let tempWeaponCosts = action.payload.map((wep: WeaponData) => {
                 let costs
                 let currentWeapon = state.weaponCosts.find((w: any) => wep.name === w.name)
                 // If the weapon is not already in the list, initialize the material array
