@@ -24,6 +24,7 @@ const VersionHighlights = (props: any) => {
 
     // MAKE SURE TO CHANGE THIS EVERY UPDATE!
     let updates = [
+        { version: "1.1", name: "Thaw of Eons" },
         { version: "1.0", name: "Global Release" }
     ]
     const [version, setVersion] = React.useState(updates[0].version)
