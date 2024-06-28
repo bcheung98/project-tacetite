@@ -12,4 +12,4 @@ export const AscensionMats = ["Belle Poppy", "Coriolus", "Iris", "Lanternberry",
 
 export const BossMats = ["Elegy Tacet Core", "Gold-Dissolving Feather", "Group Abomination Tacet Core", "Hidden Thunder Tacet Core", "Mysterious Code", "Rage Tacet Core", "Roaring Rock Fist", "Sound-Keeping Tacet Core", "Strife Tacet Core", "Thundering Tacet Core"]
 
-export const WeeklyBossMats = ["Dreamless Feather", "Monument Bell", "Unending Destruction"]
+export const WeeklyBossMats = ["Dreamless Feather", "Monument Bell", "Unending Destruction", "Sentinel's Dagger"]
