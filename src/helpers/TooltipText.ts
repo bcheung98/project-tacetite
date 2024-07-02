@@ -218,6 +218,9 @@ export const formatWeeklyBossMats = (material: string) => {
         case "Unending Destruction":
             material += " (Scar)"
             break
+        case "Sentinel's Dagger":
+            material += " (Jué)"
+            break
         default:
             break
     }
