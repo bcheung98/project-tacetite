@@ -16,7 +16,7 @@ const EchoPopup = (props: any) => {
 
     const theme = useTheme()
 
-    let { name, code, cost, skill, sonata } = props.echo
+    let { name, code, cost, skill, sonata, description } = props.echo
 
     let minValue = 2
     let maxValue = 5
@@ -89,6 +89,20 @@ const EchoPopup = (props: any) => {
                                 </Typography>
                             </Box>
                         }
+                        <Box
+                            sx={{
+                                maxWidth: "250px",
+                                maxHeight: "350px",
+                                overflowY: "auto",
+                                pl: "5px",
+                                pr: "10px",
+                                my: "20px"
+                            }}
+                        >
+                            <Typography variant="body2" sx={{ color: `${theme.text.color}` }}>
+                                {parse(description)}
+                            </Typography>
+                        </Box>
                     </Box>
                 </Box>
                 <Grid xs>
