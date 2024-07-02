@@ -11,6 +11,7 @@ import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 import { useTheme } from "@mui/material/styles"
 import { Typography, Box, AppBar, Dialog, CardHeader } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
+import InfoOutlined from "@mui/icons-material/InfoOutlined"
 
 // Helper imports
 import { CustomTooltip } from "../../../helpers/CustomTooltip"
@@ -31,9 +32,7 @@ const CharacterPage = (props: any) => {
     }
 
     const [open, setOpen] = React.useState(false)
-    const [tag, setTag] = React.useState("")
-    const handleClickOpen = (e: React.BaseSyntheticEvent) => {
-        setTag(e.target.alt)
+    const handleClickOpen = () => {
         setOpen(true)
     }
     const handleClose = () => {
@@ -194,14 +193,24 @@ const CharacterPage = (props: any) => {
                                                     border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
                                                     borderRadius: "15px",
                                                     backgroundColor: `${theme.materialImage.backgroundColor}`,
-                                                    cursor: "pointer",
                                                 }}
-                                                onClick={(e) => handleClickOpen(e)}
                                                 onError={ErrorLoadingImage}
                                             />
                                         </CustomTooltip>
                                     ))
                                 }
+                                <CustomTooltip title="Click to view Combat Roles" arrow placement="top">
+                                    <InfoOutlined
+                                        fontSize="large"
+                                        sx={{
+                                            color: `${theme.text.color}`,
+                                            ml: "5px",
+                                            mb: "5px",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={handleClickOpen}
+                                    />
+                                </CustomTooltip>
                             </Box>
                             <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "15px" }} />
                             <Typography
@@ -249,47 +258,60 @@ const CharacterPage = (props: any) => {
                 </Grid>
                 <CharacterForteDisplay character={character} />
                 <CharacterResonanceChainDisplay character={character} />
-                {
-                    tag !== "" &&
-                    <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        maxWidth={false}
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    maxWidth={false}
+                >
+                    <Box
+                        sx={{
+                            backgroundColor: `${theme.paper.backgroundColor}`,
+                            border: `2px solid ${theme.border.color}`,
+                            borderRadius: "5px",
+                        }}
                     >
-                        <Box
+                        <AppBar position="static"
                             sx={{
-                                px: "15px",
-                                backgroundColor: `${theme.paper.backgroundColor}`,
-                                border: `2px solid ${theme.border.color}`,
-                                borderRadius: "5px",
+                                backgroundColor: `${theme.appbar.backgroundColor}`,
+                                borderBottom: `2px solid ${theme.border.color}`,
+                                borderRadius: "5px 5px 0px 0px",
                             }}
                         >
-                            <CardHeader
-                                sx={{ ml: "-15px" }}
-                                avatar={
-                                    <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
-                                        style={{
-                                            height: "40px",
-                                            padding: "2.5px",
-                                            border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
-                                            backgroundColor: `${theme.materialImage.backgroundColor}`,
-                                            borderRadius: "15px",
-                                        }}
-                                        onError={ErrorLoadingImage}
-                                    />
-                                }
-                                title={
-                                    <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
-                                        {tag}
-                                    </Typography>
-                                }
-                            />
-                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "15px", fontWeight: 500 }}>
-                                <i>{Tags[tag as keyof typeof Tags].description}</i>
+                            <Typography sx={{ m: 2, color: `${theme.text.color}`, fontWeight: "bold" }} variant="h5">
+                                Combat Roles
                             </Typography>
-                        </Box>
-                    </Dialog>
-                }
+                        </AppBar>
+                        {
+                            tags.map((tag: string, index: number) => (
+                                <Box sx={{ mx: "20px" }} key={index}>
+                                    <CardHeader
+                                        sx={{ ml: "-15px" }}
+                                        avatar={
+                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
+                                                style={{
+                                                    height: "40px",
+                                                    border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                                    backgroundColor: `${theme.materialImage.backgroundColor}`,
+                                                    borderRadius: "15px",
+                                                }}
+                                                onError={ErrorLoadingImage}
+                                            />
+                                        }
+                                        title={
+                                            <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold", mb: "3px" }}>
+                                                {tag}
+                                            </Typography>
+                                        }
+                                    />
+                                    <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "15px", fontWeight: 500 }}>
+                                        {Tags[tag as keyof typeof Tags].description}
+                                    </Typography>
+                                    {index !== tags.length - 1 && <hr style={{ border: `.5px solid ${theme.border.color}`, margin: "5px 0px 0px 0px" }} />}
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                </Dialog>
             </React.Fragment>
         )
 
