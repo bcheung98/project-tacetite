@@ -268,6 +268,7 @@ const CharacterPage = (props: any) => {
                             backgroundColor: `${theme.paper.backgroundColor}`,
                             border: `2px solid ${theme.border.color}`,
                             borderRadius: "5px",
+                            width: "45vw"
                         }}
                     >
                         <AppBar position="static"
@@ -289,7 +290,10 @@ const CharacterPage = (props: any) => {
                                         avatar={
                                             <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
                                                 style={{
-                                                    height: "40px",
+                                                    height: "48px",
+                                                    padding: 2,
+                                                    marginRight: "5px",
+                                                    marginTop: "3px",
                                                     border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
                                                     backgroundColor: `${theme.materialImage.backgroundColor}`,
                                                     borderRadius: "15px",
@@ -298,15 +302,17 @@ const CharacterPage = (props: any) => {
                                             />
                                         }
                                         title={
-                                            <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold", mb: "3px" }}>
-                                                {tag}
-                                            </Typography>
+                                            <Box sx={{ mb: "3px" }}>
+                                                <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold", mb: "7px" }}>
+                                                    {tag}
+                                                </Typography>
+                                                <Typography variant="body1" sx={{ color: "rgb(225, 225, 225)" }}>
+                                                    {Tags[tag as keyof typeof Tags].description}
+                                                </Typography>
+                                            </Box>
                                         }
                                     />
-                                    <Typography variant="body1" sx={{ color: `${theme.text.color}`, mb: "15px", fontWeight: 500 }}>
-                                        {Tags[tag as keyof typeof Tags].description}
-                                    </Typography>
-                                    {index !== tags.length - 1 && <hr style={{ border: `.5px solid ${theme.border.color}`, margin: "5px 0px 0px 0px" }} />}
+                                    {index !== tags.length - 1 && <hr style={{ border: `.5px solid ${theme.border.color}`, margin: 0 }} />}
                                 </Box>
                             ))
                         }
