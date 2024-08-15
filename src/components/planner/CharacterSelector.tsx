@@ -123,7 +123,7 @@ const CharacterSelector = (props: any) => {
                                         <CardHeader
                                             avatar={
                                                 <Box sx={{ position: "relative", pt: "5px" }}>
-                                                    <img alt={option.name} src={(`${process.env.REACT_APP_URL}/characters/icons/${option.name.split(" ").join("_")}.png`)} style={{ width: "48px", border: `2px solid ${theme.border.color}`, borderRadius: "48px" }} onError={ErrorLoadingImage} />
+                                                    <img alt={option.name} src={(`${process.env.REACT_APP_URL}/characters/icons/${option.name}.png`)} style={{ width: "48px", border: `2px solid ${theme.border.color}`, borderRadius: "48px" }} onError={ErrorLoadingImage} />
                                                     <Box sx={{ position: "absolute", top: "5.5px", left: "-10px" }}>
                                                         <CustomTooltip title={option.element} arrow placement="top">
                                                             <img style={smallIcon} src={(`${process.env.REACT_APP_URL}/elements/icons/${option.element}.png`)} alt={option.element} onError={ErrorLoadingImage} />
