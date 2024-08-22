@@ -113,7 +113,7 @@ const WeaponSelector = (props: any) => {
                                         <CardHeader
                                             avatar={
                                                 <Box sx={{ position: "relative", pt: "5px" }}>
-                                                    <img alt={option.name} src={(`${process.env.REACT_APP_URL}/weapons/${option.name}.png`)} style={{ width: "48px" }} onError={ErrorLoadingImage} />
+                                                    <img alt={option.name} src={(`${process.env.REACT_APP_URL}/weapons/${option.name.split(" ").join("_")}.png`)} style={{ width: "48px" }} onError={ErrorLoadingImage} />
                                                 </Box>
                                             }
                                             title={

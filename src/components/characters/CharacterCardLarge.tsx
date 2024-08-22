@@ -54,7 +54,7 @@ const CharacterCardLarge = (props: any) => {
                         </CustomTooltip>
                     </Box>
                     <CardMedia
-                        image={`${process.env.REACT_APP_URL}/characters/avatars/${name}.png`}
+                        image={`${process.env.REACT_APP_URL}/characters/avatars/${name.split(" ").join("_")}.png`}
                         sx={{ width: "220px", height: "303px" }}
                     />
                     <Box

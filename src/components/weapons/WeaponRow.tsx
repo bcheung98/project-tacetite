@@ -37,7 +37,7 @@ const WeaponRow = (props: any) => {
                         <CardHeader sx={{ p: 0 }}
                             avatar={
                                 <ButtonBase disableRipple href={`/project-tacetite/weapon/${currentWeapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                                    <img alt={row.name} src={(`${process.env.REACT_APP_URL}/weapons/${currentWeapon.name}.png`)} style={{ width: "48px", cursor: "pointer" }} onError={ErrorLoadingImage} />
+                                    <img alt={row.name} src={(`${process.env.REACT_APP_URL}/weapons/${currentWeapon.name.split(" ").join("_")}.png`)} style={{ width: "48px", cursor: "pointer" }} onError={ErrorLoadingImage} />
                                 </ButtonBase>
                             }
                             title={

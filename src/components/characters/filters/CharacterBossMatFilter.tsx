@@ -21,7 +21,7 @@ const CharacterBossMatFilter = () => {
             {
                 BossMats.map((material, index) => (
                     <CustomTooltip key={index} title={formatBossMats(material)} arrow placement="top">
-                        <img className="filter-off" id={`${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/boss/${material}.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/boss/${material.split(" ").join("_")}.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }

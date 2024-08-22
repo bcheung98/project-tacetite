@@ -64,7 +64,7 @@ const WeaponPage = (props: any) => {
                 <Grid container sx={{ mb: "20px", mt: "10px" }}>
                     <Grid xs="auto">
                         <img
-                            src={(`${process.env.REACT_APP_URL}/weapons/${name}.png`)}
+                            src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
                             alt={name}
                             style={{
                                 marginLeft: "15px",

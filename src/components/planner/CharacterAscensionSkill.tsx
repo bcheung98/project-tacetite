@@ -106,7 +106,7 @@ const CharacterAscensionSkill = (props: any) => {
                 <CustomTooltip title={parse(forte.skill.nodes[1].description)} arrow placement="top">
                     <Avatar
                         id={`${name}-skill_node2`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[1].type}.png`}
+                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[1].type.split(" ").join("_")}.png`}
                         alt={forte.skill.nodes[1].type}
                         sx={skillIconSmall}
                         style={selectedNode2 ? { opacity: "1" } : { opacity: "0.35" }}
@@ -128,7 +128,7 @@ const CharacterAscensionSkill = (props: any) => {
                 <CustomTooltip title={parse(forte.skill.nodes[0].description)} arrow placement="top">
                     <Avatar
                         id={`${name}-skill_node1`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[0].type}.png`}
+                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[0].type.split(" ").join("_")}.png`}
                         alt={forte.skill.nodes[0].type}
                         sx={skillIconSmall}
                         style={selectedNode1 ? { opacity: "1" } : { opacity: "0.35" }}

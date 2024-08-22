@@ -47,7 +47,7 @@ const CharacterTagsFilter = () => {
             {
                 Object.keys(Tags).map((tag, index) => (
                     <CustomTooltip key={index} title={tag} arrow placement="top">
-                        <img className="filter-off" id={`${tag.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} onClick={() => handleClick(tag)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`${tag.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/tags/${tag.split(" ").join("_")}.png`} alt={tag} onClick={() => handleClick(tag)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }

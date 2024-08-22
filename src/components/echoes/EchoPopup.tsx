@@ -37,10 +37,10 @@ const EchoPopup = (props: any) => {
 
     let URL
     if (!selected) {
-        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name}.png`
+        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png`
     }
     else {
-        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name} Phantom.png`
+        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}_Phantom.png`
     }
 
     return (
@@ -173,7 +173,7 @@ const EchoPopup = (props: any) => {
                             }}
                             avatar={
                                 <img
-                                    src={`${process.env.REACT_APP_URL}/echoes/skills/${name}.png`}
+                                    src={`${process.env.REACT_APP_URL}/echoes/skills/${name.split(" ").join("_")}.png`}
                                     alt={name}
                                     style={{
                                         width: "64px",
@@ -228,7 +228,7 @@ const EchoPopup = (props: any) => {
                                     }}
                                     avatar={
                                         <img
-                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`}
+                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`}
                                             alt={sonata}
                                             style={{ width: "64px", height: "64px" }}
                                             onError={ErrorLoadingImage}

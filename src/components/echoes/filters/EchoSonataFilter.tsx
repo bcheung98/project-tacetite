@@ -47,7 +47,7 @@ const EchoSonataFilter = () => {
             {
                 Object.keys(SonataEffects).map((sonata, index) => (
                     <CustomTooltip key={index} title={sonata} arrow placement="top">
-                        <img className="filter-off" id={`echo-${sonata.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`} alt={sonata} onClick={() => handleClick(sonata)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`echo-${sonata.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`} alt={sonata} onClick={() => handleClick(sonata)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }

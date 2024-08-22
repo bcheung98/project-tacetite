@@ -46,7 +46,7 @@ const WeaponAscensionCard = (props: any) => {
                     <Box sx={{ position: "relative" }}>
                         <ButtonBase disableRipple href={`/project-tacetite/weapon/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <img
-                                src={(`${process.env.REACT_APP_URL}/weapons/${name}.png`)}
+                                src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
                                 alt={name}
                                 style={{
                                     width: "64px",

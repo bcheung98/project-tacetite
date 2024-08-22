@@ -140,7 +140,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 forgery1 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}1`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}1.png`} style={MaterialImageBig(2)} alt={`${forgeryMat}1`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat.split(" ").join("_")}1.png`} style={MaterialImageBig(2)} alt={`${forgeryMat}1`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(2)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -154,7 +154,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 forgery2 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}2`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}2.png`} style={MaterialImageBig(3)} alt={`${forgeryMat}2`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat.split(" ").join("_")}2.png`} style={MaterialImageBig(3)} alt={`${forgeryMat}2`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -168,7 +168,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 forgery3 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}3`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}3.png`} style={MaterialImageBig(4)} alt={`${forgeryMat}3`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat.split(" ").join("_")}3.png`} style={MaterialImageBig(4)} alt={`${forgeryMat}3`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -182,7 +182,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 forgery4 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatForgeryMats(`${forgeryMat}4`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat}4.png`} style={MaterialImageBig(5)} alt={`${forgeryMat}4`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat.split(" ").join("_")}4.png`} style={MaterialImageBig(5)} alt={`${forgeryMat}4`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(5)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -196,7 +196,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 common1 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}1`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}1.png`} style={MaterialImageBig(2)} alt={`${commonMat}1`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat.split(" ").join("_")}1.png`} style={MaterialImageBig(2)} alt={`${commonMat}1`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(2)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -210,7 +210,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 common2 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}2`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}2.png`} style={MaterialImageBig(3)} alt={`${commonMat}2`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat.split(" ").join("_")}2.png`} style={MaterialImageBig(3)} alt={`${commonMat}2`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(3)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -224,7 +224,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 common3 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}3`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}3.png`} style={MaterialImageBig(4)} alt={`${commonMat}3`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat.split(" ").join("_")}3.png`} style={MaterialImageBig(4)} alt={`${commonMat}3`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(4)}>
                         <Typography variant="subtitle2" sx={MaterialText}>
@@ -238,7 +238,7 @@ const WeaponAscensionCardMaterials = (props: any) => {
                 common4 > 0 &&
                 <Box sx={MaterialImageRootBig}>
                     <CustomTooltip title={formatCommonMats(`${commonMat}4`)} arrow placement="top">
-                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat}4.png`} style={MaterialImageBig(5)} alt={`${commonMat}4`} onError={ErrorLoadingImage} />
+                        <img src={`${process.env.REACT_APP_URL}/materials/common/${commonMat.split(" ").join("_")}4.png`} style={MaterialImageBig(5)} alt={`${commonMat}4`} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                     <Box sx={MaterialTextContainer(5)}>
                         <Typography variant="subtitle2" sx={MaterialText}>

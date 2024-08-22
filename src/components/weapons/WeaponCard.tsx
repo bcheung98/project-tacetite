@@ -51,7 +51,7 @@ const WeaponCard = (props: any) => {
                         </CustomTooltip>
                     </Box>
                     <CardMedia
-                        image={`${process.env.REACT_APP_URL}/weapons/${name}.png`}
+                        image={`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`}
                         sx={{ width: width, height: "200px" }}
                     />
                     <Box

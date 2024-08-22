@@ -20,7 +20,7 @@ const WeaponForgeryMatFilter = () => {
             {
                 ForgeryMats.map((material, index) => (
                     <CustomTooltip key={index} title={material} arrow placement="top">
-                        <img className="filter-off" id={`weapon-${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/forgery/${material}4.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`weapon-${material.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/materials/forgery/${material.split(" ").join("_")}4.png`} alt={material} onClick={() => handleClick(material)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }

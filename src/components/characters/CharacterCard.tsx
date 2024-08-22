@@ -72,7 +72,7 @@ const CharacterCard = (props: any) => {
                     <Grid xs>
                         <Box sx={{ width: "105px" }}>
                             <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                                <img src={`${process.env.REACT_APP_URL}/characters/icons/${name}.png`} alt={name} style={characterIconBackground} onError={ErrorLoadingImage} />
+                                <img src={`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`} alt={name} style={characterIconBackground} onError={ErrorLoadingImage} />
                             </ButtonBase>
                         </Box>
                     </Grid>

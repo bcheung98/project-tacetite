@@ -21,7 +21,7 @@ const WeaponSubstatFilter = () => {
             {
                 Substats.map((substat, index) => (
                     <CustomTooltip key={index} title={substat} arrow placement="top">
-                        <img className="filter-off" id={`weapon-${substat.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/stat_icons/${substat}.png`} alt={substat} onClick={() => handleClick(substat)} onError={ErrorLoadingImage} />
+                        <img className="filter-off" id={`weapon-${substat.toLowerCase()}-button`} src={`${process.env.REACT_APP_URL}/stat_icons/${substat.split(" ").join("_")}.png`} alt={substat} onClick={() => handleClick(substat)} onError={ErrorLoadingImage} />
                     </CustomTooltip>
                 ))
             }

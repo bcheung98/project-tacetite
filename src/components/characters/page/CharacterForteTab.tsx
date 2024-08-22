@@ -98,7 +98,7 @@ const CharacterForteTab = (props: any) => {
                                                     alignItems: "center",
                                                 }}
                                                 avatar={
-                                                    <img src={`${process.env.REACT_APP_URL}/stat_icons/${node.type}.png`} alt={`${node.type}+`} style={skillIconSmall} onError={ErrorLoadingImage} />
+                                                    <img src={`${process.env.REACT_APP_URL}/stat_icons/${node.type.split(" ").join("_")}.png`} alt={`${node.type}+`} style={skillIconSmall} onError={ErrorLoadingImage} />
                                                 }
                                                 title={
                                                     <Typography variant="h6" sx={{ color: `${theme.text.color}`, mb: "5px", fontWeight: "bold" }}>

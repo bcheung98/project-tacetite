@@ -55,7 +55,7 @@ const CharacterPage = (props: any) => {
             <React.Fragment>
                 <Grid container sx={{ mb: "20px" }}>
                     <Grid xs="auto">
-                        <img src={(`${process.env.REACT_APP_URL}/characters/avatars/${name}.png`)} alt={name}
+                        <img src={(`${process.env.REACT_APP_URL}/characters/avatars/${name.split(" ").join("_")}.png`)} alt={name}
                             style={{
                                 height: "550px",
                                 objectFit: "contain",
@@ -185,7 +185,7 @@ const CharacterPage = (props: any) => {
                                 {
                                     tags.map((tag: string, index: number) => (
                                         <CustomTooltip key={index} title={tag} arrow placement="top">
-                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
+                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag.split(" ").join("_")}.png`} alt={tag} key={tag}
                                                 style={{
                                                     height: "36px",
                                                     marginRight: "10px",
@@ -288,7 +288,7 @@ const CharacterPage = (props: any) => {
                                     <CardHeader
                                         sx={{ ml: "-15px" }}
                                         avatar={
-                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag}.png`} alt={tag} key={tag}
+                                            <img src={`${process.env.REACT_APP_URL}/tags/${tag.split(" ").join("_")}.png`} alt={tag} key={tag}
                                                 style={{
                                                     height: "48px",
                                                     padding: 2,

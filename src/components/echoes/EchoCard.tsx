@@ -42,7 +42,7 @@ const EchoCard = (props: any) => {
                 <Grid container>
                     <Grid xs>
                         <img
-                            src={`${process.env.REACT_APP_URL}/echoes/icons/${name}.png`}
+                            src={`${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png`}
                             alt={name}
                             style={{
                                 width: "96px",
@@ -103,7 +103,7 @@ const EchoCard = (props: any) => {
                                 sonata.map((sonata: string, index: number) => (
                                     <CustomTooltip title={sonata} arrow placement="top" key={index}>
                                         <img
-                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`}
+                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`}
                                             alt={sonata}
                                             style={{
                                                 width: "24px",

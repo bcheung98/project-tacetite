@@ -45,7 +45,7 @@ const EchoRow = (props: any) => {
                         <CardHeader sx={{ p: 0 }}
                             avatar={
                                 <img
-                                    src={(`${process.env.REACT_APP_URL}/echoes/icons/${currentEcho.name}.png`)}
+                                    src={(`${process.env.REACT_APP_URL}/echoes/icons/${currentEcho.name.split(" ").join("_")}.png`)}
                                     alt={row.name}
                                     style={{ width: "48px", cursor: "pointer" }}
                                     onError={ErrorLoadingImage}
@@ -105,7 +105,7 @@ const EchoRow = (props: any) => {
                             currentEcho.sonata.map((sonata: string, index: number) => (
                                 <CustomTooltip title={sonata} arrow placement="top" key={index}>
                                     <img
-                                        src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata}.png`}
+                                        src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`}
                                         alt={sonata}
                                         style={{
                                             width: "30px",
