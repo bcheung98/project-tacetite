@@ -19,7 +19,7 @@ const Nav = () => {
                     <ButtonBase disableRipple href={`/project-tacetite/`}>
                         <CardHeader
                             avatar={
-                                <Avatar src={`${process.env.REACT_APP_URL}/elements/ui/Spectro.png`} alt="PROJECT TACETITE" sx={{ height: "64px", width: "64px", backgroundColor: `${theme.appbar.backgroundColor}` }} />
+                                <Avatar src={`${process.env.REACT_APP_URL}//icons/Black_Shores.png`} alt="PROJECT TACETITE" sx={{ height: "64px", width: "64px", backgroundColor: `${theme.appbar.backgroundColor}` }} />
                             }
                             title={
                                 <Typography variant="h5"
