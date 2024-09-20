@@ -41,24 +41,30 @@ const App = (props: any) => {
     return (
         <ThemeProvider theme={theme}>
             <Router basename="project-tacetite">
-                <Nav />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/characters" component={CharacterBrowser} />
-                    <Route path="/character/:char_name" children={<CharacterPage />} />
-                    <Route exact path="/weapons" component={WeaponBrowser} />
-                    <Route path="/weapon/:wep_name" children={<WeaponPage />} />
-                    <Route exact path="/echoes" component={EchoBrowser} />
-                    <Route path="/planner" component={AscensionPlanner} />
-                </Switch>
-                <AppBar position="static" sx={{
-                    mt: 10,
-                    mb: -5,
-                    pt: 2,
-                    textAlign: "center",
-                    backgroundColor: `${theme.appbar.backgroundColor}`,
-                    borderTop: `2px solid ${theme.border.color}`,
-                }}>
+                <Box sx={{ display: "flex" }}>
+                    <Nav />
+                    <Box sx={{ pt: 10 }}>
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/characters" component={CharacterBrowser} />
+                            <Route path="/character/:char_name" children={<CharacterPage />} />
+                            <Route exact path="/weapons" component={WeaponBrowser} />
+                            <Route path="/weapon/:wep_name" children={<WeaponPage />} />
+                            <Route exact path="/echoes" component={EchoBrowser} />
+                            <Route path="/planner" component={AscensionPlanner} />
+                        </Switch>
+                    </Box>
+                </Box>
+                <AppBar position="static"
+                    sx={{
+                        mt: 10,
+                        mb: -5,
+                        pt: 2,
+                        textAlign: "center",
+                        backgroundColor: `${theme.appbar.backgroundColor}`,
+                        borderTop: `2px solid ${theme.border.color}`,
+                    }}
+                >
                     <Typography sx={{ fontWeight: "bold", mb: "5px" }} variant="body2">Project Tacetite is not affiliated with Kuro Games.<br />Wuthering Waves, images and data are registered trademarks of Kuro Games.</Typography>
                     <Box>
                         <IconButton disableRipple href={"https://github.com/bcheung98/project-tacetite"} target="_blank" color="inherit">
