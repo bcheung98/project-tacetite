@@ -49,7 +49,7 @@ const VersionHighlights = (props: any) => {
                 display: "block",
                 margin: "auto",
                 mt: "20px",
-                width: "85vw",
+                width: "75vw",
                 color: `${theme.text.color}`,
             }}
         >
