@@ -23,7 +23,8 @@ import AscensionPlanner from "./components/planner/_AscensionPlanner"
 // MUI imports
 import { defaultTheme as theme } from "./theme"
 import { ThemeProvider } from "@mui/material/styles"
-import { Box } from "@mui/material"
+import { Box, Fade, useScrollTrigger, Fab } from "@mui/material"
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 
 // Type imports
 import { AppDispatch } from "./redux/store"
@@ -41,6 +42,7 @@ const App = (props: any) => {
     return (
         <ThemeProvider theme={theme}>
             <Router basename="project-tacetite">
+                <Box id="back-to-top-anchor" />
                 <Box sx={{ display: "flex" }}>
                     <Nav />
                     <Box sx={{ pt: 10 }}>
@@ -56,6 +58,11 @@ const App = (props: any) => {
                     </Box>
                 </Box>
                 <BottomNav />
+                <ScrollTop {...props}>
+                    <Fab size="medium" disableRipple sx={{ backgroundColor: `${theme.button.selected}` }}>
+                        <KeyboardArrowUpIcon sx={{ color: `${theme.text.color}` }} />
+                    </Fab>
+                </ScrollTop>
             </Router>
         </ThemeProvider>
     )
@@ -68,3 +75,32 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 })
 
 export default connect(null, mapDispatchToProps)(App)
+
+interface ScrollTopProps {
+    children: React.ReactNode
+}
+
+const ScrollTop: React.FC<ScrollTopProps> = (props) => {
+    const { children } = props
+    const trigger = useScrollTrigger({ threshold: 600 })
+
+    const handleClick = (event: React.BaseSyntheticEvent) => {
+        const anchor = (event.target.ownerDocument || document).querySelector("#back-to-top-anchor")
+        if (anchor) {
+            anchor.scrollIntoView({
+                block: "center",
+            })
+        }
+    }
+
+    return (
+        <Fade in={trigger}>
+            <Box
+                onClick={handleClick}
+                sx={{ position: "fixed", bottom: 96, right: 16 }}
+            >
+                {children}
+            </Box>
+        </Fade>
+    )
+}
