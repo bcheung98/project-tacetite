@@ -266,8 +266,6 @@ function Nav() {
                                                     <ListItemText
                                                         primary={item.primaryText}
                                                         primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", mb: "2.5px" }}
-                                                        secondary={item.secondaryText}
-                                                        secondaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "9pt", fontWeight: "600", mb: "2.5px" }}
                                                         sx={[
                                                             drawerOpen ?
                                                                 { opacity: 1 }
@@ -309,14 +307,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
     overflowX: "hidden",
     width: `${iconSize * 2 + 1}px`,
 })
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}))
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean
@@ -372,15 +362,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 const linkItems = [
     {
-        primaryIcon: <Avatar variant="square" src="https://raw.githubusercontent.com/bcheung98/project-irminsul-assets/main/icons/Sumeru.png" alt="Project Irminsul" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
-        primaryText: "Project Irminsul",
-        secondaryText: "Genshin Impact",
+        primaryIcon: <Avatar src="https://raw.githubusercontent.com/bcheung98/irminsul-gg-assets/main/game-icons/Genshin.png" alt="Project Irminsul" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
+        primaryText: "Genshin Impact",
         link: "https://bcheung98.github.io/project-irminsul/"
     },
     {
-        primaryIcon: <Avatar variant="square" src="https://raw.githubusercontent.com/bcheung98/project-stellaron-assets/main/elements/Element_Imaginary.png" alt="Project Stellaron" sx={{ width: iconSize, height: iconSize }} />,
-        primaryText: "Project Stellaron",
-        secondaryText: "Honkai: Star Rail",
+        primaryIcon: <Avatar src="https://raw.githubusercontent.com/bcheung98/irminsul-gg-assets/main/game-icons/HSR.png" alt="Project Stellaron" sx={{ width: iconSize, height: iconSize }} />,
+        primaryText: "Honkai: Star Rail",
         link: "https://bcheung98.github.io/project-stellaron/"
     }
 ]
