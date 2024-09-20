@@ -21,7 +21,7 @@ import EchoBrowser from "./components/echoes/EchoBrowser"
 import AscensionPlanner from "./components/planner/_AscensionPlanner"
 
 // MUI imports
-import { defaultTheme as theme } from "./theme"
+import theme from "./themes/theme"
 import { ThemeProvider } from "@mui/material/styles"
 import { Box, Fade, useScrollTrigger, Fab } from "@mui/material"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
@@ -59,7 +59,16 @@ const App = (props: any) => {
                 </Box>
                 <BottomNav />
                 <ScrollTop {...props}>
-                    <Fab size="medium" disableRipple sx={{ backgroundColor: `${theme.button.selected}` }}>
+                    <Fab
+                        size="medium"
+                        disableRipple
+                        sx={{
+                            backgroundColor: `${theme.button.selected}`,
+                            "&:hover": {
+                                backgroundColor: `${theme.button.hover}`
+                            }
+                        }}
+                    >
                         <KeyboardArrowUpIcon sx={{ color: `${theme.text.color}` }} />
                     </Fab>
                 </ScrollTop>
