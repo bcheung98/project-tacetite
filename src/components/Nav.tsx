@@ -6,14 +6,13 @@ import { Toolbar, Typography, CardHeader, Avatar, ButtonBase, IconButton, List, 
 import MuiDrawer from "@mui/material/Drawer"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import MenuOpenIcon from "@mui/icons-material/MenuOpen"
-import ChecklistIcon from "@mui/icons-material/Checklist"
 import ExpandLess from "@mui/icons-material/ExpandLess"
 import ExpandMore from "@mui/icons-material/ExpandMore"
 
 // Helper imports
 import { CustomTooltip } from "../helpers/CustomTooltip"
 
-const drawerWidth = 280 //px
+const drawerWidth = 240 //px
 const iconSize = 32 //px
 
 function Nav() {
