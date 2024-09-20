@@ -47,7 +47,7 @@ const VersionHighlights = (props: any) => {
                 border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 display: "block",
-                margin: "auto",
+                ml: "20px",
                 mt: "20px",
                 width: "75vw",
                 color: `${theme.text.color}`,
