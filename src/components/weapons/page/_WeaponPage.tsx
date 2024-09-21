@@ -56,8 +56,8 @@ const WeaponPage = (props: any) => {
 
         let { name, rarity, type, stats, description } = weapon
 
-        if (weapon.displayName) document.title = `${weapon.displayName} - Project Tacetite`
-        else document.title = `${name} - Project Tacetite`
+        if (weapon.displayName) document.title = `${weapon.displayName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
+        else document.title = `${name} ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
         return (
             <React.Fragment>

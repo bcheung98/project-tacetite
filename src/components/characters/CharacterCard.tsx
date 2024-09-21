@@ -48,7 +48,7 @@ const CharacterCard = (props: any) => {
                         position: "relative"
                     }}
                 >
-                    <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                    <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                         <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bolder" }}>
                             {name}
                         </Typography>
@@ -71,7 +71,7 @@ const CharacterCard = (props: any) => {
                 <Grid container sx={{ mt: "12px" }}>
                     <Grid xs>
                         <Box sx={{ width: "105px" }}>
-                            <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                            <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                                 <img src={`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`} alt={name} style={characterIconBackground} onError={ErrorLoadingImage} />
                             </ButtonBase>
                         </Box>

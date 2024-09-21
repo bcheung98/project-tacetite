@@ -13,19 +13,20 @@ import ExpandMore from "@mui/icons-material/ExpandMore"
 import { CustomTooltip } from "../helpers/CustomTooltip"
 
 const drawerWidth = 240 //px
+const buttonHoverWidth = drawerWidth * 0.9 // px
 const iconSize = 32 //px
 
 function Nav() {
 
     const theme = useTheme()
 
-    let initialDrawerState = window.location.href.endsWith("/project-tacetite/") ? true : false
+    let initialDrawerState = window.location.href.endsWith(".gg/") ? true : false
     const [drawerOpen, setDrawerOpen] = React.useState(initialDrawerState)
     const toggleDrawerState = () => {
         setDrawerOpen(!drawerOpen)
     }
 
-    const [dropdownOpen, setDropdownOpen] = React.useState(false);
+    const [dropdownOpen, setDropdownOpen] = React.useState(false)
     const toggleDropdownState = () => {
         setDropdownOpen(!dropdownOpen)
     }
@@ -50,27 +51,36 @@ function Nav() {
                                 <MenuOpenIcon sx={{ transform: "rotate(180deg)" }} />
                         }
                     </IconButton>
-                    <ButtonBase
-                        disableRipple
-                        href={`/project-tacetite/`}
-                    >
-                        <CardHeader
-                            avatar={
-                                <Avatar src={`${process.env.REACT_APP_URL}/icons/Black_Shores.png`} alt="Project Tacetite" sx={{ height: "48px", width: "48px" }} />
-                            }
-                            title={
-                                <Typography variant="h6"
-                                    sx={{
-                                        letterSpacing: ".3rem",
-                                        color: `${theme.text.color}`,
-                                    }}
-                                >
-                                    PROJECT TACETITE
-                                </Typography>
-                            }
-                            sx={{ px: 0 }}
-                        />
-                    </ButtonBase>
+                    <CustomTooltip title="Irminsul.GG Portal" arrow placement="right" enterDelay={250}>
+                        <ButtonBase disableRipple href="https://irminsul.gg/">
+                            <CardHeader
+                                avatar={
+                                    <Avatar
+                                        variant="square"
+                                        src="https://assets.irminsul.gg/main/icons/Irminsul.png"
+                                        alt="irminsul.gg"
+                                        sx={{
+                                            height: "48px",
+                                            width: "48px"
+                                        }}
+                                    />
+                                }
+                                title={
+                                    <Typography
+                                        sx={{
+                                            fontFamily: "Bungee, Roboto",
+                                            fontSize: "15pt",
+                                            letterSpacing: ".1rem",
+                                            color: `white`
+                                        }}
+                                    >
+                                        Irminsul.GG
+                                    </Typography>
+                                }
+                                sx={{ px: 0 }}
+                            />
+                        </ButtonBase>
+                    </CustomTooltip>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -103,7 +113,7 @@ function Nav() {
                                             },
                                             drawerOpen ?
                                                 {
-                                                    width: `${drawerWidth * 0.8}px`,
+                                                    width: `${buttonHoverWidth}px`,
                                                     height: "50px",
                                                     my: 0,
                                                     justifyContent: "initial"
@@ -132,7 +142,7 @@ function Nav() {
                                         </CustomTooltip>
                                         <ListItemText
                                             primary={item.primaryText}
-                                            primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", mb: "2.5px" }}
+                                            primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", fontFamily: "Segoe UI, Roboto" }}
                                             sx={[
                                                 drawerOpen ?
                                                     { opacity: 1 }
@@ -199,7 +209,7 @@ function Nav() {
                                 </CustomTooltip>
                                 <ListItemText
                                     primary="Other Games"
-                                    primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", mb: "2.5px" }}
+                                    primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", fontFamily: "Segoe UI, Roboto" }}
                                     sx={[
                                         drawerOpen ?
                                             { opacity: 1 }
@@ -236,7 +246,7 @@ function Nav() {
                                                         },
                                                         drawerOpen ?
                                                             {
-                                                                width: `${drawerWidth * 0.8}px`,
+                                                                width: `${buttonHoverWidth}px`,
                                                                 height: "50px",
                                                                 my: 0,
                                                                 justifyContent: "initial"
@@ -265,7 +275,7 @@ function Nav() {
                                                     </CustomTooltip>
                                                     <ListItemText
                                                         primary={item.primaryText}
-                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", mb: "2.5px" }}
+                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontSize: "11pt", fontWeight: "600", fontFamily: "Segoe UI, Roboto" }}
                                                         sx={[
                                                             drawerOpen ?
                                                                 { opacity: 1 }
@@ -362,14 +372,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 const linkItems = [
     {
-        primaryIcon: <Avatar src="https://raw.githubusercontent.com/bcheung98/irminsul-gg-assets/main/game-icons/Genshin.png" alt="Project Irminsul" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
+        primaryIcon: <Avatar variant="square" src="https://assets.irminsul.gg/main/game-icons/Genshin.png" alt="genshin.irminsul.gg" sx={{ width: iconSize, height: iconSize, borderRadius: "5px" }} />,
         primaryText: "Genshin Impact",
-        link: "https://bcheung98.github.io/project-irminsul/"
+        link: "https://genshin.irminsul.gg/"
     },
     {
-        primaryIcon: <Avatar src="https://raw.githubusercontent.com/bcheung98/irminsul-gg-assets/main/game-icons/HSR.png" alt="Project Stellaron" sx={{ width: iconSize, height: iconSize }} />,
+        primaryIcon: <Avatar variant="square" src="https://assets.irminsul.gg/main/game-icons/HSR.png" alt="hsr.irminsul.gg" sx={{ width: iconSize, height: iconSize, borderRadius: "5px" }} />,
         primaryText: "Honkai: Star Rail",
-        link: "https://bcheung98.github.io/project-stellaron/"
+        link: "https://hsr.irminsul.gg/"
     }
 ]
 
@@ -377,26 +387,26 @@ const navItems = [
     {
         primaryIcon: <Avatar src={(`${process.env.REACT_APP_URL}/icons/Black_Shores.png`)} alt="Home" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         primaryText: "Home",
-        link: "/project-tacetite/"
+        link: `${process.env.REACT_APP_BASENAME}/`
     },
     {
         primaryIcon: <Avatar src={(`${process.env.REACT_APP_URL}/icons/Character.png`)} alt="Resonators" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         primaryText: "Resonators",
-        link: "/project-tacetite/characters/"
+        link: `${process.env.REACT_APP_BASENAME}/characters/`
     },
     {
         primaryIcon: <Avatar src={(`${process.env.REACT_APP_URL}/icons/Weapon.png`)} alt="Weapons" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         primaryText: "Weapons",
-        link: "/project-tacetite/weapons/"
+        link: `${process.env.REACT_APP_BASENAME}/weapons/`
     },
     {
         primaryIcon: <Avatar src={(`${process.env.REACT_APP_URL}/icons/Echo.png`)} alt="Echoes" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         primaryText: "Echoes",
-        link: "/project-tacetite/echoes/"
+        link: `${process.env.REACT_APP_BASENAME}/echoes/`
     },
     {
         primaryIcon: <Avatar src={(`${process.env.REACT_APP_URL}/icons/Ascension.png`)} alt="Ascension" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         primaryText: "Ascension Planner",
-        link: "/project-tacetite/planner/"
+        link: `${process.env.REACT_APP_BASENAME}/planner/`
     }
 ]

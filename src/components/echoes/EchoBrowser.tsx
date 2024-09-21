@@ -38,7 +38,7 @@ const EchoBrowser = (props: any) => {
 
     let { echoes, echoFilters } = props
 
-    document.title = "Echoes - Project Tacetite"
+    document.title = `Echoes ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
     return (
         <React.Fragment>

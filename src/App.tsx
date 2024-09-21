@@ -41,19 +41,19 @@ const App = (props: any) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Router basename="project-tacetite">
+            <Router basename={`${process.env.REACT_APP_BASENAME}`}>
                 <Box id="back-to-top-anchor" />
                 <Box sx={{ display: "flex" }}>
                     <Nav />
-                    <Box sx={{ pt: 10 }}>
+                    <Box sx={{ pt: 10, minHeight: "90vh" }}>
                         <Switch>
                             <Route exact path="/" component={VersionHighlights} />
                             <Route exact path="/characters" component={CharacterBrowser} />
-                            <Route path="/character/:char_name" children={<CharacterPage />} />
+                            <Route path="/characters/:char_name" children={<CharacterPage />} />
                             <Route exact path="/weapons" component={WeaponBrowser} />
-                            <Route path="/weapon/:wep_name" children={<WeaponPage />} />
+                            <Route path="/weapons/:wep_name" children={<WeaponPage />} />
                             <Route exact path="/echoes" component={EchoBrowser} />
-                            <Route path="/planner" component={AscensionPlanner} />
+                            <Route exact path="/planner" component={AscensionPlanner} />
                         </Switch>
                     </Box>
                 </Box>
@@ -106,7 +106,7 @@ const ScrollTop: React.FC<ScrollTopProps> = (props) => {
         <Fade in={trigger}>
             <Box
                 onClick={handleClick}
-                sx={{ position: "fixed", bottom: 96, right: 16 }}
+                sx={{ position: "fixed", bottom: 128, right: 16 }}
             >
                 {children}
             </Box>

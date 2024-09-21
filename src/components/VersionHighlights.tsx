@@ -40,6 +40,8 @@ const VersionHighlights = (props: any) => {
     let weapons = props.weapons.weapons.filter((wep: WeaponData) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
     let echoes = props.echoes.echoes.filter((echo: EchoData) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
 
+    document.title = `Wuthering Waves ${process.env.REACT_APP_DOCUMENT_HEADER}`
+
     return (
         <Box
             sx={{

@@ -36,7 +36,7 @@ const CharacterCardLarge = (props: any) => {
                 borderRadius: "25px 50px 25px 25px",
             }}
         >
-            <ButtonBase disableRipple href={`/project-tacetite/character/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+            <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                 <Box>
                     <Box
                         sx={{

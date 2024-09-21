@@ -44,7 +44,7 @@ const WeaponAscensionCard = (props: any) => {
             <CardHeader
                 avatar={
                     <Box sx={{ position: "relative" }}>
-                        <ButtonBase disableRipple href={`/project-tacetite/weapon/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <img
                                 src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
                                 alt={name}
@@ -68,7 +68,7 @@ const WeaponAscensionCard = (props: any) => {
                 }
                 title={
                     <React.Fragment>
-                        <ButtonBase disableRipple href={`/project-tacetite/weapon/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                                 {props.weapon.displayName ? props.weapon.displayName : name}
                             </Typography>

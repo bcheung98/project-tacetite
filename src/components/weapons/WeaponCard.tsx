@@ -36,7 +36,7 @@ const WeaponCard = (props: any) => {
                 borderRadius: "25px 50px 25px 25px",
             }}
         >
-            <ButtonBase disableRipple href={`/project-tacetite/weapon/${name.split(" ").join("_").toLowerCase()}`} target="_blank">
+            <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${name.split(" ").join("_").toLowerCase()}`} target="_blank">
                 <Box>
                     <Box
                         sx={{
@@ -77,7 +77,7 @@ const WeaponCard = (props: any) => {
                     <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", fontSize: "16pt", userSelect: "none" }} variant="h6">
                         {[...Array(rarity).keys()].map(() => "✦")}
                     </Typography>
-                    <ButtonBase disableRipple href={`/project-tacetite/weapon/${name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                    <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${name.split(" ").join("_").toLowerCase()}`} target="_blank">
                         <Typography variant="body1" sx={{ color: "white", fontWeight: "bold" }}>
                             {props.weapon.displayName ? props.weapon.displayName : name}
                         </Typography>

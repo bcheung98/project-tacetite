@@ -38,7 +38,7 @@ const WeaponBrowser = (props: any) => {
 
     let { weapons, weaponFilters } = props
 
-    document.title = "Weapons - Project Tacetite"
+    document.title = `Weapons ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
     return (
         <React.Fragment>

@@ -47,9 +47,9 @@ const CharacterPage = (props: any) => {
 
         let { name, title, rarity, element, weapon, tags, description, birthday, nation, release, voiceActors } = character
 
-        if (character.displayName) document.title = `${character.displayName} - Project Tacetite`
-        if (character.fullName) document.title = `${character.fullName} - Project Tacetite`
-        if (!character.displayName && !character.fullName) document.title = `${name} - Project Tacetite`
+        if (character.displayName) document.title = `${character.displayName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
+        if (character.fullName) document.title = `${character.fullName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
+        if (!character.displayName && !character.fullName) document.title = `${name} ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
         return (
             <React.Fragment>

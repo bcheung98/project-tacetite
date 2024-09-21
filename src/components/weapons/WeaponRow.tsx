@@ -36,12 +36,12 @@ const WeaponRow = (props: any) => {
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <CardHeader sx={{ p: 0 }}
                             avatar={
-                                <ButtonBase disableRipple href={`/project-tacetite/weapon/${row.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                                <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${row.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                                     <img alt={row.name} src={(`${process.env.REACT_APP_URL}/weapons/${row.name.split(" ").join("_")}.png`)} style={{ width: "48px", cursor: "pointer" }} onError={ErrorLoadingImage} />
                                 </ButtonBase>
                             }
                             title={
-                                <ButtonBase disableRipple href={`/project-tacetite/weapon/${row.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                                <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${row.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                                     <Typography variant="body1"
                                         sx={{
                                             fontWeight: "bold",
