@@ -1,12 +1,10 @@
-# **PROJECT TACETITE**
+# **[wuwa.Irminsul.GG](https://wuwa.irminsul.gg/)**
 
-A database website for the action role-playing game *[Wuthering Waves](https://wutheringwaves.kurogames.com/en/)*.
+The Wuthering Waves branch of [Irminsul.GG](https://irminsul.gg/)
 
-## Current Features:
+## **Current Features**
 
-- Character viewer
-- Weapon viewer
-- Echo viewer
+- Character browser
+- Weapon browser
+- Echo browser
 - Ascension planner
-
-The website uses this [script](https://github.com/rafgraph/spa-github-pages) to deploy single page apps on GitHub Pages. 
