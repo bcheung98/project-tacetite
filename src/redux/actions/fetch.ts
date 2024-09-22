@@ -3,14 +3,14 @@ import { CharacterData } from "../../types/CharacterData"
 import { WeaponData } from "../../types/WeaponData"
 import { EchoData } from "../../types/EchoData"
 
-// https://bcheung98.github.io/project-tacetite-db/characters.json
-const CharacterURL = "https://bcheung98.github.io/project-tacetite-db/characters.json"
+// https://api.irminsul.gg/wuwa/characters.json
+const CharacterURL = "https://api.irminsul.gg/wuwa/characters.json"
 
-// https://bcheung98.github.io/project-tacetite-db/weapons.json
-const WeaponURL = "https://bcheung98.github.io/project-tacetite-db/weapons.json"
+// https://api.irminsul.gg/wuwa/weapons.json
+const WeaponURL = "https://api.irminsul.gg/wuwa/weapons.json"
 
-// https://bcheung98.github.io/project-tacetite-db/echoes.json
-const EchoURL = "https://bcheung98.github.io/project-tacetite-db/echoes.json"
+// https://api.irminsul.gg/wuwa/echoes.json
+const EchoURL = "https://api.irminsul.gg/wuwa/echoes.json"
 
 export const fetchCharacters = createAsyncThunk("GET/characters", async (): Promise<[CharacterData]> => {
     const response = await fetch(CharacterURL)
