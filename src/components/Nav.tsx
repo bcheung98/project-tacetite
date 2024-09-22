@@ -69,7 +69,7 @@ function Nav() {
                                     <Typography
                                         sx={{
                                             fontFamily: "Bungee, Roboto",
-                                            fontSize: "15pt",
+                                            fontSize: "16pt",
                                             letterSpacing: ".1rem",
                                             color: `white`
                                         }}
