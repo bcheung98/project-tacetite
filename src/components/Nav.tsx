@@ -51,7 +51,7 @@ function Nav() {
                                 <MenuOpenIcon sx={{ transform: "rotate(180deg)" }} />
                         }
                     </IconButton>
-                    <CustomTooltip title="Irminsul.GG Home" arrow placement="right" enterDelay={250}>
+                    <CustomTooltip title="Irminsul.GG Portal" arrow placement="right" enterDelay={250}>
                         <ButtonBase disableRipple href="https://irminsul.gg/">
                             <CardHeader
                                 avatar={
