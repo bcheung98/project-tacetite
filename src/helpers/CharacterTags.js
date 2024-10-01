@@ -79,6 +79,10 @@ export const Tags = {
         "description": "Provides Basic Attack DMG Amplification for a specific teammate",
         "color": "#ff7777",
     },
+    "Coordinated Attack DMG Amplification": {
+        "description": "Provides Coordinated Attack DMG Amplification for a specific teammate",
+        "color": "#ff7777",
+    },
     "Heavy Attack DMG Amplification": {
         "description": "Provides Heavy Attack DMG Amplification for a specific teammate",
         "color": "#ff7777",

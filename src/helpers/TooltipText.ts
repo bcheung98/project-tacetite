@@ -201,6 +201,9 @@ export const formatBossMats = (material: string) => {
         case "Thundering Tacet Core":
             material += " (Thundering Mephis)"
             break
+        case "Topological Confinement":
+            material += " (Fallacy of No Return)"
+            break
         default:
             break
     }
