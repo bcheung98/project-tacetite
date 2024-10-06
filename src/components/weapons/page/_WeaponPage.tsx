@@ -9,7 +9,7 @@ import WeaponStatsTable from "./WeaponStatsTable"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Typography, Box, Avatar, AppBar } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
@@ -61,14 +61,12 @@ const WeaponPage = (props: any) => {
 
         return (
             <React.Fragment>
-                <Grid container sx={{ mb: "20px", mt: "10px" }}>
-                    <Grid xs="auto">
+                <Grid container spacing={3}>
+                    <Grid size="auto">
                         <img
                             src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
                             alt={name}
                             style={{
-                                marginLeft: "15px",
-                                marginTop: "5px",
                                 border: `2px solid ${GetRarityColor(rarity)}`,
                                 borderRadius: "15px",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
@@ -78,20 +76,19 @@ const WeaponPage = (props: any) => {
                             onError={ErrorLoadingImage}
                         />
                     </Grid>
-                    <Grid xs>
+                    <Grid size="grow">
                         <Box
                             sx={{
-                                p: "15px",
-                                mx: "15px",
-                                mt: "5px",
-                                border: `2px solid ${theme.border.color}`,
+                                px: "5px",
+                                py: "15px",
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                             }}
                         >
-                            <Box sx={{ display: "flex" }}>
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <CustomTooltip title={`${type}`} arrow placement="bottom">
-                                    <Avatar variant="square" src={`${process.env.REACT_APP_URL}/weapons/icons/${type}.png`} alt={type} onError={ErrorLoadingImage} sx={{ marginRight: "-20px", height: "100px", width: "100px", backgroundColor: `${theme.paper.backgroundColor}` }} />
+                                    <Avatar variant="square" src={`${process.env.REACT_APP_URL}/weapons/icons/${type}.png`} alt={type} onError={ErrorLoadingImage} sx={{ marginRight: "-20px", height: "96px", width: "96px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                                 </CustomTooltip>
                                 <Box sx={{ ml: "30px" }}>
                                     <Typography
@@ -106,7 +103,7 @@ const WeaponPage = (props: any) => {
                                         {weapon.displayName ? weapon.displayName : name}
                                     </Typography>
                                     <Box sx={{ mt: "5px" }}>
-                                        <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h4">
+                                        <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h4">
                                             {[...Array(rarity).keys()].map(() => "✦")}
                                         </Typography>
                                     </Box>
@@ -116,8 +113,7 @@ const WeaponPage = (props: any) => {
                             <Typography
                                 variant="body1"
                                 sx={{
-                                    mb: "10px",
-                                    mx: "15px",
+                                    m: "15px",
                                     fontWeight: "500",
                                     color: `${theme.text.color}`,
                                 }}
@@ -127,10 +123,10 @@ const WeaponPage = (props: any) => {
                         </Box>
                         <Box
                             sx={{
-                                p: "15px",
-                                mx: "15px",
+                                px: "5px",
+                                py: "15px",
                                 my: "15px",
-                                border: `2px solid ${theme.border.color}`,
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                                 color: `${theme.text.color}`,
@@ -144,16 +140,23 @@ const WeaponPage = (props: any) => {
                                 {parse(stats.passive.description)}
                             </Typography>
                             <Box sx={{ display: "flex", alignItems: "center", width: "20%", mt: "15px", mx: "15px", }}>
-                                <Typography variant="h6" sx={{ fontWeight: "500", color: `${theme.text.color}`, width: "75px" }}>
+                                <Typography variant="h6" sx={{ fontWeight: "500", color: `${theme.text.color}`, minWidth: "50px" }}>
                                     R{sliderValue}
                                 </Typography>
-                                <CustomSlider value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element="" />
+                                <CustomSlider
+                                    value={sliderValue}
+                                    step={1}
+                                    min={1}
+                                    max={maxValue}
+                                    onChange={handleSliderChange}
+                                    element=""
+                                    sx={{ minWidth: "100px" }}
+                                />
                             </Box>
                         </Box>
                         <Box
                             sx={{
                                 p: 0,
-                                mx: "15px",
                                 marginTop: "15px",
                                 border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
@@ -163,7 +166,7 @@ const WeaponPage = (props: any) => {
                             <AppBar position="static"
                                 sx={{
                                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                                    borderBottom: `2px solid ${theme.border.color}`,
+                                    borderBottom: `1px solid ${theme.border.color}`,
                                     borderRadius: "5px 5px 0px 0px",
                                 }}
                             >

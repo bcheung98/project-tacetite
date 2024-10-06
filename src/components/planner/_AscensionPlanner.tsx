@@ -1,3 +1,4 @@
+import * as React from "react"
 import { connect } from "react-redux"
 
 // Component imports
@@ -9,7 +10,7 @@ import WeaponAscensionCard from "./_WeaponAscensionCard"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid from "@mui/material/Grid2"
 
 // Type imports
 import { RootState } from "../../redux/store"
@@ -23,39 +24,56 @@ const AscensionPlanner = (props: any) => {
     document.title = `Ascension Planner ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
     return (
-        <Box>
-            <Typography variant="h4"
+        <React.Fragment>
+            <Box
                 sx={{
-                    mx: "25px",
-                    my: "20px",
-                    display: { xs: "none", md: "flex" },
-                    letterSpacing: ".2rem",
-                    color: `${theme.text.color}`,
-                    fontWeight: "500",
-                    textAlign: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "left",
+                    mb: "20px",
+                    height: "30px",
                 }}
             >
-                ASCENSION PLANNER
-            </Typography>
-            <Box sx={{ display: "block", my: "30px" }}>
-                <Box sx={{ display: "flex" }}>
-                    <CharacterSelector />
-                    <WeaponSelector />
-                </Box>
+                <Typography
+                    variant="h5"
+                    sx={{
+                        mr: "25px",
+                        fontWeight: "500",
+                        color: `${theme.text.color}`,
+                        textDecoration: "none",
+                    }}
+                >
+                    Ascension Planner
+                </Typography>
             </Box>
-
-            <Box sx={{ mx: "20px" }}>
-                <Grid container>
-                    <Grid>
-                        {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)}
-                    </Grid>
-                    <br />
-                    <Grid>
-                        {weapons.map((weapon: any) => <WeaponAscensionCard key={weapon.id} weapon={weapon} />)}
-                    </Grid>
-                </Grid>
-            </Box>
-        </Box>
+            <Grid container spacing={2}>
+                <CharacterSelector />
+                <WeaponSelector />
+            </Grid>
+            <br />
+            <Grid container spacing={2}>
+                {
+                    characters.length > 0 ?
+                        <Grid size="grow">
+                            <Grid container rowSpacing={5} columnSpacing={2}>
+                                {characters.map((character: any) => <CharacterAscensionCard key={character.id} character={character} />)}
+                            </Grid>
+                        </Grid>
+                        :
+                        null
+                }
+                {
+                    weapons.length > 0 ?
+                        <Grid size="grow">
+                            <Grid container rowSpacing={5} columnSpacing={2}>
+                                {weapons.map((weapon: any) => <WeaponAscensionCard key={weapon.id} weapon={weapon} />)}
+                            </Grid>
+                        </Grid>
+                        :
+                        null
+                }
+            </Grid>
+        </React.Fragment>
     )
 
 }

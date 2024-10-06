@@ -9,8 +9,8 @@ import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Typography, Box, AppBar, Dialog, CardHeader } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import { Typography, Box, AppBar, Dialog, CardHeader, TableContainer, Table, TableBody, TableRow, TableCell } from "@mui/material"
+import Grid from "@mui/material/Grid2"
 import InfoOutlined from "@mui/icons-material/InfoOutlined"
 
 // Helper imports
@@ -47,21 +47,28 @@ const CharacterPage = (props: any) => {
 
         let { name, title, rarity, element, weapon, tags, description, birthday, nation, release, voiceActors } = character
 
+        const rows = [
+            { key: "Nation", value: nation },
+            { key: "Birthday", value: birthday },
+            { key: "Release", value: `${release.date} (${release.version})` },
+            { key: "Voice Actor (EN)", value: voiceActors["en"] },
+            { key: "Voice Actor (JP)", value: voiceActors["jp"] },
+        ]
+
         if (character.displayName) document.title = `${character.displayName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
         if (character.fullName) document.title = `${character.fullName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
         if (!character.displayName && !character.fullName) document.title = `${name} ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
         return (
             <React.Fragment>
-                <Grid container sx={{ mb: "20px" }}>
-                    <Grid xs="auto">
+                <Grid container spacing={3} sx={{ mb: "20px" }}>
+                    <Grid size="auto">
                         <img src={(`${process.env.REACT_APP_URL}/characters/avatars/${name.split(" ").join("_")}.png`)} alt={name}
                             style={{
-                                height: "550px",
-                                objectFit: "contain",
-                                marginLeft: "15px",
-                                marginTop: "15px",
-                                border: `2px solid ${theme.border.color}`,
+                                width: "25vw",
+                                height: "600px",
+                                objectFit: "cover",
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                                 // cursor: "pointer",
@@ -70,118 +77,118 @@ const CharacterPage = (props: any) => {
                         />
                         <Box
                             sx={{
-                                border: `2px solid ${theme.border.color}`,
+                                py: "10px",
+                                mt: "10px",
+                                width: "25vw",
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 color: `${theme.text.color}`,
                                 backgroundColor: `${theme.paper.backgroundColor}`,
-                                ml: "15px",
-                                mt: "10px",
-                                px: "10px",
-                                py: "10px",
                             }}
                         >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}>
-                                <Box sx={{ textAlign: "left" }}>
-                                    <Typography variant="body2"><b>Nation</b></Typography>
-                                    <Typography variant="body2"><b>Birthday</b></Typography>
-                                    <Typography variant="body2"><b>Release Date</b></Typography>
-                                    <Typography variant="body2"><b>Voice Actor (EN)</b></Typography>
-                                    <Typography variant="body2"><b>Voice Actor (JP)</b></Typography>
-                                </Box>
-                                <Box sx={{ textAlign: "right", maxWidth: "200px" }}>
-                                    <Typography variant="body2">{nation}</Typography>
-                                    <Typography variant="body2">{birthday}</Typography>
-                                    <Typography variant="body2">{`${release.date} (${release.version})`}</Typography>
-                                    <Typography variant="body2">{voiceActors["en"]}</Typography>
-                                    <Typography variant="body2">{voiceActors["jp"]}</Typography>
-                                </Box>
-                            </Box>
+                            <TableContainer>
+                                <Table size="small">
+                                    <TableBody>
+                                        {
+                                            rows.map((row) => (
+                                                <TableRow key={row.key}>
+                                                    <TableCell sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
+                                                        <b>{row.key}</b>
+                                                    </TableCell>
+                                                    <TableCell align="right" sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
+                                                        {row.value}
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         </Box>
                     </Grid>
-                    <Grid xs>
+                    <Grid size="grow" sx={{ mb: "20px" }}>
                         <Box
                             sx={{
                                 p: "5px",
-                                mx: "15px",
-                                marginTop: "15px",
-                                border: `2px solid ${theme.border.color}`,
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                             }}
                         >
-                            <Box sx={{ display: "flex" }}>
-                                <CustomTooltip title={`${element}`} arrow placement="bottom">
-                                    <img
-                                        src={`${process.env.REACT_APP_URL}/elements/ui/${element}.png`} alt={`${element}`}
-                                        style={{
-                                            marginRight: "-20px",
-                                            height: "128px",
-                                            width: "128px",
-                                        }}
-                                        onError={ErrorLoadingImage}
-                                    />
-                                </CustomTooltip>
-                                <Box sx={{ ml: "20px" }}>
-                                    <Typography
-                                        variant="h4"
-                                        sx={{
-                                            mt: "10px",
-                                            display: { xs: "none", md: "flex" },
-                                            fontWeight: "bolder",
-                                            color: `${theme.text.color}`,
-                                            textDecoration: "none",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                        {character.displayName && character.displayName}
-                                        {character.fullName && character.fullName}
-                                        {!character.displayName && !character.fullName && name}
-                                    </Typography>
-                                    <Typography
-                                        variant="h6"
-                                        sx={{
-                                            my: "2px",
-                                            display: { xs: "none", md: "flex" },
-                                            color: `${theme.text.color}`,
-                                            fontWeight: "500",
-                                            fontStyle: "italic",
-                                        }}
-                                    >
-                                        {title}
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "left",
-                                            color: `${theme.text.color}`
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="h4"
-                                            sx={{
-                                                mt: "-6px",
-                                                ml: "-5px",
-                                                color: "rgb(255, 208, 112)",
-                                                textShadow: "#e3721b 1px 1px 10px"
-                                            }}
-                                        >
-                                            {[...Array(rarity).keys()].map(() => "✦")}
-                                        </Typography>
-                                        <Box sx={{ marginLeft: "5px" }}>
-                                            <Typography variant="h6" sx={{ fontWeight: "500", mb: "5px" }}>
-                                                • {weapon}
+                            <Grid container spacing={1}>
+                                <Grid size="auto">
+                                    <Box sx={{ display: "flex" }}>
+                                        <CustomTooltip title={`${element}`} arrow placement="bottom">
+                                            <img src={`${process.env.REACT_APP_URL}/elements/ui/${element}.png`} alt={`${element}`}
+                                                style={{
+                                                    marginRight: "-20px",
+                                                    height: "128px",
+                                                    width: "128px",
+                                                }}
+                                                onError={ErrorLoadingImage}
+                                            />
+                                        </CustomTooltip>
+                                        <Box sx={{ ml: "20px" }}>
+                                            <Typography
+                                                variant="h4"
+                                                sx={{
+                                                    mt: "10px",
+                                                    display: "flex",
+                                                    fontWeight: "700",
+                                                    color: `${theme.text.color}`,
+                                                    textDecoration: "none",
+                                                    textAlign: "center",
+                                                }}
+                                            >
+                                                {character.displayName && character.displayName}
+                                                {character.fullName && character.fullName}
+                                                {!character.displayName && !character.fullName && name}
                                             </Typography>
+                                            <Typography
+                                                variant="h6"
+                                                noWrap
+                                                sx={{
+                                                    my: "2px",
+                                                    display: "flex",
+                                                    fontWeight: "500",
+                                                    color: `${theme.text.color}`,
+                                                    fontStyle: "italic",
+                                                    textAlign: "center",
+                                                }}
+                                            >
+                                                {title}
+                                            </Typography>
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    color: `${theme.text.color}`
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{
+                                                        mt: "-6px",
+                                                        ml: "-5px",
+                                                        fontSize: "30px",
+                                                        color: `${theme.text.star}`,
+                                                        textShadow: "#e3721b 1px 1px 10px",
+                                                        userSelect: "none"
+                                                    }}
+                                                >
+                                                    {[...Array(rarity).keys()].map(() => "✦")}
+                                                </Typography>
+                                                <Box sx={{ ml: "5px", mb: "8px" }}>
+                                                    <Typography variant="h6" sx={{ fontWeight: "500" }}>
+                                                        • {weapon}
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
                                         </Box>
                                     </Box>
-                                </Box>
-                            </Box>
+                                </Grid>
+                            </Grid>
                             <hr style={{ border: `0.5px solid ${theme.border.color}`, margin: "15px" }} />
-                            <Box sx={{ ml: "20px" }}>
+                            <Box sx={{ mx: "20px" }}>
                                 {
                                     tags.map((tag: string, index: number) => (
                                         <CustomTooltip key={index} title={tag} arrow placement="top">
@@ -228,9 +235,8 @@ const CharacterPage = (props: any) => {
                         <Box
                             sx={{
                                 p: 0,
-                                mx: "15px",
-                                marginTop: "15px",
-                                border: `2px solid ${theme.border.color}`,
+                                mt: "15px",
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px",
                                 backgroundColor: `${theme.paper.backgroundColor}`,
                             }}
@@ -238,7 +244,7 @@ const CharacterPage = (props: any) => {
                             <AppBar position="static"
                                 sx={{
                                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                                    borderBottom: `2px solid ${theme.border.color}`,
+                                    borderBottom: `1px solid ${theme.border.color}`,
                                     borderRadius: "5px 5px 0px 0px",
                                 }}
                             >
@@ -274,7 +280,7 @@ const CharacterPage = (props: any) => {
                         <AppBar position="static"
                             sx={{
                                 backgroundColor: `${theme.appbar.backgroundColor}`,
-                                borderBottom: `2px solid ${theme.border.color}`,
+                                borderBottom: `1px solid ${theme.border.color}`,
                                 borderRadius: "5px 5px 0px 0px",
                             }}
                         >
@@ -306,7 +312,7 @@ const CharacterPage = (props: any) => {
                                                 <Typography variant="h5" sx={{ color: `${theme.text.color}`, fontWeight: "bold", mb: "7px" }}>
                                                     {tag}
                                                 </Typography>
-                                                <Typography variant="body1" sx={{ color: "rgb(225, 225, 225)" }}>
+                                                <Typography variant="body1" sx={{ color: `rgb(225, 225, 225)` }}>
                                                     {Tags[tag as keyof typeof Tags].description}
                                                 </Typography>
                                             </Box>

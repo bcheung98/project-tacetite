@@ -71,12 +71,12 @@ const CharacterSelector = (props: any) => {
                     sx={{
                         width: 300,
                         p: "5px",
-                        mx: "20px",
-                        border: `2px solid ${theme.border.color}`,
+                        border: `1px solid ${theme.border.color}`,
                         borderRadius: "5px",
                     }}
                 >
                     <Button disableRipple onClick={handleClick}>
+                        <img src={`${process.env.REACT_APP_URL}/icons/Character.png`} alt="Characters" style={{ width: "32px", marginRight: "10px" }} />
                         <span style={{ fontFamily: "Segoe UI", fontSize: "16pt", color: "white" }}>Characters</span>
                         <ArrowForwardIosSharpIcon sx={{ transform: "rotate(90deg)", color: "white" }} />
                     </Button>

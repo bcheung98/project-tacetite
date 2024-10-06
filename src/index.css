@@ -92,14 +92,15 @@ code {
     height: 32px;
     padding: 3px;
     margin: 3px;
-    border: 2px solid rgb(168, 147, 105);
+    border: 1px solid rgb(168, 147, 105);
     border-radius: 5px;
+    box-sizing: content-box;
 }
 
 .filter-off:hover,
 .filter-on:hover {
     box-shadow: 0 0 5px 1px gold;
-    border: 2px solid gold;
+    border: 1px solid gold;
     cursor: pointer;
 }
 

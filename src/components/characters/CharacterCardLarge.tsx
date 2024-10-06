@@ -29,11 +29,11 @@ const CharacterCardLarge = (props: any) => {
     return (
         <Card
             sx={{
-                mr: "18px",
-                mb: "20px",
+                position: "relative",
+                zIndex: 0,
                 backgroundColor: `${theme.card.backgroundColor}`,
-                border: `2px solid ${theme.border.color}`,
-                borderRadius: "25px 50px 25px 25px",
+                border: `1px solid ${theme.border.color}`,
+                borderRadius: "15px 25px 15px 15px",
             }}
         >
             <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
@@ -55,7 +55,13 @@ const CharacterCardLarge = (props: any) => {
                     </Box>
                     <CardMedia
                         image={`${process.env.REACT_APP_URL}/characters/avatars/${name.split(" ").join("_")}.png`}
-                        sx={{ width: "220px", height: "303px" }}
+                        sx={{
+                            position: "relative",
+                            zIndex: -1,
+                            width: "220px",
+                            height: "303px",
+                            transform: "scale(1.125)"
+                        }}
                     />
                     <Box
                         sx={{

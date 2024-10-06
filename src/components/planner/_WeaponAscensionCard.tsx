@@ -24,7 +24,7 @@ const WeaponAscensionCard = (props: any) => {
         width: "24px",
         height: "24px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        border: `2px solid ${theme.border.color}`,
+        border: `1px solid ${theme.border.color}`,
         borderRadius: "24px",
         marginBottom: "10px",
     }
@@ -33,11 +33,9 @@ const WeaponAscensionCard = (props: any) => {
         <Box
             sx={{
                 width: "750px",
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                mr: "30px",
-                mb: "30px",
                 p: 1,
             }}
         >
@@ -73,7 +71,7 @@ const WeaponAscensionCard = (props: any) => {
                                 {props.weapon.displayName ? props.weapon.displayName : name}
                             </Typography>
                         </ButtonBase>
-                        <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
+                        <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
                             {[...Array(rarity).keys()].map(() => "✦")}
                         </Typography>
                     </React.Fragment>

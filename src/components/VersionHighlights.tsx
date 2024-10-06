@@ -8,11 +8,14 @@ import EchoCard from "./echoes/EchoCard"
 
 // MUI imports
 import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Select, MenuItem, AppBar, SelectChangeEvent } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import { Box, Typography, Select, AppBar, SelectChangeEvent, IconButton, CardHeader } from "@mui/material"
+import Grid from "@mui/material/Grid2"
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 
 // Helper imports
-import { CustomSelect } from "../helpers/CustomSelect"
+import { CustomInput } from "../helpers/CustomInput"
+import { CustomMenuItem } from "../helpers/CustomMenu"
 import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
@@ -32,10 +35,18 @@ const VersionHighlights = (props: any) => {
         { version: "1.1", name: "Thaw of Eons" },
         { version: "1.0", name: "Global Release" }
     ]
-    const [version, setVersion] = React.useState(updates[0].version)
-    const handleVersionChange = (event: SelectChangeEvent) => {
-        setVersion(event.target.value)
+    const [index, setIndex] = React.useState(0)
+    const handleIndexChange = (event: SelectChangeEvent) => {
+        setIndex(Number(event.target.value))
     }
+    const handleIndexChangeLeft = () => {
+        if (index + 1 < updates.length) setIndex(index + 1)
+    }
+    const handleIndexChangeRight = () => {
+        if (index - 1 >= 0) setIndex(index - 1)
+    }
+
+    let version = updates[index].version
 
     let characters = props.characters.characters.filter((char: CharacterData) => char.release.version === version)
     let weapons = props.weapons.weapons.filter((wep: WeaponData) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
@@ -47,12 +58,8 @@ const VersionHighlights = (props: any) => {
         <Box
             sx={{
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
-                display: "block",
-                ml: "20px",
-                mt: "20px",
-                width: "75vw",
                 color: `${theme.text.color}`,
             }}
         >
@@ -62,6 +69,7 @@ const VersionHighlights = (props: any) => {
                     borderBottom: `2px solid ${theme.border.color}`,
                     borderRadius: "5px 5px 0px 0px",
                     p: "10px",
+                    height: "70px"
                 }}
             >
                 <Box
@@ -70,84 +78,134 @@ const VersionHighlights = (props: any) => {
                         justifyContent: "space-between"
                     }}
                 >
-                    <Typography variant="h5" component="p" sx={{ fontWeight: "bold", mt: "5px" }}>
+                    <Typography variant="h6" sx={{ fontWeight: "bold", ml: "5px", lineHeight: "45px" }}>
                         {`Version Highlights`}
                     </Typography>
-                    <Select value={version} label="Version" onChange={handleVersionChange} input={<CustomSelect />}>
+                    <Box sx={{ display: "flex" }}>
                         {
-                            updates.map((version, index) => {
-                                return (
-                                    <MenuItem key={index} value={version.version}>
-                                        <Typography sx={{ fontWeight: "bold" }}>{version.version} - {version.name}</Typography>
-                                    </MenuItem>
-                                )
-                            })
+                            index < updates.length - 1 ?
+                                <Box sx={{ width: "32px" }}>
+                                    <IconButton onClick={handleIndexChangeLeft}>
+                                        <KeyboardArrowLeftIcon sx={{ color: `${theme.text.color}`, mt: "2px", ml: "-10px" }} />
+                                    </IconButton>
+                                </Box>
+                                :
+                                <Box sx={{ width: "32px" }} />
                         }
-                    </Select>
+                        <Select
+                            value={index.toString()}
+                            label="Version"
+                            onChange={handleIndexChange}
+                            input={<CustomInput />}
+                            sx={{
+                                width: "75px",
+                                "& .MuiSelect-icon": {
+                                    color: `${theme.text.color}`
+                                }
+                            }}
+                        >
+                            {
+                                updates.map((version, index) => (
+                                    <CustomMenuItem key={index} value={index}>
+                                        <Typography sx={{ fontWeight: "bold", fontSize: "11pt", color: `${theme.text.color}` }}>
+                                            {version.version}
+                                        </Typography>
+                                    </CustomMenuItem>
+                                ))
+                            }
+                        </Select>
+                        {
+                            index > 0 ?
+                                <Box sx={{ width: "32px" }}>
+                                    <IconButton onClick={handleIndexChangeRight}>
+                                        <KeyboardArrowRightIcon sx={{ color: `${theme.text.color}`, mt: "2px" }} />
+                                    </IconButton>
+                                </Box>
+                                :
+                                <Box sx={{ width: "32px" }} />
+                        }
+                    </Box>
                 </Box>
             </AppBar>
 
-            <Grid container spacing={2}>
+            <Box sx={{ px: "30px" }}>
+                <Typography sx={{ fontSize: "18pt", fontWeight: "bold", color: `${theme.text.color}`, my: "20px" }}>
+                    {updates[index].version} - <i>{updates[index].name}</i>
+                </Typography>
+                <Grid container spacing={2}>
 
-                {
-                    // NEW CHARACTERS
-                    characters.length > 0 &&
-                    <Grid xs>
-                        <Box sx={{ mx: "30px", my: "20px" }}>
-                            <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
-                                New Characters
-                            </Typography>
-                            <Box>
-                                <Grid container spacing={2}>
-                                    {
-                                        characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: CharacterData, index: number) => <CharacterCardLarge key={index} character={char} />)
-                                    }
-                                </Grid>
-                            </Box>
-                        </Box>
-
-                        {
-                            // NEW ECHOES
-                            echoes.length > 0 &&
-                            <Grid xs>
-                                <Box sx={{ mx: "30px", my: "20px" }}>
-                                    <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
-                                        New Echoes
-                                    </Typography>
-                                    <Box>
-                                        <Grid container spacing={2}>
-                                            {
-                                                echoes.map((echo: EchoData, index: number) => <EchoCard key={index} echo={echo} />)
+                    {
+                        characters.length > 0 || echoes.length > 0 ?
+                            <Grid size="grow">
+                                {
+                                    // NEW CHARACTERS
+                                    <Box sx={{ mb: "25px" }}>
+                                        <CardHeader
+                                            avatar={<img src={`${process.env.REACT_APP_URL}/icons/Character.png`} alt="New Characters" style={{ width: "40px", marginRight: "-5px" }} />}
+                                            title={
+                                                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                                                    New Characters
+                                                </Typography>
                                             }
+                                            sx={{ p: 0, mb: "30px" }}
+                                        />
+                                        <Grid container spacing={2}>
+                                            {characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: CharacterData, index: number) => <CharacterCardLarge key={index} character={char} />)}
+                                        </Grid>
+                                        <br />
+                                    </Box>
+                                }
+
+                                {
+                                    // NEW ECHOES
+                                    echoes.length > 0 &&
+                                    <Box>
+                                        <CardHeader
+                                            avatar={<img src={`${process.env.REACT_APP_URL}/icons/Echo.png`} alt="New Echoes" style={{ width: "40px", marginRight: "-5px" }} />}
+                                            title={
+                                                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                                                    New Echoes
+                                                </Typography>
+                                            }
+                                            sx={{ p: 0, mb: "30px" }}
+                                        />
+                                        <Grid container spacing={2}>
+                                            {echoes.map((echo: EchoData, index: number) => <EchoCard key={index} echo={echo} />)}
                                         </Grid>
                                     </Box>
-                                </Box>
+                                }
+
                             </Grid>
-                        }
+                            :
+                            null
+                    }
 
-                    </Grid>
-                }
-
-                {
-                    // NEW WEAPONS
-                    weapons.length > 0 &&
-                    <Grid xs={6}>
-                        <Box sx={{ mx: "30px", my: "20px" }}>
-                            <Typography variant="h6" component="p" sx={{ fontWeight: "bold", mb: "30px", ml: "-10px" }}>
-                                New Weapons
-                            </Typography>
-                            <Box>
-                                <Grid container spacing={2}>
-                                    {
-                                        weapons.map((wep: WeaponData, index: number) => <WeaponCard key={index} weapon={wep} />)
+                    {
+                        // NEW WEAPONS
+                        weapons.length > 0 &&
+                        <Grid size={6}>
+                            <Box sx={{ mx: "30px", my: "20px" }}>
+                                <CardHeader
+                                    avatar={<img src={`${process.env.REACT_APP_URL}/icons/Weapon.png`} alt="New Weapons" style={{ width: "40px", marginRight: "-5px" }} />}
+                                    title={
+                                        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                                            New Weapons
+                                        </Typography>
                                     }
-                                </Grid>
+                                    sx={{ p: 0, mb: "30px" }}
+                                />
+                                <Box>
+                                    <Grid container spacing={2}>
+                                        {weapons.map((wep: WeaponData, index: number) => <WeaponCard key={index} weapon={wep} />)}
+                                    </Grid>
+                                </Box>
                             </Box>
-                        </Box>
-                    </Grid>
-                }
+                        </Grid>
+                    }
 
-            </Grid>
+                </Grid>
+            </Box>
+            <br />
         </Box>
     )
 

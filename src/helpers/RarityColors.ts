@@ -1,6 +1,6 @@
 export const GetRarityColor = (rarity: number) => {
     if (rarity === 5) {
-        return "rgb(255, 208, 112)"
+        return "rgb(255, 238, 157)"
     }
     if (rarity === 4) {
         return "rgb(175, 134, 255)"

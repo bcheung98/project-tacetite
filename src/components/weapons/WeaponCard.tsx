@@ -23,17 +23,15 @@ const WeaponCard = (props: any) => {
         marginLeft: "3px",
     }
 
-    const width = "170px"
+    const size = "150px"
 
     return (
         <Card
             sx={{
-                mr: "18px",
-                mb: "20px",
-                width: width,
+                width: size,
                 backgroundColor: `${theme.card.backgroundColor}`,
-                border: `2px solid ${theme.border.color}`,
-                borderRadius: "25px 50px 25px 25px",
+                border: `1px solid ${theme.border.color}`,
+                borderRadius: "15px 25px 15px 15px",
             }}
         >
             <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${name.split(" ").join("_").toLowerCase()}`} target="_blank">
@@ -43,7 +41,7 @@ const WeaponCard = (props: any) => {
                             display: "grid",
                             position: "absolute",
                             top: "10px",
-                            left: "10px",
+                            left: "5px",
                         }}
                     >
                         <CustomTooltip title={type} arrow placement="top">
@@ -52,7 +50,7 @@ const WeaponCard = (props: any) => {
                     </Box>
                     <CardMedia
                         image={`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`}
-                        sx={{ width: width, height: "200px" }}
+                        sx={{ width: size, height: size }}
                     />
                     <Box
                         sx={{
@@ -74,7 +72,7 @@ const WeaponCard = (props: any) => {
                 }}
             >
                 <Box sx={{ textAlign: "center", mt: "-10px" }}>
-                    <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", fontSize: "16pt", userSelect: "none" }} variant="h6">
+                    <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", fontSize: "16pt", userSelect: "none" }} variant="h6">
                         {[...Array(rarity).keys()].map(() => "✦")}
                     </Typography>
                     <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${name.split(" ").join("_").toLowerCase()}`} target="_blank">

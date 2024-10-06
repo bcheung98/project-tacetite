@@ -12,7 +12,7 @@ import CharacterAscensionIntro from "./CharacterAscensionIntro"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../helpers/CustomTooltip"
@@ -30,7 +30,7 @@ const CharacterAscensionCard = (props: any) => {
         width: "24px",
         height: "24px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
-        border: `2px solid ${theme.border.color}`,
+        border: `1px solid ${theme.border.color}`,
         borderRadius: "24px",
         marginBottom: "10px",
     }
@@ -42,11 +42,9 @@ const CharacterAscensionCard = (props: any) => {
         <Box
             sx={{
                 width: "750px",
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                mr: "30px",
-                mb: "30px",
                 p: 1,
             }}
         >
@@ -88,7 +86,7 @@ const CharacterAscensionCard = (props: any) => {
                                 {!props.character.displayName && !props.character.fullName && name}
                             </Typography>
                         </ButtonBase>
-                        <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
+                        <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
                             {[...Array(rarity).keys()].map(() => "✦")}
                         </Typography>
                     </React.Fragment>
@@ -111,19 +109,19 @@ const CharacterAscensionCard = (props: any) => {
                 <AccordionDetails>
                     <CharacterAscensionLevel character={props.character} />
                     <Grid container spacing={2}>
-                        <Grid xs={2} sx={{ mt: outer }}>
+                        <Grid size={2} sx={{ mt: outer }}>
                             <CharacterAscensionBasicATK character={props.character} />
                         </Grid>
-                        <Grid xs={2} sx={{ mt: inner }}>
+                        <Grid size={2} sx={{ mt: inner }}>
                             <CharacterAscensionSkill character={props.character} />
                         </Grid>
-                        <Grid xs={2}>
+                        <Grid size={2}>
                             <CharacterAscensionCircuit character={props.character} />
                         </Grid>
-                        <Grid xs={2} sx={{ mt: inner }}>
+                        <Grid size={2} sx={{ mt: inner }}>
                             <CharacterAscensionUltimate character={props.character} />
                         </Grid>
-                        <Grid xs={2} sx={{ mt: outer }}>
+                        <Grid size={2} sx={{ mt: outer }}>
                             <CharacterAscensionIntro character={props.character} />
                         </Grid>
                     </Grid>

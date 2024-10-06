@@ -34,9 +34,8 @@ const CharacterForteDisplay = (props: any) => {
     return (
         <Box
             sx={{
-                mx: "15px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
             }}
         >

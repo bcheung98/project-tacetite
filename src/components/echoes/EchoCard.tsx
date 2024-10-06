@@ -6,7 +6,7 @@ import EchoPopup from "./EchoPopup"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Typography, Card, CardContent, Box, Dialog } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../../helpers/CustomTooltip"
@@ -29,18 +29,16 @@ const EchoCard = (props: any) => {
     return (
         <Card
             sx={{
-                width: "320px",
+                width: "310px",
                 height: "90px",
-                mr: "15px",
-                mb: "20px",
                 backgroundColor: `${theme.card.backgroundColor}`,
-                border: `2px solid ${theme.border.color}`,
+                border: `1px solid ${theme.border.color}`,
                 borderRadius: "15px 25px 15px 15px",
             }}
         >
             <CardContent sx={{ py: "10px" }}>
                 <Grid container>
-                    <Grid xs>
+                    <Grid size="grow">
                         <img
                             src={`${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png`}
                             alt={name}
@@ -50,7 +48,7 @@ const EchoCard = (props: any) => {
                                 marginLeft: "-18px",
                                 marginTop: "-15px",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
-                                borderRight: `2px solid ${theme.border.color}`,
+                                borderRight: `1px solid ${theme.border.color}`,
                                 boxShadow: `inset 0 0 30px 5px ${EchoColor(props.echo.class)}`,
                                 cursor: "pointer"
                             }}
@@ -58,16 +56,16 @@ const EchoCard = (props: any) => {
                             onClick={() => handleClickOpen()}
                         />
                     </Grid>
-                    <Grid xs={7.75}>
+                    <Grid size={7.75}>
                         <Typography
                             noWrap
-                            variant="body2"
                             sx={{
                                 color: `${theme.text.color}`,
-                                fontWeight: "bold",
+                                fontWeight: "700",
                                 ml: "-10px",
                                 mt: "-5px",
-                                fontSize: "11.5pt",
+                                mr: "20px",
+                                fontSize: "14.3px",
                                 cursor: "pointer",
                             }}
                             onClick={() => handleClickOpen()}

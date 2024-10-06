@@ -4,7 +4,7 @@ import parse from "html-react-parser"
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, CardHeader, Chip } from "@mui/material"
-import Grid from "@mui/material/Unstable_Grid2/Grid2"
+import Grid from "@mui/material/Grid2/Grid2"
 
 // Helper imports
 import { CustomSwitch } from "../../helpers/CustomSwitch"
@@ -73,7 +73,7 @@ const EchoPopup = (props: any) => {
                             style={{
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
                                 backgroundSize: "100%",
-                                border: `2px solid ${theme.border.color}`,
+                                border: `1px solid ${theme.border.color}`,
                                 borderRadius: "15px",
                                 width: "256px",
                                 height: "256px",
@@ -105,7 +105,7 @@ const EchoPopup = (props: any) => {
                         </Box>
                     </Box>
                 </Box>
-                <Grid xs>
+                <Grid size="grow">
                     <Box
                         sx={{
                             display: "flex",
@@ -161,7 +161,7 @@ const EchoPopup = (props: any) => {
                             p: 2,
                             mb: "20px",
                             backgroundColor: `${theme.paper.backgroundColor}`,
-                            border: `2px solid ${theme.border.color}`,
+                            border: `1px solid ${theme.border.color}`,
                             borderRadius: "5px",
                         }}
                     >
@@ -199,7 +199,7 @@ const EchoPopup = (props: any) => {
                         {
                             skill.scaling.length > 0 &&
                             <Box sx={{ width: "20%" }}>
-                                <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", fontSize: "20pt", userSelect: "none" }} variant="h6">
+                                <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", fontSize: "20pt", userSelect: "none" }} variant="h6">
                                     {[...Array(sliderValue).keys()].map(() => "✦ ")}
                                 </Typography>
                                 <CustomSlider value={sliderValue} step={1} min={minValue} max={maxValue} onChange={handleSliderChange} element="" sx={{ ml: "5px" }} />
@@ -210,7 +210,7 @@ const EchoPopup = (props: any) => {
                         sx={{
                             p: 2,
                             backgroundColor: `${theme.paper.backgroundColor}`,
-                            border: `2px solid ${theme.border.color}`,
+                            border: `1px solid ${theme.border.color}`,
                             borderRadius: "5px",
                         }}
                     >

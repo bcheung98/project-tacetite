@@ -63,7 +63,7 @@ const WeaponRow = (props: any) => {
                 { /* Rarity */}
                 <StyledTableCellNoVert>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography sx={{ color: "rgb(255, 208, 112)", textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h5">
+                        <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h5">
                             {[...Array(row.rarity).keys()].map(() => "✦")}
                         </Typography>
                     </Box>
