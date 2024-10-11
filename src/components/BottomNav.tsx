@@ -48,7 +48,7 @@ function BottomNav() {
                             <Typography gutterBottom sx={{ fontSize: { xs: "8pt", sm: "10.5pt" }, fontWeight: "bold" }}>GitHub:</Typography>
                             <IconButton
                                 disableRipple
-                                href={"https://github.com/bcheung98/irminsul-gg"}
+                                href="https://github.com/bcheung98/project-tacetite"
                                 target="_blank"
                                 color="inherit"
                                 sx={{ pr: { xs: "0px", sm: "8px" } }}
@@ -76,7 +76,7 @@ function BottomNav() {
                             <Box sx={{ display: "flex" }}>
                                 <IconButton
                                     disableRipple
-                                    href={"https://react.dev/"}
+                                    href="https://react.dev/"
                                     target="_blank"
                                     color="inherit"
                                     sx={{ pr: { xs: "0px", sm: "8px" } }}
@@ -85,7 +85,7 @@ function BottomNav() {
                                 </IconButton>
                                 <IconButton
                                     disableRipple
-                                    href={"https://mui.com/"}
+                                    href="https://mui.com/"
                                     target="_blank"
                                     color="inherit"
                                     sx={{ pr: { xs: "0px", sm: "8px" } }}
