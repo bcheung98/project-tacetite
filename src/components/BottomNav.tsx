@@ -12,6 +12,7 @@ function BottomNav() {
     return (
         <AppBar position="static"
             sx={{
+                mt: 10,
                 backgroundColor: `${theme.appbar.backgroundColor}`,
                 borderTop: `1px solid ${theme.border.color}`,
             }}
