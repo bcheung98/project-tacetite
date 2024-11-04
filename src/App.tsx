@@ -11,7 +11,7 @@ import { fetchCharacters, fetchEchoes, fetchWeapons } from "./redux/actions/fetc
 
 // Component imports
 import Nav from "./components/Nav"
-import BottomNav from "./components/BottomNav"
+import NavBottom from "./components/NavBottom"
 import VersionHighlights from "./components/VersionHighlights"
 import CharacterBrowser from "./components/characters/CharacterBrowser"
 import CharacterPage from "./components/characters/page/_CharacterPage"
@@ -59,7 +59,7 @@ const App = (props: any) => {
                         </Switch>
                     </Box>
                 </Box>
-                <BottomNav />
+                <NavBottom />
                 <ScrollTopFab />
             </Router>
         </ThemeProvider>

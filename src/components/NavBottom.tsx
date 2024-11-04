@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles"
 import { useMediaQuery, AppBar, Toolbar, Box, Typography, Divider, IconButton, createSvgIcon } from "@mui/material"
 import GitHubIcon from "@mui/icons-material/GitHub"
 
-function BottomNav() {
+function NavBottom() {
 
     const theme = useTheme()
 
@@ -39,7 +39,7 @@ function BottomNav() {
                         }}
                     />
                     <Box sx={{ display: "flex" }}>
-                        <Box
+                        {/* <Box
                             sx={{
                                 textAlign: "center",
                                 alignItems: "center",
@@ -65,7 +65,7 @@ function BottomNav() {
                                 mx: { xs: "10px", sm: "25px" },
                                 my: 0
                             }}
-                        />
+                        /> */}
                         <Box
                             sx={{
                                 textAlign: "center",
@@ -103,7 +103,7 @@ function BottomNav() {
 
 }
 
-export default BottomNav
+export default NavBottom
 
 const ReactIcon = createSvgIcon(
     // Credit: React logo from https://react.dev/
