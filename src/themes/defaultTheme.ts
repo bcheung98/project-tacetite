@@ -1,9 +1,45 @@
+const fontNormal = "Segoe UI"
+const fontNormalWeight = "400"
+
+const fontStyled = "Segoe UI"
+const fontStyledWeight = "bold"
+
 export const defaultTheme = {
+    palette: {
+        background: {
+            default: "rgb(26, 22, 24)"
+        }
+    },
     components: {
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    fontFamily: "Segoe UI, Roboto",
+                    fontFamily: fontNormal,
+                    fontWeight: fontNormalWeight
+                }
+            }
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                noOptions: {
+                    color: "white",
+                    fontFamily: fontStyled,
+                    fontWeight: fontStyledWeight,
+                    backgroundColor: "rgb(25, 21, 26)",
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "rgb(169, 142, 84)"
+                }
+            }
+        },
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: "rgb(25, 21, 26)"
                 }
             }
         },
@@ -16,11 +52,24 @@ export const defaultTheme = {
         },
         MuiMenu: {
             styleOverrides: {
+                paper: {
+                    backgroundColor: "rgb(25, 21, 26)"
+                },
                 list: {
-                    backgroundColor: "rgb(32, 32, 32)",
+                    backgroundColor: "rgb(25, 21, 26)",
                     color: "white",
                 }
             }
+        }
+    },
+    font: {
+        default: {
+            family: fontNormal,
+            weight: fontNormalWeight
+        },
+        styled: {
+            family: fontStyled,
+            weight: fontStyledWeight
         }
     },
     appbar: {
@@ -28,6 +77,7 @@ export const defaultTheme = {
     },
     border: {
         color: "rgb(83, 71, 69)",
+        colorAlt: "rgb(168, 147, 105)"
     },
     paper: {
         backgroundColor: "rgb(25, 21, 26)",
@@ -53,7 +103,8 @@ export const defaultTheme = {
     text: {
         color: "white",
         highlight: "rgb(202, 166, 112)",
-        star: "rgb(255, 238, 157)"
+        star: "rgb(255, 238, 157)",
+        appbar: "white"
     },
     button: {
         selected: "rgb(169, 142, 84)",

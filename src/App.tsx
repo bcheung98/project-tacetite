@@ -19,14 +19,13 @@ import WeaponBrowser from "./components/weapons/WeaponBrowser"
 import WeaponPage from "./components/weapons/page/_WeaponPage"
 import EchoBrowser from "./components/echoes/EchoBrowser"
 import AscensionPlanner from "./components/planner/_AscensionPlanner"
+import ScrollTopFab from "./components/_custom/ScrollTopFab"
 
 // MUI imports
-import theme from "./themes/theme"
-import { ThemeProvider } from "@mui/material/styles"
-import { Box } from "@mui/material"
+import { Box, CssBaseline, ThemeProvider } from "@mui/material"
 
 // Helper imports
-import ScrollTopFab from "./components/_custom/ScrollTopFab"
+import theme from "./themes/theme"
 
 // Type imports
 import { AppDispatch } from "./redux/store"
@@ -43,6 +42,7 @@ const App = (props: any) => {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Router basename={`${process.env.REACT_APP_BASENAME}`}>
                 <Box id="back-to-top-anchor" />
                 <Box sx={{ display: "flex" }}>
