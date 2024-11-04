@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setWeapon } from "../../../redux/reducers/CharacterFilterReducer"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const Weapons = ["Broadblade", "Gauntlet", "Pistols", "Rectifier", "Sword"]

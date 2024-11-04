@@ -13,9 +13,9 @@ import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
-import { CustomSlider } from "../../../helpers/CustomSlider"
-import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+import { CustomSlider } from "../../_styled/StyledSlider"
+import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports

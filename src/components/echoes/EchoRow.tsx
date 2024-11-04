@@ -8,8 +8,8 @@ import { useTheme } from "@mui/material/styles"
 import { Box, CardHeader, Typography, Dialog } from "@mui/material"
 
 // Helper imports
-import { CustomTooltip } from "../../helpers/CustomTooltip"
-import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTable"
+import { CustomTooltip } from "../_styled/StyledTooltip"
+import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoRow = (props: any) => {

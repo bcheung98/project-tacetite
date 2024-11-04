@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setWeeklyBossMats } from "../../../redux/reducers/CharacterFilterReducer"
-import { WeeklyBossMats } from "../../../helpers/MaterialList"
+import { WeeklyBossMats } from "../../../data/MaterialList"
 import { formatWeeklyBossMats } from "../../../helpers/TooltipText"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterWeeklyBossMatFilter = () => {

@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material/styles"
 import { Box, ButtonBase, CardHeader, Typography } from "@mui/material"
 
 // Helper imports
-import { StyledTableCellNoVert, StyledTableRows } from "../../helpers/CustomTable"
+import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import { GetBackgroundColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 

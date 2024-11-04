@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles"
 import { Typography, Card, CardMedia, CardContent, ButtonBase, Box } from "@mui/material"
 
 // Helper imports
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 

@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setAscensionMats } from "../../../redux/reducers/CharacterFilterReducer"
-import { AscensionMats } from "../../../helpers/MaterialList"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { AscensionMats } from "../../../data/MaterialList"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterAscensionMatFilter = () => {

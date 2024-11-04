@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setSubstats } from "../../../redux/reducers/WeaponFilterReducer"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const Substats = ["ATK", "Crit Rate", "Crit DMG", "DEF", "Energy Regen", "HP"]

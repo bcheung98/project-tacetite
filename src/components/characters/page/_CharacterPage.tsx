@@ -14,9 +14,9 @@ import Grid from "@mui/material/Grid2"
 import InfoOutlined from "@mui/icons-material/InfoOutlined"
 
 // Helper imports
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
-import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
-import { Tags } from "../../../helpers/CharacterTags"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
+import { Tags } from "../../../data/CharacterTags"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports

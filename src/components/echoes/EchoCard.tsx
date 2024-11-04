@@ -9,7 +9,7 @@ import { Typography, Card, CardContent, Box, Dialog } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoCard = (props: any) => {

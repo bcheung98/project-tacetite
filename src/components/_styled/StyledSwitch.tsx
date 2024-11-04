@@ -1,6 +1,6 @@
 import { alpha, styled } from "@mui/material/styles"
 import { Switch } from "@mui/material"
-import { SwitchColor } from "./ElementColors"
+import { SwitchColor } from "../../helpers/ElementColors"
 
 interface CustomSwitchProps {
     element: string

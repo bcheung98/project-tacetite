@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles"
 import { Box, Table, TableBody, TableContainer, Toolbar, Typography, Paper } from "@mui/material"
 
 // Helper imports
-import { EnhancedTableHead, getComparator, stableSort } from "../../helpers/CustomSortTable"
+import { EnhancedTableHead, getComparator, stableSort } from "../_custom/EnhancedTableHead"
 
 // Type imports
 import { CharacterData } from "../../types/CharacterData"

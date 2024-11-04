@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setCommonMats } from "../../../redux/reducers/WeaponFilterReducer"
-import { CommonMats } from "../../../helpers/MaterialList"
+import { CommonMats } from "../../../data/MaterialList"
 import { formatCommonMats } from "../../../helpers/TooltipText"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const WeaponCommonMatFilter = () => {

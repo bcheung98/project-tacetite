@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setBossMats } from "../../../redux/reducers/CharacterFilterReducer"
-import { BossMats } from "../../../helpers/MaterialList"
+import { BossMats } from "../../../data/MaterialList"
 import { formatBossMats } from "../../../helpers/TooltipText"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterBossMatFilter = () => {

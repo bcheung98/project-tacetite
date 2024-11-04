@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles"
 import { Typography, Box, AppBar } from "@mui/material"
 
 // Helper imports
-import { TabPanel, StyledTabs, StyledTab } from "../../../helpers/CustomTabs"
+import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 import { ElementalBorderColor } from "../../../helpers/ElementColors"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 

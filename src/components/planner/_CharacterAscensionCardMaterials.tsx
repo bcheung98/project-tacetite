@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import { formatXPMats, formatForgeryMats, formatCommonMats, formatBossMats, formatWeeklyBossMats } from "../../helpers/TooltipText"
 // import { Backgrounds } from "../../helpers/Backgrounds"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"

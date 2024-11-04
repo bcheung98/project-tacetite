@@ -10,7 +10,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess"
 import ExpandMore from "@mui/icons-material/ExpandMore"
 
 // Helper imports
-import { CustomTooltip } from "../helpers/CustomTooltip"
+import { CustomTooltip } from "./_styled/StyledTooltip"
 
 const drawerWidth = 240 //px
 const buttonHoverWidth = drawerWidth * 0.9 // px

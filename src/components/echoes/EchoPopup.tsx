@@ -7,9 +7,9 @@ import { Box, Typography, CardHeader, Chip } from "@mui/material"
 import Grid from "@mui/material/Grid2/Grid2"
 
 // Helper imports
-import { CustomSwitch } from "../../helpers/CustomSwitch"
-import { CustomSlider } from "../../helpers/CustomSlider"
-import { SonataEffects } from "../../helpers/SonataEffects"
+import { CustomSwitch } from "../_styled/StyledSwitch"
+import { CustomSlider } from "../_styled/StyledSlider"
+import { SonataEffects } from "../../data/SonataEffects"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoPopup = (props: any) => {

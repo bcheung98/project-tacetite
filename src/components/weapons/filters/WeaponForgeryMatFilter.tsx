@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux"
 
 // Helper imports
 import { setForgeryMats } from "../../../redux/reducers/WeaponFilterReducer"
-import { ForgeryMats } from "../../../helpers/MaterialList"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { ForgeryMats } from "../../../data/MaterialList"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const WeaponForgeryMatFilter = () => {

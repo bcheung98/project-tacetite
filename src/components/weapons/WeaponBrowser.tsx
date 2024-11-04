@@ -15,7 +15,7 @@ import ListSharpIcon from "@mui/icons-material/ListSharp"
 
 // Helper imorts
 import { filterWeapons } from "../../helpers/FilterWeapons"
-import { CustomToggleButton } from "../../helpers/CustomToggleButton"
+import { CustomToggleButton } from "../_styled/StyledToggleButton"
 
 // Type imports
 import { RootState } from "../../redux/store"

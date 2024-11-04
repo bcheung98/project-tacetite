@@ -7,10 +7,10 @@ import { Box, Typography } from "@mui/material"
 import HelpIcon from "@mui/icons-material/Help"
 
 // Helper imports
-import { CustomSwitch } from "../../../helpers/CustomSwitch"
+import { CustomSwitch } from "../../_styled/StyledSwitch"
 import { setSonata, setUniqueSonata } from "../../../redux/reducers/EchoFilterReducer"
-import { SonataEffects } from "../../../helpers/SonataEffects"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { SonataEffects } from "../../../data/SonataEffects"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const EchoSonataFilter = () => {

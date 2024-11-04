@@ -3,8 +3,8 @@ import { useTheme } from "@mui/material/styles"
 import { Table, TableBody, TableContainer, TableHead, Paper } from "@mui/material"
 
 // Helper imports
-import { StyledTableCell, StyledTableRows } from "../../../helpers/CustomTable"
-import { baseATKScaling, subStatScaling } from "../../../helpers/WeaponScalings"
+import { StyledTableCell, StyledTableRows } from "../../_styled/StyledTable"
+import { baseATKScaling, subStatScaling } from "../../../data/WeaponScalings"
 
 const WeaponStatsTable = (props: any) => {
 

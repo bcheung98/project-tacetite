@@ -6,10 +6,10 @@ import { useTheme } from "@mui/material/styles"
 import { Box, Typography } from "@mui/material"
 
 // Helper imports
-import { CustomSlider } from "../../helpers/CustomSlider"
-import { CustomSwitch } from "../../helpers/CustomSwitch"
+import { CustomSlider } from "../_styled/StyledSlider"
+import { CustomSwitch } from "../_styled/StyledSwitch"
 import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { SetCharacterCostsLevel } from "../../helpers/AscensionCostIndex"
+import { SetCharacterCostsLevel } from "../../data/AscensionCostIndex"
 
 const CharacterAscensionLevel = (props: any) => {
 

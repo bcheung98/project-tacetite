@@ -7,7 +7,7 @@ import { useTheme } from "@mui/material/styles"
 import { Typography, Paper } from "@mui/material"
 
 // Helper imports
-import { Accordion, AccordionDetails, AccordionSummary } from "../../../helpers/CustomAccordion"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 
 const EchoFilters = (props: any) => {
 

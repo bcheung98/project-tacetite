@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles"
 import { Table, TableBody, TableContainer, TableHead, Paper, Typography } from "@mui/material"
 
 // Helper imports
-import { StyledTableCell, StyledTableRows } from "../../../helpers/CustomTable"
+import { StyledTableCell, StyledTableRows } from "../../_styled/StyledTable"
 
 const CharacterStatsTable = (props: any) => {
 

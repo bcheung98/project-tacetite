@@ -15,9 +15,9 @@ import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import { Accordion, AccordionDetails, AccordionSummary } from "../../helpers/CustomAccordion"
+import { Accordion, AccordionDetails, AccordionSummary } from "../_styled/StyledAccordion"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const CharacterAscensionCard = (props: any) => {

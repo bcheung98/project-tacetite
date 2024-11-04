@@ -14,8 +14,8 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 
 // Helper imports
-import { CustomInput } from "../helpers/CustomInput"
-import { CustomMenuItem } from "../helpers/CustomMenu"
+import { CustomInput } from "./_styled/StyledInput"
+import { CustomMenuItem } from "./_styled/StyledMenu"
 import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports

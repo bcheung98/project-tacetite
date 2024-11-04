@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material/styles"
 import { Typography, Box, CardHeader, Paper } from "@mui/material"
 
 // Helper imports
-import { Accordion, AccordionDetails, AccordionSummary } from "../../../helpers/CustomAccordion"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 import { ElementalBorderColor } from "../../../helpers/ElementColors"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 

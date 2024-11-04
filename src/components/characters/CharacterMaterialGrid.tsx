@@ -6,7 +6,7 @@ import { Box } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import { formatBossMats, formatCommonMats, formatWeeklyBossMats } from "../../helpers/TooltipText"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 

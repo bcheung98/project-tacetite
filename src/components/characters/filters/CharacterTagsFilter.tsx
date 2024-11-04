@@ -7,10 +7,10 @@ import { Box, Typography } from "@mui/material"
 import HelpIcon from "@mui/icons-material/Help"
 
 // Helper imports
-import { CustomSwitch } from "../../../helpers/CustomSwitch"
+import { CustomSwitch } from "../../_styled/StyledSwitch"
 import { setTags, setUniqueTag } from "../../../redux/reducers/CharacterFilterReducer"
-import { Tags } from "../../../helpers/CharacterTags"
-import { CustomTooltip } from "../../../helpers/CustomTooltip"
+import { Tags } from "../../../data/CharacterTags"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 const CharacterTagsFilter = () => {

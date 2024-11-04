@@ -10,8 +10,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import DoneIcon from "@mui/icons-material/Done"
 
 // Helper imports
-import { Button, PopperComponent, StyledPopper, StyledInput } from "../../helpers/CustomAutocomplete"
-import { CustomTooltip } from "../../helpers/CustomTooltip"
+import { Button, PopperComponent, StyledPopper, StyledInput } from "../_styled/StyledAutocomplete"
+import { CustomTooltip } from "../_styled/StyledTooltip"
 import { GetRarityColor } from "../../helpers/RarityColors"
 import { setPlannerCharacters, updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
