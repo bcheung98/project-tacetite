@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchWeapons } from "../actions/fetch"
-import { WeaponData } from "../../types/WeaponData"
+import { Weapon } from "../../types/weapon"
 
 interface State {
     loading: boolean,
-    weapons: WeaponData[]
+    weapons: Weapon[]
 }
 
 const initialState: State = {
@@ -13,7 +13,7 @@ const initialState: State = {
 }
 
 export const WeaponSlice = createSlice({
-    name: "weapon weapons",
+    name: "get_weapons",
     initialState,
     reducers: {},
     extraReducers: (builder) => {

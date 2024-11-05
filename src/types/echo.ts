@@ -5,7 +5,7 @@ export interface Echo {
     name: string,
     displayName?: string,
     code: string,
-    class: string,
+    class: "Calamity" | "Overlord" | "Elite" |  "Common",
     cost: number,
     skill: EchoSkill,
     sonata: string[][],

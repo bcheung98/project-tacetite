@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchEchoes } from "../actions/fetch"
-import { EchoData } from "../../types/EchoData"
+import { Echo } from "../../types/echo"
 
 interface State {
     loading: boolean,
-    echoes: EchoData[]
+    echoes: Echo[]
 }
 
 const initialState: State = {
@@ -13,7 +13,7 @@ const initialState: State = {
 }
 
 export const EchoSlice = createSlice({
-    name: "echo echoes",
+    name: "get_echoes",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
