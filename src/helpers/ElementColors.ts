@@ -22,7 +22,7 @@ export const ElementalBorderColor = (element: string | undefined) => {
     }
 }
 
-export const SwitchColor = (element: string) => {
+export const SwitchColor = (element: string | undefined) => {
 
     const theme = useTheme()
 
