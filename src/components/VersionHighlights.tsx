@@ -15,6 +15,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 
 // Helper imports
+import { updates } from "../data/versions"
 import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
@@ -24,13 +25,6 @@ function VersionHighlights() {
 
     const theme = useTheme()
 
-    // MAKE SURE TO CHANGE THIS EVERY UPDATE!
-    let updates = [
-        { version: "1.3", name: "To The Shore's End" },
-        { version: "1.2", name: "In the Turquoise Moonglow" },
-        { version: "1.1", name: "Thaw of Eons" },
-        { version: "1.0", name: "Global Release" }
-    ]
     const [index, setIndex] = React.useState(0)
     const handleIndexChange = (event: SelectChangeEvent) => {
         setIndex(Number(event.target.value))
