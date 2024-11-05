@@ -1,14 +1,12 @@
 import * as React from "react"
-import { connect } from "react-redux"
+import { connect, useSelector } from "react-redux"
 
 // Component imports
-import CharacterCardLarge from "./characters/CharacterCardLarge"
-import WeaponCard from "./weapons/WeaponCard"
+import DisplayCard from "./_custom/DisplayCard"
 import EchoCard from "./echoes/EchoCard"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Select, AppBar, SelectChangeEvent, IconButton, CardHeader } from "@mui/material"
+import { useTheme, Box, Typography, Select, AppBar, SelectChangeEvent, IconButton, CardHeader } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
@@ -20,9 +18,10 @@ import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
 import { RootState } from "../redux/store"
-import { CharacterData } from "../types/CharacterData"
-import { WeaponData } from "../types/WeaponData"
 import { EchoData } from "../types/EchoData"
+import { Character } from "../types/character"
+import { Weapon } from "../types/weapon"
+import { Echo } from "../types/echo"
 
 const VersionHighlights = (props: any) => {
 
@@ -48,9 +47,13 @@ const VersionHighlights = (props: any) => {
 
     let version = updates[index].version
 
-    let characters = props.characters.characters.filter((char: CharacterData) => char.release.version === version)
-    let weapons = props.weapons.weapons.filter((wep: WeaponData) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
-    let echoes = props.echoes.echoes.filter((echo: EchoData) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
+    const characters = useSelector((state: RootState) => state.characters.characters)
+    const weapons = useSelector((state: RootState) => state.weapons.weapons)
+    const echoes = useSelector((state: RootState) => state.echoes.echoes)
+
+    const currentCharacters = props.characters.characters.filter((char: Character) => char.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity)
+    const currentWeapons = props.weapons.weapons.filter((wep: Weapon) => wep.release.version === version).sort((a: any, b: any) => b.rarity - a.rarity || a.name.localeCompare(b.name))
+    const currentEchoes = props.echoes.echoes.filter((echo: Echo) => echo.release.version === version).sort((a: any, b: any) => echoClassId[b.class as keyof typeof echoClassId] - echoClassId[a.class as keyof typeof echoClassId] || a.name.localeCompare(b.name))
 
     document.title = `Wuthering Waves ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
@@ -135,7 +138,7 @@ const VersionHighlights = (props: any) => {
                 <Grid container spacing={2}>
 
                     {
-                        characters.length > 0 || echoes.length > 0 ?
+                        currentCharacters.length > 0 || currentEchoes.length > 0 ?
                             <Grid size="grow">
                                 {
                                     // NEW CHARACTERS
@@ -150,7 +153,20 @@ const VersionHighlights = (props: any) => {
                                             sx={{ p: 0, mb: "30px" }}
                                         />
                                         <Grid container spacing={2}>
-                                            {characters.sort((a: any, b: any) => a.id > b.id ? 1 : -1).map((char: CharacterData, index: number) => <CharacterCardLarge key={index} character={char} />)}
+                                            {
+                                                currentCharacters.map((char: Character, index: number) =>
+                                                    <DisplayCard
+                                                        key={index}
+                                                        id={`${char.name}-versionHighlights`}
+                                                        name={char.name}
+                                                        displayName={char.displayName}
+                                                        type="character"
+                                                        variant="avatar"
+                                                        rarity={char.rarity}
+                                                        info={{ element: char.element, weapon: char.weapon }}
+                                                    />
+                                                )
+                                            }
                                         </Grid>
                                         <br />
                                     </Box>
@@ -158,7 +174,7 @@ const VersionHighlights = (props: any) => {
 
                                 {
                                     // NEW ECHOES
-                                    echoes.length > 0 &&
+                                    currentEchoes.length > 0 &&
                                     <Box>
                                         <CardHeader
                                             avatar={<img src={`${process.env.REACT_APP_URL}/icons/Echo.png`} alt="New Echoes" style={{ width: "40px", marginRight: "-5px" }} />}
@@ -170,7 +186,7 @@ const VersionHighlights = (props: any) => {
                                             sx={{ p: 0, mb: "30px" }}
                                         />
                                         <Grid container spacing={2}>
-                                            {echoes.map((echo: EchoData, index: number) => <EchoCard key={index} echo={echo} />)}
+                                            {currentEchoes.map((echo: EchoData, index: number) => <EchoCard key={index} echo={echo} />)}
                                         </Grid>
                                     </Box>
                                 }
@@ -182,7 +198,7 @@ const VersionHighlights = (props: any) => {
 
                     {
                         // NEW WEAPONS
-                        weapons.length > 0 &&
+                        currentWeapons.length > 0 &&
                         <Grid size={6}>
                             <Box sx={{ mx: "30px", my: "20px" }}>
                                 <CardHeader
@@ -196,7 +212,20 @@ const VersionHighlights = (props: any) => {
                                 />
                                 <Box>
                                     <Grid container spacing={2}>
-                                        {weapons.map((wep: WeaponData, index: number) => <WeaponCard key={index} weapon={wep} />)}
+                                        {
+                                            currentWeapons.map((wep: Weapon, index: number) =>
+                                                <DisplayCard
+                                                    key={index}
+                                                    id={`${wep.name}-versionHighlights`}
+                                                    name={wep.name}
+                                                    displayName={wep.displayName}
+                                                    type="weapon"
+                                                    variant="avatar"
+                                                    rarity={wep.rarity}
+                                                    info={{ weapon: wep.type }}
+                                                />
+                                            )
+                                        }
                                     </Grid>
                                 </Box>
                             </Box>
