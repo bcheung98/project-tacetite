@@ -2,7 +2,7 @@ const fontNormal = "Segoe UI"
 const fontNormalWeight = "400"
 
 const fontStyled = "Segoe UI"
-const fontStyledWeight = "bold"
+const fontStyledWeight = "700"
 
 export const defaultTheme = {
     palette: {
@@ -14,6 +14,7 @@ export const defaultTheme = {
         MuiTypography: {
             styleOverrides: {
                 root: {
+                    color: "white",
                     fontFamily: fontNormal,
                     fontWeight: fontNormalWeight
                 }
