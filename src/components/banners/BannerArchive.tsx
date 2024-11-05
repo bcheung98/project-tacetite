@@ -52,7 +52,7 @@ function BannerArchive(props: any) {
                     control={<Radio size="small" sx={{ color: `${theme.text.color}` }} />}
                     label={
                         <Typography sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "13.5px", color: `${theme.text.color}` }}>
-                            Character Event Wish
+                            Character Banner
                         </Typography>
                     }
                 />
@@ -61,16 +61,7 @@ function BannerArchive(props: any) {
                     control={<Radio size="small" sx={{ color: `${theme.text.color}` }} />}
                     label={
                         <Typography sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "13.5px", color: `${theme.text.color}` }}>
-                            Weapon Event Wish
-                        </Typography>
-                    }
-                />
-                <FormControlLabel
-                    value="chronicled"
-                    control={<Radio size="small" sx={{ color: `${theme.text.color}` }} />}
-                    label={
-                        <Typography sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "13.5px", color: `${theme.text.color}` }}>
-                            Chronicled Wish
+                            Weapon Banner
                         </Typography>
                     }
                 />
