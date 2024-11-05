@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { connect } from "react-redux"
+import { connect, ConnectedProps } from "react-redux"
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 
 // Fetch imports
-import { fetchCharacters, fetchEchoes, fetchWeapons } from "./redux/actions/fetch"
+import { fetchCharacters, fetchWeapons, fetchEchoes, fetchCharacterBanners, fetchWeaponBanners } from "./redux/actions/fetch"
 
 // Component imports
 import Nav from "./components/Nav"
@@ -19,6 +19,7 @@ import WeaponBrowser from "./components/weapons/WeaponBrowser"
 import WeaponPage from "./components/weapons/page/_WeaponPage"
 import EchoBrowser from "./components/echoes/EchoBrowser"
 import AscensionPlanner from "./components/planner/_AscensionPlanner"
+import BannerArchive from "./components/banners/BannerArchive"
 import ScrollTopFab from "./components/_custom/ScrollTopFab"
 
 // MUI imports
@@ -30,15 +31,21 @@ import theme from "./themes/theme"
 // Type imports
 import { AppDispatch } from "./redux/store"
 
-const App = (props: any) => {
+function App({
+    fetchCharacters,
+    fetchWeapons,
+    fetchEchoes,
+    fetchCharacterBanners,
+    fetchWeaponBanners
+}: ConnectedProps<typeof connector>) {
 
     useEffect(() => {
         fetchCharacters()
         fetchWeapons()
         fetchEchoes()
-    }, [])
-
-    let { fetchCharacters, fetchWeapons, fetchEchoes } = props
+        fetchCharacterBanners()
+        fetchWeaponBanners()
+    }, [fetchCharacters, fetchWeapons, fetchEchoes, fetchCharacterBanners, fetchWeaponBanners])
 
     return (
         <ThemeProvider theme={theme}>
@@ -56,6 +63,7 @@ const App = (props: any) => {
                             <Route path="/weapons/:wep_name" children={<WeaponPage />} />
                             <Route exact path="/echoes" component={EchoBrowser} />
                             <Route exact path="/planner" component={AscensionPlanner} />
+                            <Route exact path="/banners/" component={BannerArchive} />
                         </Switch>
                     </Box>
                 </Box>
@@ -64,12 +72,17 @@ const App = (props: any) => {
             </Router>
         </ThemeProvider>
     )
+
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
     fetchCharacters: () => dispatch(fetchCharacters()),
     fetchWeapons: () => dispatch(fetchWeapons()),
     fetchEchoes: () => dispatch(fetchEchoes()),
+    fetchCharacterBanners: () => dispatch(fetchCharacterBanners()),
+    fetchWeaponBanners: () => dispatch(fetchWeaponBanners())
 })
 
-export default connect(null, mapDispatchToProps)(App)
+const connector = connect(null, mapDispatchToProps)
+
+export default connector(App)

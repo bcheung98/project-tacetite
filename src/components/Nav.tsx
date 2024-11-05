@@ -69,6 +69,11 @@ const navItems = [
         icon: <Avatar variant="square" src={`${process.env.REACT_APP_URL}/icons/Ascension.png`} alt="Ascension" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
         text: "Ascension Planner",
         link: `${process.env.REACT_APP_BASENAME}/planner/`
+    },
+    {
+        icon: <Avatar variant="square" src={`${process.env.REACT_APP_URL}/icons/Convene.png`} alt="Convene" sx={{ width: `${iconSize}px`, height: `${iconSize}px` }} />,
+        text: "Banner Archive",
+        link: `${process.env.REACT_APP_BASENAME}/banners/`
     }
 ]
 
