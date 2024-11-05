@@ -1,7 +1,7 @@
-const fontNormal = "Segoe UI"
-const fontNormalWeight = "400"
+const fontNormal = "Segoe UI, Roboto"
+const fontNormalWeight = "600"
 
-const fontStyled = "Segoe UI"
+const fontStyled = "Segoe UI, Roboto"
 const fontStyledWeight = "700"
 
 export const defaultTheme = {
@@ -103,6 +103,7 @@ export const defaultTheme = {
     },
     text: {
         color: "white",
+        colorAlt: "rgb(218, 219, 222)",
         highlight: "rgb(202, 166, 112)",
         star: "rgb(255, 238, 157)",
         appbar: "white"
@@ -115,9 +116,9 @@ export const defaultTheme = {
         color: "rgb(160, 134, 80)"
     },
     menu: {
-        backgroundColor: "rgb(32, 32, 32)",
-        hover: "rgb(64, 64, 64)",
-        selected: "rgb(80, 80, 80)",
-        selectedHover: "rgb(96, 96, 96)"
+        backgroundColor: "rgb(25, 21, 26)",
+        hover: "rgb(50, 42, 52)",
+        selected: "rgb(70, 62, 72)",
+        selectedHover: "rgb(90, 82, 92)"
     }
 }
