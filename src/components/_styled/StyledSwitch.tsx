@@ -3,7 +3,7 @@ import { Switch } from "@mui/material"
 import { SwitchColor } from "../../helpers/ElementColors"
 
 interface CustomSwitchProps {
-    element: string
+    element?: string
 }
 
 export const CustomSwitch = styled(Switch)<CustomSwitchProps>(({ element }) => ({

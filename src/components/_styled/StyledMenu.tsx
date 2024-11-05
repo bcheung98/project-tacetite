@@ -1,11 +1,5 @@
-import { MenuList, MenuItem } from "@mui/material"
+import { MenuItem } from "@mui/material"
 import { styled } from "@mui/material/styles"
-
-export const CustomMenuList = styled(MenuList)(({ theme }) => ({
-    "&.MuiMenu-paper": {
-        backgroundColor: `${theme.menu.backgroundColor}`,
-    },
-}))
 
 export const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     "&.MuiMenuItem-root": {
