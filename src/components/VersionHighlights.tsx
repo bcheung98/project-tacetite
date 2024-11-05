@@ -200,6 +200,7 @@ function VersionHighlights() {
                                             displayName={wep.displayName}
                                             type="weapon"
                                             variant="avatar"
+                                            size="188px"
                                             rarity={wep.rarity}
                                             info={{ weapon: wep.type }}
                                         />
