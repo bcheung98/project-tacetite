@@ -20,6 +20,9 @@ import { echoClassId } from "./echoes/EchoBrowser"
 
 // Type imports
 import { RootState } from "../redux/store"
+import { Character } from "../types/character"
+import { Echo } from "../types/echo"
+import { Weapon } from "../types/weapon"
 
 function VersionHighlights() {
 
@@ -42,11 +45,9 @@ function VersionHighlights() {
     const weapons = useSelector((state: RootState) => state.weapons.weapons)
     const echoes = useSelector((state: RootState) => state.echoes.echoes)
 
-    const currentCharacters = characters.filter(char => char.release.version === version).sort((a, b) => b.rarity - a.rarity)
-    const currentWeapons = weapons.filter(wep => wep.release.version === version).sort((a, b) => b.rarity - a.rarity)
-    const currentEchoes = echoes.filter(echo => echo.release.version === version).sort((a, b) => echoClassId[b.class] - echoClassId[a.class] || a.name.localeCompare(b.name))
-
-    document.title = `Wuthering Waves ${process.env.REACT_APP_DOCUMENT_HEADER}`
+    const currentCharacters = characters.filter((char: Character) => char.release.version === version).sort((a, b) => b.rarity - a.rarity)
+    const currentWeapons = weapons.filter((wep: Weapon) => wep.release.version === version).sort((a, b) => b.rarity - a.rarity)
+    const currentEchoes = echoes.filter((echo: Echo) => echo.release.version === version).sort((a, b) => echoClassId[b.class] - echoClassId[a.class] || a.name.localeCompare(b.name))
 
     return (
         <Box
