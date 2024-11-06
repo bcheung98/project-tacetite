@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles"
 import { Typography, Tabs, Tab, Box } from "@mui/material"
+import { TabsProps } from "@mui/material"
 
 export const TabPanel = (props: any) => {
 
@@ -18,10 +19,7 @@ export const TabPanel = (props: any) => {
     )
 }
 
-interface CustomTabsProps {
-    children?: React.ReactNode,
-    value: number,
-    onChange: (event: React.SyntheticEvent, newValue: number) => void,
+interface CustomTabsProps extends TabsProps {
     element?: string | undefined
 }
 
