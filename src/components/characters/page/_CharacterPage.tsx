@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 
 // Component imports
 import CharacterStatsTable from "./CharacterStatsTable"
+import CharacterAscension from "./CharacterAscension"
 import CharacterForteDisplay from "./CharacterForteDisplay"
 import CharacterResonanceChainDisplay from "./CharacterResonanceChainDisplay"
 
@@ -250,15 +251,15 @@ const CharacterPage = (props: any) => {
                             >
                                 <StyledTabs value={tabValue} onChange={handleTabChange}>
                                     <StyledTab label="Stats" />
-                                    {/* <StyledTab label="Ascension" /> */}
+                                    <StyledTab label="Ascension" />
                                 </StyledTabs>
                             </AppBar>
                             <TabPanel value={tabValue} index={0}>
                                 <CharacterStatsTable character={character} />
                             </TabPanel>
-                            {/* <TabPanel value={tabValue} index={1}>
-
-                            </TabPanel> */}
+                            <TabPanel value={tabValue} index={1}>
+                                <CharacterAscension character={character} />
+                            </TabPanel>
                         </Box>
                     </Grid>
                 </Grid>
