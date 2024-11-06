@@ -60,27 +60,27 @@ export const characterForteNode = (key: string, index: number) => {
 
 const characterPassive1: CostNumber = {
     credits: 10000,
-    forgeryMat2: 3,
-    commonMat2: 3,
+    forgeryMat1: 3,
+    commonMat1: 3,
     weeklyBossMat: 1
 }
 
 const characterPassive2: CostNumber = {
     credits: 20000,
-    forgeryMat3: 3,
-    commonMat3: 3,
+    forgeryMat2: 3,
+    commonMat2: 3,
     weeklyBossMat: 1
 }
 
 const characterForteNode1: CostNumber = {
     credits: 50000,
-    forgeryMat3: 3,
-    commonMat3: 3,
+    forgeryMat2: 3,
+    commonMat2: 3,
 }
 
 const characterForteNode2: CostNumber = {
     credits: 100000,
-    forgeryMat4: 3,
-    commonMat4: 3,
+    forgeryMat3: 3,
+    commonMat3: 3,
     weeklyBossMat: 1
 }

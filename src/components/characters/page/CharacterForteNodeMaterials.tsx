@@ -27,7 +27,7 @@ function CharacterForteNodeMaterials({
 
     const costs = characterForteNode(skillKey, nodeIndex)
     const costData = Object.entries(costs).map(([key, value]) => {
-        let [name, rarity, img] = ["", 0, ""]
+        let [name, rarity, img] = ["", 1, ""]
         let keyNum = Number(key.slice(-1))
         if (key === "credits") {
             name = "Shell Credit"
@@ -45,7 +45,7 @@ function CharacterForteNodeMaterials({
             img = `common/${commonMat}${keyNum}`
         }
         if (key === "weeklyBossMat") {
-            name = formatWeeklyBossMats(`${weeklyBossMat}${keyNum}`)
+            name = formatWeeklyBossMats(weeklyBossMat)
             rarity = 4
             img = `weekly/${weeklyBossMat}`
         }
