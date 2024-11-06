@@ -39,6 +39,7 @@ export interface CharacterForte extends SkillWithScaling {
 }
 
 export interface CharacterForteNode {
+    name?: string,
     type: string,
     description: string
 }
