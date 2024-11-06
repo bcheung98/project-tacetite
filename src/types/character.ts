@@ -2,6 +2,10 @@ import { Materials } from "./materials"
 import { Skill, SkillWithScaling } from "./skill"
 import { Version } from "./version"
 
+export interface CharacterProps {
+    character: Character
+}
+
 export interface Character {
     id: number,
     name: string,
