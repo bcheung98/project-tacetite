@@ -13,13 +13,11 @@ import { Materials } from "../../../types/materials"
 interface CharacterForteLevelUpProps {
     materials: Materials,
     element: string,
-    skillKey: string
 }
 
 function CharacterForteLevelUp({
     materials,
     element,
-    skillKey
 }: CharacterForteLevelUpProps) {
 
     const theme = useTheme()
@@ -47,9 +45,9 @@ function CharacterForteLevelUp({
     }
 
     return (
-        <Box sx={{ ml: "30px", my: "10px" }}>
+        <Box sx={{ ml: { xs: "5px", sm: "30px" }, my: "10px" }}>
             <CharacterForteLevelUpMaterials materials={materials} values={sliderValue} />
-            <Box sx={{ display: { xs: "block", sm: "flex" }, alignItems: "center", width: skillKey === "attack" ? "30%" : "40%", mt: "10px" }}>
+            <Box sx={{ display: { xs: "block", sm: "flex" }, alignItems: "center", width: "40%", mt: "10px" }}>
                 <Typography sx={{ color: theme.text.color, fontSize: "18px", minWidth: "125px" }}>
                     Lv. {sliderValue[0]} → Lv. {sliderValue[1]}
                 </Typography>

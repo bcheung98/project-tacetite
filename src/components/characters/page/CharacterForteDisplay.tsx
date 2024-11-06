@@ -4,36 +4,46 @@ import * as React from "react"
 import CharacterForteTab from "./CharacterForteTab"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Typography, Box, AppBar } from "@mui/material"
+import { useTheme, useMediaQuery, alpha, Box, Typography, AppBar, Card } from "@mui/material"
 
 // Helper imports
 import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 import { ElementalBorderColor } from "../../../helpers/ElementColors"
-import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-function CharacterForteDisplay(props: any) {
+// Type imports
+import { CharacterProps } from "../../../types/character"
+import Image from "../../_custom/Image"
+
+function CharacterForteDisplay({ character }: CharacterProps) {
 
     const theme = useTheme()
 
-    let { name, weapon, element, forte, materials } = props.character
+    const matches = useMediaQuery(theme.breakpoints.up("sm"))
 
-    const skillIcon = {
-        width: "48px",
-        height: "48px",
-        padding: "2px",
-        border: `2px solid ${ElementalBorderColor(element)}`,
-        borderRadius: "48px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`,
-    }
+    const { name, weapon, element, forte, materials } = character
 
     const [tabValue, setTabValue] = React.useState(0)
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue)
     }
 
+    const skillIcon = (index: number) => {
+        const selected = index === tabValue
+        return {
+            width: "48px",
+            height: "48px",
+            padding: "2px",
+            margin: "5px auto 5px auto",
+            borderWidth: selected ? "thick" : "2px",
+            borderStyle: selected ? "double" : "solid",
+            borderColor: selected ? ElementalBorderColor(element) : alpha(ElementalBorderColor(element), 0.3),
+            borderRadius: "64px",
+            boxShadow: selected ? `0 0 12px 2px ${ElementalBorderColor(element)}` : "none",
+        } as React.CSSProperties
+    }
+
     return (
-        <Box
+        <Card
             sx={{
                 backgroundColor: `${theme.paper.backgroundColor}`,
                 border: `1px solid ${theme.border.color}`,
@@ -58,24 +68,52 @@ function CharacterForteDisplay(props: any) {
                     Forte
                 </Typography>
             </AppBar>
-            <Box sx={{ mt: "10px" }}>
-                <StyledTabs value={tabValue} onChange={handleTabChange}>
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/basic_attacks/${weapon}.png`} style={skillIcon} alt="Basic ATK" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_skill.png`} style={skillIcon} alt="Resonance Skill" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_ultimate.png`} style={skillIcon} alt="Resonance Liberation" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_circuit.png`} style={skillIcon} alt="Forte Circuit" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_intro.png`} style={skillIcon} alt="Intro Skill" onError={ErrorLoadingImage} />} />
-                    <StyledTab label={<img src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_outro.png`} style={skillIcon} alt="Outro Skill" onError={ErrorLoadingImage} />} />
+            <Box>
+                <StyledTabs
+                    variant="scrollable"
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile={!matches}
+                    sx={{
+                        height: "100%",
+                        "& .MuiTabScrollButton-root": {
+                            color: `${theme.text.color}`,
+                            backgroundColor: `${theme.table.header.backgroundColor}`,
+                        },
+                        ".MuiTabs-scrollButtons.Mui-disabled": {
+                            opacity: 0.3
+                        },
+                        "& .MuiTabs-indicatorSpan": {
+                            width: "100%",
+                            backgroundColor: ElementalBorderColor(element),
+                        },
+                    }}
+                >
+                    {
+                        Object.keys(forte).map((key, index) =>
+                            <StyledTab
+                                key={key}
+                                label={
+                                    <Image
+                                        src={key === "attack" ? `characters/skills/basic_attacks/${weapon}` : `characters/skills/${name.toLowerCase()}_${key}`}
+                                        alt={key}
+                                        style={skillIcon(index)}
+                                    />
+                                }
+                            />
+                        )
+                    }
                 </StyledTabs>
             </Box>
             {
-                Object.keys(forte).map((key, index) => (
+                Object.keys(forte).map((key, index) =>
                     <TabPanel key={key} index={index} value={tabValue}>
                         <CharacterForteTab skillKey={key} skills={forte} name={name} element={element} materials={materials} />
                     </TabPanel>
-                ))
+                )
             }
-        </Box>
+        </Card>
     )
 
 }

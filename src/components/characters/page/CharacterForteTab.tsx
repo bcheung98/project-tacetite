@@ -5,6 +5,7 @@ import parse from "html-react-parser"
 import Image from "../../_custom/Image"
 import CharacterForteScalingTable from "./CharacterForteScalingTable"
 import CharacterForteLevelUp from "./CharacterForteLevelUp"
+import CharacterForteNodeMaterials from "./CharacterForteNodeMaterials"
 import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 
 // MUI imports
@@ -16,7 +17,6 @@ import { ElementalBorderColor } from "../../../helpers/ElementColors"
 // Type imports
 import { CharacterForte, CharacterForteNode, ICharacterForte } from "../../../types/character"
 import { Materials } from "../../../types/materials"
-import CharacterForteNodeMaterials from "./CharacterForteNodeMaterials"
 
 interface CharacterForteTabProps {
     skillKey: string,
@@ -56,7 +56,7 @@ function CharacterForteTab({
             <Typography sx={{ mb: "5px", fontSize: "16px", fontWeight: theme.font.styled.weight }}>
                 <i>{FormatSkillKey(key)}</i>
             </Typography>
-            <Typography sx={{ mb: "20px", fontSize: "32px", fontWeight: theme.font.styled.weight }}>
+            <Typography sx={{ mb: "20px", fontSize: "28px", fontWeight: theme.font.styled.weight }}>
                 {forte.name}
             </Typography>
             <Typography sx={{ fontSize: "16px" }}>
@@ -79,7 +79,7 @@ function CharacterForteTab({
                             <Typography sx={{ fontSize: "16px", fontWeight: theme.font.styled.weight }}>Level Up Cost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CharacterForteLevelUp materials={materials} element={element} skillKey={key} />
+                            <CharacterForteLevelUp materials={materials} element={element} />
                         </AccordionDetails>
                     </Accordion>
                 </Box>
@@ -111,7 +111,7 @@ function CharacterForteTab({
                                         <AccordionSummary>
                                             <Typography sx={{ fontSize: "16px", fontWeight: theme.font.styled.weight }}>Unlock Cost</Typography>
                                         </AccordionSummary>
-                                        <AccordionDetails sx={{ ml: "30px" }}>
+                                        <AccordionDetails sx={{ ml: { xs: "5px", sm: "30px" } }}>
                                             <CharacterForteNodeMaterials skillKey={key} nodeIndex={index + 1} materials={materials} />
                                         </AccordionDetails>
                                     </Accordion>
