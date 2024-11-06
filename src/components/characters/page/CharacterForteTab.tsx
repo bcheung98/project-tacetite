@@ -2,121 +2,126 @@ import * as React from "react"
 import parse from "html-react-parser"
 
 // Component imports
+import Image from "../../_custom/Image"
 import CharacterForteScalingTable from "./CharacterForteScalingTable"
+import CharacterForteLevelUp from "./CharacterForteLevelUp"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Typography, Box, CardHeader, Paper } from "@mui/material"
+import { useTheme, Typography, Box, CardHeader } from "@mui/material"
 
 // Helper imports
-import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 import { ElementalBorderColor } from "../../../helpers/ElementColors"
-import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterForteTab = (props: any) => {
+// Type imports
+import { CharacterForte, CharacterForteNode, ICharacterForte } from "../../../types/character"
+import { Materials } from "../../../types/materials"
+import CharacterForteNodeMaterials from "./CharacterForteNodeMaterials"
+
+interface CharacterForteTabProps {
+    skillKey: string,
+    skills: ICharacterForte,
+    name: string,
+    element: string,
+    materials: Materials
+}
+
+function CharacterForteTab({
+    skillKey,
+    skills,
+    name,
+    element,
+    materials
+}: CharacterForteTabProps) {
 
     const theme = useTheme()
 
-    let key = props.skillKey
-    let skills = props.skills
+    const key = skillKey as keyof ICharacterForte
+    const forte = skills[key] as CharacterForte
 
-    const skillIcon = {
-        width: "56px",
-        height: "56px",
-        border: `2px solid ${ElementalBorderColor(props.element)}`,
-        borderRadius: "56px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`
-    }
-
-    const skillIconSmall = {
-        width: "34px",
-        height: "34px",
-        padding: "5px",
-        border: `2px solid ${ElementalBorderColor(props.element)}`,
-        borderRadius: "56px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`
+    const skillIcon = (key: string) => {
+        const size = key === "circuit" ? "48px" : "36px"
+        return {
+            width: size,
+            height: size,
+            padding: "2px",
+            border: `2px solid ${ElementalBorderColor(element)}`,
+            borderRadius: "64px",
+            backgroundColor: `${theme.materialImage.backgroundColor}`
+        }
     }
 
     return (
-        <React.Fragment>
-            <Typography variant="subtitle1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
+        <Box sx={{ width: "100%" }}>
+            <Typography sx={{ mb: "5px", fontSize: "16px", fontWeight: theme.font.styled.weight }}>
                 <i>{FormatSkillKey(key)}</i>
             </Typography>
-            <Typography variant="h4" sx={{ color: `${theme.text.color}`, mb: "20px" }}>
-                <b>{skills[key].name}</b>
+            <Typography sx={{ mb: "20px", fontSize: "32px", fontWeight: theme.font.styled.weight }}>
+                {forte.name}
             </Typography>
-            <Typography variant="body1" sx={{ color: `${theme.text.color}` }}>
-                {parse(skills[key].description)}
+            <Typography sx={{ fontSize: "16px" }}>
+                {parse(forte.description)}
             </Typography>
             <br />
             {
                 ["attack", "skill", "ultimate", "circuit", "intro"].includes(key) &&
-                <Paper variant="outlined"
-                    sx={{
-                        color: `${theme.text.color}`,
-                        border: "none",
-                    }}
-                >
-                    <Accordion sx={{ ml: "-20px" }}>
+                <Box sx={{ ml: "-20px" }}>
+                    <Accordion>
                         <AccordionSummary>
-                            <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>Attribute Scaling</Typography>
+                            <Typography sx={{ fontSize: "16px", fontWeight: theme.font.styled.weight }}>Attribute Scaling</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CharacterForteScalingTable stats={skills[key].scaling} />
+                            <CharacterForteScalingTable stats={forte.scaling} />
                         </AccordionDetails>
                     </Accordion>
-                </Paper>
+                    <Accordion>
+                        <AccordionSummary>
+                            <Typography sx={{ fontSize: "16px", fontWeight: theme.font.styled.weight }}>Level Up Cost</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <CharacterForteLevelUp materials={materials} element={element} skillKey={key} />
+                        </AccordionDetails>
+                    </Accordion>
+                </Box>
             }
             {
-                skills[key].nodes &&
+                forte.nodes &&
                 <React.Fragment>
                     <hr style={{ border: `1px solid ${theme.border.color}`, marginTop: "25px", marginBottom: "15px" }} />
                     {
-                        skills[key].nodes.map((node: { name: string, type: string, description: string }, index: number) => {
+                        forte.nodes.map((node, index) => {
+                            let nodeData = getNodeInfo(key, node, index, name)
                             return (
-                                <Box key={index} sx={{ ml: "-20px", mb: "20px" }}>
-                                    {
-                                        key === "circuit" ?
-                                            <CardHeader
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }}
-                                                avatar={
-                                                    <img src={`${process.env.REACT_APP_URL}/characters/skills/${props.character.split(" ").join("_").toLowerCase()}_passive${index + 1}.png`} alt={`Passive ${index}`} style={skillIcon} onError={ErrorLoadingImage} />
-                                                }
-                                                title={
-                                                    <Typography variant="h5" sx={{ color: `${theme.text.color}`, mb: "5px" }}>
-                                                        <b>{node.name}</b>
-                                                    </Typography>
-                                                }
-                                            />
-                                            :
-                                            <CardHeader
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }}
-                                                avatar={
-                                                    <img src={`${process.env.REACT_APP_URL}/stat_icons/${node.type.split(" ").join("_")}.png`} alt={`${node.type}+`} style={skillIconSmall} onError={ErrorLoadingImage} />
-                                                }
-                                                title={
-                                                    <Typography variant="h6" sx={{ color: `${theme.text.color}`, mb: "5px", fontWeight: "bold" }}>
-                                                        {node.type}+
-                                                    </Typography>
-                                                }
-                                            />
-                                    }
-                                    <Typography variant="body1" sx={{ color: `${theme.text.color}`, mx: "20px" }}>
+                                <Box key={index} sx={{ mb: "10px" }}>
+                                    <CardHeader
+                                        avatar={
+                                            <Image src={nodeData.img} alt={nodeData.name} style={skillIcon(key)} />
+                                        }
+                                        title={
+                                            <Typography sx={{ fontSize: key === "circuit" ? "20px" : "18px", fontWeight: theme.font.styled.weight }}>
+                                                {nodeData.name}
+                                            </Typography>
+                                        }
+                                        sx={{ px: 0 }}
+                                    />
+                                    <Typography>
                                         {parse(node.description)}
                                     </Typography>
+                                    <Accordion sx={{ ml: "-20px", mt: "10px" }}>
+                                        <AccordionSummary>
+                                            <Typography sx={{ fontSize: "16px", fontWeight: theme.font.styled.weight }}>Unlock Cost</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails sx={{ ml: "30px" }}>
+                                            <CharacterForteNodeMaterials skillKey={key} nodeIndex={index + 1} materials={materials} />
+                                        </AccordionDetails>
+                                    </Accordion>
                                 </Box>
                             )
                         })
                     }
                 </React.Fragment>
             }
-        </React.Fragment>
+        </Box>
     )
 
 }
@@ -147,4 +152,17 @@ const FormatSkillKey = (key: string) => {
             break
     }
     return key
+}
+
+const getNodeInfo = (key: string, node: CharacterForteNode, index: number, name: string) => {
+    let nodeName, imgSrc
+    if (key === "circuit") {
+        nodeName = node.name as string
+        imgSrc = `characters/skills/${name.toLowerCase()}_passive${index + 1}`
+    }
+    else {
+        nodeName = `${node.type}+`
+        imgSrc = `stat_icons/${node.type}`
+    }
+    return { name: nodeName, img: imgSrc }
 }

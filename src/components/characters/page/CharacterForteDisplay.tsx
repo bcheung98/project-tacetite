@@ -12,17 +12,18 @@ import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 import { ElementalBorderColor } from "../../../helpers/ElementColors"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterForteDisplay = (props: any) => {
+function CharacterForteDisplay(props: any) {
 
     const theme = useTheme()
 
-    let { name, weapon, element, forte } = props.character
+    let { name, weapon, element, forte, materials } = props.character
 
     const skillIcon = {
-        width: "56px",
-        height: "56px",
+        width: "48px",
+        height: "48px",
+        padding: "2px",
         border: `2px solid ${ElementalBorderColor(element)}`,
-        borderRadius: "56px",
+        borderRadius: "48px",
         backgroundColor: `${theme.materialImage.backgroundColor}`,
     }
 
@@ -46,7 +47,14 @@ const CharacterForteDisplay = (props: any) => {
                     borderRadius: "5px 5px 0px 0px",
                 }}
             >
-                <Typography sx={{ m: 2, color: `${theme.text.color}`, fontWeight: "bold" }} variant="h5">
+                <Typography
+                    sx={{
+                        m: 2,
+                        color: `${theme.text.color}`,
+                        fontSize: "20px",
+                        fontWeight: theme.font.styled.weight
+                    }}
+                >
                     Forte
                 </Typography>
             </AppBar>
@@ -63,7 +71,7 @@ const CharacterForteDisplay = (props: any) => {
             {
                 Object.keys(forte).map((key, index) => (
                     <TabPanel key={key} index={index} value={tabValue}>
-                        <CharacterForteTab character={name} skillKey={key} skills={forte} element={element} materials={props.character.materials} />
+                        <CharacterForteTab skillKey={key} skills={forte} name={name} element={element} materials={materials} />
                     </TabPanel>
                 ))
             }

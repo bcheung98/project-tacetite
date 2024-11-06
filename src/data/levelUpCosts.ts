@@ -36,7 +36,7 @@ export const characterLevelWithXP = (name: string) => {
     } as CostArray
 }
 
-export const characterSkillLevel: CostArray = {
+export const characterForteLevel: CostArray = {
     credits: [0, 1500, 2000, 4500, 6000, 16000, 30000, 50000, 70000, 100000],
     forgeryMat1: [0, 2, 3, 0, 0, 0, 0, 0, 0, 0],
     forgeryMat2: [0, 0, 0, 2, 3, 0, 0, 0, 0, 0],
@@ -49,29 +49,38 @@ export const characterSkillLevel: CostArray = {
     weeklyBossMat: [0, 0, 0, 0, 0, 0, 1, 1, 1, 1]
 }
 
-export const characterSkillNode1: CostNumber = {
-    credits: 50000,
-    forgeryMat3: 3,
-    commonMat3: 3,
+export const characterForteNode = (key: string, index: number) => {
+    if (key === "circuit") {
+        return index === 1 ? characterPassive1 : characterPassive2
+    }
+    else {
+        return index === 1 ? characterForteNode1 : characterForteNode2
+    }
 }
 
-export const characterSkillNode2: CostNumber = {
-    credits: 100000,
-    forgeryMat4: 3,
-    commonMat4: 3,
-    weeklyBossMat: 1
-}
-
-export const characterPassive1: CostNumber = {
+const characterPassive1: CostNumber = {
     credits: 10000,
     forgeryMat2: 3,
     commonMat2: 3,
     weeklyBossMat: 1
 }
 
-export const characterPassive2: CostNumber = {
+const characterPassive2: CostNumber = {
     credits: 20000,
     forgeryMat3: 3,
     commonMat3: 3,
+    weeklyBossMat: 1
+}
+
+const characterForteNode1: CostNumber = {
+    credits: 50000,
+    forgeryMat3: 3,
+    commonMat3: 3,
+}
+
+const characterForteNode2: CostNumber = {
+    credits: 100000,
+    forgeryMat4: 3,
+    commonMat4: 3,
     weeklyBossMat: 1
 }
