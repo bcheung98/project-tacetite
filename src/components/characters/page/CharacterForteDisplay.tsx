@@ -53,7 +53,7 @@ function CharacterForteDisplay({ character }: CharacterProps) {
             <AppBar position="static"
                 sx={{
                     backgroundColor: `${theme.appbar.backgroundColor}`,
-                    borderBottom: `2px solid ${theme.border.color}`,
+                    borderBottom: `1px solid ${theme.border.color}`,
                     borderRadius: "5px 5px 0px 0px",
                 }}
             >
