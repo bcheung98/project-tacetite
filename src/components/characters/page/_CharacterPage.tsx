@@ -254,7 +254,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                                     style={{
                                         width: "40px",
                                         padding: "4px",
-                                        border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                        border: `2px solid ${Tags[tag].color}`,
                                         borderRadius: "5px",
                                         backgroundColor: `${theme.materialImage.backgroundColor}`,
                                     }}
@@ -338,7 +338,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                                             height: matches ? "48px" : "32px",
                                             padding: "4px",
                                             marginTop: matches ? "0px" : "5px",
-                                            border: `2px solid ${Tags[tag as keyof typeof Tags].color}`,
+                                            border: `2px solid ${Tags[tag].color}`,
                                             borderRadius: "5px",
                                             backgroundColor: `${theme.materialImage.backgroundColor}`,
                                         }}
@@ -348,7 +348,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                                             {tag}
                                         </Typography>
                                         <Typography sx={{ fontSize: { xs: "14px", sm: "16px" } }}>
-                                            {Tags[tag as keyof typeof Tags].description}
+                                            {Tags[tag].description}
                                         </Typography>
                                     </Box>
                                 </Box>

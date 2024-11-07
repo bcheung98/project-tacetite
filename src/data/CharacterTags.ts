@@ -1,4 +1,13 @@
-export const Tags = {
+interface ITags {
+    [key: string]: Tag
+}
+
+interface Tag {
+    description: string,
+    color: string
+}
+
+export const Tags: ITags = {
     "Support and Healer": {
         description: "Improve team survivability",
         color: "#77ffb7",
