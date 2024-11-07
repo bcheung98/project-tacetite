@@ -3,7 +3,7 @@ import { Slider } from "@mui/material"
 import { SwitchColor } from "../../helpers/ElementColors"
 
 interface CustomSliderProps {
-    element: string
+    element?: string
 }
 
 export const CustomSlider = styled(Slider)<CustomSliderProps>(({ element }) => ({
