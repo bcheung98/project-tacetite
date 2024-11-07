@@ -75,7 +75,7 @@ const characterPassive2: CostNumber = {
 const characterForteNode1: CostNumber = {
     credits: 50000,
     forgeryMat2: 3,
-    commonMat2: 3,
+    commonMat2: 3
 }
 
 const characterForteNode2: CostNumber = {
@@ -83,4 +83,84 @@ const characterForteNode2: CostNumber = {
     forgeryMat3: 3,
     commonMat3: 3,
     weeklyBossMat: 1
+}
+
+export const weaponLevel = (rarity: number): CostArray => {
+    return {
+        credits: weaponCosts.credits[rarity],
+        forgeryMat1: weaponCosts.forgeryMat1[rarity],
+        forgeryMat2: weaponCosts.forgeryMat2[rarity],
+        forgeryMat3: weaponCosts.forgeryMat3[rarity],
+        forgeryMat4: weaponCosts.forgeryMat4[rarity],
+        commonMat1: weaponCosts.commonMat1[rarity],
+        commonMat2: weaponCosts.commonMat2[rarity],
+        commonMat3: weaponCosts.commonMat3[rarity],
+        commonMat4: weaponCosts.commonMat4[rarity]
+    }
+}
+
+const weaponCosts = {
+    credits: [
+        [0, 2000, 4000, 8000, 12000],
+        [0, 4000, 8000, 16000, 24000],
+        [0, 6000, 12000, 24000, 36000, 48000, 72000],
+        [0, 8000, 16000, 32000, 48000, 64000, 96000],
+        [0, 10000, 20000, 40000, 60000, 80000, 120000]
+    ],
+    forgeryMat1: [
+        [0, 0, 2, 0, 0],
+        [0, 0, 3, 0, 0],
+        [0, 0, 4, 0, 0, 0, 0],
+        [0, 0, 5, 0, 0, 0, 0],
+        [0, 0, 6, 0, 0, 0, 0]
+    ],
+    forgeryMat2: [
+        [0, 0, 0, 2, 0],
+        [0, 0, 0, 4, 0],
+        [0, 0, 0, 5, 0, 0, 0],
+        [0, 0, 0, 7, 0, 0, 0],
+        [0, 0, 0, 8, 0, 0, 0]
+    ],
+    forgeryMat3: [
+        [0, 0, 0, 0, 2],
+        [0, 0, 0, 0, 3],
+        [0, 0, 0, 0, 4, 0, 0],
+        [0, 0, 0, 0, 5, 0, 0],
+        [0, 0, 0, 0, 6, 0, 0]
+    ],
+    forgeryMat4: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 5, 8],
+        [0, 0, 0, 0, 0, 7, 10],
+        [0, 0, 0, 0, 0, 8, 12]
+    ],
+    commonMat1: [
+        [0, 2, 0, 0, 0],
+        [0, 3, 0, 0, 0],
+        [0, 4, 0, 0, 0, 0, 0],
+        [0, 5, 0, 0, 0, 0, 0],
+        [0, 6, 0, 0, 0, 0, 0]
+    ],
+    commonMat2: [
+        [0, 0, 2, 0, 0],
+        [0, 0, 3, 0, 0],
+        [0, 0, 4, 0, 0, 0, 0],
+        [0, 0, 5, 0, 0, 0, 0],
+        [0, 0, 6, 0, 0, 0, 0]
+    ],
+    commonMat3: [
+        [0, 0, 0, 1, 2],
+        [0, 0, 0, 2, 3],
+        [0, 0, 0, 3, 4, 0, 0],
+        [0, 0, 0, 4, 5, 0, 0],
+        [0, 0, 0, 4, 6, 0, 0]
+    ],
+    commonMat4: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 3, 5],
+        [0, 0, 0, 0, 0, 4, 7],
+        [0, 0, 0, 0, 0, 4, 8]
+    ]
 }

@@ -1,41 +1,41 @@
 import React from "react"
-import { connect } from "react-redux"
+import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import parse from "html-react-parser"
 
 // Component imports
 import WeaponStatsTable from "./WeaponStatsTable"
+import WeaponAscension from "./WeaponAscension"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+import { CustomSlider } from "../../_styled/StyledSlider"
+import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Typography, Box, Avatar, AppBar } from "@mui/material"
+import { useTheme, Typography, Box, Avatar, AppBar } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
-import { CustomTooltip } from "../../_styled/StyledTooltip"
-import { CustomSlider } from "../../_styled/StyledSlider"
-import { TabPanel, StyledTabs, StyledTab } from "../../_styled/StyledTabs"
 import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports
 import { RootState } from "../../../redux/store"
+import { Weapon } from "../../../types/weapon"
 
-const WeaponPage = (props: any) => {
+function WeaponPage() {
 
     const theme = useTheme()
 
-
-    let { wep_name } = useParams<{ wep_name: string }>()
-    let { weapons } = props
-    let weapon = weapons.weapons.find((wep: { [key: string]: string }) => wep.name.split(" ").join("_").toLowerCase() === wep_name)
+    const { wep_name } = useParams<{ wep_name: string }>()
+    const weapons = useSelector((state: RootState) => state.weapons.weapons)
+    const weapon = weapons.find((wep: Weapon) => wep.name.split(" ").join("_").toLowerCase() === wep_name)
 
     const [tabValue, setTabValue] = React.useState(0)
     const handleTabChange = (e: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue)
     }
 
-    let maxValue = 5
+    const maxValue = 5
     const [sliderValue, setSliderValue] = React.useState(1)
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
         setSliderValue(newValue as number)
@@ -54,7 +54,7 @@ const WeaponPage = (props: any) => {
 
     if (weapon !== undefined) {
 
-        let { name, rarity, type, stats, description } = weapon
+        const { name, rarity, type, stats, description } = weapon
 
         if (weapon.displayName) document.title = `${weapon.displayName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
         else document.title = `${name} ${process.env.REACT_APP_DOCUMENT_HEADER}`
@@ -73,8 +73,7 @@ const WeaponPage = (props: any) => {
                                 backgroundSize: "100%",
                                 boxShadow: `inset 0 0 50px 20px ${GetBackgroundColor(rarity)}`,
                             }}
-                            onError={ErrorLoadingImage}
-                        />
+                            onError={ErrorLoadingImage} />
                     </Grid>
                     <Grid size="grow">
                         <Box
@@ -150,8 +149,7 @@ const WeaponPage = (props: any) => {
                                     max={maxValue}
                                     onChange={handleSliderChange}
                                     element=""
-                                    sx={{ minWidth: "100px" }}
-                                />
+                                    sx={{ minWidth: "100px" }} />
                             </Box>
                         </Box>
                         <Box
@@ -172,15 +170,15 @@ const WeaponPage = (props: any) => {
                             >
                                 <StyledTabs value={tabValue} onChange={handleTabChange}>
                                     <StyledTab label="Stats" />
-                                    {/* <StyledTab label="Ascension" /> */}
+                                    <StyledTab label="Ascension" />
                                 </StyledTabs>
                             </AppBar>
                             <TabPanel value={tabValue} index={0}>
                                 <WeaponStatsTable weapon={weapon} />
                             </TabPanel>
-                            {/* <TabPanel value={tabValue} index={1}>
-
-                            </TabPanel> */}
+                            <TabPanel value={tabValue} index={1}>
+                                <WeaponAscension weapon={weapon} />
+                            </TabPanel>
                         </Box>
                     </Grid>
                 </Grid>
@@ -197,8 +195,4 @@ const WeaponPage = (props: any) => {
 
 }
 
-const mapStateToProps = (state: RootState) => ({
-    weapons: state.weapons
-})
-
-export default connect(mapStateToProps)(WeaponPage)
+export default WeaponPage
