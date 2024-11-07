@@ -10,6 +10,7 @@ export interface Character {
     id: number,
     name: string,
     displayName?: string,
+    fullName?: string,
     title: string,
     rarity: 5 | 4,
     element: string,
@@ -17,6 +18,7 @@ export interface Character {
     forte: ICharacterForte
     resonanceChain: ICharacterResonanceChain,
     stats: CharacterStats,
+    tags: string[],
     materials: Materials,
     description: string,
     birthday: string,
