@@ -2,6 +2,7 @@ import * as React from "react"
 
 // Component imports
 import CharacterForteTab from "./CharacterForteTab"
+import Image from "../../_custom/Image"
 
 // MUI imports
 import { useTheme, useMediaQuery, alpha, Box, Typography, AppBar, Card } from "@mui/material"
@@ -12,7 +13,6 @@ import { ElementalBorderColor } from "../../../helpers/ElementColors"
 
 // Type imports
 import { CharacterProps } from "../../../types/character"
-import Image from "../../_custom/Image"
 
 function CharacterForteDisplay({ character }: CharacterProps) {
 
@@ -27,7 +27,7 @@ function CharacterForteDisplay({ character }: CharacterProps) {
         setTabValue(newValue)
     }
 
-    const skillIcon = (index: number) => {
+    const skillIcon = (index: number): React.CSSProperties => {
         const selected = index === tabValue
         return {
             width: "48px",
@@ -39,7 +39,7 @@ function CharacterForteDisplay({ character }: CharacterProps) {
             borderColor: selected ? ElementalBorderColor(element) : alpha(ElementalBorderColor(element), 0.3),
             borderRadius: "64px",
             boxShadow: selected ? `0 0 12px 2px ${ElementalBorderColor(element)}` : "none",
-        } as React.CSSProperties
+        }
     }
 
     return (
