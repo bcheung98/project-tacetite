@@ -1,15 +1,14 @@
-// MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Table, TableBody, TableContainer, TableHead, Paper, Typography } from "@mui/material"
-
-// Helper imports
+// Component imports
 import { StyledTableCell, StyledTableRows } from "../../_styled/StyledTable"
 
-const CharacterStatsTable = (props: any) => {
+// MUI imports
+import { useTheme, Table, TableBody, TableContainer, TableHead } from "@mui/material"
+
+function CharacterStatsTable(props: any) {
 
     const theme = useTheme()
 
-    let { stats } = props.character
+    const { stats } = props.character
 
     // const levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
     const levels = ["1", "20", "40", "50", "60", "70", "80", "90"]
@@ -17,62 +16,31 @@ const CharacterStatsTable = (props: any) => {
 
     return (
         <TableContainer
-            component={Paper}
             sx={{
-                border: `1px solid ${theme.border.color}`,
+                border: `2px solid ${theme.border.color}`,
                 borderRadius: "5px",
             }}
         >
             <Table sx={{ backgroundColor: `${theme.table.body.backgroundColor}` }}>
                 <TableHead>
                     <StyledTableRows>
-                        <StyledTableCell>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                                Level
-                            </Typography>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                                HP
-                            </Typography>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                                ATK
-                            </Typography>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                            <Typography sx={{ fontWeight: "bold" }}>
-                                DEF
-                            </Typography>
-                        </StyledTableCell>
+                        <StyledTableCell>Level</StyledTableCell>
+                        <StyledTableCell>HP</StyledTableCell>
+                        <StyledTableCell>ATK</StyledTableCell>
+                        <StyledTableCell>DEF</StyledTableCell>
                     </StyledTableRows>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRows key={row.level}>
-                            <StyledTableCell>
-                                <Typography variant="body2">
-                                    {row.level}
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                <Typography variant="body2">
-                                    {Number(row.hp).toLocaleString()}
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                <Typography variant="body2">
-                                    {row.atk}
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                                <Typography variant="body2">
-                                    {row.def}
-                                </Typography>
-                            </StyledTableCell>
-                        </StyledTableRows>
-                    ))}
+                    {
+                        rows.map((row) =>
+                            <StyledTableRows key={row.level}>
+                                <StyledTableCell>{row.level}</StyledTableCell>
+                                <StyledTableCell>{Number(row.hp).toLocaleString()}</StyledTableCell>
+                                <StyledTableCell>{row.atk}</StyledTableCell>
+                                <StyledTableCell>{row.def}</StyledTableCell>
+                            </StyledTableRows>
+                        )
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

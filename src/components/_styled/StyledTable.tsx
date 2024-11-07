@@ -27,6 +27,9 @@ export const StyledTableCell = styled((props: CustomTableCellProps) => (
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: `${theme.table.header.backgroundColor}`,
         color: `${theme.text.color}`,
+        fontSize: "16px",
+        fontFamily: theme.font.styled.family,
+        fontWeight: theme.font.styled.weight
     },
     color: `${theme.text.color}`,
     fontSize: "10pt",
