@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useSelector } from "react-redux"
-// import { exportComponentAsJPEG } from "react-component-export-image"
+import { exportComponentAsJPEG } from "react-component-export-image"
 
 // Component imports
 import MaterialImage from "../_custom/MaterialImage"
@@ -66,7 +66,7 @@ function AscensionTotalCost() {
                             my: "20px",
                             p: 1,
                         }}
-                        // onClick={() => exportComponentAsJPEG(componentRef, { fileName: "Materials.jpg" })}
+                        onClick={() => exportComponentAsJPEG(componentRef, { fileName: "Materials.jpg" })}
                     >
                         Download as Image
                     </Button>
