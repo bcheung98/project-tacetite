@@ -15,16 +15,19 @@ import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import { Accordion, AccordionDetails, AccordionSummary } from "../_styled/StyledAccordion"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
+import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
-const CharacterAscensionCard = (props: any) => {
+// Type imports
+import { CharacterCostObject } from "../../../types/costs"
+
+function CharacterAscensionCard({ character }: { character: CharacterCostObject }) {
 
     const theme = useTheme()
 
-    let { name, rarity, element, weapon } = props.character
+    let { name, rarity, element, weapon } = character
 
     const smallIcon = {
         width: "24px",
@@ -51,7 +54,7 @@ const CharacterAscensionCard = (props: any) => {
             <CardHeader
                 avatar={
                     <Box sx={{ position: "relative" }}>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <img
                                 src={(`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`)}
                                 alt={name}
@@ -79,11 +82,11 @@ const CharacterAscensionCard = (props: any) => {
                 }
                 title={
                     <React.Fragment>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
-                                {props.character.displayName && props.character.displayName}
-                                {props.character.fullName && props.character.fullName}
-                                {!props.character.displayName && !props.character.fullName && name}
+                                {character.displayName && character.displayName}
+                                {character.fullName && character.fullName}
+                                {!character.displayName && !character.fullName && name}
                             </Typography>
                         </ButtonBase>
                         <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
@@ -97,7 +100,7 @@ const CharacterAscensionCard = (props: any) => {
                 <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                     Materials Required
                 </Typography>
-                <CharacterAscensionCardMaterials character={props.character} />
+                <CharacterAscensionCardMaterials character={character} />
             </Box>
             <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "15px" }} />
             <Accordion>
@@ -107,22 +110,22 @@ const CharacterAscensionCard = (props: any) => {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <CharacterAscensionLevel character={props.character} />
+                    <CharacterAscensionLevel character={character} />
                     <Grid container spacing={2}>
                         <Grid size={2} sx={{ mt: outer }}>
-                            <CharacterAscensionBasicATK character={props.character} />
+                            <CharacterAscensionBasicATK character={character} />
                         </Grid>
                         <Grid size={2} sx={{ mt: inner }}>
-                            <CharacterAscensionSkill character={props.character} />
+                            <CharacterAscensionSkill character={character} />
                         </Grid>
                         <Grid size={2}>
-                            <CharacterAscensionCircuit character={props.character} />
+                            <CharacterAscensionCircuit character={character} />
                         </Grid>
                         <Grid size={2} sx={{ mt: inner }}>
-                            <CharacterAscensionUltimate character={props.character} />
+                            <CharacterAscensionUltimate character={character} />
                         </Grid>
                         <Grid size={2} sx={{ mt: outer }}>
-                            <CharacterAscensionIntro character={props.character} />
+                            <CharacterAscensionIntro character={character} />
                         </Grid>
                     </Grid>
                 </AccordionDetails>

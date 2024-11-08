@@ -1,27 +1,31 @@
 import * as React from "react"
 import { useDispatch } from "react-redux"
 
+// Component imports
+import { CustomSlider } from "../../_styled/StyledSlider"
+
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography } from "@mui/material"
+import { useTheme, Box, Typography } from "@mui/material"
 
 // Helper imports
-import { CustomSlider } from "../_styled/StyledSlider"
-import { updateWeaponCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { SetWeaponCostsLevel } from "../../data/AscensionCostIndex"
+import { updateTotalCosts, updateWeaponCosts } from "../../../redux/reducers/AscensionPlannerReducer"
 
-const WeaponAscensionLevel = (props: any) => {
+// Type imports
+import { WeaponCostObject } from "../../../types/costs"
+import { getWeaponLevelCost } from "../../../data/levelUpCosts"
+
+function WeaponAscensionLevel({ weapon }: { weapon: WeaponCostObject }) {
 
     const theme = useTheme()
 
     const dispatch = useDispatch()
 
-    let { name, rarity } = props.weapon
+    const { name, rarity } = weapon
 
     let levels
     rarity > 2 ? levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"] : levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70"]
     const minDistance = 1
-    let maxValue = levels.length
+    const maxValue = levels.length
     const [sliderValue, setSliderValue] = React.useState([1, maxValue])
     const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
@@ -43,7 +47,8 @@ const WeaponAscensionLevel = (props: any) => {
     }
 
     React.useEffect(() => {
-        dispatch(updateWeaponCosts([name, "level", SetWeaponCostsLevel(sliderValue[0], sliderValue[1], rarity)]))
+        dispatch(updateWeaponCosts({ name: name, type: "level", costs: getWeaponLevelCost(rarity, sliderValue) }))
+        dispatch(updateTotalCosts())
     })
 
     return (

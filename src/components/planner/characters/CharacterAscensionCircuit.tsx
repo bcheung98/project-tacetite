@@ -3,27 +3,32 @@ import { useDispatch } from "react-redux"
 import parse from "html-react-parser"
 import Xarrow from "react-xarrows"
 
+// Component imports
+import { CustomSlider } from "../../_styled/StyledSlider"
+import { CustomSwitch } from "../../_styled/StyledSwitch"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+
 // MUI imports
 import { useTheme } from "@mui/material/styles"
 import { Box, Typography, Avatar, Popover } from "@mui/material"
 
 // Helper imports
-import { CustomSlider } from "../_styled/StyledSlider"
-import { CustomSwitch } from "../_styled/StyledSwitch"
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { SetCharacterCostsSkill, SetCharacterCostsNode } from "../../data/AscensionCostIndex"
+import { updateCharacterCosts, updateTotalCosts } from "../../../redux/reducers/AscensionPlannerReducer"
+import { getCharacterForteCost, getCharacterForteCostNode } from "../../../data/levelUpCosts"
 
-const CharacterAscensionBasicATK = (props: any) => {
+// Type imports
+import { CharacterCostObject } from "../../../types/costs"
+
+function CharacterAscensionCircuit({ character }: { character: CharacterCostObject }) {
 
     const theme = useTheme()
 
     const dispatch = useDispatch()
 
-    let { name, element, weapon, forte } = props.character
+    const { name, element, forte } = character
 
     const minDistance = 1
-    let maxValue = 10
+    const maxValue = 10
     const levels = [...Array(maxValue).keys()].map((i) => i + 1)
     const [sliderValue, setSliderValue] = React.useState([1, maxValue])
     const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
@@ -44,12 +49,6 @@ const CharacterAscensionBasicATK = (props: any) => {
             setSliderValue(newValue)
         }
     }
-
-    React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "attack", SetCharacterCostsSkill(sliderValue[0], sliderValue[1], selectedMainNode)]))
-        dispatch(updateCharacterCosts([name, "attack_node1", SetCharacterCostsNode(1, selectedNode1)]))
-        dispatch(updateCharacterCosts([name, "attack_node2", SetCharacterCostsNode(2, selectedNode2)]))
-    })
 
     const [selectedMainNode, setSelectedMainNode] = React.useState(true)
     const handleSelectMainNode = () => {
@@ -93,6 +92,13 @@ const CharacterAscensionBasicATK = (props: any) => {
         cursor: "pointer"
     }
 
+    React.useEffect(() => {
+        dispatch(updateCharacterCosts({ name: name, type: "circuit", subType: "main", costs: getCharacterForteCost(sliderValue, selectedMainNode) }))
+        dispatch(updateCharacterCosts({ name: name, type: "circuit", subType: "node1", costs: getCharacterForteCostNode("circuit", 1, selectedNode1) }))
+        dispatch(updateCharacterCosts({ name: name, type: "circuit", subType: "node2", costs: getCharacterForteCostNode("circuit", 2, selectedNode2) }))
+        dispatch(updateTotalCosts())
+    })
+
     return (
         <React.Fragment>
             <Box
@@ -103,11 +109,11 @@ const CharacterAscensionBasicATK = (props: any) => {
                     alignItems: "center",
                 }}
             >
-                <CustomTooltip title={parse(forte.attack.nodes[1].description)} arrow placement="top">
+                <CustomTooltip title={parse(forte.circuit.nodes[1].name as string)} arrow placement="top">
                     <Avatar
-                        id={`${name}-attack_node2`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.attack.nodes[1].type.split(" ").join("_")}.png`}
-                        alt={forte.attack.nodes[1].type}
+                        id={`${name}-circuit_node2`}
+                        src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_passive2.png`}
+                        alt={forte.circuit.nodes[1].type}
                         sx={skillIconSmall}
                         style={selectedNode2 ? { opacity: "1" } : { opacity: "0.35" }}
                         onClick={handleSelectNode2}
@@ -115,7 +121,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start={`${name}-attack_node2`} end={`${name}-attack_node1`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-circuit_node2`} end={`${name}-circuit_node1`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -125,11 +131,11 @@ const CharacterAscensionBasicATK = (props: any) => {
                     alignItems: "center",
                 }}
             >
-                <CustomTooltip title={parse(forte.attack.nodes[0].description)} arrow placement="top">
+                <CustomTooltip title={parse(forte.circuit.nodes[0].name as string)} arrow placement="top">
                     <Avatar
-                        id={`${name}-attack_node1`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.attack.nodes[0].type.split(" ").join("_")}.png`}
-                        alt={forte.attack.nodes[0].type}
+                        id={`${name}-circuit_node1`}
+                        src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_passive1.png`}
+                        alt={forte.circuit.nodes[0].type}
                         sx={skillIconSmall}
                         style={selectedNode1 ? { opacity: "1" } : { opacity: "0.35" }}
                         onClick={handleSelectNode1}
@@ -137,7 +143,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                         <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
                     </Avatar>
                 </CustomTooltip>
-                <Xarrow start={`${name}-attack_node1`} end={`${name}-attack_node0`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Xarrow start={`${name}-circuit_node1`} end={`${name}-circuit_node0`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
             </Box>
             <Box
                 sx={{
@@ -148,9 +154,9 @@ const CharacterAscensionBasicATK = (props: any) => {
                 }}
             >
                 <Avatar
-                    id={`${name}-attack_node0`}
-                    src={`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`}
-                    alt={`${name.split(" ").join("_").toLowerCase()}_attack`}
+                    id={`${name}-circuit_node0`}
+                    src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_circuit.png`}
+                    alt={`${name.split(" ").join("_").toLowerCase()}_circuit`}
                     sx={skillIcon}
                     style={selectedMainNode ? { opacity: "1", cursor: "pointer" } : { opacity: "0.35" }}
                     onClick={handleClickOpenMainNode}
@@ -168,7 +174,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                 style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}
             >
                 <Typography variant="body2" sx={{ color: `${theme.text.color}`, fontWeight: "bold", width: "64px", textAlign: "center" }}>
-                    Basic Attack
+                    Forte Circuit
                 </Typography>
                 <CustomSwitch checked={selectedMainNode} onChange={handleSelectMainNode} element={element} />
             </Box>
@@ -210,7 +216,7 @@ const CharacterAscensionBasicATK = (props: any) => {
                 >
                     <Box sx={{ display: "flex", alignItems: "center", mb: "10px" }}>
                         <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "15px" }}>
-                            Basic Attack
+                            Forte Circuit
                         </Typography>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
@@ -229,4 +235,4 @@ const CharacterAscensionBasicATK = (props: any) => {
 
 }
 
-export default CharacterAscensionBasicATK
+export default CharacterAscensionCircuit

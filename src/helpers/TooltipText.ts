@@ -1,39 +1,39 @@
 export const formatXPMats = (material: string) => {
     switch (material) {
-        case "Character1":
+        case "characterXP1":
             material = "Basic Resonance Potion"
             break
-        case "Character2":
+        case "characterXP2":
             material = "Medium Resonance Potion"
             break
-        case "Character3":
+        case "characterXP3":
             material = "Advanced Resonance Potion"
             break
-        case "Character4":
+        case "characterXP4":
             material = "Premium Resonance Potion"
             break
-        case "Weapon1":
+        case "weaponXP1":
             material = "Basic Energy Core"
             break
-        case "Weapon2":
+        case "weaponXP2":
             material = "Medium Energy Core"
             break
-        case "Weapon3":
+        case "weaponXP3":
             material = "Advanced Energy Core"
             break
-        case "Weapon4":
+        case "weaponXP4":
             material = "Premium Energy Core"
             break
-        case "Echo1":
+        case "echoXP1":
             material = "Basic Sealed Tube"
             break
-        case "Echo2":
+        case "echoXP2":
             material = "Medium Sealed Tube"
             break
-        case "Echo3":
+        case "echoXP3":
             material = "Advanced Sealed Tube"
             break
-        case "Echo4":
+        case "echoXP4":
             material = "Premium Sealed Tube"
             break
         default:

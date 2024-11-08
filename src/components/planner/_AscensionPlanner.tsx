@@ -1,76 +1,58 @@
 import * as React from "react"
-import { connect } from "react-redux"
+import { useSelector } from "react-redux"
 
 // Component imports
 import CharacterSelector from "./CharacterSelector"
-import CharacterAscensionCard from "./_CharacterAscensionCard"
+import CharacterAscensionCard from "./characters/_CharacterAscensionCard"
 import WeaponSelector from "./WeaponSelector"
-import WeaponAscensionCard from "./_WeaponAscensionCard"
+import WeaponAscensionCard from "./weapons/_WeaponAscensionCard"
+import AscensionTotalCost from "./AscensionTotalCost"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography } from "@mui/material"
+import { useTheme, Typography } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Type imports
 import { RootState } from "../../redux/store"
 
-const AscensionPlanner = (props: any) => {
+function AscensionPlanner() {
 
     const theme = useTheme()
 
-    let { characters, weapons } = props
+    const characters = useSelector((state: RootState) => state.ascensionPlanner.characterCosts)
+    const weapons = useSelector((state: RootState) => state.ascensionPlanner.weaponCosts)
 
     document.title = `Ascension Planner ${process.env.REACT_APP_DOCUMENT_HEADER}`
 
     return (
         <React.Fragment>
-            <Box
+            <Typography
                 sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "left",
                     mb: "20px",
-                    height: "30px",
+                    fontFamily: `${theme.font.styled.family}`,
+                    fontSize: "24px",
+                    color: `${theme.text.color}`,
+                    lineHeight: "40px"
                 }}
             >
-                <Typography
-                    variant="h5"
-                    sx={{
-                        mr: "25px",
-                        fontWeight: "500",
-                        color: `${theme.text.color}`,
-                        textDecoration: "none",
-                    }}
-                >
-                    Ascension Planner
-                </Typography>
-            </Box>
-            <Grid container spacing={2}>
-                <CharacterSelector />
-                <WeaponSelector />
+                Ascension Planner
+            </Typography>
+            <Grid container spacing={5}>
+                <Grid size={{ xs: 12, md: 5 }}>
+                    <CharacterSelector />
+                </Grid>
+                <Grid size={{ xs: 12, md: 5 }}>
+                    <WeaponSelector />
+                </Grid>
             </Grid>
-            <br />
-            <Grid container spacing={2}>
+            <AscensionTotalCost />
+            <Grid container spacing={5}>
                 {
-                    characters.length > 0 ?
-                        <Grid size={6}>
-                            <Grid container spacing={5}>
-                                {characters.map((character: any) => <CharacterAscensionCard key={character.name} character={character} />)}
-                            </Grid>
+                    [...characters, ...weapons].map(item =>
+                        <Grid key={item.name} size={{ xs: 12, md: 5 }}>
+                            {"element" in item ? <CharacterAscensionCard key={item.name} character={item} /> : <WeaponAscensionCard key={item.name} weapon={item} />}
                         </Grid>
-                        :
-                        null
-                }
-                {
-                    weapons.length > 0 ?
-                        <Grid size={6}>
-                            <Grid container spacing={5}>
-                                {weapons.map((weapon: any) => <WeaponAscensionCard key={weapon.name} weapon={weapon} />)}
-                            </Grid>
-                        </Grid>
-                        :
-                        null
+                    )
                 }
             </Grid>
         </React.Fragment>
@@ -78,9 +60,4 @@ const AscensionPlanner = (props: any) => {
 
 }
 
-const mapStateToProps = (state: RootState) => ({
-    characters: state.ascensionPlanner.characters,
-    weapons: state.ascensionPlanner.weapons
-})
-
-export default connect(mapStateToProps)(AscensionPlanner)
+export default AscensionPlanner

@@ -1,211 +1,314 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { WeaponData } from "../../types/WeaponData"
-import { CharacterData } from "../../types/CharacterData"
+import { Character } from "../../types/character"
+import { Weapon } from "../../types/weapon"
+import { CharacterCost, CharacterCostObject, CostArray, CostNumber, PayloadCostObject, TotalCostObject, WeaponCost, WeaponCostObject } from "../../types/costs"
 
 interface PlannerState {
-    totalCost: {},
-    characters: [],
-    characterCosts: [
-        {
-            name: string,
-            costs: {
-                credits: (number | number[])[],
-                xp1: (number | number[])[],
-                xp2: (number | number[])[],
-                xp3: (number | number[])[],
-                xp4: (number | number[])[],
-                bossMat: (number | number[])[],
-                forgery1: (number | number[])[],
-                forgery2: (number | number[])[],
-                forgery3: (number | number[])[],
-                forgery4: (number | number[])[],
-                common1: (number | number[])[],
-                common2: (number | number[])[],
-                common3: (number | number[])[],
-                common4: (number | number[])[],
-                ascensionMat: (number | number[])[],
-                weeklyBossMat: (number | number[])[],
-            }
-        }
-    ] | [],
-    weapons: [],
-    weaponCosts: [
-        {
-            name: string,
-            costs: {
-                credits: (number | number[])[],
-                xp1: (number | number[])[],
-                xp2: (number | number[])[],
-                xp3: (number | number[])[],
-                xp4: (number | number[])[],
-                bossMat: (number | number[])[],
-                forgery1: (number | number[])[],
-                forgery2: (number | number[])[],
-                forgery3: (number | number[])[],
-                forgery4: (number | number[])[],
-                common1: (number | number[])[],
-                common2: (number | number[])[],
-                common3: (number | number[])[],
-                common4: (number | number[])[],
-                ascensionMat: (number | number[])[],
-                weeklyBossMat: (number | number[])[],
-            }
-        }
-    ] | [],
+    totalCost: TotalCostObject,
+    characterCosts: CharacterCostObject[],
+    weaponCosts: WeaponCostObject[]
+}
+
+type ForteKeys = "level" | "attack" | "skill" | "ultimate" | "circuit" | "intro"
+type ForteSubTypes = "main" | "node1" | "node2"
+
+export interface PlannerPayload {
+    name: string,
+    type: ForteKeys,
+    subType?: ForteSubTypes
+    costs: PayloadCostObject
 }
 
 const initialState: PlannerState = {
-    totalCost: {},
-    characters: [],
+    totalCost: {
+        credits: 0,
+        characterXP: {
+            characterXP1: 0,
+            characterXP2: 0,
+            characterXP3: 0
+        },
+        weaponXP: {
+            weaponXP1: 0,
+            weaponXP2: 0,
+            weaponXP3: 0
+        },
+        bossMat: {},
+        weeklyBossMat: {},
+        ascensionMat: {},
+        forgeryMat: {},
+        commonMat: {}
+    },
     characterCosts: [],
-    weapons: [],
-    weaponCosts: [],
+    weaponCosts: []
 }
 
 export const PlannerSlice = createSlice({
-    name: "ascension planner",
+    name: "ascension_planner",
     initialState,
     reducers: {
-        setPlannerCharacters: (state, action: PayloadAction<any>) => {
-            let tempCharCosts = action.payload.map((char: CharacterData) => {
-                let costs
-                let currentCharacter = state.characterCosts.find((c: any) => char.name === c.name)
+        setPlannerCharacters: (state, action: PayloadAction<Character[]>) => {
+            const characterCostsDraft = action.payload.map((char: Character) => {
+                const currentCharacter = state.characterCosts.find((c: CharacterCostObject) => char.name === c.name)
                 // If the character is not already in the list, initialize the material array
                 if (currentCharacter === undefined) {
-                    costs = {
-                        // Source of each material:
-                        // [Level, [Basic Attack, Node 1, Node 2], [Skill, Node 1, Node 2], [Burst, Node 1, Node 2], [Forte Circuit, Passive 1, Passive 2], [Intro Skill, Node 1, Node 2]]
-                        credits: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        xp1: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        xp2: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        xp3: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        xp4: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        bossMat: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        forgery1: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        forgery2: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        forgery3: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        forgery4: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        common1: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        common2: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        common3: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        common4: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        ascensionMat: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]],
-                        weeklyBossMat: [0, [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+                    const costs: CharacterCost = {
+                        // Source of each material is mapped to a specific index in the array:
+                        // [Level, Basic Attack, Node 1, Node 2, Skill, Node 1, Node 2, Ultimate, Node 1, Node 2, Forte Circuit, Passive 1, Passive 2, Intro Skill, Node 1, Node 2]
+                        credits: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        characterXP: {
+                            characterXP1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            characterXP2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            characterXP3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            characterXP4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        bossMat: {
+                            [`${char.materials.bossMat}`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        weeklyBossMat: {
+                            [`${char.materials.weeklyBossMat}`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        ascensionMat: {
+                            [`${char.materials.ascensionMat}`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        forgeryMat: {
+                            [`${char.materials.forgeryMat}1`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.forgeryMat}2`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.forgeryMat}3`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.forgeryMat}4`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        },
+                        commonMat: {
+                            [`${char.materials.commonMat}1`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.commonMat}2`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.commonMat}3`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [`${char.materials.commonMat}4`]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        }
                     }
+                    return {
+                        name: char.name,
+                        rarity: char.rarity,
+                        element: char.element,
+                        weapon: char.weapon,
+                        forte: char.forte,
+                        materials: char.materials,
+                        costs: costs
+                    } as CharacterCostObject
                 }
                 else {
-                    costs = currentCharacter.costs
+                    return currentCharacter
                 }
-                return (
-                    {
-                        name: char.name,
-                        costs: costs,
+            })
+            state.characterCosts = characterCostsDraft
+        },
+        updateCharacterCosts: (state, action: PayloadAction<PlannerPayload>) => {
+            const charIndex = state.characterCosts.findIndex(({ name }) => name === action.payload.name)
+            if (charIndex !== -1) {
+                const { type, subType = "main", costs } = action.payload
+                const index = getIndex(type, subType)
+                Object.keys(costs).forEach((material: string) => {
+                    let costValue = state.characterCosts[charIndex].costs[material as keyof CharacterCost]
+                    let payloadCostValue = costs[material as keyof PayloadCostObject]
+                    if (isArray(costValue)) {
+                        if (payloadCostValue !== undefined && typeof payloadCostValue === "number") {
+                            costValue[index] = payloadCostValue
+                        }
                     }
-                )
-            })
-            state.characters = action.payload
-            state.characterCosts = tempCharCosts
+                    else {
+                        Object.keys(costValue).forEach((key, i) => {
+                            if (!isArray(costValue)) {
+                                let values = Object.values(payloadCostValue as PayloadCostObject)
+                                if (values[i] !== undefined) {
+                                    costValue[key][index] = values[i] as number
+                                }
+                            }
+                        })
+                    }
+                })
+            }
         },
-        updateCharacterCosts: (state, action: PayloadAction<[string, string, {}]>) => {
-            let indexChar = state.characterCosts.indexOf((state.characterCosts.find((char: any) => char.name === action.payload[0])) as never)
-            Object.keys(action.payload[2] as {}).forEach((key: string) => {
-                switch (action.payload[1]) {
-                    case "level":
-                        state.characterCosts[indexChar].costs[key as keyof {}][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "attack":
-                        state.characterCosts[indexChar].costs[key as keyof {}][1][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "attack_node1":
-                        state.characterCosts[indexChar].costs[key as keyof {}][1][1] = action.payload[2][key as keyof {}]
-                        break
-                    case "attack_node2":
-                        state.characterCosts[indexChar].costs[key as keyof {}][1][2] = action.payload[2][key as keyof {}]
-                        break
-                    case "skill":
-                        state.characterCosts[indexChar].costs[key as keyof {}][2][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "skill_node1":
-                        state.characterCosts[indexChar].costs[key as keyof {}][2][1] = action.payload[2][key as keyof {}]
-                        break
-                    case "skill_node2":
-                        state.characterCosts[indexChar].costs[key as keyof {}][2][2] = action.payload[2][key as keyof {}]
-                        break
-                    case "ultimate":
-                        state.characterCosts[indexChar].costs[key as keyof {}][3][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "ultimate_node1":
-                        state.characterCosts[indexChar].costs[key as keyof {}][3][1] = action.payload[2][key as keyof {}]
-                        break
-                    case "ultimate_node2":
-                        state.characterCosts[indexChar].costs[key as keyof {}][3][2] = action.payload[2][key as keyof {}]
-                        break
-                    case "circuit":
-                        state.characterCosts[indexChar].costs[key as keyof {}][4][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "circuit_node1":
-                        state.characterCosts[indexChar].costs[key as keyof {}][4][1] = action.payload[2][key as keyof {}]
-                        break
-                    case "circuit_node2":
-                        state.characterCosts[indexChar].costs[key as keyof {}][4][2] = action.payload[2][key as keyof {}]
-                        break
-                    case "intro":
-                        state.characterCosts[indexChar].costs[key as keyof {}][5][0] = action.payload[2][key as keyof {}]
-                        break
-                    case "intro_node1":
-                        state.characterCosts[indexChar].costs[key as keyof {}][5][1] = action.payload[2][key as keyof {}]
-                        break
-                    case "intro_node2":
-                        state.characterCosts[indexChar].costs[key as keyof {}][5][2] = action.payload[2][key as keyof {}]
-                        break
-                    default:
-                        break
-                }
-            })
-        },
-        setPlannerWeapons: (state, action: PayloadAction<any>) => {
-            let tempWeaponCosts = action.payload.map((wep: WeaponData) => {
-                let costs
-                let currentWeapon = state.weaponCosts.find((w: any) => wep.name === w.name)
+        setPlannerWeapons: (state, action: PayloadAction<Weapon[]>) => {
+            const weaponCostsDraft = action.payload.map((wep: Weapon) => {
+                const currentWeapon = state.weaponCosts.find((w: WeaponCostObject) => wep.name === w.name)
                 // If the weapon is not already in the list, initialize the material array
                 if (currentWeapon === undefined) {
-                    costs = {
+                    const costs: WeaponCost = {
                         credits: 0,
-                        wep_xp1: 0,
-                        wep_xp2: 0,
-                        wep_xp3: 0,
-                        wep_xp4: 0,
-                        forgery1: 0,
-                        forgery2: 0,
-                        forgery3: 0,
-                        forgery4: 0,
-                        common1: 0,
-                        common2: 0,
-                        common3: 0,
-                        common4: 0,
+                        weaponXP: {
+                            weaponXP1: 0,
+                            weaponXP2: 0,
+                            weaponXP3: 0,
+                            weaponXP4: 0
+                        },
+                        forgeryMat: {
+                            [`${wep.materials.forgeryMat}1`]: 0,
+                            [`${wep.materials.forgeryMat}2`]: 0,
+                            [`${wep.materials.forgeryMat}3`]: 0,
+                            [`${wep.materials.forgeryMat}4`]: 0
+                        },
+                        commonMat: {
+                            [`${wep.materials.commonMat}1`]: 0,
+                            [`${wep.materials.commonMat}2`]: 0,
+                            [`${wep.materials.commonMat}3`]: 0,
+                            [`${wep.materials.commonMat}4`]: 0
+                        }
                     }
+                    return {
+                        name: wep.name,
+                        rarity: wep.rarity,
+                        type: wep.type,
+                        materials: wep.materials,
+                        costs: costs
+                    } as WeaponCostObject
                 }
                 else {
-                    costs = currentWeapon.costs
+                    return currentWeapon
                 }
-                return (
-                    {
-                        name: wep.name,
-                        costs: costs,
-                    }
-                )
             })
-            state.weapons = action.payload
-            state.weaponCosts = tempWeaponCosts
+            state.weaponCosts = weaponCostsDraft
         },
-        updateWeaponCosts: (state, action: PayloadAction<[string, string, {}]>) => {
-            let indexChar = state.weaponCosts.indexOf((state.weaponCosts.find((wep: any) => wep.name === action.payload[0])) as never)
-            Object.keys(action.payload[2] as {}).forEach((key: string) => {
-                state.weaponCosts[indexChar].costs[key as keyof {}] = action.payload[2][key as keyof {}]
+        updateWeaponCosts: (state, action: PayloadAction<PlannerPayload>) => {
+            const weaponIndex = state.weaponCosts.findIndex(({ name }) => name === action.payload.name)
+            if (weaponIndex !== -1) {
+                const { costs } = action.payload
+                Object.keys(costs).forEach((material: string) => {
+                    let costValue = state.weaponCosts[weaponIndex].costs[material as keyof WeaponCost]
+                    let payloadCostValue = costs[material as keyof PayloadCostObject]
+                    if (isNumber(costValue)) {
+                        if (payloadCostValue !== undefined && typeof payloadCostValue === "number") {
+                            state.weaponCosts[weaponIndex].costs.credits = payloadCostValue
+                        }
+                    }
+                    else {
+                        Object.keys(costValue).forEach((key, i) => {
+                            if (!isNumber(costValue)) {
+                                let values = Object.values(payloadCostValue as PayloadCostObject)
+                                if (values[i] !== undefined) {
+                                    costValue[key] = values[i] as number
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        },
+        updateTotalCosts: (state) => {
+            let totalCostDraft: TotalCostObject = {
+                credits: 0,
+                characterXP: {
+                    characterXP1: 0,
+                    characterXP2: 0,
+                    characterXP3: 0
+                },
+                weaponXP: {
+                    weaponXP1: 0,
+                    weaponXP2: 0,
+                    weaponXP3: 0
+                },
+                bossMat: {},
+                weeklyBossMat: {},
+                ascensionMat: {},
+                forgeryMat: {},
+                commonMat: {}
+            }
+            state.characterCosts.forEach((character: CharacterCostObject) => {
+                const reduced = reduceCosts({ ...character.costs })
+                Object.entries(reduced).forEach(([material, value]) => {
+                    if (material === "credits") {
+                        totalCostDraft[material] += value
+                    }
+                    else {
+                        Object.entries(value).forEach(([k, v]) => {
+                            let costObj = totalCostDraft[material as keyof TotalCostObject]
+                            if (!isNumber(costObj)) {
+                                if (!Object.keys(costObj).includes(k)) {
+                                    costObj[k] = 0
+                                }
+                                costObj[k] += v as number
+                            }
+                        })
+                    }
+                })
             })
+            state.weaponCosts.forEach((weapon: WeaponCostObject) => {
+                Object.entries(weapon.costs).forEach(([material, value]) => {
+                    if (material === "credits") {
+                        totalCostDraft[material] += value
+                    }
+                    else {
+                        Object.entries(value).forEach(([k, v]) => {
+                            let costObj = totalCostDraft[material as keyof TotalCostObject]
+                            if (!isNumber(costObj)) {
+                                if (!Object.keys(costObj).includes(k)) {
+                                    costObj[k] = 0
+                                }
+                                costObj[k] += v as number
+                            }
+                        })
+                    }
+                })
+            })
+            state.totalCost = totalCostDraft
         }
     }
 })
 
-export const { setPlannerCharacters, updateCharacterCosts, setPlannerWeapons, updateWeaponCosts } = PlannerSlice.actions
+export const { setPlannerCharacters, updateCharacterCosts, setPlannerWeapons, updateWeaponCosts, updateTotalCosts } = PlannerSlice.actions
 export default PlannerSlice.reducer
+
+function getIndex(type: ForteKeys, subType: ForteSubTypes) {
+    const indexMap = {
+        level: 0,
+        attack: 1,
+        skill: 4,
+        ultimate: 7,
+        circuit: 10,
+        intro: 13,
+        // offsets
+        main: 0,
+        node1: 1,
+        node2: 2
+    }
+    return indexMap[type] + indexMap[subType]
+}
+
+export function reduceCosts(costs: CharacterCost) {
+    let result: TotalCostObject = {
+        credits: 0,
+        characterXP: {
+            characterXP1: 0,
+            characterXP2: 0,
+            characterXP3: 0
+        },
+        weaponXP: {
+            weaponXP1: 0,
+            weaponXP2: 0,
+            weaponXP3: 0
+        },
+        bossMat: {},
+        weeklyBossMat: {},
+        ascensionMat: {},
+        forgeryMat: {},
+        commonMat: {}
+    }
+    Object.entries(costs).forEach(([material, value]) => {
+        if (material === "credits") {
+            result[material] = (value as number[]).reduce((a, c) => a + c)
+        }
+        else {
+            Object.entries(value).forEach(([k, v]) => {
+                let costObj = result[material as keyof TotalCostObject]
+                if (!isNumber(costObj)) {
+                    costObj[k] = (v as number[]).reduce((a, c) => a + c)
+                }
+            })
+        }
+    })
+    return result
+}
+
+function isArray(x: number[] | (CostArray | CostNumber) | unknown): x is number[] {
+    return (x as number[]).length !== undefined
+}
+
+function isNumber(x: number | (CostArray | CostNumber) | unknown): x is number {
+    return typeof x === "number"
+}

@@ -9,16 +9,17 @@ import { useTheme } from "@mui/material/styles"
 import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
 
 // Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import { Accordion, AccordionDetails, AccordionSummary } from "../_styled/StyledAccordion"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+import { CustomTooltip } from "../../_styled/StyledTooltip"
+import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
+import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
+import { WeaponCostObject } from "../../../types/costs"
 
-const WeaponAscensionCard = (props: any) => {
+function WeaponAscensionCard({ weapon }: { weapon: WeaponCostObject }) {
 
     const theme = useTheme()
 
-    let { name, rarity, type } = props.weapon
+    let { name, rarity, type } = weapon
 
     const smallIcon = {
         width: "24px",
@@ -42,7 +43,7 @@ const WeaponAscensionCard = (props: any) => {
             <CardHeader
                 avatar={
                     <Box sx={{ position: "relative" }}>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <img
                                 src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
                                 alt={name}
@@ -66,9 +67,9 @@ const WeaponAscensionCard = (props: any) => {
                 }
                 title={
                     <React.Fragment>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${props.weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
-                                {props.weapon.displayName ? props.weapon.displayName : name}
+                                {weapon.displayName ? weapon.displayName : name}
                             </Typography>
                         </ButtonBase>
                         <Typography sx={{ color: `${theme.text.star}`, textShadow: "#e3721b 1px 1px 10px", userSelect: "none" }} variant="h6">
@@ -82,7 +83,7 @@ const WeaponAscensionCard = (props: any) => {
                 <Typography variant="body1" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
                     Materials Required
                 </Typography>
-                <WeaponAscensionCardMaterials weapon={props.weapon} />
+                <WeaponAscensionCardMaterials weapon={weapon} />
             </Box>
             <hr style={{ border: `.5px solid ${theme.border.color}`, marginTop: "15px", marginBottom: "15px" }} />
             <Accordion>
@@ -92,7 +93,7 @@ const WeaponAscensionCard = (props: any) => {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <WeaponAscensionLevel weapon={props.weapon} />
+                    <WeaponAscensionLevel weapon={weapon} />
                 </AccordionDetails>
             </Accordion>
         </Box>

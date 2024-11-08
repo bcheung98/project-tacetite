@@ -1,27 +1,31 @@
 import * as React from "react"
 import { useDispatch } from "react-redux"
 
+// Component imports
+import { CustomSlider } from "../../_styled/StyledSlider"
+import { CustomSwitch } from "../../_styled/StyledSwitch"
+
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography } from "@mui/material"
+import { useTheme, Box, Typography } from "@mui/material"
 
 // Helper imports
-import { CustomSlider } from "../_styled/StyledSlider"
-import { CustomSwitch } from "../_styled/StyledSwitch"
-import { updateCharacterCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import { SetCharacterCostsLevel } from "../../data/AscensionCostIndex"
+import { updateCharacterCosts, updateTotalCosts } from "../../../redux/reducers/AscensionPlannerReducer"
+import { getCharacterLevelCost } from "../../../data/levelUpCosts"
 
-const CharacterAscensionLevel = (props: any) => {
+// Type imports
+import { CharacterCostObject } from "../../../types/costs"
+
+function CharacterAscensionLevel({ character }: { character: CharacterCostObject }) {
 
     const theme = useTheme()
 
     const dispatch = useDispatch()
 
-    let { name, element } = props.character
+    const { name, element } = character
 
     const levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"]
     const minDistance = 1
-    let maxValue = levels.length
+    const maxValue = levels.length
     const [sliderValue, setSliderValue] = React.useState([1, maxValue])
     const handleSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
@@ -42,14 +46,15 @@ const CharacterAscensionLevel = (props: any) => {
         }
     }
 
-    React.useEffect(() => {
-        dispatch(updateCharacterCosts([name, "level", SetCharacterCostsLevel(sliderValue[0], sliderValue[1], selected, name)]))
-    })
-
     const [selected, setSelected] = React.useState(true)
     const handleSelect = () => {
         setSelected(!selected)
     }
+    
+    React.useEffect(() => {
+        dispatch(updateCharacterCosts({ name: name, type: "level", costs: getCharacterLevelCost(name, sliderValue, selected) }))
+        dispatch(updateTotalCosts())
+    })
 
     return (
         <Box
