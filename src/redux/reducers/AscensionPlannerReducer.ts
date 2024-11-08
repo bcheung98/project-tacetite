@@ -53,7 +53,7 @@ export const PlannerSlice = createSlice({
                 if (currentCharacter === undefined) {
                     const costs: CharacterCost = {
                         // Source of each material is mapped to a specific index in the array:
-                        // [Level, Basic Attack, Node 1, Node 2, Skill, Node 1, Node 2, Ultimate, Node 1, Node 2, Forte Circuit, Passive 1, Passive 2, Intro Skill, Node 1, Node 2]
+                        // [Level, Attack, Node 1, Node 2, Skill, Node 1, Node 2, Ultimate, Node 1, Node 2, Forte Circuit, Passive 1, Passive 2, Intro Skill, Node 1, Node 2]
                         credits: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         characterXP: {
                             characterXP1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -85,6 +85,7 @@ export const PlannerSlice = createSlice({
                     }
                     return {
                         name: char.name,
+                        displayName: char.fullName ? char.fullName : char.name,
                         rarity: char.rarity,
                         element: char.element,
                         weapon: char.weapon,
@@ -153,6 +154,7 @@ export const PlannerSlice = createSlice({
                     }
                     return {
                         name: wep.name,
+                        displayName: wep.displayName ? wep.displayName : wep.name,
                         rarity: wep.rarity,
                         type: wep.type,
                         materials: wep.materials,
