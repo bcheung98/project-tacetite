@@ -1,32 +1,30 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-interface CharacterFiltersState {
-    class: String[],
-    sonata: String[],
+export interface EchoFilterState {
+    class: string[],
+    sonata: string[],
     uniqueSonata: boolean
 }
 
-const initialState: CharacterFiltersState = {
+const initialState: EchoFilterState = {
     class: [],
     sonata: [],
     uniqueSonata: false
 }
 
+export type EchoFilterKeys = keyof Omit<EchoFilterState, "uniqueSonata">
+
 export const EchoFilterSlice = createSlice({
-    name: "echo filters",
+    name: "echo_filters",
     initialState,
     reducers: {
-        setClass: (state, action: PayloadAction<any>) => {
-            changeButton(action.payload)
+        setClass: (state, action: PayloadAction<string>) => {
             !state.class.includes(action.payload) ? state.class.push(action.payload) : state.class.splice(state.class.indexOf(action.payload), 1)
-            changeText(action.type, state.class)
         },
-        setSonata: (state, action: PayloadAction<any>) => {
-            changeButton(action.payload)
+        setSonata: (state, action: PayloadAction<string>) => {
             !state.sonata.includes(action.payload) ? state.sonata.push(action.payload) : state.sonata.splice(state.sonata.indexOf(action.payload), 1)
-            changeText(action.type, state.sonata)
         },
-        setUniqueSonata: (state, action: PayloadAction<any>) => {
+        setUniqueSonata: (state, action: PayloadAction<boolean>) => {
             state.uniqueSonata = action.payload
         }
     }
@@ -34,21 +32,3 @@ export const EchoFilterSlice = createSlice({
 
 export const { setClass, setSonata, setUniqueSonata } = EchoFilterSlice.actions
 export default EchoFilterSlice.reducer
-
-const changeButton = (target: string) => {
-    if (target !== undefined) {
-        let targetButton: any
-        targetButton = document.getElementById(`echo-${target.toLowerCase()}-button`)
-        if (["Calamity", "Overlord", "Elite", "Common"].includes(target)) {
-            targetButton.className === "filter-button-off" ? targetButton.className = "filter-button-on" : targetButton.className = "filter-button-off"
-        }
-        else {
-            targetButton.className === "filter-off" ? targetButton.className = "filter-on" : targetButton.className = "filter-off"
-        }
-    }
-}
-
-const changeText = (type: string, arr: any) => {
-    let text = document.getElementById(`echo-${type.split("/")[1].slice(3).toLowerCase()}-filter-text`)!
-    text.className === "filter-text-on" && arr.length === 0 ? text.className = "filter-text-off" : text.className = "filter-text-on"
-}

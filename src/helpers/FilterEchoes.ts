@@ -1,4 +1,7 @@
-export const filterEchoes = (echoes: any, filters: any, searchValue: string) => {
+import { Echo } from "../types/echo"
+import { EchoFilterState } from "../redux/reducers/EchoFilterReducer"
+
+export const filterEchoes = (echoes: Echo[], filters: EchoFilterState, searchValue: string) => {
     let echos = [...echoes]
     if (filters.class.length > 0) {
         echos = echos.filter(echo => filters.class.includes(echo.class))

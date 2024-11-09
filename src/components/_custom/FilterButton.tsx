@@ -15,7 +15,7 @@ interface FilterButtonProps {
 function FilterButton({
     variant = "image",
     tag,
-    img = `${process.env.REACT_APP_URL}/Unknown.png`,
+    img = "images/Unknown.png",
     active = false,
     onClick
 }: FilterButtonProps) {
@@ -46,13 +46,13 @@ function FilterButton({
                 variant === "image" ?
                     <Avatar
                         variant="square"
-                        src={`${process.env.REACT_APP_URL}/${img}.png`}
+                        src={`${process.env.REACT_APP_URL}/${img.split(" ").join("_")}.png`}
                         sx={filterButtonStyles}
                         alt={tag}
                         onClick={onClick}
                     >
                         <img
-                            src={`${process.env.REACT_APP_URL}/Unknown.png`}
+                            src={`${process.env.REACT_APP_URL}/images/Unknown.png`}
                             alt="Unknown"
                             style={{ width: "32px" }}
                         />

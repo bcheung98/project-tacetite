@@ -8,10 +8,10 @@ export interface Echo {
     class: "Calamity" | "Overlord" | "Elite" |  "Common",
     cost: number,
     skill: EchoSkill,
-    sonata: string[][],
+    sonata: string[],
     hasPhantom: boolean,
     type: string,
-    nation: string[][],
+    nation: string[],
     release: Version
 }
 
