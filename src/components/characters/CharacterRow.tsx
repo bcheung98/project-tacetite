@@ -1,31 +1,21 @@
 import * as React from "react"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, ButtonBase, CardHeader, Typography } from "@mui/material"
+import { useTheme, Box, ButtonBase, CardHeader, Typography } from "@mui/material"
 
 // Helper imports
 import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
-import { GetBackgroundColor } from "../../helpers/RarityColors"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const CharacterRow = (props: any) => {
 
     const theme = useTheme()
 
-    let { row, index } = props
+    const { row, index } = props
 
     return (
         <React.Fragment>
-            <StyledTableRows
-                key={index}
-                sx={{
-                    backgroundImage: `linear-gradient(to left, ${theme.table.body.backgroundColor}, 92%, ${GetBackgroundColor(row.rarity)})`,
-                    "&:hover": {
-                        backgroundImage: `linear-gradient(to left, ${theme.table.body.hover}, 92%, ${GetBackgroundColor(row.rarity)})`
-                    }
-                }}
-            >
+            <StyledTableRows key={index}>
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>

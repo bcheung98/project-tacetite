@@ -4,7 +4,6 @@ import * as React from "react"
 import EchoPopup from "./EchoPopup"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
 import { Box, CardHeader, Typography, Dialog } from "@mui/material"
 
 // Helper imports
@@ -13,8 +12,6 @@ import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
 const EchoRow = (props: any) => {
-
-    const theme = useTheme()
 
     let { row, index, echoes } = props
     const currentEcho = echoes.filter((echo: any) => echo.name === row.name)[0]
@@ -29,15 +26,7 @@ const EchoRow = (props: any) => {
 
     return (
         <React.Fragment>
-            <StyledTableRows
-                key={index}
-                sx={{
-                    backgroundImage: `linear-gradient(to left, ${theme.table.body.backgroundColor}, 92%, ${EchoRowColor(currentEcho.class)})`,
-                    "&:hover": {
-                        backgroundImage: `linear-gradient(to left, ${theme.table.body.hover}, 92%, ${EchoRowColor(currentEcho.class)})`
-                    }
-                }}
-            >
+            <StyledTableRows key={index}>
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>
@@ -136,23 +125,3 @@ const EchoRow = (props: any) => {
 }
 
 export default EchoRow
-
-export const EchoRowColor = (echoClass: string) => {
-
-    const theme = useTheme()
-    const opacity = 0.45
-
-    switch (echoClass) {
-        case "Calamity":
-            return `rgb(255, 69, 69, ${opacity})`
-        case "Overlord":
-            return `rgb(243, 239, 90, ${opacity})`
-        case "Elite":
-            return `rgb(100, 231, 93, ${opacity})`
-        case "Common":
-            return `rgb(140, 140, 140, ${opacity})`
-        default:
-            return `${theme.chip.color}`
-    }
-
-}
