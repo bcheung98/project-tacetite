@@ -28,7 +28,7 @@ function WeaponAscensionCardMaterials({ weapon }: { weapon: WeaponCostObject }) 
         }
         else {
             Object.entries(value).forEach(([k, v]) => {
-                !k.startsWith("lightconeXP") && costArray.push(v as number)
+                costArray.push(v as number)
             })
         }
     })
