@@ -60,7 +60,7 @@ function CurrentBanners(props: any) {
                     height: "70px"
                 }}
             >
-                <Typography noWrap sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "20px", ml: "5px", lineHeight: "45px" }}>
+                <Typography noWrap sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", ml: "5px", lineHeight: "45px" }}>
                     Current Banners
                 </Typography>
             </AppBar>
@@ -72,7 +72,7 @@ function CurrentBanners(props: any) {
                                 {
                                     currentCharacterBanners.length > 0 &&
                                     <Grid size={{ xs: 12, lg: "auto" }}>
-                                        <Typography sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "20px", mb: "10px" }}>
+                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "10px" }}>
                                             Character Banner
                                         </Typography>
                                         <Grid container spacing={0.75}>
@@ -85,7 +85,7 @@ function CurrentBanners(props: any) {
                                 {
                                     currentWeaponBanners.length > 0 &&
                                     <Grid size={{ xs: 12, lg: "grow" }}>
-                                        <Typography sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: "20px", mb: "10px" }}>
+                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "10px" }}>
                                             Weapon Banner
                                         </Typography>
                                         <Grid container spacing={0.75}>

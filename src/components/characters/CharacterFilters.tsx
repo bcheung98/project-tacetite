@@ -154,7 +154,8 @@ function CharacterFilters(props: {
                         sx={{
                             px: 2,
                             py: 1.5,
-                            fontFamily: `${theme.font.styled.family}`,
+                            fontFamily: theme.font.styled.family,
+                            fontWeight: theme.font.styled.weight,
                             fontSize: "18px",
                             flexGrow: 1
                         }}

@@ -175,7 +175,7 @@ function NavDesktop({ onHomePage, navItems, linkItems }: NavProps) {
                                         </CustomTooltip>
                                         <ListItemText
                                             primary={item.text}
-                                            primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "11pt" }}
+                                            primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "11pt" }}
                                             sx={[
                                                 drawerOpen ?
                                                     { opacity: 1 }
@@ -242,7 +242,7 @@ function NavDesktop({ onHomePage, navItems, linkItems }: NavProps) {
                                 </CustomTooltip>
                                 <ListItemText
                                     primary="Other Games"
-                                    primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "11pt" }}
+                                    primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "11pt" }}
                                     sx={[
                                         drawerOpen ?
                                             { opacity: 1 }
@@ -308,7 +308,7 @@ function NavDesktop({ onHomePage, navItems, linkItems }: NavProps) {
                                                     </CustomTooltip>
                                                     <ListItemText
                                                         primary={item.text}
-                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "11pt" }}
+                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "11pt" }}
                                                         sx={[
                                                             drawerOpen ?
                                                                 { opacity: 1 }

@@ -105,7 +105,7 @@ function NavMobile({ onHomePage, navItems, linkItems }: NavProps) {
                                                     </ListItemIcon>
                                                     <ListItemText
                                                         primary={item.text}
-                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "10pt" }}
+                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "10pt" }}
                                                     />
                                                 </ListItemButton>
                                             </ButtonBase>
@@ -120,7 +120,7 @@ function NavMobile({ onHomePage, navItems, linkItems }: NavProps) {
                                 >
                                     <ListItemText
                                         primary="Other Games"
-                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "10pt" }}
+                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "10pt" }}
                                     />
                                 </ListItem>
                                 {
@@ -137,7 +137,7 @@ function NavMobile({ onHomePage, navItems, linkItems }: NavProps) {
                                                     </ListItemIcon>
                                                     <ListItemText
                                                         primary={item.text}
-                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: 600, fontSize: "10pt" }}
+                                                        primaryTypographyProps={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontWeight: theme.font.styled.weight, fontSize: "10pt" }}
                                                     />
                                                 </ListItemButton>
                                             </ButtonBase>
