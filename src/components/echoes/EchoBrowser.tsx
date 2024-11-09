@@ -82,7 +82,8 @@ function EchoBrowser() {
                         <Typography
                             sx={{
                                 mr: "25px",
-                                fontFamily: `${theme.font.styled.family}`,
+                                fontFamily: theme.font.styled.family,
+                                fontWeight: theme.font.styled.weight,
                                 fontSize: "24px",
                                 color: `${theme.text.color}`,
                                 lineHeight: "40px"

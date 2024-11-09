@@ -31,7 +31,8 @@ function BannerArchive(props: any) {
             <Typography
                 sx={{
                     mb: "20px",
-                    fontFamily: `${theme.font.styled.family}`,
+                    fontFamily: theme.font.styled.family,
+                    fontWeight: theme.font.styled.weight,
                     fontSize: "24px",
                     color: `${theme.text.color}`,
                     lineHeight: "40px"
