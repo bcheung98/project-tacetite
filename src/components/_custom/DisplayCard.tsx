@@ -102,7 +102,7 @@ function DisplayCard({
         border: "solid",
         borderWidth: variant === "icon" ? "2px" : "1px",
         borderColor: variant === "icon" ? GetRarityColor(rarity) : theme.border.color,
-        borderRadius: variant === "icon" ? "5px" : "5px 25px 5px 5px",
+        borderRadius: "5px",
         boxSizing: "content-box",
         containerType: "inline-size",
         position: "relative"
