@@ -1,33 +1,19 @@
 // Component imports
 import CharacterMaterialGrid from "./CharacterMaterialGrid"
+import DisplayCard from "../_custom/DisplayCard"
+import Image from "../_custom/Image"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Typography, Card, CardContent, ButtonBase, Box } from "@mui/material"
+import { useTheme, Typography, Card, CardContent, ButtonBase, Box } from "@mui/material"
 
-// Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+// Type imports
+import { CharacterProps } from "../../types/character"
 
-const CharacterCard = (props: any) => {
+function CharacterCard({ character }: CharacterProps) {
 
     const theme = useTheme()
 
-    let { name, rarity, element, weapon } = props.character
-
-    const characterIconBackground: React.CSSProperties = {
-        margin: "auto",
-        marginLeft: "2px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`,
-        backgroundSize: "100%",
-        border: `2px solid ${GetRarityColor(rarity)}`,
-        borderRadius: "15px",
-        boxSizing: "content-box",
-        width: "96px",
-        height: "96px",
-        boxShadow: `inset 0 0 30px 5px ${GetBackgroundColor(rarity)}`,
-    }
+    const { name, rarity, element, weapon } = character
 
     return (
         <Card variant="outlined"
@@ -36,35 +22,30 @@ const CharacterCard = (props: any) => {
                 height: 175,
                 backgroundColor: `${theme.card.backgroundColor}`,
                 border: `1px solid ${theme.border.color}`,
-                borderRadius: "15px 25px 15px 15px",
+                borderRadius: "5px",
+                fontFamily: `${theme.font.styled.family}`
             }}
         >
             <CardContent sx={{ p: 0 }}>
                 <Box sx={{ display: "flex", mx: "12px", mt: "10px" }}>
-                    <Box sx={{ flexGrow: 1, mb: "5px" }}>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <Typography variant="h6" sx={{ fontWeight: "700", color: `${theme.text.color}` }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
+                            <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", color: `${theme.text.color}` }}>
                                 {name}
                             </Typography>
                         </ButtonBase>
                     </Box>
                     <Box>
-                        <CustomTooltip title={element} arrow placement="top">
-                            <img style={{ height: "32px" }} src={(`${process.env.REACT_APP_URL}/elements/icons/${element}.png`)} alt={element} onError={ErrorLoadingImage} />
-                        </CustomTooltip>
-                        <CustomTooltip title={weapon} arrow placement="top">
-                            <img style={{ height: "32px", marginLeft: "2px" }} src={(`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`)} alt={weapon} onError={ErrorLoadingImage} />
-                        </CustomTooltip>
+                        <Image src={`elements/icons/${element}`} alt={element} style={{ width: "32px" }} tooltip={{ title: element }} />
+                        <Image src={`weapons/icons/${weapon}`} alt={weapon} style={{ width: "32px", marginLeft: "2px" }} tooltip={{ title: weapon }} />
                     </Box>
                 </Box>
                 <Box sx={{ display: "flex", mx: "10px", mt: "5px" }}>
-                    <Box sx={{ mr: "15px", textAlign: "center", display: "inline-block", }}>
-                        <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${props.character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <img src={`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`} alt={name} style={characterIconBackground} onError={ErrorLoadingImage} />
-                        </ButtonBase>
+                    <Box sx={{ mr: "10px" }}>
+                        <DisplayCard name={name} type="character" rarity={rarity} size="96px" disableTooltip disableZoomOnHover />
                     </Box>
                     <Box>
-                        <CharacterMaterialGrid character={props.character} />
+                        <CharacterMaterialGrid materials={character.materials} />
                     </Box>
                 </Box>
             </CardContent>

@@ -1,56 +1,58 @@
-import React from "react"
+// Component imports
+import Image from "../_custom/Image"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box } from "@mui/material"
+import { useTheme } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
 import { formatBossMats, formatCommonMats, formatWeeklyBossMats } from "../../helpers/TooltipText"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
-const CharacterMaterialGrid = (props: any) => {
+// Type imports
+import { Materials } from "../../types/materials"
+
+interface CharacterMaterialGridProps {
+    materials: Materials,
+    size?: string
+}
+
+function CharacterMaterialGrid({
+    materials,
+    size = "48px"
+}: CharacterMaterialGridProps) {
 
     const theme = useTheme()
 
-    let { forgeryMat, commonMat, ascensionMat, bossMat, weeklyBossMat } = props.character.materials
+    const { forgeryMat = "", commonMat = "", ascensionMat = "", bossMat = "", weeklyBossMat = "" } = materials
 
-    const materialImage: React.CSSProperties = {
-        height: "45px",
-        border: `1px solid ${theme.border.color}`,
-        borderRadius: "10px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`,
-        boxSizing: "content-box",
-    }
+    const images = [
+        { src: `materials/forgery/${forgeryMat}4`, tag: forgeryMat },
+        { src: `materials/boss/${bossMat}`, tag: formatBossMats(bossMat) },
+        { src: `materials/weekly/${weeklyBossMat}`, tag: formatWeeklyBossMats(weeklyBossMat) },
+        { src: `materials/common/${commonMat}4`, tag: formatCommonMats(commonMat) },
+        { src: `materials/ascension/${ascensionMat}`, tag: ascensionMat }
+    ]
 
     return (
         <Grid container rowSpacing={0.5} columnSpacing={1}>
-            <Grid size="auto">
-                <CustomTooltip title={forgeryMat} arrow placement="top">
-                    <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/forgery/${forgeryMat.split(" ").join("_")}4.png`)} alt={forgeryMat} onError={ErrorLoadingImage} />
-                </CustomTooltip>
-            </Grid>
-            <Grid>
-                <CustomTooltip title={formatBossMats(bossMat)} arrow placement="top">
-                    <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/boss/${bossMat.split(" ").join("_")}.png`)} alt={bossMat} onError={ErrorLoadingImage} />
-                </CustomTooltip>
-            </Grid>
-            <Grid>
-                <CustomTooltip title={formatWeeklyBossMats(weeklyBossMat)} arrow placement="top">
-                    <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/weekly/${weeklyBossMat.split(" ").join("_")}.png`)} alt={weeklyBossMat} onError={ErrorLoadingImage} />
-                </CustomTooltip>
-            </Grid>
-            <Grid>
-                <CustomTooltip title={formatCommonMats(commonMat)} arrow placement="top">
-                    <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/common/${commonMat.split(" ").join("_")}4.png`)} alt={commonMat} onError={ErrorLoadingImage} />
-                </CustomTooltip>
-            </Grid>
-            <Grid>
-                <CustomTooltip title={ascensionMat} arrow placement="top">
-                    <img style={materialImage} src={(`${process.env.REACT_APP_URL}/materials/ascension/${ascensionMat.split(" ").join("_")}.png`)} alt={ascensionMat} onError={ErrorLoadingImage} />
-                </CustomTooltip>
-            </Grid>
+            {
+                images.map(img =>
+                    <Grid size={4}>
+                        <Image
+                            src={img.src}
+                            alt={img.tag}
+                            style={{
+                                width: size,
+                                padding: "4px",
+                                border: `1px solid ${theme.border.color}`,
+                                borderRadius: "5px",
+                                backgroundColor: `${theme.materialImage.backgroundColor}`,
+                            }}
+                            tooltip={{ title: img.tag }}
+                        />
+                    </Grid>
+                )
+            }
         </Grid>
     )
 
