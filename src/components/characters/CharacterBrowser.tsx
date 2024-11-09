@@ -92,7 +92,7 @@ function CharacterBrowser() {
                                 lineHeight: "40px"
                             }}
                         >
-                            Characters
+                            Resonators
                         </Typography>
                         <ToggleButtonGroup value={view} exclusive onChange={handleView}>
                             <CustomToggleButton value="card" size="small">
