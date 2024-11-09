@@ -30,7 +30,6 @@ interface DisplayCardProps {
         weapon?: string
     },
     materials?: Materials,
-    popup?: React.JSX.Element,
     disableTooltip?: boolean,
     disableLink?: boolean,
     disableZoomOnHover?: boolean
@@ -48,7 +47,6 @@ function DisplayCard({
     showStars = variant === "avatar" ? true : false,
     info,
     materials,
-    popup,
     disableTooltip = showName,
     disableLink = false,
     disableZoomOnHover = false
@@ -127,8 +125,8 @@ function DisplayCard({
     }
 
     const smallIconStyle: React.CSSProperties = {
-        width: `calc(${size} / 5.25)`,
-        height: `calc(${size} / 5.25)`,
+        width: `calc(${size} / 5.75)`,
+        height: `calc(${size} / 5.75)`,
         minWidth: "16px",
         minHeight: "16px",
         backgroundColor: theme.paper.backgroundColor,
