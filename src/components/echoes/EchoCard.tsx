@@ -2,152 +2,158 @@ import * as React from "react"
 
 // Component imports
 import EchoPopup from "./EchoPopup"
+import Image from "../_custom/Image"
 
 // MUI imports
-import { useTheme, Typography, Card, CardContent, Box, Dialog } from "@mui/material"
+import { useTheme, useMediaQuery, Typography, Card, Box, Dialog, SwipeableDrawer } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+import { echoClassId } from "./EchoBrowser"
+import { GetRarityColor } from "../../helpers/RarityColors"
 
 // Type imports
 import { Echo } from "../../types/echo"
 
-function EchoCard({echo}: {echo: Echo}) {
+function EchoCard({ echo }: { echo: Echo }) {
 
     const theme = useTheme()
 
+    const matches = useMediaQuery(theme.breakpoints.up("sm"))
+
     const { name, cost, sonata } = echo
 
-    const [open, setOpen] = React.useState(false)
-    const handleClickOpen = () => {
-        setOpen(true)
+    const rarity = echoClassId[echo.class]
+
+    const [open, setDialogOpen] = React.useState(false)
+    const handleDialogOpen = () => {
+        setDialogOpen(true)
     }
-    const handleClose = () => {
-        setOpen(false)
+    const handleDialogClose = () => {
+        setDialogOpen(false)
     }
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event &&
+                    event.type === "keydown" &&
+                    ((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")
+                ) {
+                    return
+                }
+                setDialogOpen(open)
+            }
 
     return (
         <Card
             sx={{
-                width: "310px",
+                position: "relative",
+                width: "320px",
                 height: "90px",
-                backgroundColor: `${theme.card.backgroundColor}`,
-                border: `1px solid ${theme.border.color}`,
+                backgroundColor: `${theme.materialImage.backgroundColor}`,
+                border: `2px solid ${GetRarityColor(rarity)}`,
                 borderRadius: "5px",
             }}
         >
-            <CardContent sx={{ py: "10px" }}>
-                <Grid container>
-                    <Grid size="grow">
-                        <img
-                            src={`${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png`}
+            <Grid container spacing={{ xs: 3, sm: 0 }}>
+                <Grid size="grow">
+                    <Box onClick={matches ? () => handleDialogOpen() : toggleDrawer(true)}>
+                        <Image
+                            src={`echoes/icons/${name}`}
                             alt={name}
                             style={{
-                                width: "96px",
-                                height: "96px",
-                                marginLeft: "-18px",
-                                marginTop: "-15px",
+                                width: "90px",
+                                height: "auto",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
                                 borderRight: `1px solid ${theme.border.color}`,
-                                boxShadow: `inset 0 0 30px 5px ${EchoColor(echo.class)}`,
+                                boxShadow: `inset 0 0 24px 4px ${GetRarityColor(rarity)}`,
                                 cursor: "pointer"
                             }}
-                            onError={ErrorLoadingImage}
-                            onClick={() => handleClickOpen()}
                         />
-                    </Grid>
-                    <Grid size={7.75}>
-                        <Typography
-                            noWrap
-                            sx={{
-                                color: `${theme.text.color}`,
-                                fontWeight: "700",
-                                ml: "-10px",
-                                mt: "-5px",
-                                mr: "20px",
-                                fontSize: "14.3px",
-                                cursor: "pointer",
-                            }}
-                            onClick={() => handleClickOpen()}
-                        >
-                            {echo.displayName ? echo.displayName : name}
-                        </Typography>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                position: "relative"
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    position: "absolute",
-                                    right: "-20px",
-                                    top: "-30px",
-                                    width: "35px",
-                                    height: "35px",
-                                    backgroundColor: `${theme.chip.color}`,
-                                    borderRadius: "0px 5px 0px 5px",
-                                    alignItems: "center"
-                                }}
-                            >
-                                <Typography sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "10px", userSelect: "none" }} variant="body2">
-                                    {cost}
-                                </Typography>
-                            </Box>
-                        </Box>
-                        <Box sx={{ display: "flex", ml: "-10px", mt: "10px" }}>
-                            {
-                                sonata.map((sonata: string, index: number) => (
-                                    <CustomTooltip title={sonata} arrow placement="top" key={index}>
-                                        <img
-                                            src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`}
-                                            alt={sonata}
-                                            style={{
-                                                width: "24px",
-                                                height: "24px",
-                                                marginRight: "5px"
-                                            }}
-                                            onError={ErrorLoadingImage}
-                                        />
-                                    </CustomTooltip>
-                                ))
-                            }
-                        </Box>
-                    </Grid>
+                    </Box>
                 </Grid>
-            </CardContent>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                maxWidth={false}
-            >
-                <EchoPopup echo={echo} />
-            </Dialog>
+                <Grid size={8}>
+                    <Typography
+                        noWrap
+                        sx={{
+                            fontWeight: theme.font.styled.weight,
+                            mr: "30px",
+                            mt: "5px",
+                            fontSize: "14.5px",
+                            cursor: "pointer",
+                        }}
+                        onClick={matches ? () => handleDialogOpen() : toggleDrawer(true)}
+                    >
+                        {echo.displayName ? echo.displayName : name}
+                    </Typography>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            right: 0,
+                            top: 0,
+                            width: "30px",
+                            height: "30px",
+                            p: "1px 0",
+                            backgroundColor: theme.chip.color,
+                            borderRadius: "0 0 0 5px",
+                            alignItems: "center",
+                            textAlign: "center",
+                        }}
+                    >
+                        <Typography sx={{ fontSize: "18px", userSelect: "none" }}>
+                            {cost}
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", mt: "10px" }}>
+                        {
+                            sonata.map((sonata: string, index: number) =>
+                                <Image
+                                    key={index}
+                                    src={`echoes/sonata/${sonata}`}
+                                    alt={sonata}
+                                    style={{
+                                        width: "22.5px",
+                                        height: "22.5px",
+                                        marginRight: "5px"
+                                    }}
+                                    tooltip={{ title: sonata }}
+                                />
+                            )
+                        }
+                    </Box>
+                </Grid>
+            </Grid>
+            {
+                matches ?
+                    <Dialog
+                        open={open}
+                        onClose={handleDialogClose}
+                        maxWidth={false}
+                    >
+                        <EchoPopup echo={echo} handleClose={handleDialogClose} />
+                    </Dialog>
+                    :
+                    <SwipeableDrawer
+                        anchor="bottom"
+                        open={open}
+                        onClose={toggleDrawer(false)}
+                        onOpen={toggleDrawer(true)}
+                        sx={{
+                            [`& .MuiDrawer-paper`]: {
+                                borderTop: `2px solid ${theme.border.colorAlt}`,
+                                backgroundColor: `${theme.appbar.backgroundColor}`,
+                                height: "auto",
+
+                            }
+                        }}
+                    >
+                        <EchoPopup echo={echo} handleClose={toggleDrawer(false)} />
+                    </SwipeableDrawer>
+            }
         </Card>
     )
 
 }
 
 export default EchoCard
-
-const EchoColor = (echoClass: string) => {
-
-    const theme = useTheme()
-
-    switch (echoClass) {
-        case "Calamity":
-            return "rgb(255, 69, 69)"
-        case "Overlord":
-            return "rgb(243, 239, 90)"
-        case "Elite":
-            return "rgb(100, 231, 93)"
-        case "Common":
-            return "rgb(140, 140, 140)"
-        default:
-            return `${theme.chip.color}`
-    }
-
-}

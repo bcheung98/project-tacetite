@@ -116,7 +116,7 @@ const EchoRow = (props: any) => {
                 onClose={handleClose}
                 maxWidth={false}
             >
-                <EchoPopup echo={currentEcho} />
+                <EchoPopup echo={currentEcho} handleClose={handleClose} />
             </Dialog>
 
         </React.Fragment>

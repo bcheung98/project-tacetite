@@ -1,5 +1,9 @@
 import { Version } from "./version"
 
+export interface EchoProps {
+    echo: Echo
+}
+
 export interface Echo {
     id: number,
     name: string,
@@ -9,6 +13,7 @@ export interface Echo {
     cost: number,
     skill: EchoSkill,
     sonata: string[],
+    description: string,
     hasPhantom: boolean,
     type: string,
     nation: string[],

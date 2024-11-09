@@ -1,3 +1,5 @@
+export type SonataEffectKeys = keyof typeof SonataEffects
+
 export const SonataEffects = {
     "Freezing Frost": {
         "2pc": "<span class=\"text-glacio\">Glacio DMG</span> +10%.",

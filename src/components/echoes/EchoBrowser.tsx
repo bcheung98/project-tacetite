@@ -188,5 +188,5 @@ export const echoClassId = {
     "Calamity": 5,
     "Overlord": 4,
     "Elite": 3,
-    "Common": 1
+    "Common": 2
 }
