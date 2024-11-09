@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux"
 import { CustomSlider } from "../../_styled/StyledSlider"
 
 // MUI imports
-import { useTheme, Box, Typography } from "@mui/material"
+import { useTheme, useMediaQuery, Box, Typography } from "@mui/material"
 
 // Helper imports
 import { updateTotalCosts, updateWeaponCosts } from "../../../redux/reducers/AscensionPlannerReducer"
@@ -18,12 +18,13 @@ function WeaponAscensionLevel({ weapon }: { weapon: WeaponCostObject }) {
 
     const theme = useTheme()
 
+    const matches = useMediaQuery(theme.breakpoints.down("sm"))
+
     const dispatch = useDispatch()
 
     const { name, rarity } = weapon
 
-    let levels
-    rarity > 2 ? levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"] : levels = ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70"]
+    const levels = rarity > 2 ? ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70", "70+", "80", "80+", "90"] : ["1", "20", "20+", "40", "40+", "50", "50+", "60", "60+", "70"]
     const minDistance = 1
     const maxValue = levels.length
     const [sliderValue, setSliderValue] = React.useState([1, maxValue])
@@ -52,23 +53,24 @@ function WeaponAscensionLevel({ weapon }: { weapon: WeaponCostObject }) {
     })
 
     return (
-        <Box
-            sx={{
-                mb: "30px",
-                mx: "15px",
-            }}
-        >
-            <Box sx={{ display: "flex", alignItems: "center", mb: "10px" }}>
-                <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "15px" }}>
-                    Level
-                </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, mr: "25px", width: "75px", fontWeight: "bold" }}>
+        <Box>
+            <Typography sx={{ fontSize: { xs: "14px", sm: "16px" } }}>
+                Level
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, width: "90px", mr: { xs: 0, sm: "-6px" } }}>
                     Lv. {levels[sliderValue[0] - 1]}
                 </Typography>
-                <CustomSlider value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element="" disableSwap />
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, ml: "25px", width: "75px", fontWeight: "bold" }}>
+                <CustomSlider
+                    value={sliderValue}
+                    step={1}
+                    min={1}
+                    max={maxValue}
+                    onChange={handleSliderChange}
+                    disableSwap
+                    size={matches ? "small" : "medium"}
+                />
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, ml: "25px", width: "90px" }}>
                     Lv. {levels[sliderValue[1] - 1]}
                 </Typography>
             </Box>

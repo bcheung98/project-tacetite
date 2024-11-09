@@ -6,15 +6,15 @@ import Xarrow from "react-xarrows"
 // Component imports
 import { CustomSlider } from "../../_styled/StyledSlider"
 import { CustomSwitch } from "../../_styled/StyledSwitch"
-import { CustomTooltip } from "../../_styled/StyledTooltip"
+import Image from "../../_custom/Image"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography, Avatar, Popover } from "@mui/material"
+import { useTheme, useMediaQuery, Box, Typography } from "@mui/material"
 
 // Helper imports
 import { updateCharacterCosts, updateTotalCosts } from "../../../redux/reducers/AscensionPlannerReducer"
 import { getCharacterForteCost, getCharacterForteCostNode } from "../../../data/levelUpCosts"
+import { NodeIconStyle, SkillIconStyle } from "./_CharacterAscensionCard"
 
 // Type imports
 import { CharacterCostObject } from "../../../types/costs"
@@ -22,6 +22,8 @@ import { CharacterCostObject } from "../../../types/costs"
 function CharacterAscensionSkill({ character }: { character: CharacterCostObject }) {
 
     const theme = useTheme()
+
+    const matches = useMediaQuery(theme.breakpoints.down("sm"))
 
     const dispatch = useDispatch()
 
@@ -58,38 +60,33 @@ function CharacterAscensionSkill({ character }: { character: CharacterCostObject
     const handleSelectNode1 = () => {
         setSelectedNode1(!selectedNode1)
     }
-
     const [selectedNode2, setSelectedNode2] = React.useState(true)
     const handleSelectNode2 = () => {
         setSelectedNode2(!selectedNode2)
     }
 
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-    const handleClickOpenMainNode = (event: React.BaseSyntheticEvent) => {
-        if (selectedMainNode) setAnchorEl(event.target)
-    }
-    const handleCloseMainNode = () => {
-        setAnchorEl(null)
-    }
-    const open = Boolean(anchorEl)
-
-    const skillIcon = {
-        width: "48px",
-        height: "48px",
-        marginBottom: "15px",
-        border: `2px solid ${theme.border.color}`,
-        borderRadius: "48px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`,
-    }
-
-    const skillIconSmall = {
-        width: "32px",
-        height: "32px",
-        marginBottom: "30px",
-        border: `2px solid ${theme.border.color}`,
-        borderRadius: "32px",
-        backgroundColor: `${theme.materialImage.backgroundColor}`,
-        cursor: "pointer"
+    function Nodes() {
+        return (
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Image
+                    id={`${name}-skill-node1`}
+                    src={`stat_icons/${forte.skill.nodes[0].type}`}
+                    alt={forte.skill.nodes[0].type}
+                    style={NodeIconStyle(selectedNode1)}
+                    tooltip={{ title: parse(forte.skill.nodes[0].description) }}
+                    onClick={handleSelectNode1}
+                />
+                <Xarrow start={`${name}-skill-node1`} end={`${name}-skill-node2`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
+                <Image
+                    id={`${name}-skill-node2`}
+                    src={`stat_icons/${forte.skill.nodes[1].type}`}
+                    alt={forte.skill.nodes[1].type}
+                    style={NodeIconStyle(selectedNode2)}
+                    tooltip={{ title: parse(forte.skill.nodes[1].description) }}
+                    onClick={handleSelectNode2}
+                />
+            </Box>
+        )
     }
 
     React.useEffect(() => {
@@ -100,137 +97,40 @@ function CharacterAscensionSkill({ character }: { character: CharacterCostObject
     })
 
     return (
-        <React.Fragment>
-            <Box
-                sx={{
-                    display: "block",
-                    mx: "auto",
-                    width: "45%",
-                    alignItems: "center",
-                }}
-            >
-                <CustomTooltip title={parse(forte.skill.nodes[1].description)} arrow placement="top">
-                    <Avatar
-                        id={`${name}-skill_node2`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[1].type.split(" ").join("_")}.png`}
-                        alt={forte.skill.nodes[1].type}
-                        sx={skillIconSmall}
-                        style={selectedNode2 ? { opacity: "1" } : { opacity: "0.35" }}
-                        onClick={handleSelectNode2}
-                    >
-                        <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
-                    </Avatar>
-                </CustomTooltip>
-                <Xarrow start={`${name}-skill_node2`} end={`${name}-skill_node1`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
-            </Box>
-            <Box
-                sx={{
-                    display: "block",
-                    mx: "auto",
-                    width: "45%",
-                    alignItems: "center",
-                }}
-            >
-                <CustomTooltip title={parse(forte.skill.nodes[0].description)} arrow placement="top">
-                    <Avatar
-                        id={`${name}-skill_node1`}
-                        src={`${process.env.REACT_APP_URL}/stat_icons/${forte.skill.nodes[0].type.split(" ").join("_")}.png`}
-                        alt={forte.skill.nodes[0].type}
-                        sx={skillIconSmall}
-                        style={selectedNode1 ? { opacity: "1" } : { opacity: "0.35" }}
-                        onClick={handleSelectNode1}
-                    >
-                        <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
-                    </Avatar>
-                </CustomTooltip>
-                <Xarrow start={`${name}-skill_node1`} end={`${name}-skill_node0`} showHead={false} path="grid" color="lightgray" strokeWidth={3} />
-            </Box>
-            <Box
-                sx={{
-                    display: "block",
-                    mx: "auto",
-                    width: "60%",
-                    alignItems: "center",
-                }}
-            >
-                <Avatar
-                    id={`${name}-skill_node0`}
-                    src={`${process.env.REACT_APP_URL}/characters/skills/${name.split(" ").join("_").toLowerCase()}_skill.png`}
-                    alt={`${name.split(" ").join("_").toLowerCase()}_skill`}
-                    sx={skillIcon}
-                    style={selectedMainNode ? { opacity: "1", cursor: "pointer" } : { opacity: "0.35" }}
-                    onClick={handleClickOpenMainNode}
-                >
-                    <img src={`${process.env.REACT_APP_URL}/images/Unknown.png`} alt="Unknown" style={{ width: "48px", backgroundColor: `${theme.paper.backgroundColor}` }} />
-                </Avatar>
-            </Box>
-            <Box
-                sx={{
-                    display: "block",
-                    mx: "auto",
-                    width: "70%",
-                    alignItems: "center",
-                }}
-                style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}
-            >
-                <Typography variant="body2" sx={{ color: `${theme.text.color}`, fontWeight: "bold", width: "64px", textAlign: "center" }}>
+        <Box sx={{ mb: "25px" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+                <CustomSwitch checked={selectedMainNode} onChange={handleSelectMainNode} element={element} size="small" sx={{ ml: "-5px" }} />
+                <Image
+                    id={`${name}-skill-main`}
+                    src={`characters/skills/${name.toLowerCase()}_skill`}
+                    alt={`${name.toLowerCase()}_skill`}
+                    style={SkillIconStyle(selectedMainNode)}
+                />
+                <Typography sx={{ fontSize: { xs: "14px", sm: "16px" }, opacity: selectedMainNode ? 1 : 0.35 }}>
                     Resonance Skill
                 </Typography>
-                <CustomSwitch checked={selectedMainNode} onChange={handleSelectMainNode} element={element} />
             </Box>
-            <Box
-                sx={{
-                    display: "block",
-                    mx: "auto",
-                    width: "95%",
-                    alignItems: "center",
-                }}
-                style={selectedMainNode ? { opacity: "1" } : { opacity: "0.35" }}
-            >
-                <Typography variant="body2" sx={{ color: `${theme.text.color}`, fontWeight: "bold", width: "96px", textAlign: "center" }}>
-                    {`Lv. ${levels[sliderValue[0] - 1]} ➜ Lv. ${levels[sliderValue[1] - 1]}`}
+            <Box sx={{ display: "flex", alignItems: "center", my: { xs: "5px", sm: "10px" }, opacity: selectedMainNode ? 1 : 0.35 }}>
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, minWidth: { xs: "50px", sm: "60px" } }}>
+                    Lv. {levels[sliderValue[0] - 1]}
+                </Typography>
+                <CustomSlider
+                    disabled={!selectedMainNode}
+                    value={sliderValue}
+                    step={1}
+                    min={1}
+                    max={maxValue}
+                    onChange={handleSliderChange}
+                    element={element}
+                    disableSwap
+                    size={matches ? "small" : "medium"}
+                />
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, ml: "25px", width: "90px" }}>
+                    Lv. {levels[sliderValue[1] - 1]}
                 </Typography>
             </Box>
-            <Popover
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleCloseMainNode}
-                anchorOrigin={{
-                    vertical: "center",
-                    horizontal: "right",
-                }}
-                transformOrigin={{
-                    vertical: "center",
-                    horizontal: "left",
-                }}
-                sx={{ ml: "20px" }}
-            >
-                <Box
-                    sx={{
-                        p: "10px",
-                        width: "30vw",
-                        backgroundColor: `${theme.appbar.backgroundColor}`,
-                        border: `2px solid ${theme.border.color}`,
-                        borderRadius: "5px",
-                    }}
-                >
-                    <Box sx={{ display: "flex", alignItems: "center", mb: "10px" }}>
-                        <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "15px" }}>
-                            Resonance Skill
-                        </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
-                        <Typography variant="body1" sx={{ color: `${theme.text.color}`, mr: "25px", width: "75px", fontWeight: "bold" }}>
-                            Lv. {levels[sliderValue[0] - 1]}
-                        </Typography>
-                        <CustomSlider value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element={element} disableSwap />
-                        <Typography variant="body1" sx={{ color: `${theme.text.color}`, ml: "25px", width: "75px", fontWeight: "bold" }}>
-                            Lv. {levels[sliderValue[1] - 1]}
-                        </Typography>
-                    </Box>
-                </Box>
-            </Popover>
-        </React.Fragment>
+            <Nodes />
+        </Box>
     )
 
 }

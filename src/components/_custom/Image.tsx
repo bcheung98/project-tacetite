@@ -20,9 +20,10 @@ interface ImageProps {
     loading?: "eager" | "lazy",
     style?: React.CSSProperties,
     tooltip?: {
-        title: string,
+        title: React.ReactNode,
         placement?: TooltipProps["placement"]
-    }
+    },
+    onClick?: () => void
 }
 
 function Image({
@@ -32,7 +33,8 @@ function Image({
     id = src,
     loading = "lazy",
     style,
-    tooltip
+    tooltip,
+    onClick
 }: ImageProps) {
 
     const imgStyle = Object.assign({...defaultImageStyle}, style)
@@ -60,6 +62,7 @@ function Image({
                     e.target.src = `${process.env.REACT_APP_URL}/${fallbackSrc}.png`
                     e.onError = null
                 }}
+                onClick={onClick}
             />
         </CustomTooltip>
     )

@@ -6,7 +6,7 @@ import { CustomSlider } from "../../_styled/StyledSlider"
 import { CustomSwitch } from "../../_styled/StyledSwitch"
 
 // MUI imports
-import { useTheme, Box, Typography } from "@mui/material"
+import { useTheme, useMediaQuery, Box, Typography } from "@mui/material"
 
 // Helper imports
 import { updateCharacterCosts, updateTotalCosts } from "../../../redux/reducers/AscensionPlannerReducer"
@@ -18,6 +18,8 @@ import { CharacterCostObject } from "../../../types/costs"
 function CharacterAscensionLevel({ character }: { character: CharacterCostObject }) {
 
     const theme = useTheme()
+
+    const matches = useMediaQuery(theme.breakpoints.down("sm"))
 
     const dispatch = useDispatch()
 
@@ -50,32 +52,36 @@ function CharacterAscensionLevel({ character }: { character: CharacterCostObject
     const handleSelect = () => {
         setSelected(!selected)
     }
-    
+
     React.useEffect(() => {
         dispatch(updateCharacterCosts({ name: name, type: "level", costs: getCharacterLevelCost(name, sliderValue, selected) }))
         dispatch(updateTotalCosts())
     })
 
     return (
-        <Box
-            sx={{
-                mb: "30px",
-                mx: "15px",
-            }}
-            style={selected ? { opacity: "1" } : { opacity: "0.35" }}
-        >
-            <Box sx={{ display: "flex", alignItems: "center", mb: "10px" }}>
-                <CustomSwitch checked={selected} onChange={handleSelect} element={element} />
-                <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold", ml: "15px" }}>
+        <Box sx={{ mb: { xs: "5px", sm: "20px" } }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+                <CustomSwitch checked={selected} onChange={handleSelect} element={element} size="small" sx={{ ml: "-5px" }} />
+                <Typography sx={{ fontSize: { xs: "14px", sm: "16px" }, ml: "10px", opacity: selected ? 1 : 0.35 }}>
                     Level
                 </Typography>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", px: 2 }}>
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, mr: "25px", width: "75px", fontWeight: "bold" }}>
+            <Box sx={{ display: "flex", alignItems: "center", my: { xs: "5px", sm: "10px" }, opacity: selected ? 1 : 0.35 }}>
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, minWidth: { xs: "50px", sm: "60px" } }}>
                     Lv. {levels[sliderValue[0] - 1]}
                 </Typography>
-                <CustomSlider disabled={!selected} value={sliderValue} step={1} min={1} max={maxValue} onChange={handleSliderChange} element={element} disableSwap />
-                <Typography variant="body1" sx={{ color: `${theme.text.color}`, ml: "25px", width: "75px", fontWeight: "bold" }}>
+                <CustomSlider
+                    disabled={!selected}
+                    value={sliderValue}
+                    step={1}
+                    min={1}
+                    max={maxValue}
+                    onChange={handleSliderChange}
+                    element={element}
+                    disableSwap
+                    size={matches ? "small" : "medium"}
+                />
+                <Typography sx={{ fontSize: { xs: "12px", sm: "16px" }, ml: "25px", width: "90px" }}>
                     Lv. {levels[sliderValue[1] - 1]}
                 </Typography>
             </Box>

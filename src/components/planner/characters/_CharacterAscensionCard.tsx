@@ -8,17 +8,15 @@ import CharacterAscensionSkill from "./CharacterAscensionSkill"
 import CharacterAscensionUltimate from "./CharacterAscensionUltimate"
 import CharacterAscensionCircuit from "./CharacterAscensionCircuit"
 import CharacterAscensionIntro from "./CharacterAscensionIntro"
+import Image from "../../_custom/Image"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
+import { useTheme, useMediaQuery, Box, Typography, CardHeader, ButtonBase } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
-import { CustomTooltip } from "../../_styled/StyledTooltip"
 import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
-import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
-import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
 
 // Type imports
 import { CharacterCostObject } from "../../../types/costs"
@@ -27,7 +25,7 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
 
     const theme = useTheme()
 
-    let { name, rarity, element, weapon } = character
+    const { name, rarity, element, weapon } = character
 
     const smallIcon = {
         width: "24px",
@@ -35,16 +33,13 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
         backgroundColor: `${theme.materialImage.backgroundColor}`,
         border: `1px solid ${theme.border.color}`,
         borderRadius: "24px",
+        padding: "2px",
         marginBottom: "10px",
     }
-
-    const inner = "0px" // 20
-    const outer = "0px" // 70
 
     return (
         <Box
             sx={{
-                width: "750px",
                 border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
@@ -55,8 +50,8 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
                 avatar={
                     <Box sx={{ position: "relative" }}>
                         <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <img
-                                src={(`${process.env.REACT_APP_URL}/characters/icons/${name.split(" ").join("_")}.png`)}
+                            <Image
+                                src={`characters/icons/${name}`}
                                 alt={name}
                                 style={{
                                     width: "64px",
@@ -66,17 +61,13 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
                                     backgroundSize: "100%",
                                     boxShadow: `inset 0 0 25px 5px ${GetBackgroundColor(rarity)}`,
                                 }}
-                                onError={ErrorLoadingImage} />
+                            />
                         </ButtonBase>
                         <Box sx={{ position: "absolute", top: "50px", left: "-5px" }}>
-                            <CustomTooltip title={element} arrow placement="top">
-                                <img style={smallIcon} src={(`${process.env.REACT_APP_URL}/elements/icons/${element}.png`)} alt={element} onError={ErrorLoadingImage} />
-                            </CustomTooltip>
+                            <Image style={smallIcon} src={`elements/icons/${element}`} alt={element} tooltip={{ title: element }} />
                         </Box>
                         <Box sx={{ position: "absolute", top: "50px", left: "45px" }}>
-                            <CustomTooltip title={weapon} arrow placement="top">
-                                <img style={smallIcon} src={(`${process.env.REACT_APP_URL}/weapons/icons/${weapon}.png`)} alt={weapon} onError={ErrorLoadingImage} />
-                            </CustomTooltip>
+                            <Image style={smallIcon} src={`weapons/icons/${weapon}`} alt={weapon} tooltip={{ title: weapon }} />
                         </Box>
                     </Box>
                 }
@@ -84,8 +75,8 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
                     <React.Fragment>
                         <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/characters/${character.name.split(" ").join("_").toLowerCase()}`} target="_blank">
                             <Typography variant="h6" sx={{ color: `${theme.text.color}`, fontWeight: "bold" }}>
-                                {character.displayName && character.displayName}
                                 {character.fullName && character.fullName}
+                                {character.displayName && !character.fullName && character.displayName}
                                 {!character.displayName && !character.fullName && name}
                             </Typography>
                         </ButtonBase>
@@ -111,21 +102,15 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
                 </AccordionSummary>
                 <AccordionDetails>
                     <CharacterAscensionLevel character={character} />
-                    <Grid container spacing={2}>
-                        <Grid size={2} sx={{ mt: outer }}>
+                    <Grid container rowSpacing={0} columnSpacing={2}>
+                        <Grid size={{ xs: 12, lg: 6 }}>
                             <CharacterAscensionBasicATK character={character} />
-                        </Grid>
-                        <Grid size={2} sx={{ mt: inner }}>
-                            <CharacterAscensionSkill character={character} />
-                        </Grid>
-                        <Grid size={2}>
-                            <CharacterAscensionCircuit character={character} />
-                        </Grid>
-                        <Grid size={2} sx={{ mt: inner }}>
                             <CharacterAscensionUltimate character={character} />
-                        </Grid>
-                        <Grid size={2} sx={{ mt: outer }}>
                             <CharacterAscensionIntro character={character} />
+                        </Grid>
+                        <Grid size={{ xs: 12, lg: 6 }}>
+                            <CharacterAscensionSkill character={character} />
+                            <CharacterAscensionCircuit character={character} />
                         </Grid>
                     </Grid>
                 </AccordionDetails>
@@ -136,3 +121,40 @@ function CharacterAscensionCard({ character }: { character: CharacterCostObject 
 }
 
 export default CharacterAscensionCard
+
+export const SkillIconStyle = (selected: boolean): React.CSSProperties => {
+
+    const theme = useTheme()
+
+    const matches = useMediaQuery(theme.breakpoints.down("sm"))
+
+    return {
+        opacity: selected ? 1 : 0.35,
+        width: matches ? "32px" : "40px",
+        height: matches ? "32px" : "40px",
+        padding: "4px",
+        margin: "0 10px 0 10px",
+        border: `2px solid ${theme.border.color}`,
+        borderRadius: "64px",
+        backgroundColor: `${theme.materialImage.backgroundColor}`,
+    }
+}
+
+export const NodeIconStyle = (selected: boolean): React.CSSProperties => {
+
+    const theme = useTheme()
+
+    const matches = useMediaQuery(theme.breakpoints.down("sm"))
+
+    return {
+        opacity: selected ? 1 : 0.35,
+        width: matches ? "28px" : "36px",
+        height: matches ? "28px" : "36px",
+        padding: "4px",
+        marginRight: "25px",
+        border: `2px solid ${theme.border.color}`,
+        borderRadius: "64px",
+        backgroundColor: `${theme.materialImage.backgroundColor}`,
+        cursor: "pointer"
+    }
+}

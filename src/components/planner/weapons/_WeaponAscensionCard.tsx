@@ -3,23 +3,23 @@ import * as React from "react"
 // Component imports
 import WeaponAscensionCardMaterials from "./_WeaponAscensionCardMaterials"
 import WeaponAscensionLevel from "./WeaponAscensionLevel"
+import Image from "../../_custom/Image"
+import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Typography, CardHeader, ButtonBase } from "@mui/material"
+import { useTheme, Box, Typography, CardHeader, ButtonBase } from "@mui/material"
 
 // Helper imports
-import { CustomTooltip } from "../../_styled/StyledTooltip"
 import { GetBackgroundColor, GetRarityColor } from "../../../helpers/RarityColors"
-import { Accordion, AccordionDetails, AccordionSummary } from "../../_styled/StyledAccordion"
-import ErrorLoadingImage from "../../../helpers/ErrorLoadingImage"
+
+// Type imports
 import { WeaponCostObject } from "../../../types/costs"
 
 function WeaponAscensionCard({ weapon }: { weapon: WeaponCostObject }) {
 
     const theme = useTheme()
 
-    let { name, rarity, type } = weapon
+    const { name, rarity, type } = weapon
 
     const smallIcon = {
         width: "24px",
@@ -27,13 +27,13 @@ function WeaponAscensionCard({ weapon }: { weapon: WeaponCostObject }) {
         backgroundColor: `${theme.materialImage.backgroundColor}`,
         border: `1px solid ${theme.border.color}`,
         borderRadius: "24px",
+        padding: "2px",
         marginBottom: "10px",
     }
 
     return (
         <Box
             sx={{
-                width: "750px",
                 border: `1px solid ${theme.border.color}`,
                 borderRadius: "5px",
                 backgroundColor: `${theme.paper.backgroundColor}`,
@@ -44,8 +44,8 @@ function WeaponAscensionCard({ weapon }: { weapon: WeaponCostObject }) {
                 avatar={
                     <Box sx={{ position: "relative" }}>
                         <ButtonBase disableRipple href={`${process.env.REACT_APP_BASENAME}/weapons/${weapon.name.split(" ").join("_").toLowerCase()}`} target="_blank">
-                            <img
-                                src={(`${process.env.REACT_APP_URL}/weapons/${name.split(" ").join("_")}.png`)}
+                            <Image
+                                src={`weapons/${name.split(" ").join("_")}`}
                                 alt={name}
                                 style={{
                                     width: "64px",
@@ -55,13 +55,10 @@ function WeaponAscensionCard({ weapon }: { weapon: WeaponCostObject }) {
                                     backgroundSize: "100%",
                                     boxShadow: `inset 0 0 25px 5px ${GetBackgroundColor(rarity)}`,
                                 }}
-                                onError={ErrorLoadingImage}
                             />
                         </ButtonBase>
                         <Box sx={{ position: "absolute", top: "50px", left: "45px" }}>
-                            <CustomTooltip title={type} arrow placement="top">
-                                <img style={smallIcon} src={(`${process.env.REACT_APP_URL}/weapons/icons/${type}.png`)} alt={type} onError={ErrorLoadingImage} />
-                            </CustomTooltip>
+                            <Image style={smallIcon} src={`weapons/icons/${type}`} alt={type} tooltip={{ title: type }} />
                         </Box>
                     </Box>
                 }
