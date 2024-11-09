@@ -35,18 +35,14 @@ const EchoPopup = (props: any) => {
         setSelected(!selected)
     }
 
-    let URL
-    if (!selected) {
-        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png`
-    }
-    else {
-        URL = `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}_Phantom.png`
-    }
+    const URL = !selected ?
+        `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}.png` :
+        `${process.env.REACT_APP_URL}/echoes/icons/${name.split(" ").join("_")}_Phantom.png`
 
     return (
         <Box
             sx={{
-                width: "70vw",
+                width: { xs: "100%", sm: "70vw" },
                 p: "15px",
                 backgroundColor: "rgb(26, 22, 24)",
                 border: `2px solid ${theme.border.color}`,

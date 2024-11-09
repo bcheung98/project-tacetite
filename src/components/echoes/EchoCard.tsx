@@ -4,19 +4,21 @@ import * as React from "react"
 import EchoPopup from "./EchoPopup"
 
 // MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Typography, Card, CardContent, Box, Dialog } from "@mui/material"
+import { useTheme, Typography, Card, CardContent, Box, Dialog } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 
 // Helper imports
 import { CustomTooltip } from "../_styled/StyledTooltip"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
-const EchoCard = (props: any) => {
+// Type imports
+import { Echo } from "../../types/echo"
+
+function EchoCard({echo}: {echo: Echo}) {
 
     const theme = useTheme()
 
-    let { name, cost, sonata } = props.echo
+    const { name, cost, sonata } = echo
 
     const [open, setOpen] = React.useState(false)
     const handleClickOpen = () => {
@@ -33,7 +35,7 @@ const EchoCard = (props: any) => {
                 height: "90px",
                 backgroundColor: `${theme.card.backgroundColor}`,
                 border: `1px solid ${theme.border.color}`,
-                borderRadius: "15px 25px 15px 15px",
+                borderRadius: "5px",
             }}
         >
             <CardContent sx={{ py: "10px" }}>
@@ -49,7 +51,7 @@ const EchoCard = (props: any) => {
                                 marginTop: "-15px",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
                                 borderRight: `1px solid ${theme.border.color}`,
-                                boxShadow: `inset 0 0 30px 5px ${EchoColor(props.echo.class)}`,
+                                boxShadow: `inset 0 0 30px 5px ${EchoColor(echo.class)}`,
                                 cursor: "pointer"
                             }}
                             onError={ErrorLoadingImage}
@@ -70,7 +72,7 @@ const EchoCard = (props: any) => {
                             }}
                             onClick={() => handleClickOpen()}
                         >
-                            {props.echo.displayName ? props.echo.displayName : name}
+                            {echo.displayName ? echo.displayName : name}
                         </Typography>
                         <Box
                             sx={{
@@ -122,7 +124,7 @@ const EchoCard = (props: any) => {
                 onClose={handleClose}
                 maxWidth={false}
             >
-                <EchoPopup echo={props.echo} />
+                <EchoPopup echo={echo} />
             </Dialog>
         </Card>
     )
