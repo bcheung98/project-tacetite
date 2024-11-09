@@ -59,7 +59,7 @@ function CharacterForteTab({
             <Typography sx={{ mb: "20px", fontSize: "28px", fontWeight: theme.font.styled.weight }}>
                 {forte.name}
             </Typography>
-            <Typography sx={{ fontSize: "16px" }}>
+            <Typography sx={{ fontSize: { xs: "13.5px", sm: "16px" } }}>
                 {parse(forte.description)}
             </Typography>
             <br />
@@ -104,7 +104,7 @@ function CharacterForteTab({
                                         }
                                         sx={{ px: 0 }}
                                     />
-                                    <Typography>
+                                    <Typography sx={{ fontSize: { xs: "13.5px", sm: "16px" } }}>
                                         {parse(node.description)}
                                     </Typography>
                                     <Accordion sx={{ ml: "-20px", mt: "10px" }}>
