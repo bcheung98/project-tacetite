@@ -48,10 +48,10 @@ function CharacterResonanceChainDisplay({ character }: CharacterProps) {
                     Resonance Chain
                 </Typography>
             </AppBar>
-            <Grid container rowSpacing={2} columnSpacing={6} sx={{ p: 3 }}>
+            <Grid container spacing={3} sx={{ p: 3 }}>
                 {
                     Object.entries(resonanceChain).map(([key, rc]: [string, Skill]) =>
-                        <Grid key={key} size={{ xs: 12, sm: 6, md: 4 }}
+                        <Grid key={key} size={{ xs: 12, md: 6, lg: 4 }}
                             sx={{
                                 p: 2,
                                 backgroundColor: `${theme.table.body.backgroundColor}`,
