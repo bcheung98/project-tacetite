@@ -303,8 +303,7 @@ function CharacterInfoMisc({ character }: CharacterProps) {
     const rows = [
         { key: "Nation", value: nation },
         { key: "Birthday", value: birthday },
-        // { key: "Release", value: `${release.date !== "" ? createDateObject(release.date as string).date : ""} (${release.version})` },
-        { key: "Release", value: `${release.date} (${release.version})` },
+        { key: "Release", value: `${release.date !== "" ? createDateObject(release.date as string).date : ""} (${release.version})` },
         { key: "Voice Actor (EN)", value: voiceActors["en"] },
         { key: "Voice Actor (JP)", value: voiceActors["jp"] },
     ]
