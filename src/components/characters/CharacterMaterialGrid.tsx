@@ -36,8 +36,8 @@ function CharacterMaterialGrid({
     return (
         <Grid container rowSpacing={0.5} columnSpacing={1}>
             {
-                images.map(img =>
-                    <Grid size={4}>
+                images.map((img, index) =>
+                    <Grid key={index} size={4}>
                         <Image
                             src={img.src}
                             alt={img.tag}
