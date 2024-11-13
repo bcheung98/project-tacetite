@@ -56,24 +56,23 @@ function EchoCard({ echo }: { echo: Echo }) {
                 borderRadius: "5px",
             }}
         >
-            <Grid container spacing={{ xs: 3, sm: 0 }}>
-                <Grid size="grow">
+            <Grid container spacing={1}>
+                <Grid size="auto">
                     <Box onClick={matches ? () => handleDialogOpen() : toggleDrawer(true)}>
                         <Image
                             src={`echoes/icons/${name}`}
                             alt={name}
                             style={{
-                                width: "90px",
-                                height: "auto",
+                                width: "100%",
+                                height: "90px",
                                 backgroundColor: `${theme.materialImage.backgroundColor}`,
-                                borderRight: `1px solid ${theme.border.color}`,
                                 boxShadow: `inset 0 0 24px 4px ${GetRarityColor(rarity)}`,
                                 cursor: "pointer"
                             }}
                         />
                     </Box>
                 </Grid>
-                <Grid size={8}>
+                <Grid size="grow">
                     <Typography
                         noWrap
                         sx={{
@@ -101,11 +100,11 @@ function EchoCard({ echo }: { echo: Echo }) {
                             textAlign: "center",
                         }}
                     >
-                        <Typography sx={{ fontSize: "18px", userSelect: "none" }}>
+                        <Typography sx={{ fontSize: "16px", userSelect: "none" }}>
                             {cost}
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", mt: "10px" }}>
+                    <Box sx={{ display: "flex", mt: "5px" }}>
                         {
                             sonata.map((sonata: string, index: number) =>
                                 <Image

@@ -76,7 +76,7 @@ function WeaponPage() {
                             }}
                         />
                     </Grid>
-                    <Grid size={{ xs: 12, sm: "grow" }}>
+                    <Grid size={{ xs: 12, md: "grow" }}>
                         <Box
                             sx={{
                                 p: "15px",

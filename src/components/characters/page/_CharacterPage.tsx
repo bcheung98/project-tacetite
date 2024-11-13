@@ -19,6 +19,7 @@ import CloseIcon from "@mui/icons-material/Close"
 
 // Helper imports
 import { Tags } from "../../../data/CharacterTags"
+import { createDateObject } from "../../../helpers/dates"
 
 // Type imports
 import { RootState } from "../../../redux/store"
@@ -28,12 +29,7 @@ function CharacterPage() {
 
     const theme = useTheme()
 
-    const matches = useMediaQuery(theme.breakpoints.up("sm"))
-
-    const [tabValue, setTabValue] = React.useState(0)
-    const handleTabChange = (e: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue)
-    }
+    const matches_md_up = useMediaQuery(theme.breakpoints.up("md"))
 
     const { char_name } = useParams<{ char_name: string }>()
     const characters = useSelector((state: RootState) => state.characters.characters)
@@ -41,15 +37,7 @@ function CharacterPage() {
 
     if (character !== undefined) {
 
-        const { name, birthday, nation, release, voiceActors } = character
-
-        const rows = [
-            { key: "Nation", value: nation },
-            { key: "Birthday", value: birthday },
-            { key: "Release", value: `${release.date} (${release.version})` },
-            { key: "Voice Actor (EN)", value: voiceActors["en"] },
-            { key: "Voice Actor (JP)", value: voiceActors["jp"] },
-        ]
+        const { name } = character
 
         if (character.displayName) document.title = `${character.displayName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
         if (character.fullName) document.title = `${character.fullName} ${process.env.REACT_APP_DOCUMENT_HEADER}`
@@ -57,87 +45,30 @@ function CharacterPage() {
 
         return (
             <React.Fragment>
-                <Grid container spacing={3} sx={{ mb: "20px" }}>
-                    <Grid size={{ xs: 12, sm: "auto" }}>
-                        {!matches && <CharacterInfoMain character={character} />}
-                        <Image
-                            src={`characters/avatars/${name}`}
-                            alt={name}
-                            style={{
-                                width: matches ? "30vw" : "90vw",
-                                height: "600px",
-                                objectFit: "cover",
-                                border: `1px solid ${theme.border.color}`,
-                                borderRadius: "5px",
-                                backgroundColor: `${theme.paper.backgroundColor}`,
-                                // cursor: "pointer",
-                            }}
-                        />
-                        <Box
-                            sx={{
-                                py: "10px",
-                                mt: "10px",
-                                width: { xs: "90vw", sm: "30vw" },
-                                border: `1px solid ${theme.border.color}`,
-                                borderRadius: "5px",
-                                color: `${theme.text.color}`,
-                                backgroundColor: `${theme.paper.backgroundColor}`,
-                            }}
-                        >
-                            <TableContainer>
-                                <Table size="small">
-                                    <TableBody>
-                                        {
-                                            rows.map((row) =>
-                                                <TableRow key={row.key}>
-                                                    <TableCell sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
-                                                        <b>{row.key}</b>
-                                                    </TableCell>
-                                                    <TableCell align="right" sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
-                                                        {row.value}
-                                                    </TableCell>
-                                                </TableRow>
-                                            )
-                                        }
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </Box>
-                    </Grid>
-                    <Grid size={{ xs: 12, sm: "grow" }} sx={{ mb: "20px" }}>
-                        <Box>
-                            {matches && <CharacterInfoMain character={character} />}
-                            <Box
-                                sx={{
-                                    p: 0,
-                                    mt: "15px",
-                                    border: `1px solid ${theme.border.color}`,
-                                    borderRadius: "5px",
-                                    backgroundColor: `${theme.paper.backgroundColor}`,
-                                }}
-                            >
-                                <AppBar position="static"
-                                    sx={{
-                                        backgroundColor: `${theme.appbar.backgroundColor}`,
-                                        borderBottom: `1px solid ${theme.border.color}`,
-                                        borderRadius: "5px 5px 0px 0px",
-                                    }}
-                                >
-                                    <StyledTabs value={tabValue} onChange={handleTabChange}>
-                                        <StyledTab label="Stats" />
-                                        <StyledTab label="Ascension" />
-                                    </StyledTabs>
-                                </AppBar>
-                                <TabPanel value={tabValue} index={0}>
-                                    <CharacterStatsTable character={character} />
-                                </TabPanel>
-                                <TabPanel value={tabValue} index={1}>
-                                    <CharacterAscension character={character} />
-                                </TabPanel>
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Grid>
+                <Box sx={{ mb: "15px" }}>
+                    {
+                        matches_md_up ?
+                            <Grid container spacing={3}>
+                                <Grid size={4}>
+                                    <CharacterImage character={character} />
+                                    <Box sx={{ my: "10px" }} />
+                                    <CharacterInfoMisc character={character} />
+                                </Grid>
+                                <Grid size="grow">
+                                    <CharacterInfoMain character={character} />
+                                    <Box sx={{ my: "15px" }} />
+                                    <CharacterTable character={character} />
+                                </Grid>
+                            </Grid>
+                            :
+                            <Grid container spacing={2} columns={1}>
+                                <CharacterInfoMain character={character} />
+                                <CharacterImage character={character} />
+                                <CharacterTable character={character} />
+                                <CharacterInfoMisc character={character} />
+                            </Grid>
+                    }
+                </Box>
                 <CharacterForteDisplay character={character} />
                 <CharacterResonanceChainDisplay character={character} />
             </React.Fragment>
@@ -160,7 +91,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
 
     const theme = useTheme()
 
-    const matches = useMediaQuery(theme.breakpoints.up("sm"))
+    const matches_sm_up = useMediaQuery(theme.breakpoints.up("sm"))
 
     const { name, title, rarity, element, weapon, tags, description } = character
 
@@ -189,8 +120,8 @@ function CharacterInfoMain({ character }: CharacterProps) {
                         src={`elements/ui/${element}`}
                         alt={element}
                         style={{
-                            margin: matches ? "auto 10px auto 10px" : "auto 0 auto 0",
-                            width: matches ? "128px" : "96px",
+                            margin: matches_sm_up ? "auto 10px auto 10px" : "auto 0 auto 0",
+                            width: matches_sm_up ? "128px" : "96px",
                         }}
                         tooltip={{ title: element }}
                     />
@@ -236,7 +167,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                             <Image
                                 src={`weapons/icons/${weapon}`}
                                 alt={weapon}
-                                style={{ height: matches ? "30px" : "24px" }}
+                                style={{ height: matches_sm_up ? "30px" : "24px" }}
                                 tooltip={{ title: weapon, placement: "bottom" }}
                             />
                         </Box>
@@ -334,10 +265,10 @@ function CharacterInfoMain({ character }: CharacterProps) {
                                         src={`tags/${tag}`}
                                         alt={tag}
                                         style={{
-                                            width: matches ? "48px" : "32px",
-                                            height: matches ? "48px" : "32px",
+                                            width: matches_sm_up ? "48px" : "32px",
+                                            height: matches_sm_up ? "48px" : "32px",
                                             padding: "4px",
-                                            marginTop: matches ? "0px" : "5px",
+                                            marginTop: "5px",
                                             border: `2px solid ${Tags[tag].color}`,
                                             borderRadius: "5px",
                                             backgroundColor: `${theme.materialImage.backgroundColor}`,
@@ -359,6 +290,123 @@ function CharacterInfoMain({ character }: CharacterProps) {
                 </Box>
             </Dialog>
         </React.Fragment>
+    )
+
+}
+
+function CharacterInfoMisc({ character }: CharacterProps) {
+
+    const theme = useTheme()
+
+    const { nation, birthday, voiceActors, release } = character
+
+    const rows = [
+        { key: "Nation", value: nation },
+        { key: "Birthday", value: birthday },
+        // { key: "Release", value: `${release.date !== "" ? createDateObject(release.date as string).date : ""} (${release.version})` },
+        { key: "Release", value: `${release.date} (${release.version})` },
+        { key: "Voice Actor (EN)", value: voiceActors["en"] },
+        { key: "Voice Actor (JP)", value: voiceActors["jp"] },
+    ]
+
+    return (
+        <Box
+            sx={{
+                py: "10px",
+                width: "100%",
+                border: `1px solid ${theme.border.color}`,
+                borderRadius: "5px",
+                color: `${theme.text.color}`,
+                backgroundColor: `${theme.paper.backgroundColor}`,
+            }}
+        >
+            <TableContainer>
+                <Table size="small">
+                    <TableBody>
+                        {
+                            rows.map((row) => (
+                                <TableRow key={row.key}>
+                                    <TableCell sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
+                                        <b>{row.key}</b>
+                                    </TableCell>
+                                    <TableCell align="right" sx={{ color: `${theme.text.color}`, border: "none", py: "1.5px" }}>
+                                        {row.value}
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>
+    )
+
+}
+
+function CharacterImage({ character }: CharacterProps) {
+
+    const theme = useTheme()
+
+    const { name } = character
+
+    return (
+        <Box>
+            <Image
+                src={`characters/avatars/${name}`}
+                alt={name}
+                style={{
+                    width: "100%",
+                    height: "600px",
+                    border: `1px solid ${theme.border.color}`,
+                    borderRadius: "5px",
+                    backgroundColor: `${theme.paper.backgroundColor}`,
+                    objectFit: "cover",
+                    // cursor: "pointer",
+                }}
+            />
+        </Box>
+    )
+
+}
+
+function CharacterTable({ character }: CharacterProps) {
+
+    const theme = useTheme()
+
+    const [tabValue, setTabValue] = React.useState(0)
+    const handleTabChange = (event: React.BaseSyntheticEvent, newValue: number) => {
+        setTabValue(newValue)
+    }
+
+    return (
+        <Box
+            sx={{
+                p: 0,
+                width: "100%",
+                border: `1px solid ${theme.border.color}`,
+                borderRadius: "5px",
+                backgroundColor: `${theme.paper.backgroundColor}`,
+            }}
+        >
+            <AppBar position="static"
+                sx={{
+                    backgroundColor: `${theme.appbar.backgroundColor}`,
+                    borderBottom: `1px solid ${theme.border.color}`,
+                    borderRadius: "5px 5px 0px 0px",
+                }}
+            >
+                <StyledTabs value={tabValue} onChange={handleTabChange}>
+                    <StyledTab label="Stats" />
+                    <StyledTab label="Ascension" />
+                </StyledTabs>
+            </AppBar>
+            <TabPanel value={tabValue} index={0}>
+                <CharacterStatsTable character={character} />
+            </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+                <CharacterAscension character={character} />
+            </TabPanel>
+        </Box>
     )
 
 }

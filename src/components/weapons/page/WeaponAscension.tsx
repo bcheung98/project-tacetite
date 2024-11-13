@@ -42,7 +42,7 @@ function WeaponAscension({ weapon }: WeaponProps) {
         <React.Fragment>
             <WeaponAscensionMaterials rarity={weapon.rarity} materials={weapon.materials} values={sliderValue} />
             <Box sx={{ display: { xs: "block", sm: "flex" }, alignItems: "center", width: "50%", mt: "10px" }}>
-                <Typography sx={{ color: theme.text.color, fontSize: "18px", minWidth: "125px", mr: "20px" }}>
+                <Typography sx={{ color: theme.text.color, fontSize: "16px", minWidth: "125px", mr: "20px" }}>
                     Lv. {levels[sliderValue[0] - 1]} → Lv. {levels[sliderValue[1] - 1]}
                 </Typography>
                 <CustomSlider
