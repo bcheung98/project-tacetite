@@ -12,7 +12,7 @@ export const Tags: ITags = {
         description: "Improve team survivability",
         color: "#77ffb7",
     },
-    "Main DMG Dealer": {
+    "Main Damage Dealer": {
         description: "Powerful damage dealer",
         color: "#ff8441",
     },
