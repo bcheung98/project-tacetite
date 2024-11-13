@@ -54,20 +54,22 @@ function App({
                 <Box id="back-to-top-anchor" />
                 <Box sx={{ display: "flex" }}>
                     <Nav />
-                    <Box sx={{ mx: "20px", mt: "100px", minHeight: "90vh", minWidth: "30vw", width: "95vw" }}>
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <Route exact path="/characters" component={CharacterBrowser} />
-                            <Route path="/characters/:char_name" children={<CharacterPage />} />
-                            <Route exact path="/weapons" component={WeaponBrowser} />
-                            <Route path="/weapons/:wep_name" children={<WeaponPage />} />
-                            <Route exact path="/echoes" component={EchoBrowser} />
-                            <Route exact path="/planner" component={AscensionPlanner} />
-                            <Route exact path="/banners/" component={BannerArchive} />
-                        </Switch>
+                    <Box sx={{ width: "100vw" }}>
+                        <Box sx={{ px: "20px", pt: "100px", pb: "50px", minHeight: "100vh" }}>
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <Route exact path="/characters" component={CharacterBrowser} />
+                                <Route path="/characters/:char_name" children={<CharacterPage />} />
+                                <Route exact path="/weapons" component={WeaponBrowser} />
+                                <Route path="/weapons/:wep_name" children={<WeaponPage />} />
+                                <Route exact path="/echoes" component={EchoBrowser} />
+                                <Route exact path="/planner" component={AscensionPlanner} />
+                                <Route exact path="/banners/" component={BannerArchive} />
+                            </Switch>
+                        </Box>
+                        <NavBottom />
                     </Box>
                 </Box>
-                <NavBottom />
                 <ScrollTopFab />
             </Router>
         </ThemeProvider>

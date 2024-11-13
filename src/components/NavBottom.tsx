@@ -12,7 +12,6 @@ function NavBottom() {
     return (
         <AppBar position="static"
             sx={{
-                mt: 10,
                 backgroundColor: `${theme.appbar.backgroundColor}`,
                 borderTop: `1px solid ${theme.border.color}`,
             }}
@@ -24,7 +23,7 @@ function NavBottom() {
                     my: "15px"
                 }}
             >
-                <Typography sx={{ fontSize: { xs: "8pt", sm: "10.5pt" }, fontWeight: "bold" }}>
+                <Typography sx={{ fontSize: { xs: "11px", sm: "12px" }, fontWeight: "bold" }}>
                     IRMINSUL.GG is not affiliated with Kuro Games.<br />
                     Game contents are trademarks and copyrights of Kuro Games.
                 </Typography>
@@ -39,14 +38,14 @@ function NavBottom() {
                         }}
                     />
                     <Box sx={{ display: "flex" }}>
-                        {/* <Box
+                        <Box
                             sx={{
                                 textAlign: "center",
                                 alignItems: "center",
                                 display: { xs: "flex", sm: "block" }
                             }}
                         >
-                            <Typography gutterBottom sx={{ fontSize: { xs: "8pt", sm: "10.5pt" }, fontWeight: "bold" }}>GitHub:</Typography>
+                            <Typography gutterBottom sx={{ fontSize: { xs: "11px", sm: "12px" }, fontWeight: "bold" }}>GitHub:</Typography>
                             <IconButton
                                 disableRipple
                                 href="https://github.com/bcheung98/project-tacetite"
@@ -65,7 +64,7 @@ function NavBottom() {
                                 mx: { xs: "10px", sm: "25px" },
                                 my: 0
                             }}
-                        /> */}
+                        />
                         <Box
                             sx={{
                                 textAlign: "center",
@@ -73,7 +72,7 @@ function NavBottom() {
                                 display: { xs: "flex", sm: "block" }
                             }}
                         >
-                            <Typography gutterBottom sx={{ fontSize: { xs: "8pt", sm: "10.5pt" }, fontWeight: "bold" }}>Made with:</Typography>
+                            <Typography gutterBottom sx={{ fontSize: { xs: "11px", sm: "12px" }, fontWeight: "bold" }}>Made with:</Typography>
                             <Box sx={{ display: "flex" }}>
                                 <IconButton
                                     disableRipple
