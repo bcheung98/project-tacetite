@@ -12,7 +12,7 @@ export const Tags: ITags = {
         description: "Improve team survivability",
         color: "#77ffb7",
     },
-    "Main Damage Dealer": {
+    "Main DMG Dealer": {
         description: "Powerful damage dealer",
         color: "#ff8441",
     },
@@ -20,19 +20,19 @@ export const Tags: ITags = {
         description: "Quick concerto energy regeneration",
         color: "#ff4040",
     },
-    "Basic Attack Damage": {
+    "Basic Attack DMG": {
         description: "Deal higher Basic Attack DMG",
         color: "#ffde73",
     },
-    "Heavy Attack Damage": {
+    "Heavy Attack DMG": {
         description: "Deal higher Heavy Attack DMG",
         color: "#ffde73",
     },
-    "Resonance Skill Damage": {
+    "Resonance Skill DMG": {
         description: "Deal higher Resonance Skill DMG",
         color: "#ffde73",
     },
-    "Resonance Liberation Damage": {
+    "Resonance Liberation DMG": {
         description: "Deal higher Resonance Liberation DMG",
         color: "#ffde73",
     },
