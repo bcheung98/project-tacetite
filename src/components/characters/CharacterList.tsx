@@ -2,31 +2,39 @@ import * as React from "react"
 
 // Component imports
 import CharacterRow from "./CharacterRow"
-
-// MUI imports
-import { useTheme } from "@mui/material/styles"
-import { Box, Table, TableBody, TableContainer, Toolbar, Typography, Paper } from "@mui/material"
-
-// Helper imports
 import { EnhancedTableHead, getComparator, stableSort } from "../_custom/EnhancedTableHead"
 
-// Type imports
-import { CharacterData } from "../../types/CharacterData"
+// MUI imports
+import { useTheme, Box, Table, TableBody, TableContainer, Toolbar, Typography, Paper } from "@mui/material"
 
-const CharacterList = (props: any) => {
+// Helper imports
+import { createDateObject } from "../../helpers/dates"
+
+// Type imports
+import { Character } from "../../types/character"
+
+function CharacterList({ characters }: { characters: Character[] }) {
 
     const theme = useTheme()
 
     const [order, setOrder] = React.useState("asc")
     const [orderBy, setOrderBy] = React.useState("name")
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: any) => {
+    const handleRequestSort = (event: React.BaseSyntheticEvent, property: "asc" | "desc") => {
         const isAsc = orderBy === property && order === "asc"
         setOrder(isAsc ? "desc" : "asc")
         setOrderBy(property)
     }
 
-    const rows = props.characters.map((char: CharacterData) => createData(char.name, char.rarity, char.element, char.weapon, char.nation, char.release.date, char.release.version, char.id))
+    const rows = characters.map((char: Character) => ({
+        id: char.id,
+        name: char.name,
+        rarity: char.rarity as number,
+        element: char.element,
+        weapon: char.weapon,
+        releaseDate: char.release.date !== "" ? createDateObject(char.release.date as string).date : "",
+        version: char.release.version
+    }))
 
     return (
         <Box sx={{ width: "100%" }}>
@@ -38,15 +46,9 @@ const CharacterList = (props: any) => {
                     color: `${theme.text.color}`,
                 }}
             >
-                <Toolbar sx={{ backgroundColor: `${theme.toolbar.backgroundColor}` }}>
-                    <Typography variant="h5" component="div"
-                        sx={{
-                            fontWeight: "bold",
-                            display: "block",
-                            margin: "auto"
-                        }}
-                    >
-                        {props.characters.length} {props.characters.length === 1 ? "Resonator" : "Resonators"}
+                <Toolbar sx={{ backgroundColor: `${theme.toolbar.backgroundColor}`, borderRadius: "5px 5px 0px 0px" }}>
+                    <Typography sx={{ fontSize: "20px", fontWeight: theme.font.styled.weight }}>
+                        {characters.length} {characters.length === 1 ? "Resonator" : "Resonators"}
                     </Typography>
                 </Toolbar>
                 <hr style={{ border: `0.5px solid ${theme.border.color}`, marginTop: "0px" }} />
@@ -60,12 +62,12 @@ const CharacterList = (props: any) => {
                             headCells={headCells}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
-                                .map((row, index) => {
-                                    return (
-                                        <CharacterRow key={index} row={row} characters={props.characters} />
+                            {
+                                stableSort(rows, getComparator(order, orderBy))
+                                    .map((row, index) =>
+                                        <CharacterRow key={index} row={row} />
                                     )
-                                })}
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -77,15 +79,10 @@ const CharacterList = (props: any) => {
 
 export default CharacterList
 
-const createData = (name: string, rarity: number, element: string, weapon: string, nation: string, releaseDate: string, version: string, id: number) => {
-    return { name, rarity, element, weapon, nation, releaseDate, version, id }
-}
-
 const headCells = [
     { id: "name", label: "Name" },
     { id: "rarity", label: "Rarity" },
     { id: "element", label: "Element" },
     { id: "weapon", label: "Weapon" },
-    { id: "nation", label: "Nation" },
     { id: "id", label: "Release Date" }
 ]

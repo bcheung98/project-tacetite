@@ -1,21 +1,19 @@
 import * as React from "react"
 
+// Component imports
+import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
+
 // MUI imports
 import { useTheme, Box, ButtonBase, CardHeader, Typography } from "@mui/material"
 
 // Helper imports
-import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
-// Type imports
-import { WeaponData } from "../../types/WeaponData"
-
-const WeaponRow = (props: any) => {
+function WeaponRow(props: any) {
 
     const theme = useTheme()
 
-    let { row, index, weapons } = props
-    const currentWeapon = weapons.filter((wep: WeaponData) => wep.name === row.name)[0]
+    const { row, index } = props
 
     return (
         <React.Fragment>
@@ -42,7 +40,7 @@ const WeaponRow = (props: any) => {
                                             },
                                         }}
                                     >
-                                        {currentWeapon.displayName ? currentWeapon.displayName : row.name}
+                                        {row.displayName}
                                     </Typography>
                                 </ButtonBase>
                             }
@@ -95,7 +93,7 @@ const WeaponRow = (props: any) => {
                 <StyledTableCellNoVert>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                            {row.subStatString}
+                            {row.subStat}
                         </Typography>
                     </Box>
                 </StyledTableCellNoVert>

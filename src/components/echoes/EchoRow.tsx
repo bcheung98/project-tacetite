@@ -1,20 +1,26 @@
 import * as React from "react"
+import { useSelector } from "react-redux"
 
 // Component imports
 import EchoPopup from "./EchoPopup"
+import { CustomTooltip } from "../_styled/StyledTooltip"
+import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 
 // MUI imports
 import { Box, CardHeader, Typography, Dialog } from "@mui/material"
 
 // Helper imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+
+// Type imports
+import { RootState } from "../../redux/store"
+import { Echo } from "../../types/echo"
 
 const EchoRow = (props: any) => {
 
-    let { row, index, echoes } = props
-    const currentEcho = echoes.filter((echo: any) => echo.name === row.name)[0]
+    const { row } = props
+    const echoes = useSelector((state: RootState) => state.echoes.echoes)
+    const currentEcho = echoes.filter((echo: Echo) => echo.name === row.name)[0]
 
     const [open, setOpen] = React.useState(false)
     const handleClickOpen = () => {
@@ -26,7 +32,7 @@ const EchoRow = (props: any) => {
 
     return (
         <React.Fragment>
-            <StyledTableRows key={index}>
+            <StyledTableRows>
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>
@@ -34,7 +40,7 @@ const EchoRow = (props: any) => {
                         <CardHeader sx={{ p: 0 }}
                             avatar={
                                 <img
-                                    src={(`${process.env.REACT_APP_URL}/echoes/icons/${currentEcho.name.split(" ").join("_")}.png`)}
+                                    src={(`${process.env.REACT_APP_URL}/echoes/icons/${row.name.split(" ").join("_")}.png`)}
                                     alt={row.name}
                                     style={{ width: "48px", cursor: "pointer" }}
                                     onError={ErrorLoadingImage}
@@ -53,7 +59,7 @@ const EchoRow = (props: any) => {
                                     }}
                                     onClick={() => handleClickOpen()}
                                 >
-                                    {currentEcho.displayName ? currentEcho.displayName : row.name}
+                                    {row.displayName}
                                 </Typography>
                             }
                         />
@@ -73,7 +79,7 @@ const EchoRow = (props: any) => {
                 <StyledTableCellNoVert>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                            {currentEcho.class}
+                            {row.class}
                         </Typography>
                     </Box>
                 </StyledTableCellNoVert>
@@ -91,7 +97,7 @@ const EchoRow = (props: any) => {
                 <StyledTableCellNoVert>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         {
-                            currentEcho.sonata.map((sonata: string, index: number) => (
+                            row.sonata.split("_").map((sonata: string, index: number) =>
                                 <CustomTooltip title={sonata} arrow placement="top" key={index}>
                                     <img
                                         src={`${process.env.REACT_APP_URL}/echoes/sonata/${sonata.split(" ").join("_")}.png`}
@@ -104,13 +110,12 @@ const EchoRow = (props: any) => {
                                         onError={ErrorLoadingImage}
                                     />
                                 </CustomTooltip>
-                            ))
+                            )
                         }
                     </Box>
                 </StyledTableCellNoVert>
 
             </StyledTableRows>
-
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -118,7 +123,6 @@ const EchoRow = (props: any) => {
             >
                 <EchoPopup echo={currentEcho} handleClose={handleClose} />
             </Dialog>
-
         </React.Fragment>
     )
 

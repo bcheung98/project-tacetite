@@ -12,22 +12,30 @@ import { EnhancedTableHead, getComparator, stableSort } from "../_custom/Enhance
 import { echoClassId } from "./EchoBrowser"
 
 // Type imports
-import { EchoData } from "../../types/EchoData"
+import { Echo } from "../../types/echo"
 
-const EchoList = (props: any) => {
+function EchoList({ echoes }: { echoes: Echo[] }) {
 
     const theme = useTheme()
 
     const [order, setOrder] = React.useState("desc")
     const [orderBy, setOrderBy] = React.useState("classID")
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: any) => {
+    const handleRequestSort = (event: React.BaseSyntheticEvent, property: "asc" | "desc") => {
         const isAsc = orderBy === property && order === "asc"
         setOrder(isAsc ? "desc" : "asc")
         setOrderBy(property)
     }
 
-    const rows = props.echoes.map((echo: EchoData) => createData(echo.name, echo.code, echoClassId[echo.class as keyof typeof echoClassId], echo.cost, echo.sonata.join(" ")))
+    const rows = echoes.map((echo: Echo) => ({
+        name: echo.name,
+        displayName: echo.displayName ? echo.displayName : echo.name,
+        code: echo.code,
+        class: echo.class,
+        classID: echoClassId[echo.class],
+        cost: echo.cost,
+        sonata: echo.sonata.join("_")
+    }))
 
     return (
         <Box sx={{ width: "100%" }}>
@@ -40,14 +48,8 @@ const EchoList = (props: any) => {
                 }}
             >
                 <Toolbar sx={{ backgroundColor: `${theme.toolbar.backgroundColor}` }}>
-                    <Typography variant="h5" component="div"
-                        sx={{
-                            fontWeight: "bold",
-                            display: "block",
-                            margin: "auto"
-                        }}
-                    >
-                        {props.echoes.length} {props.echoes.length === 1 ? "Echo" : "Echoes"}
+                    <Typography sx={{ fontSize: "20px", fontWeight: theme.font.styled.weight }}>
+                        {echoes.length} {echoes.length === 1 ? "Echo" : "Echoes"}
                     </Typography>
                 </Toolbar>
                 <hr style={{ border: `0.5px solid ${theme.border.color}`, marginTop: "0px" }} />
@@ -62,11 +64,10 @@ const EchoList = (props: any) => {
                         />
                         <TableBody>
                             {stableSort(rows, getComparator(order, orderBy))
-                                .map((row, index) => {
-                                    return (
-                                        <EchoRow key={index} row={row} echoes={props.echoes} />
-                                    )
-                                })}
+                                .map((row, index) =>
+                                    <EchoRow key={index} row={row} echoes={echoes} />
+                                )
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -78,14 +79,10 @@ const EchoList = (props: any) => {
 
 export default EchoList
 
-const createData = (name: string, code: string, classID: number, cost: number, sonataString: string) => {
-    return { name, code, classID, cost, sonataString }
-}
-
 const headCells = [
     { id: "name", label: "Name" },
     { id: "code", label: "Code" },
     { id: "classID", label: "Class" },
     { id: "cost", label: "Cost" },
-    { id: "sonataString", label: "Sonata Effect" }
+    { id: "sonata", label: "Sonata Effect" }
 ]

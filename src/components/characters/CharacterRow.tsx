@@ -1,21 +1,23 @@
 import * as React from "react"
 
+// Component imports
+import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
+
 // MUI imports
 import { useTheme, Box, ButtonBase, CardHeader, Typography } from "@mui/material"
 
 // Helper imports
-import { StyledTableCellNoVert, StyledTableRows } from "../_styled/StyledTable"
 import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
 
-const CharacterRow = (props: any) => {
+function CharacterRow(props: any) {
 
     const theme = useTheme()
 
-    const { row, index } = props
+    const { row } = props
 
     return (
         <React.Fragment>
-            <StyledTableRows key={index}>
+            <StyledTableRows>
 
                 { /* Name + Icon */}
                 <StyledTableCellNoVert>
@@ -88,28 +90,6 @@ const CharacterRow = (props: any) => {
                             title={
                                 <Typography variant="body1" sx={{ fontWeight: "bold" }}>
                                     {row.weapon}
-                                </Typography>
-                            }
-                        />
-                    </Box>
-                </StyledTableCellNoVert>
-
-                { /* Nation */}
-                <StyledTableCellNoVert>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <CardHeader sx={{ p: 0 }}
-                            avatar={
-                                // <img alt={row.nation} src={(`${process.env.REACT_APP_URL}/nations/${row.nation}.png`)}
-                                //     style={{
-                                //         width: "48px",
-                                //     }}
-                                //     onError={ErrorLoadingImage}
-                                // />
-                                null
-                            }
-                            title={
-                                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                                    {row.nation}
                                 </Typography>
                             }
                         />
