@@ -54,7 +54,7 @@ function App({
                 <Box id="back-to-top-anchor" />
                 <Box sx={{ display: "flex" }}>
                     <Nav />
-                    <Box sx={{ width: "100vw" }}>
+                    <Box sx={{ minWidth: "50vw", width: "100vw" }}>
                         <Box sx={{ px: "20px", pt: "100px", pb: "50px", minHeight: "100vh" }}>
                             <Switch>
                                 <Route exact path="/" component={Home} />
