@@ -20,11 +20,11 @@ function BannerRow(props: {
 
     const theme = useTheme()
 
-    let { type } = props
-    let { version, subVersion, fiveStars, fourStars } = props.row
+    const { type } = props
+    const { version, subVersion, fiveStars, fourStars } = props.row
 
-    let start = createDateObject(props.row.start)
-    let end = createDateObject(props.row.end)
+    const start = createDateObject(props.row.start)
+    const end = createDateObject(props.row.end)
 
     return (
         <TableRow sx={{ backgroundColor: isCurrentBanner(start.obj, end.obj) ? `${theme.button.selected}` : "none" }}>
@@ -33,8 +33,8 @@ function BannerRow(props: {
                     {`${version} Phase ${subVersion.split(".")[2]}: ${start.date} — ${end.date}`}
                 </Typography>
                 <Grid container spacing={0.75}>
-                    {fiveStars.map((item: string, index: number) => <DisplayCard key={index} id={`${item}-${subVersion}`.toLowerCase()} type={type} name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} />)}
-                    {fourStars.map((item: string, index: number) => <DisplayCard key={index} id={`${item}-${subVersion}`.toLowerCase()} type={type} name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} />)}
+                    {fiveStars.map((item: string, index: number) => <DisplayCard key={index} id={`${item}-${subVersion}`.toLowerCase()} type={type} name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
+                    {fourStars.map((item: string, index: number) => <DisplayCard key={index} id={`${item}-${subVersion}`.toLowerCase()} type={type} name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
                 </Grid>
             </StyledTableCellNoVert>
         </TableRow>

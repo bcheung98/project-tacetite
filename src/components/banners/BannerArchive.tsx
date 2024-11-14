@@ -69,8 +69,8 @@ function BannerArchive(props: any) {
             </RadioGroup>
             {
                 !matches ?
-                    <Grid container spacing={5} columns={{ xs: 1, md: 12 }}>
-                        <Grid size={5}>
+                    <Grid container spacing={5}>
+                        <Grid size={{ xs: 12, md: 6, xl: 5 }}>
                             <Typography
                                 sx={{
                                     fontFamily: `${theme.font.styled.family}`,
@@ -83,7 +83,7 @@ function BannerArchive(props: any) {
                             </Typography>
                             <BannerList banners={banners.characterBanners} type="character" />
                         </Grid>
-                        <Grid size={5}>
+                        <Grid size={{ xs: 12, md: 6, xl: 5 }}>
                             <Typography
                                 sx={{
                                     fontFamily: `${theme.font.styled.family}`,
