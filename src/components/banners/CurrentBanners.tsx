@@ -1,8 +1,9 @@
-import * as React from "react"
-import { connect } from "react-redux"
+import { Fragment, useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 // Component imports
 import DisplayCard from "../_custom/DisplayCard"
+import Countdown from "../_custom/Countdown"
 
 // MUI imports
 import { useTheme, Box, Typography, AppBar, LinearProgress } from "@mui/material"
@@ -15,21 +16,21 @@ import { isTBA } from "../../helpers/isTBA"
 // Type imports
 import { RootState } from "../../redux/store"
 import { Banner } from "../../types/banner"
-import Countdown from "../_custom/Countdown"
 
-function CurrentBanners(props: any) {
+function CurrentBanners() {
 
     const theme = useTheme()
 
-    let { characterBanners, weaponBanners } = props.banners
+    const characterBanners = useSelector((state: RootState) => state.banners.characterBanners)
+    const weaponBanners = useSelector((state: RootState) => state.banners.weaponBanners)
 
     const currentCharacterBanners = characterBanners.filter((banner: Banner) => isCurrentBanner(createDateObject(banner.start).obj, createDateObject(banner.end).obj))
     const currentWeaponBanners = weaponBanners.filter((banner: Banner) => isCurrentBanner(createDateObject(banner.start).obj, createDateObject(banner.end).obj))
 
     const activeBanners = [...currentCharacterBanners, ...currentWeaponBanners].length > 0
-    const [loading, setLoading] = React.useState(true)
+    const [loading, setLoading] = useState(true)
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!activeBanners) {
             const timer = setTimeout(() => {
                 setLoading(false)
@@ -67,36 +68,48 @@ function CurrentBanners(props: any) {
             <Box sx={{ p: 2 }}>
                 {
                     activeBanners ?
-                        <React.Fragment>
-                            <Grid container rowSpacing={1} columnSpacing={9}>
+                        <Fragment>
+                            <Grid container rowSpacing={2} columnSpacing={9}>
                                 {
                                     currentCharacterBanners.length > 0 &&
                                     <Grid size={{ xs: 12, lg: "auto" }}>
-                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "10px" }}>
+                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "20px" }}>
                                             Character Banner
                                         </Typography>
-                                        <Grid container spacing={0.75}>
-                                            {currentCharacterBanners[0].fiveStars.map((item: string, index: number) => <DisplayCard key={index} type="character" name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} />)}
-                                            {currentCharacterBanners[0].fourStars.map((item: string, index: number) => <DisplayCard key={index} type="character" name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} />)}
-                                        </Grid>
-                                        <Countdown date={createDateObject(currentCharacterBanners[0].end)} />
+                                        {
+                                            currentCharacterBanners.map((banner, index) =>
+                                                <Box key={index} sx={{ mb: index !== currentCharacterBanners.length - 1 ? "20px" : 0 }}>
+                                                    <Grid container spacing={0.75}>
+                                                        {banner.fiveStars.map((item: string, index: number) => <DisplayCard key={index} type="character" name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
+                                                        {banner.fourStars.map((item: string, index: number) => <DisplayCard key={index} type="character" name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
+                                                    </Grid>
+                                                    <Countdown date={createDateObject(banner.end)} />
+                                                </Box>
+                                            )
+                                        }
                                     </Grid>
                                 }
                                 {
                                     currentWeaponBanners.length > 0 &&
                                     <Grid size={{ xs: 12, lg: "grow" }}>
-                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "10px" }}>
+                                        <Typography sx={{ fontFamily: theme.font.styled.family, fontWeight: theme.font.styled.weight, fontSize: "20px", mb: "20px" }}>
                                             Weapon Banner
                                         </Typography>
-                                        <Grid container spacing={0.75}>
-                                            {currentWeaponBanners[0].fiveStars.map((item: string, index: number) => <DisplayCard key={index} type="weapon" name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} />)}
-                                            {currentWeaponBanners[0].fourStars.map((item: string, index: number) => <DisplayCard key={index} type="weapon" name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} />)}
-                                        </Grid>
-                                        <Countdown date={createDateObject(currentWeaponBanners[0].end)} />
+                                        {
+                                            currentWeaponBanners.map((banner, index) =>
+                                                <Box key={index} sx={{ mb: index !== currentWeaponBanners.length - 1 ? "20px" : 0 }}>
+                                                    <Grid container spacing={0.75}>
+                                                        {banner.fiveStars.map((item: string, index: number) => <DisplayCard key={index} type="weapon" name={item} rarity={!isTBA(item) ? 5 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
+                                                        {banner.fourStars.map((item: string, index: number) => <DisplayCard key={index} type="weapon" name={item} rarity={!isTBA(item) ? 4 : 1} disableLink={isTBA(item)} disableZoomOnHover={isTBA(item)} />)}
+                                                    </Grid>
+                                                    <Countdown date={createDateObject(banner.end)} />
+                                                </Box>
+                                            )
+                                        }
                                     </Grid>
                                 }
                             </Grid>
-                        </React.Fragment>
+                        </Fragment>
                         :
                         <Box>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -113,7 +126,7 @@ function CurrentBanners(props: any) {
                                     sx={{
                                         display: !loading && !activeBanners ? "block" : "none",
                                         fontFamily: theme.font.styled.family,
-                                        fontSize: "18px",
+                                        fontSize: "16px",
                                     }}
                                 >
                                     There are no active banners.
@@ -136,8 +149,4 @@ function CurrentBanners(props: any) {
 
 }
 
-const mapStateToProps = (state: RootState) => ({
-    banners: state.banners
-})
-
-export default connect(mapStateToProps)(CurrentBanners)
+export default CurrentBanners
