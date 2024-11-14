@@ -1,4 +1,4 @@
-import { WeaponData } from "../types/WeaponData"
+export type BaseATKScalingKeys = keyof typeof baseATKScaling
 
 export const baseATKScaling = {
     "47": [47, 122, 153, 232, 264, 303, 335, 374, 406, 445, 476, 516, 547, 587],
@@ -14,9 +14,11 @@ export const baseATKScaling = {
     "20": [20, 52, 65, 99, 112, 129, 142, 159, 172, 189]
 }
 
+export type SubStatsKeys = "ATK" | "Crit Rate" | "Crit DMG" | "HP" | "Energy Regen" | "DEF"
+
 type SubStatScaling = {
-    [level: string]: {
-        [key in WeaponData["stats"]["subStat"]]?: string[] // Make the keys optional
+    [atk: string]: {
+        [key in SubStatsKeys]?: string[] // Make the keys optional
     }
 }
 
