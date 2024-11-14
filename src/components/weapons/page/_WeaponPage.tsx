@@ -125,7 +125,7 @@ function WeaponPage() {
                                     m: "5px"
                                 }}
                             >
-                                <i>{description}</i>
+                                <i>{parse(description)}</i>
                             </Typography>
                         </Box>
                         <Box
