@@ -115,7 +115,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                     backgroundColor: `${theme.paper.backgroundColor}`,
                 }}
             >
-                <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Image
                         src={`elements/ui/${element}`}
                         alt={element}
