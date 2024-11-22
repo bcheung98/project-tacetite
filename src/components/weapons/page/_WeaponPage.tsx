@@ -145,8 +145,8 @@ function WeaponPage() {
                             <Typography sx={{ fontSize: "14.5px" }}>
                                 {parse(stats.passive.description)}
                             </Typography>
-                            <Box sx={{ display: "flex", alignItems: "center", width: "20%", mt: "15px" }}>
-                                <Typography sx={{ fontSize: "18px", fontFamily: `${theme.font.styled.family}`, color: `${theme.text.color}`, minWidth: "50px" }}>
+                            <Box sx={{ display: { xs: "block", md: "flex" }, alignItems: "center", width: "20%", mt: "15px" }}>
+                                <Typography sx={{ fontSize: "16px", fontFamily: `${theme.font.styled.family}`, color: `${theme.text.color}`, minWidth: "50px" }}>
                                     R{sliderValue}
                                 </Typography>
                                 <CustomSlider

@@ -47,7 +47,7 @@ function CharacterForteLevelUp({
     return (
         <Box sx={{ ml: { xs: "5px", sm: "30px" }, my: "10px" }}>
             <CharacterForteLevelUpMaterials materials={materials} values={sliderValue} />
-            <Box sx={{ display: { xs: "block", sm: "flex" }, alignItems: "center", width: "40%", mt: "10px" }}>
+            <Box sx={{ display: { xs: "block", md: "flex" }, alignItems: "center", width: "40%", mt: "10px" }}>
                 <Typography sx={{ color: theme.text.color, fontSize: "16px", minWidth: "125px" }}>
                     Lv. {sliderValue[0]} → Lv. {sliderValue[1]}
                 </Typography>
