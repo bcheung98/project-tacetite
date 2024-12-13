@@ -87,5 +87,10 @@ const linkItems = [
         icon: <Avatar variant="square" src="https://assets.irminsul.gg/main/game-icons/HSR.png" alt="hsr.irminsul.gg" sx={{ width: iconSize, height: iconSize, borderRadius: "5px" }} />,
         text: "Honkai: Star Rail",
         link: "https://hsr.irminsul.gg/"
-    }
+    },
+    {
+        icon: <Avatar variant="square" src="https://assets.irminsul.gg/main/game-icons/ZZZ.png" alt="zzz.irminsul.gg" sx={{ width: iconSize, height: iconSize, borderRadius: "5px" }} />,
+        text: "Zenless Zone Zero",
+        link: "https://zzz.irminsul.gg/"
+    },
 ]
