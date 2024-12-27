@@ -1,4 +1,7 @@
 export interface Version {
-    date?: string,
-    version: string
+    version: string;
+}
+
+export interface VersionWithDate extends Version {
+    date: string;
 }

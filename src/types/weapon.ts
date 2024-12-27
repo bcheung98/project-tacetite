@@ -1,24 +1,26 @@
-import { Materials } from "./materials"
-import { SkillWithScaling } from "./skill"
-import { Version } from "./version"
+import { WeaponBaseATK, WeaponSubStat } from "data/weaponStats";
+import { Rarity, WeaponType } from "./_common";
+import { Materials } from "./materials";
+import { SkillWithScaling } from "./skill";
+import { Version } from "./version";
 
 export interface WeaponProps {
-    weapon: Weapon
+    weapon: Weapon;
 }
 
 export interface Weapon {
-    name: string,
-    displayName?: string,
-    rarity: 5 | 4 | 3,
-    type: string,
-    stats: WeaponStats,
-    materials: Materials,
-    description: string,
-    release: Version
+    name: string;
+    displayName: string;
+    rarity: Rarity;
+    type: WeaponType;
+    stats: WeaponStats;
+    materials: Materials;
+    description: string;
+    release: Version;
 }
 
 export interface WeaponStats {
-    atk: string,
-    subStat: string,
-    passive: SkillWithScaling
+    atk: WeaponBaseATK;
+    subStat: WeaponSubStat;
+    passive: SkillWithScaling;
 }
