@@ -35,13 +35,14 @@ export interface Character {
 }
 
 export interface CharacterSkills {
-    attack: SkillWithScaling[];
-    skill: SkillWithScaling[];
-    ultimate: SkillWithScaling[];
-    forte: SkillWithScaling[];
-    passive: Skill[];
-    intro: SkillWithScaling[];
-    outro: Skill[];
+    attack: SkillWithScaling;
+    skill: SkillWithScaling;
+    ultimate: SkillWithScaling;
+    forte: SkillWithScaling;
+    passive1: Skill;
+    passive2: Skill;
+    intro: SkillWithScaling;
+    outro: Skill;
 }
 
 export interface CharacterResonanceChain {
