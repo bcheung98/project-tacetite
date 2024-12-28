@@ -41,7 +41,7 @@ function Image({
     const ext = src.match(/\.[0-9a-z]+$/i) ? "" : ".png";
 
     if (!src.startsWith("https")) {
-        src = `https://assets.irminsul.gg/zzz/${src
+        src = `https://assets.irminsul.gg/wuwa/${src
             .split(" ")
             .join("_")}${ext}`;
     }
@@ -61,7 +61,7 @@ function Image({
                 loading={loading}
                 style={imgStyle}
                 onError={(event: SyntheticEvent<HTMLImageElement, Event>) => {
-                    event.currentTarget.src = `https://assets.irminsul.gg/zzz/${fallbackSrc}.png`;
+                    event.currentTarget.src = `https://assets.irminsul.gg/wuwa/${fallbackSrc}.png`;
                     onerror = null;
                 }}
                 onClick={onClick}
