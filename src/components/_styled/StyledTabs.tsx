@@ -1,57 +1,45 @@
-import { styled } from "@mui/material/styles"
-import { Typography, Tabs, Tab, Box } from "@mui/material"
-import { TabsProps } from "@mui/material"
+import { styled, Tabs, Tab, Box, TabsProps, TabProps } from "@mui/material";
 
-export const TabPanel = (props: any) => {
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
 
-    const { children, value, index, ...other } = props
+export function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
     return (
-        <div
-            hidden={value !== index}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography component="span">{children}</Typography>
-                </Box>
-            )}
+        <div hidden={value !== index} {...other}>
+            {value === index && <Box sx={{ px: 3, py: 1.5 }}>{children}</Box>}
         </div>
-    )
+    );
 }
 
-interface CustomTabsProps extends TabsProps {
-    element?: string | undefined
-}
+export const StyledTabs = styled((props: TabsProps) => (
+    <Tabs
+        {...props}
+        TabIndicatorProps={{
+            children: <span className="MuiTabs-indicatorSpan" />,
+        }}
+    />
+))(({ theme }) => ({
+    "& .MuiTabs-indicator": {
+        display: "flex",
+        justifyContent: "center",
+        backgroundColor: "transparent",
+    },
+    "& .MuiTabs-indicatorSpan": {
+        width: "100%",
+        backgroundColor: theme.text.selected,
+    },
+}));
 
-export const StyledTabs = styled((props: CustomTabsProps) =>
-    <Tabs {...props} TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }} />
-)(
-    ({ theme }) => ({
-        "& .MuiTabs-indicator": {
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "transparent",
-        },
-        "& .MuiTabs-indicatorSpan": {
-            width: "100%",
-            backgroundColor: `${theme.text.highlight}`,
-        },
-    })
-)
-
-interface CustomTabProps {
-    label: string | any
-}
-
-export const StyledTab = styled((props: CustomTabProps) =>
+export const StyledTab = styled((props: TabProps) => (
     <Tab disableRipple {...props} />
-)(
-    ({ theme }) => ({
-        color: `${theme.text.color}`,
-        fontFamily: "Segoe UI, Roboto",
-        fontWeight: "bold",
-        "&.Mui-selected": {
-            color: `${theme.text.highlight}`,
-        },
-    }),
-)
+))(({ theme }) => ({
+    color: theme.text.primary,
+    "&.Mui-selected": {
+        color: theme.text.selected,
+    },
+}));

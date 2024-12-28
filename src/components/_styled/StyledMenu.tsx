@@ -1,18 +1,18 @@
-import { MenuItem } from "@mui/material"
-import { styled } from "@mui/material/styles"
+import { styled } from "@mui/material/styles";
+import { MenuItem } from "@mui/material";
 
-export const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
+export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     "&.MuiMenuItem-root": {
-        backgroundColor: `${theme.menu.backgroundColor}`,
-        color: `${theme.text.color}`,
+        backgroundColor: theme.menu.primary,
+        color: theme.text.primary,
         "&:hover": {
-            backgroundColor: `${theme.menu.hover}`,
+            backgroundColor: theme.menu.hover,
         },
         "&.Mui-selected": {
-            backgroundColor: `${theme.menu.selected}`,
+            backgroundColor: theme.menu.selected,
             "&:hover": {
-                backgroundColor: `${theme.menu.selectedHover}`,
+                backgroundColor: theme.menu.selectedHover,
             },
-        }
+        },
     },
-}))
+}));

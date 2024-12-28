@@ -1,79 +1,80 @@
-// Compnent imports
-import Image from "./Image"
+import React from "react";
+
+// Component imports
+import Image from "./Image";
+import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, SxProps, Box, Card, Typography } from "@mui/material"
+import { useTheme, Box } from "@mui/material";
 
 // Helper imports
-import { GetRarityColor } from "../../helpers/RarityColors"
+import { getRarityColor } from "helpers/rarityColors";
+
+// Type imports
+import { Rarity } from "types/_common";
 
 interface MaterialImageProps {
-    name: string,
-    rarity: number,
-    cost: string | number,
-    img: string,
-    size?: string
+    name: string;
+    rarity: Rarity;
+    cost: number;
+    imgSrc: string;
+    size?: string;
+    labelColor?: string;
 }
 
 function MaterialImage({
     name,
-    rarity = 1,
+    rarity,
     cost,
-    img,
-    size = "72px"
+    imgSrc,
+    size = "72px",
+    labelColor,
 }: MaterialImageProps) {
+    const theme = useTheme();
 
-    const theme = useTheme()
+    const cardStyle: React.CSSProperties = {
+        padding: "4px 4px 2px",
+        marginBottom: "4px",
+        backgroundColor: getRarityColor(rarity),
+        borderRadius: "12px",
+    };
 
-    const cardStyle: SxProps = {
-        width: size,
+    const imgStyle: React.CSSProperties = {
+        width: `calc(${size} - 8px)`,
         height: "auto",
-        background: `rgb(31, 31, 33)`,
-        borderRadius: "5px",
-        containerType: "inline-size",
-        overflow: "hidden"
-    }
+        padding: !imgSrc.endsWith(".gif") ? "4px" : "0px",
+        backgroundColor: theme.appbar.backgroundColor,
+        borderRadius: "12px",
+    };
 
-    const cardImageStyle: React.CSSProperties = {
-        width: size,
-        height: size,
-        padding: "5px",
-        // background: `linear-gradient(rgb(43, 45, 49) 85%, ${GetBackgroundColor(rarity, 0.75)} 100%)`,
-        backgroundSize: "contain",
-        backgroundImage: `url(${process.env.REACT_APP_URL}/backgrounds/Background_${rarity}_Star.png)`
-    }
+    const labelStyle: React.CSSProperties = {
+        display: "block",
+        fontSize:
+            cost.toLocaleString().length < 10
+                ? `calc(${size} / 6) !important`
+                : `calc(${size} / 7) !important`,
+        width: "100%",
+        margin: "auto",
+        borderRadius: "12px",
+        padding: "2px",
+        textAlign: "center",
+        backgroundColor: labelColor || theme.appbar.backgroundColor,
+        color: theme.appbar.color,
+    };
 
     return (
-        <Card sx={cardStyle} elevation={2}>
-            <Box sx={{ height: size, overflow: "hidden" }}>
+        <Box sx={{ width: size }}>
+            <Box sx={cardStyle}>
                 <Image
-                    src={`materials/${img}`}
+                    src={`materials/${imgSrc}`}
                     alt={name}
-                    style={cardImageStyle}
-                    tooltip={{ title: name }}
+                    style={imgStyle}
+                    tooltip={name}
                 />
             </Box>
-            <Box
-                sx={{
-                    borderTop: `2px solid ${GetRarityColor(rarity)}`,
-                    textAlign: "right",
-                    pr: "2px",
-                    py: "1px"
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: `rgb(208, 208, 208)`,
-                        fontFamily: `${theme.font.styled.family}`,
-                        fontSize: cost.toLocaleString().length < 11 ? `calc(${size} / 5)` : `calc(${size} / 6)`,
-                    }}
-                >
-                    {cost}
-                </Typography>
-            </Box>
-        </Card>
-    )
-
+            <TextStyled sx={labelStyle}>{cost.toLocaleString()}</TextStyled>
+        </Box>
+    );
 }
 
-export default MaterialImage
+export default MaterialImage;

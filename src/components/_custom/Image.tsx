@@ -1,29 +1,23 @@
-import React from "react"
+import { CSSProperties, SyntheticEvent } from "react";
 
 // Component imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
+import { StyledTooltip } from "styled/StyledTooltip";
 
 // MUI imports
-import { TooltipProps } from "@mui/material"
-
-const defaultImageStyle: React.CSSProperties = {
-    width: "auto",
-    height: "auto",
-    boxSizing: "border-box"
-}
+import { TooltipProps } from "@mui/material";
+import { combineStyles, zoomImageOnHover } from "helpers/utils";
 
 interface ImageProps {
-    src: string,
-    fallbackSrc?: string,
-    alt?: string,
-    id?: string,
-    loading?: "eager" | "lazy",
-    style?: React.CSSProperties,
-    tooltip?: {
-        title: React.ReactNode,
-        placement?: TooltipProps["placement"]
-    },
-    onClick?: () => void
+    src: string;
+    fallbackSrc?: string;
+    alt?: string;
+    id?: string;
+    loading?: "lazy" | "eager";
+    style?: CSSProperties;
+    tooltip?: React.ReactNode;
+    tooltipArrow?: TooltipProps["placement"];
+    zoomOnHover?: boolean;
+    onClick?: () => void;
 }
 
 function Image({
@@ -33,40 +27,49 @@ function Image({
     id = src,
     loading = "lazy",
     style,
-    tooltip,
-    onClick
+    tooltip = "",
+    tooltipArrow = "top",
+    zoomOnHover = false,
+    onClick,
 }: ImageProps) {
+    const defaultImageStyle: CSSProperties = {
+        width: "auto",
+        height: "auto",
+    };
 
-    const imgStyle = Object.assign({...defaultImageStyle}, style)
+    // If the src doesn't have a specified file extension (ex: `.gif`), append `.png` to the src
+    const ext = src.match(/\.[0-9a-z]+$/i) ? "" : ".png";
 
-    let tooltipTitle, tooltipPlacement
-    if (tooltip !== undefined) {
-        tooltipTitle = tooltip.title
-        if (tooltip.placement !== undefined) {
-            tooltipPlacement = tooltip.placement
-        }
-        else {
-            tooltipPlacement = "top" as TooltipProps["placement"]
-        }
+    if (!src.startsWith("https")) {
+        src = `https://assets.irminsul.gg/zzz/${src
+            .split(" ")
+            .join("_")}${ext}`;
     }
 
+    const imgStyle = combineStyles(defaultImageStyle, style);
+
+    const handleHover = (direction: "enter" | "leave") => {
+        zoomOnHover && zoomImageOnHover(direction, id);
+    };
+
     return (
-        <CustomTooltip title={tooltipTitle} arrow placement={tooltipPlacement}>
+        <StyledTooltip title={tooltip} arrow placement={tooltipArrow}>
             <img
-                src={`${process.env.REACT_APP_URL}/${src.split(" ").join("_")}.png`}
+                src={src}
                 alt={alt}
                 id={id}
                 loading={loading}
                 style={imgStyle}
-                onError={(e: any) => {
-                    e.target.src = `${process.env.REACT_APP_URL}/${fallbackSrc}.png`
-                    e.onError = null
+                onError={(event: SyntheticEvent<HTMLImageElement, Event>) => {
+                    event.currentTarget.src = `https://assets.irminsul.gg/zzz/${fallbackSrc}.png`;
+                    onerror = null;
                 }}
                 onClick={onClick}
+                onMouseEnter={() => handleHover("enter")}
+                onMouseLeave={() => handleHover("leave")}
             />
-        </CustomTooltip>
-    )
-
+        </StyledTooltip>
+    );
 }
 
-export default Image
+export default Image;

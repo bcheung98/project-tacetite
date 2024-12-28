@@ -1,19 +1,22 @@
-import { alpha, styled } from "@mui/material/styles"
-import { Switch } from "@mui/material"
-import { SwitchColor } from "../../helpers/ElementColors"
+import { alpha, styled, Switch } from "@mui/material";
 
-interface CustomSwitchProps {
-    element?: string
+interface StyledSwitchProps {
+    switchColor?: string;
 }
 
-export const CustomSwitch = styled(Switch)<CustomSwitchProps>(({ element }) => ({
+export const StyledSwitch = styled(Switch, {
+    shouldForwardProp: (prop) => prop !== "switchColor",
+})<StyledSwitchProps>(({ theme, switchColor }) => ({
     "& .MuiSwitch-switchBase.Mui-checked": {
-        color: `${SwitchColor(element)}`,
+        color: switchColor,
         "&:hover": {
-            backgroundColor: alpha(`${SwitchColor(element)}`, 0),
+            backgroundColor: alpha(
+                switchColor || theme.palette.primary.main,
+                0
+            ),
         },
     },
     "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-        backgroundColor: `${SwitchColor(element)}`,
+        backgroundColor: switchColor,
     },
-}))
+}));
