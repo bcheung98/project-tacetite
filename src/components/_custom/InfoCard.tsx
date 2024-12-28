@@ -7,14 +7,15 @@ import { StyledTooltip } from "styled/StyledTooltip";
 import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, SxProps, Box, Card } from "@mui/material";
+import { useTheme, SxProps, Box, Card, Stack } from "@mui/material";
 
 // Helper imports
-import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
+import { getRarityColor } from "helpers/rarityColors";
 import { zoomImageOnHover } from "helpers/utils";
 
 // Type imports
 import { Element, Rarity, WeaponType } from "types/_common";
+import { EchoCost, EchoSonata } from "types/echo";
 
 interface InfoCardProps {
     name: string;
@@ -28,7 +29,12 @@ interface InfoCardProps {
     info?: {
         element?: Element;
         weaponType?: WeaponType;
+        sonata?: EchoSonata[];
     };
+    infoSecondary?: {
+        cost?: EchoCost;
+    };
+    backgroundColor?: string;
     disableTooltip?: boolean;
     disableLink?: boolean;
     disableZoomOnHover?: boolean;
@@ -41,9 +47,11 @@ function InfoCard({
     type,
     rarity = 3,
     variant = "avatar",
-    size = variant === "avatar" ? "160px" : "64px",
+    size = variant === "avatar" ? "128px" : "64px",
     showName = variant === "avatar",
     info,
+    infoSecondary,
+    backgroundColor,
     disableTooltip = showName,
     disableLink = false,
     disableZoomOnHover = false,
@@ -52,59 +60,31 @@ function InfoCard({
 
     id = `${id.split(" ").join("")}-${variant}-displayCard`;
 
-    const aspectRatio = () => {
-        if (variant === "icon") {
-            return "1 / 1";
-        } else {
-            if (type === "character") {
-                return "752 / 1024";
-            } else {
-                return "1 / 1";
-            }
-        }
-    };
-
-    const backgroundColor = () => {
-        const baseBG = theme.displayCard.backgroundColor;
-        if (variant === "icon") {
-            return baseBG;
-        } else {
-            let gradient;
-            type === "character" ? (gradient = "50%") : (gradient = "75%");
-            return `linear-gradient(${baseBG} ${gradient}, ${getBackgroundColor(
-                rarity,
-                0.6
-            )} 100%)`;
-        }
-    };
-
-    const borderWidth = variant === "avatar" ? theme.displayCard.borderWidth : 2;
+    const borderWidth =
+        variant === "avatar" ? theme.displayCard.borderWidth : 2;
     const imgSize = `calc(${size} - ${borderWidth * 2}px)`;
 
     let imgSrc = "";
     if (type === "character") {
-        imgSrc = `characters/${variant}s/${name}`;
+        imgSrc = `characters/icons/${name}`;
     }
     if (type === "weapon") {
-        imgSrc = `w-engines/${name}`;
+        imgSrc = `weapons/${name}`;
     }
     if (type === "echo") {
-        imgSrc = `echo/${name}`;
+        imgSrc = `echoes/icons/${name}`;
     }
 
     let route;
     switch (type) {
         case "character":
-            route = "agents";
+            route = "resonators";
             break;
         case "weapon":
-            route = "w-engines";
+            route = "weapons";
             break;
-        case "drivedisc":
-            route = "drive-discs";
-            break;
-        case "bangboo":
-            route = "bangboos";
+        case "echo":
+            route = "echoes";
             break;
     }
     const href = !disableLink
@@ -119,100 +99,130 @@ function InfoCard({
         position: "relative",
         width: size,
         height: variant === "avatar" ? "auto" : size,
-        background: theme.displayCard.backgroundColor,
+        borderRadius: variant === "icon" ? "4px" : "16px",
+        background: theme.background(2),
+    };
+
+    const cardStyle: SxProps = {
         border: "solid",
         borderWidth: borderWidth,
         borderColor:
             variant === "avatar"
                 ? theme.border.color.primary
                 : getRarityColor(rarity),
-        borderRadius: "4px",
+        borderRadius: variant === "icon" ? "4px" : "16px",
+        backgroundColor: "transparent",
     };
 
     const mainImageStyle: React.CSSProperties = {
         width: imgSize,
-        height: variant === "avatar" ? "auto" : imgSize,
-        padding: variant === "avatar" && type !== "character" ? "16px" : "0px",
-        aspectRatio: aspectRatio(),
-        boxShadow:
-            variant === "icon"
-                ? `inset 0 0 32px 4px ${getBackgroundColor(rarity)}`
-                : "none",
+        height: imgSize,
+        backgroundColor: backgroundColor || theme.background(2),
+        backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
+        backgroundSize: "100%",
+        backgroundPosition: "center",
     };
 
     const smallIconStyle: React.CSSProperties = {
-        boxSizing: "border-box",
-        width: `calc(${size} / 10 + 14px)`,
-        height: `calc(${size} / 10 + 14px)`,
+        width: `calc(${size} / 8 + 12px)`,
+        height: `calc(${size} / 8 + 12px)`,
         minWidth: "16px",
         minHeight: "16px",
-        backgroundColor: theme.icon.backgroundColor,
-        border: `2px solid ${theme.border.color.primary}`,
-        borderRadius: "16px",
         padding: "4px",
     };
 
     return (
-        <Card sx={rootStyle}>
-            <StyledTooltip
-                title={!disableTooltip ? displayName : ""}
-                arrow
-                placement="top"
+        <Box sx={rootStyle}>
+            <Card
+                elevation={0}
+                sx={cardStyle}
+                onMouseEnter={() => handleHover("enter")}
+                onMouseLeave={() => handleHover("leave")}
             >
-                <Box
-                    sx={{ background: backgroundColor() }}
-                    onMouseEnter={() => handleHover("enter")}
-                    onMouseLeave={() => handleHover("leave")}
+                <StyledTooltip
+                    title={!disableTooltip ? displayName : ""}
+                    arrow
+                    placement="top"
                 >
-                    {info && (
-                        <Box
-                            sx={{
-                                display: "grid",
-                                position: "absolute",
-                                zIndex: 5,
-                                top: "10px",
-                                left: "10px",
-                            }}
-                        >
-                            {info.element !== undefined && (
+                    <Box sx={{ overflow: "clip" }}>
+                        <RouterLink to={href}>
+                            <Image
+                                src={imgSrc}
+                                alt={name}
+                                id={`${id}-img`}
+                                style={mainImageStyle}
+                            />
+                        </RouterLink>
+                    </Box>
+                </StyledTooltip>
+                {info && (
+                    <Stack
+                        sx={{
+                            position: "absolute",
+                            zIndex: 5,
+                            top: "-4%",
+                            left: "-12%",
+                            backgroundColor: theme.appbar.backgroundColor,
+                            borderRadius: "16px",
+                        }}
+                    >
+                        {info.element !== undefined && (
+                            <Image
+                                src={`elements/icons/${info.element}`}
+                                alt={info.element}
+                                style={smallIconStyle}
+                                tooltip={info.element}
+                            />
+                        )}
+                        {info.weaponType !== undefined && (
+                            <Image
+                                src={`weapons/icons/${info.weaponType}`}
+                                alt={info.weaponType}
+                                style={smallIconStyle}
+                                tooltip={info.weaponType}
+                            />
+                        )}
+                        {info.sonata !== undefined &&
+                            info.sonata.map((sonata) => (
                                 <Image
-                                    src={`elements/${info.element}`}
-                                    alt={info.element}
+                                    key={sonata}
+                                    src={`echoes/sonata/${sonata}`}
+                                    alt={sonata}
                                     style={smallIconStyle}
-                                    tooltip={info.element}
+                                    tooltip={sonata}
                                 />
-                            )}
-                            {info.element && info.weaponType && (
-                                <Box sx={{ my: "4px" }} />
-                            )}
-                            {info.weaponType !== undefined && (
-                                <Image
-                                    src={`specialties/${info.weaponType}`}
-                                    alt={info.weaponType}
-                                    style={smallIconStyle}
-                                    tooltip={info.weaponType}
-                                />
-                            )}
-                        </Box>
-                    )}
-                    <RouterLink to={href}>
-                        <Image
-                            src={imgSrc}
-                            alt={name}
-                            id={`${id}-img`}
-                            style={mainImageStyle}
-                        />
-                    </RouterLink>
+                            ))}
+                    </Stack>
+                )}
+                {infoSecondary && (
+                    <Stack
+                        sx={{
+                            position: "absolute",
+                            zIndex: 5,
+                            top: "-2%",
+                            right: "0",
+                            backgroundColor: theme.appbar.backgroundColor,
+                            borderRadius: "4px",
+                        }}
+                    >
+                        {infoSecondary.cost !== undefined && (
+                            <TextStyled
+                                sx={{
+                                    textAlign: "center",
+                                    width: `calc(${size} / 8 + 12px)`,
+                                }}
+                            >
+                                {infoSecondary.cost}
+                            </TextStyled>
+                        )}
+                    </Stack>
+                )}
+                {showName && (
                     <Box
                         sx={{
-                            position: "relative",
-                            mt:
-                                variant === "icon"
-                                    ? "0px"
-                                    : type === "character"
-                                    ? "0px"
-                                    : "24px",
-                            borderBottom:
+                            px: "8px",
+                            py: "12px",
+                            borderTop:
                                 variant === "icon"
                                     ? "none"
                                     : `calc(${size} / 25) solid ${getRarityColor(
@@ -220,32 +230,21 @@ function InfoCard({
                                       )}`,
                         }}
                     >
-                        <RouterLink
-                            to={href}
-                            sx={{
-                                position: "absolute",
-                                bottom: "50%",
-                                left: "50%",
-                                transform: "translate(-50%, 0%)",
-                                width: "90%",
-                            }}
-                        >
+                        <RouterLink to={href} sx={{ display: "block" }}>
                             <TextStyled
                                 sx={{
-                                    textShadow:
-                                        "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+                                    color: theme.text.primary,
                                     textAlign: "center",
-                                    mb: "4px",
-                                    color: "white",
                                 }}
+                                variant="body2-styled"
                             >
                                 {showName && displayName}
                             </TextStyled>
                         </RouterLink>
                     </Box>
-                </Box>
-            </StyledTooltip>
-        </Card>
+                )}
+            </Card>
+        </Box>
     );
 }
 
