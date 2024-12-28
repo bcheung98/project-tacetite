@@ -28,8 +28,8 @@ import {
 import { isRightDrawerOpen, toggleRightDrawer } from "reducers/layout";
 
 function CharacterBrowser() {
-    const documentTitle = `Agents ${import.meta.env.VITE_DOCUMENT_TITLE}`;
-    const documentDesc = `A list of all Zenless Zone Zero Agents`;
+    const documentTitle = `Resonators ${import.meta.env.VITE_DOCUMENT_TITLE}`;
+    const documentDesc = `A list of all Wuthering Waves Resonators`;
     document.title = documentTitle;
     document
         .querySelector('meta[property="og:title"]')
