@@ -12,11 +12,11 @@ import { useTheme } from "@mui/material";
 import { useAppSelector } from "helpers/hooks";
 import { selectServer } from "reducers/settings";
 import { createDateObject } from "helpers/dates";
-import { combineStyles, range } from "helpers/utils";
+import { combineStyles } from "helpers/utils";
 
 // Type imports
 import { CharacterRow } from "./CharacterTable";
-import { Variant } from "@mui/material/styles/createTypography";
+import RarityStars from "custom/RarityStars";
 
 interface CharacterTableRowProps extends CharacterRow {
     releaseDate: string;
@@ -44,15 +44,10 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
                 height: "auto",
                 cursor: "pointer",
             },
-            href: `/agents/${row.name.split(" ").join("_").toLowerCase()}`,
+            href: `/resonators/${row.name.split(" ").join("_").toLowerCase()}`,
         },
         {
-            label: range(row.rarity).map((_) => "✦"),
-            labelStyle: {
-                color: theme.text.star,
-                textShadow: "#e3721b 1px 1px 10px",
-            },
-            labelVariant: "h5-styled" as Variant,
+            label: <RarityStars rarity={row.rarity} variant="h4-styled" />,
         },
         {
             label: row.element,
@@ -107,9 +102,6 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
                                     }}
                                 >
                                     <TextStyled
-                                        variant={
-                                            col.labelVariant || "body1-styled"
-                                        }
                                         sx={combineStyles(
                                             { textAlign: "left" },
                                             col.labelStyle
@@ -120,7 +112,6 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
                                 </RouterLink>
                             ) : (
                                 <TextStyled
-                                    variant={col.labelVariant || "body1-styled"}
                                     sx={combineStyles(
                                         { textAlign: "left" },
                                         col.labelStyle
