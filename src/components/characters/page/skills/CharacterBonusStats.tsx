@@ -47,6 +47,7 @@ function CharacterBonusStats({
                                     element
                                 )}`,
                                 borderRadius: "64px",
+                                backgroundColor: theme.appbar.backgroundColor,
                             }}
                         />
                         <Box>

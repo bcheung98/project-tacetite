@@ -50,6 +50,7 @@ function CharacterPassive({
                                     element
                                 )}`,
                                 borderRadius: "64px",
+                                backgroundColor: theme.appbar.backgroundColor,
                             }}
                         />
                         <TextStyled variant="h6-styled">

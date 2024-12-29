@@ -22,14 +22,14 @@ function CharacterResonanceChain({ character }: CharacterProps) {
 
     return (
         <MainContentBox title="Resonance Chain">
-            <Grid container rowSpacing={2} columnSpacing={6}>
+            <Grid container spacing={3}>
                 {objectKeys(resonanceChain).map((key, index) => (
                     <Grid
                         key={key}
                         size={{ xs: 12, sm: 6, md: 4 }}
                         sx={{
                             p: 2,
-                            backgroundColor: theme.background(2),
+                            backgroundColor: theme.background(1, "light"),
                             border: theme.mainContentBox.border,
                             borderRadius: theme.mainContentBox.borderRadius,
                         }}
@@ -53,6 +53,8 @@ function CharacterResonanceChain({ character }: CharacterProps) {
                                         element
                                     )}`,
                                     borderRadius: "64px",
+                                    backgroundColor:
+                                        theme.appbar.backgroundColor,
                                 }}
                             />
                             <Box>
