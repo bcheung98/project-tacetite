@@ -41,7 +41,7 @@ function CharacterBonusStats({
                             style={{
                                 width: "36px",
                                 height: "36px",
-                                padding: "2px",
+                                padding: "4px",
                                 border: `2px solid ${getElementColor(
                                     theme,
                                     element

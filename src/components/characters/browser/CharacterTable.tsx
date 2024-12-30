@@ -55,7 +55,7 @@ function CharacterTable({ characters }: { characters: Character[] }) {
     return (
         <MainContentBox
             title={`${characters.length} ${
-                characters.length === 1 ? "Agent" : "Agents"
+                characters.length === 1 ? "Resonator" : "Resonators"
             }`}
             contentProps={{ padding: 0 }}
         >

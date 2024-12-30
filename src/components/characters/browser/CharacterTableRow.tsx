@@ -1,5 +1,6 @@
 // Component imports
 import Image from "custom/Image";
+import RarityStars from "custom/RarityStars";
 import RouterLink from "components/nav/RouterLink";
 import { StyledTableRow, StyledTableCell } from "styled/StyledTable";
 import { TextStyled } from "styled/StyledTypography";
@@ -16,7 +17,6 @@ import { combineStyles } from "helpers/utils";
 
 // Type imports
 import { CharacterRow } from "./CharacterTable";
-import RarityStars from "custom/RarityStars";
 
 interface CharacterTableRowProps extends CharacterRow {
     releaseDate: string;
@@ -69,16 +69,22 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
             {columns.map((col, index) => (
                 <StyledTableCell key={index} sx={{ maxWidth: "275px" }}>
                     <FlexBox columnGap="16px">
-                        {col.img && (
-                            <RouterLink
-                                to={col.href || ""}
-                                sx={{
-                                    cursor: col.href ? "pointer" : "default",
-                                    userSelect: col.href
-                                        ? "pointer"
-                                        : "default",
-                                }}
-                            >
+                        {col.img &&
+                            (col.href ? (
+                                <RouterLink to={col.href}>
+                                    <Image
+                                        src={col.img}
+                                        alt={col.label}
+                                        style={combineStyles(
+                                            {
+                                                width: "32px",
+                                                height: "32px",
+                                            },
+                                            col.imgStyle
+                                        )}
+                                    />
+                                </RouterLink>
+                            ) : (
                                 <Image
                                     src={col.img}
                                     alt={col.label}
@@ -90,17 +96,10 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
                                         col.imgStyle
                                     )}
                                 />
-                            </RouterLink>
-                        )}
+                            ))}
                         {col.label &&
                             (col.href ? (
-                                <RouterLink
-                                    to={col.href}
-                                    sx={{
-                                        cursor: "pointer",
-                                        userSelect: "pointer",
-                                    }}
-                                >
+                                <RouterLink to={col.href}>
                                     <TextStyled
                                         sx={combineStyles(
                                             { textAlign: "left" },

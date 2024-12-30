@@ -12,6 +12,7 @@ import { TextStyled } from "styled/StyledTypography";
 // MUI imports
 import { useTheme, useMediaQuery, Button, Drawer } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import ViewCompactIcon from "@mui/icons-material/ViewCompact";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -74,7 +75,7 @@ function CharacterBrowser() {
         setMobileDrawerOpen(false);
     };
 
-    type View = "icon" | "table";
+    type View = "icon" | "card" | "table";
     const [view, setView] = React.useState<View>("icon");
     const handleView = (_: React.BaseSyntheticEvent, newView: View) => {
         if (newView !== null) {
@@ -84,6 +85,10 @@ function CharacterBrowser() {
     const buttons: CustomToggleButtonProps[] = [
         {
             value: "icon",
+            icon: <ViewCompactIcon />,
+        },
+        {
+            value: "card",
             icon: <ViewModuleIcon />,
         },
         {
@@ -156,7 +161,7 @@ function CharacterBrowser() {
                 </Grid>
             </Grid>
             {view === "icon" && (
-                <Grid container spacing={3} sx={{ px: 2 }}>
+                <Grid container spacing={3}>
                     {currentCharacters.map((char) => (
                         <InfoCard
                             key={char.id}
@@ -169,6 +174,26 @@ function CharacterBrowser() {
                                 element: char.element,
                                 weaponType: char.weapon,
                             }}
+                        />
+                    ))}
+                </Grid>
+            )}
+            {view === "card" && (
+                <Grid container spacing={3}>
+                    {currentCharacters.map((char) => (
+                        <InfoCard
+                            key={char.id}
+                            variant="material-card"
+                            id={`${char.name}-characterBrowser`}
+                            name={char.name}
+                            displayName={char.fullName}
+                            type="character"
+                            rarity={char.rarity}
+                            info={{
+                                element: char.element,
+                                weaponType: char.weapon,
+                            }}
+                            materials={char.materials}
                         />
                     ))}
                 </Grid>

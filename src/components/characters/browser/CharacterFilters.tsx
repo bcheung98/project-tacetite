@@ -4,6 +4,7 @@ import React from "react";
 import Dropdown from "custom/Dropdown";
 import Image from "custom/Image";
 import ToggleButtons from "custom/ToggleButtons";
+import RarityStars from "custom/RarityStars";
 
 // MUI imports
 import { useTheme, List, IconButton, Toolbar, Button } from "@mui/material";
@@ -27,10 +28,16 @@ import {
     setWeapon,
     setWeeklyBossMat,
 } from "reducers/characterFilters";
-import { elements, weapons } from "data/common";
+import { elements, rarities, weapons } from "data/common";
 import { combatRoles } from "data/combatRoles";
-import { forgeryMaterials } from "data/materials/forgeryMaterials";
-import { commonMaterials } from "data/materials/commonMaterials";
+import {
+    forgeryMaterials,
+    formatForgeryMaterials,
+} from "data/materials/forgeryMaterials";
+import {
+    commonMaterials,
+    formatCommonMaterials,
+} from "data/materials/commonMaterials";
 import { ascensionMaterials } from "data/materials/ascensionMaterials";
 import {
     bossMatNames,
@@ -43,6 +50,7 @@ import {
 
 // Type imports
 import { Element, Rarity, WeaponType } from "types/_common";
+import { CombatRole } from "types/character";
 import {
     AscensionMaterial,
     BossMaterial,
@@ -50,8 +58,6 @@ import {
     ForgeryMaterialKeys,
     WeeklyBossMaterial,
 } from "types/materials";
-
-import { CombatRole } from "types/character";
 
 function CharacterFilters({
     handleClose,
@@ -69,7 +75,7 @@ function CharacterFilters({
             value: filters.element,
             onChange: (_: React.BaseSyntheticEvent, newValues: Element[]) =>
                 dispatch(setElement(newValues)),
-            buttons: createButtons<Element>(elements, "elements/icons"),
+            buttons: createButtons<Element>(elements, "elements"),
         },
         {
             name: "Weapon",
@@ -83,17 +89,17 @@ function CharacterFilters({
             value: filters.rarity,
             onChange: (_: React.BaseSyntheticEvent, newValues: Rarity[]) =>
                 dispatch(setRarity(newValues)),
-            buttons: createButtons<Rarity>([5, 4], "stars/"),
+            buttons: rarities.slice(0, -3).map((rarity) => ({
+                value: rarity,
+                label: <RarityStars rarity={rarity} variant="h6-styled" />,
+            })),
         },
         {
             name: "Combat Roles",
             value: filters.roles,
             onChange: (_: React.BaseSyntheticEvent, newValues: CombatRole[]) =>
                 dispatch(setRoles(newValues)),
-            buttons: createButtons<CombatRole>(
-                objectKeys(combatRoles),
-                "materials/forgery"
-            ),
+            buttons: createButtons<CombatRole>(objectKeys(combatRoles), "tags"),
         },
         {
             name: "Forgery Material",
@@ -128,7 +134,7 @@ function CharacterFilters({
             ) => dispatch(setAscensionMat(newValues)),
             buttons: createButtons<AscensionMaterial>(
                 ascensionMaterials,
-                "materials/forgery"
+                "materials/ascension"
             ),
         },
         {
@@ -139,7 +145,7 @@ function CharacterFilters({
                 newValues: BossMaterial[]
             ) => dispatch(setBossMat(newValues)),
             buttons: createButtons<BossMaterial>(
-                bossMatNames,
+                bossMatNames.slice(1),
                 "materials/boss"
             ),
         },
@@ -177,7 +183,6 @@ function CharacterFilters({
                 >
                     Reset
                 </Button>
-
                 <IconButton
                     onClick={handleClose}
                     sx={{ color: theme.appbar.color }}
@@ -203,7 +208,7 @@ function CharacterFilters({
                             value={filter.value}
                             onChange={filter.onChange}
                             spacing={4}
-                            padding={0}
+                            padding={"label" in filter.buttons[0] ? "0 8px" : 0}
                         />
                     </Dropdown>
                 ))}
@@ -218,9 +223,13 @@ function createButtons<T>(items: readonly T[], url: string) {
     const padding = url.startsWith("materials/") ? "0px" : "4px";
     return items.map((item) => ({
         value: item,
-        icon: (
+        icon: url && (
             <Image
-                src={`${url}/${item}`}
+                src={`${url}/${item}${
+                    ["materials/forgery", "materials/common"].includes(url)
+                        ? "4"
+                        : ""
+                }`}
                 alt={`${item}`}
                 style={{ width: "32px", padding: padding, borderRadius: "4px" }}
                 tooltip={getTooltip(item, url)}
@@ -232,11 +241,13 @@ function createButtons<T>(items: readonly T[], url: string) {
 function getTooltip<T>(item: T, url: string) {
     let tooltip;
     if (url.startsWith("materials/boss")) {
-        tooltip = `${formatBossMaterials(item as BossMaterial)}`;
+        tooltip = formatBossMaterials(item as BossMaterial);
     } else if (url.startsWith("materials/weekly")) {
-        tooltip = `${formatWeeklyBossMaterials(item as WeeklyBossMaterial)}`;
-    } else if (url.startsWith("ranks")) {
-        tooltip = "";
+        tooltip = formatWeeklyBossMaterials(item as WeeklyBossMaterial);
+    } else if (url.startsWith("materials/common")) {
+        tooltip = formatCommonMaterials(item as CommonMaterialKeys);
+    } else if (url.startsWith("materials/forgery")) {
+        tooltip = formatForgeryMaterials(item as ForgeryMaterialKeys);
     } else {
         tooltip = `${item}`;
     }

@@ -55,6 +55,7 @@ function CharacterSkills({ character }: CharacterProps) {
             width: "48px",
             height: "48px",
             margin: "4px 0",
+            padding: "4px",
             backgroundColor: theme.appbar.backgroundColor,
             borderWidth: selected ? "thick" : "3px",
             borderStyle: selected ? "double" : "solid",
