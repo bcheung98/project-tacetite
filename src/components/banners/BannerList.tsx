@@ -1,167 +1,342 @@
-import * as React from "react"
+import React from "react";
 
 // Component imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { CustomMenuItem } from "../_styled/StyledMenu"
-import SearchBar from "../_custom/SearchBar"
-import BannerRow from "./BannerRow"
+import Image from "custom/Image";
+import SearchBar from "custom/SearchBar";
+import { TextStyled } from "styled/StyledTypography";
+import { FlexBox } from "styled/StyledBox";
+import { StyledMenuItem } from "styled/StyledMenu";
+import { StyledSwitch } from "styled/StyledSwitch";
+import { StyledTooltip } from "styled/StyledTooltip";
+import SortTableHead, {
+    getComparator,
+    HeadColumn,
+    Order,
+} from "custom/SortTableHead";
 
 // MUI imports
-import { useTheme, useMediaQuery, Box, Table, TableBody, TableContainer, Paper, Autocomplete, Typography } from "@mui/material"
-import HelpIcon from "@mui/icons-material/Help"
+import {
+    useTheme,
+    Autocomplete,
+    Card,
+    IconButton,
+    TableContainer,
+    Table,
+    TableBody,
+    Stack,
+} from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
 
 // Helper imports
-import { EnhancedTableHead, getComparator, stableSort } from "../_custom/EnhancedTableHead"
-import { isTBA } from "../../helpers/isTBA"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+import { useAppSelector } from "helpers/hooks";
+import { selectCharacters } from "reducers/character";
+import { selectWeapons } from "reducers/weapon";
+import { selectCharacterBanners, selectWeaponBanners } from "reducers/banner";
+import { isTBA } from "helpers/utils";
+import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
 
 // Type imports
-import { Banner } from "../../types/banner"
-import { CustomSwitch } from "../_styled/StyledSwitch"
+import { Element, Rarity, WeaponType } from "types/_common";
+import { Banner } from "types/banner";
+import BannerListRow from "./BannerListRow";
 
-function BannerList(props: any) {
+interface BannerListProps {
+    type: "character" | "weapon";
+}
 
-    const theme = useTheme()
+function BannerList({ type }: BannerListProps) {
+    const theme = useTheme();
 
-    const matches = useMediaQuery(theme.breakpoints.down("md"))
+    const banners =
+        type === "character"
+            ? useAppSelector(selectCharacterBanners)
+            : useAppSelector(selectWeaponBanners);
 
-    let { type, banners } = props
+    const [rows, setRows] = React.useState<BannerRow[]>([]);
 
-    let URL = type === "character" ? "characters/icons" : "weapons"
+    const [values, setValue] = React.useState<BannerOption[]>([]);
+    const options = createOptions(banners, type);
 
-    const [rows, setRows] = React.useState<any[]>([])
-    const [values, setValue] = React.useState<string[]>([])
+    const [order, setOrder] = React.useState<Order>("desc");
+    const [orderBy, setOrderBy] = React.useState("subVersion");
 
-    const [order, setOrder] = React.useState("desc")
-    const [orderBy, setOrderBy] = React.useState("subVersion")
+    const handleRequestSort = (
+        _: React.BaseSyntheticEvent,
+        property: string
+    ) => {
+        const isAsc = orderBy === property && order === "asc";
+        setOrder(isAsc ? "desc" : "asc");
+        setOrderBy(property);
+    };
 
-    const handleRequestSort = (event: React.BaseSyntheticEvent, property: "asc" | "desc") => {
-        const isAsc = orderBy === property && order === "asc"
-        setOrder(isAsc ? "desc" : "asc")
-        setOrderBy(property)
-    }
-
-    const [selected, setSelected] = React.useState(true)
+    const [selected, setSelected] = React.useState(true);
     const handleSelect = () => {
-        setSelected(!selected)
-    }
-
-    const options = createOptions(banners)
+        setSelected(!selected);
+    };
 
     React.useEffect(() => {
-        setRows(filterBanners(banners, values, selected))
-    }, [banners, values, selected])
+        setRows(createBannerRows(banners, values, selected));
+    }, [banners, values, selected]);
+
+    const headColumns: HeadColumn[] = [{ id: "subVersion", label: "Version" }];
+
+    const smallIconStyle = { width: "20px", height: "20px" };
 
     return (
-        <Box>
+        <>
             <Autocomplete
                 multiple
                 autoComplete
-                options={options}
-                getOptionLabel={(option: string) => option}
                 filterSelectedOptions
-                noOptionsText={type === "character" ? "No Characters" : "No Weapons"}
+                options={options}
+                getOptionLabel={(option) => option.displayName}
+                filterOptions={(options, { inputValue }) =>
+                    options.filter(
+                        (option) =>
+                            option.name
+                                .toLocaleLowerCase()
+                                .includes(inputValue.toLocaleLowerCase()) ||
+                            option.displayName
+                                .toLocaleLowerCase()
+                                .includes(inputValue.toLocaleLowerCase())
+                    )
+                }
+                noOptionsText={
+                    type === "character" ? "No Resonators" : "No Weapons"
+                }
                 value={values}
-                onChange={(event: any, newValue: string[] | null) => {
-                    setValue(newValue as string[])
-                }}
-                ChipProps={{
-                    sx: {
-                        color: `${theme.text.color}`,
-                        fontFamily: `${theme.font.styled.family}`,
-                        backgroundColor: `${theme.button.selected}`,
-                        "& .MuiChip-deleteIcon": {
-                            color: `${theme.text.color}`,
-                            ":hover": {
-                                color: `${theme.text.colorAlt}`
-                            }
-                        },
-                    }
-                }}
-                ListboxProps={{
-                    sx: { backgroundColor: `${theme.paper.backgroundColor}` }
-                }}
+                isOptionEqualToValue={(option, value) =>
+                    option.name === value.name
+                }
+                onChange={(_: any, newValue: BannerOption[] | null) =>
+                    setValue(newValue as BannerOption[])
+                }
                 renderInput={(params) => (
-                    <SearchBar params={params} placeholder={type === "character" ? "Characters" : "Weapons"} />
+                    <SearchBar
+                        params={params}
+                        placeholder={
+                            type === "character" ? "Resonators" : "Weapons"
+                        }
+                        inputIcon={
+                            type === "character" ? (
+                                <Image
+                                    src="icons/Character"
+                                    alt="Resonators"
+                                    style={{
+                                        width: "32px",
+                                        marginLeft: "4px",
+                                        backgroundColor:
+                                            theme.appbar.backgroundColor,
+                                        borderRadius: "64px",
+                                    }}
+                                />
+                            ) : (
+                                <Image
+                                    src="icons/Weapon"
+                                    alt="Weapons"
+                                    style={{
+                                        width: "32px",
+                                        marginLeft: "4px",
+                                        backgroundColor:
+                                            theme.appbar.backgroundColor,
+                                        borderRadius: "64px",
+                                    }}
+                                />
+                            )
+                        }
+                    />
                 )}
                 renderOption={(props, option) => (
-                    <CustomMenuItem
+                    <StyledMenuItem
                         {...props}
-                        key={option}
+                        key={option.displayName}
+                        sx={{
+                            "&:hover": {
+                                backgroundColor: theme.menu.hover,
+                            },
+                            "&:not(:last-child)": {
+                                borderBottom: `1px solid ${theme.border.color.primary}`,
+                            },
+                        }}
                     >
-                        <Box sx={{ display: "flex", alignItems: "center", p: 0, width: "100%" }}>
-                            <img alt={option} src={`${process.env.REACT_APP_URL}/${URL}/${option.split(" ").join("_")}.png`} style={{ width: matches ? "42px" : "48px", marginRight: "20px" }} onError={ErrorLoadingImage} />
-                            <Typography noWrap sx={{ fontFamily: `${theme.font.styled.family}`, fontSize: { xs: "14px", md: "16px" }, color: `${theme.text.color}` }}>
-                                {option}
-                            </Typography>
-                        </Box>
-                    </CustomMenuItem>
+                        <Stack spacing={2} direction="row" alignItems="center">
+                            <Stack spacing={1}>
+                                {option.element && (
+                                    <Image
+                                        src={`elements/${option.element}`}
+                                        alt={option.element}
+                                        style={smallIconStyle}
+                                        tooltip={option.element}
+                                    />
+                                )}
+                                <Image
+                                    src={`weapons/icons/${option.weaponType}`}
+                                    alt={option.weaponType}
+                                    style={smallIconStyle}
+                                    tooltip={option.weaponType}
+                                />
+                            </Stack>
+                            <Stack
+                                spacing={2}
+                                direction="row"
+                                alignItems="center"
+                            >
+                                <Image
+                                    src={
+                                        type === "character"
+                                            ? `characters/icons/${option.name}`
+                                            : `weapons/${option.name}`
+                                    }
+                                    alt={option.name}
+                                    style={{
+                                        width: "48px",
+                                        height: "48px",
+                                        border: `2px solid ${getRarityColor(
+                                            option.rarity
+                                        )}`,
+                                        borderRadius:
+                                            theme.mainContentBox.borderRadius,
+                                        backgroundColor: theme.background(2),
+                                        boxShadow: `inset 0 0 24px 16px ${getBackgroundColor(
+                                            option.rarity
+                                        )}`,
+                                    }}
+                                />
+                                <TextStyled noWrap>
+                                    {option.displayName}
+                                </TextStyled>
+                            </Stack>
+                        </Stack>
+                    </StyledMenuItem>
                 )}
             />
-            <Box sx={{ display: "flex", alignItems: "center", my: "10px" }}>
-                <CustomSwitch checked={selected} onChange={handleSelect} sx={{ mt: "3px" }} />
-                <Typography sx={{ color: `${theme.text.color}`, fontFamily: `${theme.font.styled.family}`, fontSize: "13.5px" }}>
+            <FlexBox sx={{ my: "8px", height: "30px" }}>
+                <StyledSwitch
+                    checked={selected}
+                    onChange={handleSelect}
+                    sx={{ mt: "3px" }}
+                />
+                <TextStyled variant="body2-styled">
                     Toggle "AND" Filter
-                </Typography>
-                <CustomTooltip title="If toggled, will filter banners that only contain all selected items." arrow placement="top">
-                    <HelpIcon sx={{ color: `${theme.text.color}`, cursor: "pointer", mx: "10px" }} />
-                </CustomTooltip>
-            </Box>
-            <Paper
-                sx={{
-                    border: `2px solid ${theme.border.color}`,
-                    borderRadius: "5px",
-                    backgroundColor: `${theme.paper.backgroundColor}`,
-                    color: `${theme.text.color}`,
-                    overflow: "hidden"
-                }}
-            >
-                <TableContainer>
-                    <Table sx={{ backgroundColor: `${theme.table.header.backgroundColor}` }}>
-                        <EnhancedTableHead
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
-                            headCells={headCells}
-                        />
-                        <TableBody sx={{ backgroundColor: `${theme.paper.backgroundColor}` }}>
-                            {
-                                stableSort(rows, getComparator(order, orderBy))
-                                    .map((row, index) => <BannerRow type={type} key={index} row={row as unknown as Banner} />)
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Paper>
-        </Box>
-    )
+                </TextStyled>
+                <StyledTooltip
+                    title="If toggled, will filter banners that only contain all selected items."
+                    arrow
+                    placement="top"
+                >
+                    <IconButton disableRipple>
+                        <HelpIcon />
+                    </IconButton>
+                </StyledTooltip>
+            </FlexBox>
+            <TableContainer component={Card} sx={{ width: "100%" }}>
+                <Table>
+                    <SortTableHead
+                        order={order}
+                        orderBy={orderBy}
+                        onRequestSort={handleRequestSort}
+                        headColumns={headColumns}
+                    />
+                    <TableBody>
+                        {(rows as unknown as { [x: string]: string | number }[])
+                            .sort(getComparator(order, orderBy))
+                            .map((row, index) => (
+                                <BannerListRow
+                                    key={index}
+                                    type={type}
+                                    row={row as unknown as BannerRow}
+                                />
+                            ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
+    );
 }
 
-export default BannerList
+export default BannerList;
 
-const headCells = [
-    { id: "subVersion", label: "Version" },
-]
+interface BannerOption {
+    name: string;
+    displayName: string;
+    rarity: Rarity;
+    element?: Element;
+    weaponType: WeaponType;
+}
 
-const filterBanners = (banners: Banner[], searchValue: string[], unique: boolean) => {
-    if (searchValue.length > 0) {
-        banners = banners.filter((banner: Banner) => {
-            if (unique) {
-                return searchValue.every((item) => banner.fiveStars.concat(banner.fourStars).includes(item))
-            }
-            else {
-                return searchValue.some((item) => banner.fiveStars.concat(banner.fourStars).includes(item))
+function createOptions(banners: Banner[], type: "character" | "weapon") {
+    const options = [
+        ...new Set(
+            banners
+                .map((banner) => [...banner.fiveStars, ...banner.fourStars])
+                .flat()
+                .filter((item) => !isTBA(item))
+                .sort((a, b) => a.localeCompare(b))
+        ),
+    ];
+    return options
+        .map((option) => {
+            if (type === "character") {
+                const character = useAppSelector(selectCharacters).find(
+                    (char) => char.name === option
+                );
+                return {
+                    name: character?.name || "TBA",
+                    displayName: character?.fullName || "TBA",
+                    rarity: character?.rarity || 1,
+                    element: character?.element,
+                    weaponType: character?.weapon,
+                } as BannerOption;
+            } else {
+                const weapon = useAppSelector(selectWeapons).find(
+                    (wep) => wep.name === option
+                );
+                return {
+                    name: weapon?.name || "TBA",
+                    displayName: weapon?.displayName || "TBA",
+                    rarity: weapon?.rarity || 1,
+                    weaponType: weapon?.type,
+                } as BannerOption;
             }
         })
-    }
-    return banners
+        .sort((a, b) => a.displayName.localeCompare(b.displayName));
 }
 
-const createOptions = (banners: Banner[]) => {
-    return [...new Set(banners
-        .map((banner: Banner) => banner.fiveStars.concat(banner.fourStars))
-        .flat().filter((item: string) => !isTBA(item))
-        .sort((a: string, b: string) => a.localeCompare(b)))
-    ]
+export interface BannerRow {
+    version: string;
+    subVersion: string;
+    start: string;
+    end: string;
+    fiveStars: string;
+    fourStars: string;
+}
+
+function createBannerRows(
+    banners: Banner[],
+    searchValue: BannerOption[],
+    unique: boolean
+): BannerRow[] {
+    if (searchValue.length > 0) {
+        banners = banners.filter((banner) => {
+            function filterFn(item: BannerOption) {
+                return [...banner.fiveStars, ...banner.fourStars].includes(
+                    item.name
+                );
+            }
+            if (unique) {
+                return searchValue.every(filterFn);
+            } else {
+                return searchValue.some(filterFn);
+            }
+        });
+    }
+    const rows = banners.map((banner) => ({
+        version: banner.version,
+        subVersion: banner.subVersion,
+        start: banner.start,
+        end: banner.end,
+        fiveStars: JSON.stringify(banner.fiveStars),
+        fourStars: JSON.stringify(banner.fourStars),
+    }));
+    return rows;
 }
