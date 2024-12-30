@@ -8,14 +8,24 @@ import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
 import { useTheme, SxProps, Box, Card, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 // Helper imports
 import { getRarityColor } from "helpers/rarityColors";
 import { zoomImageOnHover } from "helpers/utils";
+import { formatBossMaterials } from "data/materials/bossMaterials";
+import { formatWeeklyBossMaterials } from "data/materials/weeklyBossMaterials";
+import { formatCommonMaterials } from "data/materials/commonMaterials";
 
 // Type imports
 import { Element, Rarity, WeaponType } from "types/_common";
 import { EchoCost, EchoSonata } from "types/echo";
+import {
+    BossMaterial,
+    CommonMaterialKeys,
+    Materials,
+    WeeklyBossMaterial,
+} from "types/materials";
 
 interface InfoCardProps {
     name: string;
@@ -23,7 +33,7 @@ interface InfoCardProps {
     id?: string;
     type: "character" | "weapon" | "echo";
     rarity?: Rarity;
-    variant?: "icon" | "avatar";
+    variant?: "icon" | "avatar" | "material-card";
     size?: string;
     showName?: boolean;
     info?: {
@@ -34,6 +44,7 @@ interface InfoCardProps {
     infoSecondary?: {
         cost?: EchoCost;
     };
+    materials?: Materials;
     backgroundColor?: string;
     disableTooltip?: boolean;
     disableLink?: boolean;
@@ -48,21 +59,24 @@ function InfoCard({
     rarity = 3,
     variant = "avatar",
     size = variant === "avatar" ? "128px" : "64px",
-    showName = variant === "avatar",
+    showName = variant !== "icon",
     info,
     infoSecondary,
+    materials,
     backgroundColor,
     disableTooltip = showName,
     disableLink = false,
-    disableZoomOnHover = false,
+    disableZoomOnHover = variant === "material-card",
 }: InfoCardProps) {
     const theme = useTheme();
 
     id = `${id.split(" ").join("")}-${variant}-displayCard`;
 
-    const borderWidth =
-        variant === "avatar" ? theme.displayCard.borderWidth : 2;
-    const imgSize = `calc(${size} - ${borderWidth * 2}px)`;
+    const borderWidth = variant !== "icon" ? theme.displayCard.borderWidth : 2;
+    const imgSize =
+        variant !== "material-card"
+            ? `calc(${size} - ${borderWidth * 2}px)`
+            : "96px";
 
     let imgSrc = "";
     if (type === "character") {
@@ -97,17 +111,17 @@ function InfoCard({
 
     const rootStyle: SxProps = {
         position: "relative",
-        width: size,
-        height: variant === "avatar" ? "auto" : size,
+        width: variant !== "material-card" ? size : "auto",
+        height: variant !== "icon" ? "auto" : size,
         borderRadius: variant === "icon" ? "4px" : "16px",
-        background: theme.background(2),
+        backgroundColor: theme.appbar.backgroundColor,
     };
 
     const cardStyle: SxProps = {
         border: "solid",
         borderWidth: borderWidth,
         borderColor:
-            variant === "avatar"
+            variant !== "icon"
                 ? theme.border.color.primary
                 : getRarityColor(rarity),
         borderRadius: variant === "icon" ? "4px" : "16px",
@@ -124,10 +138,10 @@ function InfoCard({
     };
 
     const smallIconStyle: React.CSSProperties = {
-        width: `calc(${size} / 8 + 12px)`,
-        height: `calc(${size} / 8 + 12px)`,
-        minWidth: "16px",
-        minHeight: "16px",
+        width: `calc(${imgSize} / 8 + 12px)`,
+        height: `calc(${imgSize} / 8 + 12px)`,
+        minWidth: "28px",
+        minHeight: "28px",
         padding: "4px",
     };
 
@@ -144,7 +158,14 @@ function InfoCard({
                     arrow
                     placement="top"
                 >
-                    <Box sx={{ overflow: "clip" }}>
+                    <Box
+                        sx={{
+                            overflow: "clip",
+                            width:
+                                variant === "material-card" ? "256px" : "auto",
+                            display: "flex",
+                        }}
+                    >
                         <RouterLink to={href}>
                             <Image
                                 src={imgSrc}
@@ -153,6 +174,9 @@ function InfoCard({
                                 style={mainImageStyle}
                             />
                         </RouterLink>
+                        {variant === "material-card" && materials && (
+                            <MaterialGrid materials={materials} />
+                        )}
                     </Box>
                 </StyledTooltip>
                 {info && (
@@ -160,15 +184,15 @@ function InfoCard({
                         sx={{
                             position: "absolute",
                             zIndex: 5,
-                            top: "-4%",
-                            left: "-12%",
+                            top: "-4px",
+                            left: "-12px",
                             backgroundColor: theme.appbar.backgroundColor,
                             borderRadius: "16px",
                         }}
                     >
                         {info.element !== undefined && (
                             <Image
-                                src={`elements/icons/${info.element}`}
+                                src={`elements/${info.element}`}
                                 alt={info.element}
                                 style={smallIconStyle}
                                 tooltip={info.element}
@@ -208,6 +232,7 @@ function InfoCard({
                         {infoSecondary.cost !== undefined && (
                             <TextStyled
                                 sx={{
+                                    color: theme.appbar.color,
                                     textAlign: "center",
                                     width: `calc(${size} / 8 + 12px)`,
                                 }}
@@ -220,23 +245,28 @@ function InfoCard({
                 {showName && (
                     <Box
                         sx={{
-                            px: "8px",
-                            py: "12px",
+                            display: "flex",
+                            p: "8px",
+                            backgroundColor: theme.appbar.backgroundColor,
                             borderTop:
                                 variant === "icon"
                                     ? "none"
-                                    : `calc(${size} / 25) solid ${getRarityColor(
+                                    : `calc(${imgSize} / 25) solid ${getRarityColor(
                                           rarity
                                       )}`,
                         }}
                     >
-                        <RouterLink to={href} sx={{ display: "block" }}>
+                        <RouterLink to={href} sx={{ mx: "auto" }}>
                             <TextStyled
                                 sx={{
-                                    color: theme.text.primary,
+                                    color: theme.appbar.color,
                                     textAlign: "center",
                                 }}
-                                variant="body2-styled"
+                                variant={
+                                    variant === "material-card"
+                                        ? "body1-styled"
+                                        : "body2-styled"
+                                }
                             >
                                 {showName && displayName}
                             </TextStyled>
@@ -249,3 +279,48 @@ function InfoCard({
 }
 
 export default InfoCard;
+
+function MaterialGrid({ materials }: { materials: Materials }) {
+    const theme = useTheme();
+
+    const { forgeryMat, commonMat, ascensionMat, bossMat, weeklyBossMat } =
+        materials;
+
+    const images = [
+        { src: `materials/forgery/${forgeryMat}4`, tag: forgeryMat },
+        {
+            src: `materials/boss/${bossMat}`,
+            tag: formatBossMaterials(bossMat as BossMaterial),
+        },
+        {
+            src: `materials/weekly/${weeklyBossMat}`,
+            tag: formatWeeklyBossMaterials(weeklyBossMat as WeeklyBossMaterial),
+        },
+        {
+            src: `materials/common/${commonMat}4`,
+            tag: formatCommonMaterials(commonMat as CommonMaterialKeys),
+        },
+        { src: `materials/ascension/${ascensionMat}`, tag: ascensionMat },
+    ];
+
+    return (
+        <Box sx={{ px: "16px", py: "8px", height: "96px" }}>
+            <Grid container spacing={1}>
+                {images.map((img) => (
+                    <Image
+                        key={img.tag}
+                        src={img.src}
+                        alt={img.tag}
+                        style={{
+                            width: "36px",
+                            border: `1px solid ${theme.border.color.primary}`,
+                            borderRadius: "4px",
+                            backgroundColor: theme.icon.backgroundColor,
+                        }}
+                        tooltip={img.tag}
+                    />
+                ))}
+            </Grid>
+        </Box>
+    );
+}

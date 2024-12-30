@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 // Component imports
 import CharacterFilters from "components/characters/browser/CharacterFilters";
 import WeaponFilters from "components/weapons/browser/WeaponFilters";
+import EchoFilters from "components/echoes/browser/EchoFilters";
 
 // MUI imports
 import {
@@ -18,7 +19,6 @@ import {
 
 // Helper imports
 import { useAppDispatch, useAppSelector } from "helpers/hooks";
-
 import { isRightDrawerOpen, toggleRightDrawer } from "reducers/layout";
 
 const width = 320; // px
@@ -36,15 +36,19 @@ function RightHandDrawer() {
 
     const location = useLocation().pathname;
     const isOpen =
-        ["/agents/", "/w-engines/"].includes(location) && matches_md_up;
+        ["/resonators/", "/weapons/", "/echoes/"].includes(location) &&
+        matches_md_up;
 
     let component: React.ReactNode;
     switch (location) {
-        case "/agents/":
+        case "/resonators/":
             component = <CharacterFilters handleClose={handleDrawerClose} />;
             break;
-        case "/w-engines/":
+        case "/weapons/":
             component = <WeaponFilters handleClose={handleDrawerClose} />;
+            break;
+        case "/echoes/":
+            component = <EchoFilters handleClose={handleDrawerClose} />;
             break;
         default:
             component = null;
