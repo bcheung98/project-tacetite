@@ -1,16 +1,21 @@
 body {
     margin: 0;
-    background-color: rgb(26, 22, 24);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
+    background-color: rgb(23, 46, 98);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
+}
+
+ul {
+    margin: 0;
+    padding-left: 16px;
 }
 
 ::-webkit-scrollbar {
@@ -28,46 +33,4 @@ code {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(141, 127, 114);
-}
-
-.text-header {
-    color: #eec477;
-    font-weight: bold;
-}
-
-.text-highlight,
-.text-refinement {
-    color: #f7ca2f;
-    font-weight: bold;
-}
-
-.text-aero {
-    color: #55ffb5;
-    font-weight: bold;
-}
-
-.text-electro {
-    color: #ac70f1;
-    font-weight: bold;
-}
-
-.text-fusion {
-    color: #f0744e;
-    font-weight: bold;
-}
-
-.text-glacio {
-    color: #49abf7;
-    font-weight: bold;
-}
-
-/* #f11f81 */
-.text-havoc {
-    color: #c989b1;
-    font-weight: bold;
-}
-
-.text-spectro {
-    color: #fae56c;
-    font-weight: bold;
 }
