@@ -12,7 +12,7 @@ import { TextStyled } from "styled/StyledTypography";
 // MUI imports
 import { useTheme, useMediaQuery, Button, Drawer } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import ViewCompactIcon from "@mui/icons-material/ViewCompact";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -84,7 +84,7 @@ function EchoBrowser() {
     const buttons: CustomToggleButtonProps[] = [
         {
             value: "icon",
-            icon: <ViewModuleIcon />,
+            icon: <ViewCompactIcon />,
         },
         {
             value: "table",
@@ -156,7 +156,7 @@ function EchoBrowser() {
                 </Grid>
             </Grid>
             {view === "icon" && (
-                <Grid container spacing={3} sx={{ px: 2 }}>
+                <Grid container spacing={3}>
                     {currentEchoes.map((echo, index) => (
                         <InfoCard
                             key={index}
