@@ -1,3 +1,5 @@
+import { CommonMaterialKeys } from "types/materials";
+
 export const commonMaterials = {
     "Howler Core": {
         "Howler Core1": "LF Howler Core",
@@ -25,4 +27,9 @@ export const commonMaterials = {
         "Whisperin Core3": "HF Whisperin Core",
         "Whisperin Core4": "FF Whisperin Core",
     },
+};
+
+export const formatCommonMaterials = (material: CommonMaterialKeys): string => {
+    const mat = commonMaterials[material];
+    return mat[`${material}0` as keyof typeof mat] || material;
 };

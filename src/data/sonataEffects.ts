@@ -1,19 +1,19 @@
 export const sonataEffects = {
-    "Freezing Frost": {
-        "2pc": "<span class=\"text-glacio\">Glacio DMG</span> +10%.",
-        "5pc": "<span class=\"text-glacio\">Glacio DMG</span> +10% after releasing Basic Attack or Heavy Attack. This effect stacks up to 3 times, each stack lasts 15s."
-    },
     "Molten Rift": {
         "2pc": "<span class=\"text-fusion\">Fusion DMG</span> +10%.",
         "5pc": "<span class=\"text-fusion\">Fusion DMG</span> + 30% for 15s after releasing Resonance Skill."
     },
-    "Void Thunder": {
-        "2pc": "<span class=\"text-electro\">Electro DMG</span> +10%.",
-        "5pc": "<span class=\"text-electro\">Electro DMG</span> +15% after releasing Heavy Attack or Resonance Skill. This effect stacks up to 2 times, each stack lasts 15s."
+    "Freezing Frost": {
+        "2pc": "<span class=\"text-glacio\">Glacio DMG</span> +10%.",
+        "5pc": "<span class=\"text-glacio\">Glacio DMG</span> +10% after releasing Basic Attack or Heavy Attack. This effect stacks up to 3 times, each stack lasts 15s."
     },
     "Sierra Gale": {
         "2pc": "<span class=\"text-aero\">Aero DMG</span> +10%",
         "5pc": "<span class=\"text-aero\">Aero DMG</span> +30% for 15s after releasing Intro Skill."
+    },
+    "Void Thunder": {
+        "2pc": "<span class=\"text-electro\">Electro DMG</span> +10%.",
+        "5pc": "<span class=\"text-electro\">Electro DMG</span> +15% after releasing Heavy Attack or Resonance Skill. This effect stacks up to 2 times, each stack lasts 15s."
     },
     "Celestial Light": {
         "2pc": "<span class=\"text-spectro\">Spectro DMG</span> + 10%.",

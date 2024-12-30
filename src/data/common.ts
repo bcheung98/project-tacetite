@@ -1,3 +1,5 @@
+import { objectKeys } from "helpers/utils";
+
 export const elements = [
     "Fusion",
     "Glacio",
@@ -11,15 +13,29 @@ export const weapons = [
     "Sword",
     "Broadblade",
     "Gauntlet",
-    "Pistol",
+    "Pistols",
     "Rectifier",
 ] as const;
 
 export const rarities = [5, 4, 3, 2, 1] as const;
 
-export enum EchoRarityMap {
-    Common = 2,
-    Elite,
-    Overlord,
-    Calamity,
-}
+export const echoes = <const>{
+    Calamity: {
+        rarity: 5,
+        cost: 4,
+    },
+    Overlord: {
+        rarity: 4,
+        cost: 4,
+    },
+    Elite: {
+        rarity: 3,
+        cost: 3,
+    },
+    Common: {
+        rarity: 2,
+        cost: 1,
+    },
+};
+
+export const echoClasses = objectKeys(echoes);

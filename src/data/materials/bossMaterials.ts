@@ -52,5 +52,9 @@ export const bossMatNames = objectKeys(bossMaterials);
 
 export const formatBossMaterials = (material: BossMaterial) => {
     const mat = bossMaterials[material] || { displayName: "", source: "?" };
-    return `${mat.displayName} (${mat.source})`;
+    if (material === "Mysterious Code") {
+        return mat.displayName;
+    } else {
+        return `${mat.displayName} (${mat.source})`;
+    }
 };
