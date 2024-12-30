@@ -1,4 +1,4 @@
-import { EchoRarityMap } from "data/common";
+import { echoes } from "data/common";
 import { sonataEffects } from "data/sonataEffects";
 import { Version } from "./version";
 
@@ -22,7 +22,7 @@ export interface Echo {
     release: Version;
 }
 
-export type EchoClass = keyof typeof EchoRarityMap;
+export type EchoClass = keyof typeof echoes;
 export type EchoCost = 4 | 3 | 1;
 
 export interface EchoSkill {

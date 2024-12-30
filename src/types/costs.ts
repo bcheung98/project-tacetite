@@ -1,12 +1,13 @@
+import { characterLevel, characterSkill, weaponLevel } from "data/levelUpCosts";
 import { NestedKeyOf } from "./_common";
 import { Character } from "./character";
+import { Weapon } from "./weapon";
 import {
     AscensionMaterial,
     BossMaterial,
     CharacterXPMaterial,
     CommonMaterial,
     ForgeryMaterial,
-    Materials,
     WeaponXPMaterial,
     WeeklyBossMaterial,
 } from "./materials";
@@ -19,7 +20,12 @@ export interface CostNumber {
     [material: string]: number;
 }
 
-export type CostObjectKeys = NestedKeyOf<TotalCostObject>;
+export type CostObjectKeys =
+    | NestedKeyOf<TotalCostObject>
+    | keyof ReturnType<typeof characterLevel>
+    | keyof typeof characterSkill
+    | keyof ReturnType<typeof weaponLevel>
+    | "Credit";
 
 export type TotalCostObjectKeys = keyof TotalCostObject;
 
@@ -44,7 +50,7 @@ export enum CostObjectSourceIndex {
     attack,
     skill,
     ultimate,
-    forte,
+    circuit,
     intro,
     passive1,
     passive2,
@@ -77,23 +83,19 @@ export interface CharacterCost {
 export interface CharacterCostObject
     extends Pick<
         Character,
-        "name" | "displayName" | "fullName" | "rarity" | "element" | "weapon"
+        "name" | "fullName" | "rarity" | "element" | "weapon"
     > {
     costs: CharacterCost;
 }
 
-export interface WeaponCostObject {
-    name: string;
-    displayName?: string;
-    rarity: number;
-    type: string;
-    materials: Materials;
-    costs: WeaponCost;
-}
-
 export interface WeaponCost {
     credits: Record<"Credit", number>;
-    weaponXP: Record<CharacterXPMaterial, number>;
+    weaponXP: Record<WeaponXPMaterial, number>;
     forgeryMat: Record<ForgeryMaterial, number>;
     commonMat: Record<CommonMaterial, number>;
+}
+
+export interface WeaponCostObject
+    extends Pick<Weapon, "name" | "displayName" | "rarity" | "type"> {
+    costs: WeaponCost;
 }

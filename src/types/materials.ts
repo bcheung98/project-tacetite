@@ -12,15 +12,20 @@ import { weeklyBossMaterials } from "data/materials/weeklyBossMaterials";
 export type CharacterXPMaterial = keyof typeof characterXPMaterials;
 export type WeaponXPMaterial = keyof typeof weaponXPMaterials;
 
+export type ForgeryMaterialKeys = keyof typeof forgeryMaterials;
 export type ForgeryMaterial = NestedKeyOf<typeof forgeryMaterials>;
+
+export type CommonMaterialKeys = keyof typeof commonMaterials;
 export type CommonMaterial = NestedKeyOf<typeof commonMaterials>;
+
 export type AscensionMaterial = (typeof ascensionMaterials)[number];
+
 export type BossMaterial = keyof typeof bossMaterials;
 export type WeeklyBossMaterial = keyof typeof weeklyBossMaterials;
 
 export interface Materials {
-    forgeryMat?: ForgeryMaterial;
-    commonMat?: CommonMaterial;
+    forgeryMat?: ForgeryMaterialKeys;
+    commonMat?: CommonMaterialKeys;
     ascensionMat?: AscensionMaterial;
     bossMat?: BossMaterial;
     weeklyBossMat?: WeeklyBossMaterial;

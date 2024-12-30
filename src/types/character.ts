@@ -1,8 +1,9 @@
-import { combatRoles } from "data/combatRoles";
 import { Element, Rarity, WeaponType } from "./_common";
 import { CharacterMaterials } from "./materials";
 import { Skill, SkillWithScaling } from "./skill";
 import { VersionWithDate } from "./version";
+import { characterBonusStats } from "data/characterBonusStats";
+import { combatRoles } from "data/combatRoles";
 
 export interface CharacterProps {
     character: Character;
@@ -20,7 +21,7 @@ export interface Character {
     skills: CharacterSkills;
     resonanceChain: CharacterResonanceChain;
     stats: CharacterStats;
-    bonusStats: string[];
+    bonusStats: CharacterBonusStats;
     combatRoles: CombatRole[];
     materials: CharacterMaterials;
     description: string;
@@ -34,11 +35,17 @@ export interface Character {
     release: VersionWithDate;
 }
 
+export type CharacterSkillKeyFull = keyof CharacterSkills;
+export type CharacterSkillKey = Exclude<
+    CharacterSkillKeyFull,
+    "passive1" | "passive2"
+>;
+
 export interface CharacterSkills {
     attack: SkillWithScaling;
     skill: SkillWithScaling;
     ultimate: SkillWithScaling;
-    forte: SkillWithScaling;
+    circuit: SkillWithScaling;
     passive1: Skill;
     passive2: Skill;
     intro: SkillWithScaling;
@@ -59,5 +66,8 @@ export interface CharacterStats {
     atk: number[][];
     def: number[][];
 }
+
+export type BonusStat = keyof typeof characterBonusStats;
+export type CharacterBonusStats = [BonusStat, BonusStat];
 
 export type CombatRole = keyof typeof combatRoles;
