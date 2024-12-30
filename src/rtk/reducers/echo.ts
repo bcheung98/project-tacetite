@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { startAppListening } from "helpers/hooks";
 import { fetchEchoes, LoadingStatus } from "rtk/fetchData";
 import { RootState } from "rtk/store";
 import { Echo } from "types/echo";
 
-export interface EchoeState {
+export interface EchoState {
     status: LoadingStatus;
     echoes: Echo[];
 }
 
-const initialState: EchoeState = {
+const storedEchoes = localStorage.getItem("data/echoes") || "null";
+
+const initialState: EchoState = {
     status: "idle",
-    echoes: [],
+    echoes: storedEchoes !== "null" ? JSON.parse(storedEchoes) : [],
 };
 
 export const characterSlice = createSlice({
@@ -22,7 +25,9 @@ export const characterSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchEchoes.fulfilled, (state, action) => {
-            state.echoes = action.payload;
+            if (JSON.stringify(action.payload) !== storedEchoes) {
+                state.echoes = action.payload;
+            }
             state.status = "success";
         });
         builder.addCase(fetchEchoes.rejected, (state) => {
@@ -34,3 +39,13 @@ export const characterSlice = createSlice({
 export const selectEchoes = (state: RootState): Echo[] => state.echoes.echoes;
 
 export default characterSlice.reducer;
+
+startAppListening({
+    actionCreator: fetchEchoes.fulfilled,
+    effect: (action) => {
+        const data = JSON.stringify(action.payload);
+        if (data !== storedEchoes) {
+            localStorage.setItem("data/echoes", data);
+        }
+    },
+});

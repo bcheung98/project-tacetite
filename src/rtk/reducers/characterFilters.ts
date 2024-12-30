@@ -103,6 +103,7 @@ export const {
     setAscensionMat,
     setBossMat,
     setWeeklyBossMat,
+    clearFilters,
 } = characterFilterSlice.actions;
 
 export const selectCharacterFilters = (

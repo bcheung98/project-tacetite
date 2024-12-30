@@ -12,7 +12,7 @@ export interface EchoFilterState {
 const initialState: EchoFilterState = {
     class: [],
     sonata: [],
-    uniqueSonata: false,
+    uniqueSonata: true,
 };
 
 export type EchoFilterKeys = keyof Omit<EchoFilterState, "uniqueSonata">;
@@ -27,13 +27,26 @@ export const echoFilterSlice = createSlice({
         setSonata: (state, action: PayloadAction<EchoSonata[]>) => {
             state.sonata = action.payload;
         },
-        setUniqueSonata: (state, action: PayloadAction<boolean>) => {
-            state.uniqueSonata = action.payload;
+        toggleUniqueSonata: (state) => {
+            state.uniqueSonata = !state.uniqueSonata;
+        },
+        clearFilters: (
+            state,
+            action: PayloadAction<
+                Exclude<keyof EchoFilterState, "uniqueSonata"> | undefined
+            >
+        ) => {
+            if (!action.payload) {
+                return initialState;
+            } else {
+                state[action.payload] = [];
+            }
         },
     },
 });
 
-export const { setClass, setSonata, setUniqueSonata } = echoFilterSlice.actions;
+export const { setClass, setSonata, toggleUniqueSonata, clearFilters } =
+    echoFilterSlice.actions;
 
 export const selectEchoFilters = (state: RootState): EchoFilterState =>
     state.echoFilters;

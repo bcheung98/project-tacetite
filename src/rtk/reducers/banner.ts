@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { startAppListening } from "helpers/hooks";
 import {
     fetchCharacterBanners,
     fetchWeaponBanners,
@@ -13,10 +14,18 @@ export interface BannerState {
     weaponBanners: Banner[];
 }
 
+const storedCharacterBanners =
+    localStorage.getItem("banners/character") || "null";
+const storedWeaponBanners = localStorage.getItem("banners/weapon") || "null";
+
 const initialState: BannerState = {
     status: "idle",
-    characterBanners: [],
-    weaponBanners: [],
+    characterBanners:
+        storedCharacterBanners !== "null"
+            ? JSON.parse(storedCharacterBanners)
+            : [],
+    weaponBanners:
+        storedWeaponBanners !== "null" ? JSON.parse(storedWeaponBanners) : [],
 };
 
 export const bannerSlice = createSlice({
@@ -28,7 +37,9 @@ export const bannerSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchCharacterBanners.fulfilled, (state, action) => {
-            state.characterBanners = action.payload;
+            if (JSON.stringify(action.payload) !== storedCharacterBanners) {
+                state.characterBanners = action.payload;
+            }
             state.status = "success";
         });
         builder.addCase(fetchCharacterBanners.rejected, (state) => {
@@ -38,7 +49,9 @@ export const bannerSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchWeaponBanners.fulfilled, (state, action) => {
-            state.weaponBanners = action.payload;
+            if (JSON.stringify(action.payload) !== storedWeaponBanners) {
+                state.weaponBanners = action.payload;
+            }
             state.status = "success";
         });
         builder.addCase(fetchWeaponBanners.rejected, (state) => {
@@ -47,9 +60,31 @@ export const bannerSlice = createSlice({
     },
 });
 
+export const getBannerStatus = (state: RootState): LoadingStatus =>
+    state.banners.status;
 export const selectCharacterBanners = (state: RootState): Banner[] =>
     state.banners.characterBanners;
 export const selectWeaponBanners = (state: RootState): Banner[] =>
     state.banners.weaponBanners;
 
 export default bannerSlice.reducer;
+
+startAppListening({
+    actionCreator: fetchCharacterBanners.fulfilled,
+    effect: (action) => {
+        const data = JSON.stringify(action.payload);
+        if (data !== storedCharacterBanners) {
+            localStorage.setItem("banners/character", data);
+        }
+    },
+});
+
+startAppListening({
+    actionCreator: fetchWeaponBanners.fulfilled,
+    effect: (action) => {
+        const data = JSON.stringify(action.payload);
+        if (data !== storedWeaponBanners) {
+            localStorage.setItem("banners/weapon", data);
+        }
+    },
+});

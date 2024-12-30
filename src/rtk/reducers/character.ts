@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { startAppListening } from "helpers/hooks";
 import { fetchCharacters, LoadingStatus } from "rtk/fetchData";
 import { RootState } from "rtk/store";
 import { Character } from "types/character";
@@ -8,9 +9,11 @@ export interface CharacterState {
     characters: Character[];
 }
 
+const storedCharacters = localStorage.getItem("data/characters") || "null";
+
 const initialState: CharacterState = {
     status: "idle",
-    characters: [],
+    characters: storedCharacters !== "null" ? JSON.parse(storedCharacters) : [],
 };
 
 export const characterSlice = createSlice({
@@ -22,7 +25,9 @@ export const characterSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchCharacters.fulfilled, (state, action) => {
-            state.characters = action.payload;
+            if (JSON.stringify(action.payload) !== storedCharacters) {
+                state.characters = action.payload;
+            }
             state.status = "success";
         });
         builder.addCase(fetchCharacters.rejected, (state) => {
@@ -35,3 +40,13 @@ export const selectCharacters = (state: RootState): Character[] =>
     state.characters.characters;
 
 export default characterSlice.reducer;
+
+startAppListening({
+    actionCreator: fetchCharacters.fulfilled,
+    effect: (action) => {
+        const data = JSON.stringify(action.payload);
+        if (data !== storedCharacters) {
+            localStorage.setItem("data/characters", data);
+        }
+    },
+});

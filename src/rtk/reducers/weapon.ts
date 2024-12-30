@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { startAppListening } from "helpers/hooks";
 import { fetchWeapons, LoadingStatus } from "rtk/fetchData";
 import { RootState } from "rtk/store";
 import { Weapon } from "types/weapon";
@@ -8,9 +9,11 @@ export interface WeaponState {
     weapons: Weapon[];
 }
 
+const storedWeapons = localStorage.getItem("data/weapons") || "null";
+
 const initialState: WeaponState = {
     status: "idle",
-    weapons: [],
+    weapons: storedWeapons !== "null" ? JSON.parse(storedWeapons) : [],
 };
 
 export const weaponSlice = createSlice({
@@ -22,7 +25,9 @@ export const weaponSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchWeapons.fulfilled, (state, action) => {
-            state.weapons = action.payload;
+            if (JSON.stringify(action.payload) !== storedWeapons) {
+                state.weapons = action.payload;
+            }
             state.status = "success";
         });
         builder.addCase(fetchWeapons.rejected, (state) => {
@@ -35,3 +40,13 @@ export const selectWeapons = (state: RootState): Weapon[] =>
     state.weapons.weapons;
 
 export default weaponSlice.reducer;
+
+startAppListening({
+    actionCreator: fetchWeapons.fulfilled,
+    effect: (action) => {
+        const data = JSON.stringify(action.payload);
+        if (data !== storedWeapons) {
+            localStorage.setItem("data/weapons", data);
+        }
+    },
+});
