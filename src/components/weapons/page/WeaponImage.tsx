@@ -11,9 +11,9 @@ import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
 import { WeaponProps } from "types/weapon";
 
 function WeaponImage({ weapon }: WeaponProps) {
-    const { rarity } = weapon;
-
     const theme = useTheme();
+
+    const { rarity } = weapon;
 
     return (
         <Image
@@ -23,7 +23,6 @@ function WeaponImage({ weapon }: WeaponProps) {
                 width: "100%",
                 maxWidth: "256px",
                 height: "auto",
-                padding: "8px",
                 border: `2px solid ${getRarityColor(rarity)}`,
                 borderRadius: theme.mainContentBox.borderRadius,
                 backgroundColor: theme.background(2),

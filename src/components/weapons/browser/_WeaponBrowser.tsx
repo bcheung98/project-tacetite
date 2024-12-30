@@ -12,7 +12,7 @@ import { TextStyled } from "styled/StyledTypography";
 // MUI imports
 import { useTheme, useMediaQuery, Button, Drawer } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import ViewCompactIcon from "@mui/icons-material/ViewCompact";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -82,7 +82,7 @@ function WeaponBrowser() {
     const buttons: CustomToggleButtonProps[] = [
         {
             value: "card",
-            icon: <ViewModuleIcon />,
+            icon: <ViewCompactIcon />,
         },
         {
             value: "table",
@@ -154,7 +154,7 @@ function WeaponBrowser() {
                 </Grid>
             </Grid>
             {view === "card" && (
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     {currentWeapons.map((weapon) => (
                         <InfoCard
                             key={weapon.id}

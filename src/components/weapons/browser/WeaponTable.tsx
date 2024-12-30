@@ -25,7 +25,7 @@ export type WeaponRow = Pick<
 
 function WeaponTable({ weapons }: { weapons: Weapon[] }) {
     const [order, setOrder] = React.useState<Order>("desc");
-    const [orderBy, setOrderBy] = React.useState("rank");
+    const [orderBy, setOrderBy] = React.useState("rarity");
 
     const handleRequestSort = (
         _: React.BaseSyntheticEvent,

@@ -1,10 +1,4 @@
 import React from "react";
-import parse, {
-    HTMLReactParserOptions,
-    Element as DOMElement,
-    domToReact,
-    DOMNode,
-} from "html-react-parser";
 
 // Component imports
 import { Text, TextStyled } from "styled/StyledTypography";
@@ -15,6 +9,7 @@ import { useTheme, useMediaQuery, Box, Card } from "@mui/material";
 
 // Helper imports
 import { range } from "helpers/utils";
+import { parseSkillDescription } from "helpers/parseSkillDescription";
 
 // Type imports
 import { WeaponProps } from "types/weapon";
@@ -66,7 +61,11 @@ function WeaponPassive({ weapon }: WeaponProps) {
                 {stats.passive.name}
             </TextStyled>
             <Text sx={{ color: theme.text.description }}>
-                {parseSkillDescription(stats.passive.description)}
+                {parseSkillDescription(
+                    stats.passive.description,
+                    "text-refinement",
+                    "weapon-passive-value"
+                )}
             </Text>
             <Box sx={{ width: { xs: "90%", md: "30vw" }, mt: "16px" }}>
                 <StyledSlider
@@ -89,48 +88,3 @@ function WeaponPassive({ weapon }: WeaponProps) {
 }
 
 export default WeaponPassive;
-
-function parseSkillDescription(description: string) {
-    const theme = useTheme();
-    const options: HTMLReactParserOptions = {
-        replace: (domNode) => {
-            if (domNode instanceof DOMElement && domNode.attribs.class) {
-                const className = domNode.attribs.class;
-                if (className.split("-")[0].startsWith("text")) {
-                    const tag = className.split("-")[1];
-                    return (
-                        <Text
-                            component="span"
-                            className={
-                                className === "text-refinement"
-                                    ? "weapon-passive-value"
-                                    : className
-                            }
-                            sx={{
-                                color: theme.text[
-                                    tag as keyof typeof theme.text
-                                ],
-                                fontWeight:
-                                    tag === "highlight"
-                                        ? theme.font.highlight.weight
-                                        : theme.font.element.weight,
-                            }}
-                        >
-                            {domToReact(domNode.children as DOMNode[], options)}
-                        </Text>
-                    );
-                }
-            }
-        },
-    };
-
-    const text = description
-        .replaceAll(`Icon_Basic`, `<span class="icon basic"></span>`)
-        .replaceAll(`Icon_Dodge`, `<span class="icon dodge"></span>`)
-        .replaceAll(`Icon_Assist`, `<span class="icon assist"></span>`)
-        .replaceAll(`Icon_Special`, `<span class="icon special"></span>`)
-        .replaceAll(`Icon_EXSpecial`, `<span class="icon ex-special"></span>`)
-        .replaceAll(`Icon_Ultimate`, `<span class="icon ultimate"></span>`)
-        .replaceAll(`Icon_Core`, `<span class="icon core"></span>`);
-    return parse(text, options);
-}
