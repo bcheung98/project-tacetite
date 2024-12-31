@@ -7,7 +7,7 @@ import { StyledTooltip } from "styled/StyledTooltip";
 import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, SxProps, Box, Card, Stack } from "@mui/material";
+import { useTheme, SxProps, Box, Card, Stack, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 // Helper imports
@@ -49,6 +49,7 @@ interface InfoCardProps {
     disableTooltip?: boolean;
     disableLink?: boolean;
     disableZoomOnHover?: boolean;
+    loading?: boolean;
 }
 
 function InfoCard({
@@ -67,6 +68,7 @@ function InfoCard({
     disableTooltip = showName,
     disableLink = false,
     disableZoomOnHover = variant === "material-card",
+    loading = false,
 }: InfoCardProps) {
     const theme = useTheme();
 
@@ -114,7 +116,7 @@ function InfoCard({
         width: variant !== "material-card" ? size : "auto",
         height: variant !== "icon" ? "auto" : size,
         borderRadius: variant === "icon" ? "4px" : "16px",
-        backgroundColor: theme.appbar.backgroundColor,
+        backgroundColor: loading ? "transparent" : theme.appbar.backgroundColor,
     };
 
     const cardStyle: SxProps = {
@@ -145,132 +147,138 @@ function InfoCard({
 
     return (
         <Box sx={rootStyle}>
-            <Card
-                elevation={0}
-                sx={cardStyle}
-                onMouseEnter={() => handleHover("enter")}
-                onMouseLeave={() => handleHover("leave")}
-            >
-                <StyledTooltip
-                    title={!disableTooltip ? displayName : ""}
-                    arrow
-                    placement="top"
+            {!loading ? (
+                <Card
+                    elevation={0}
+                    sx={cardStyle}
+                    onMouseEnter={() => handleHover("enter")}
+                    onMouseLeave={() => handleHover("leave")}
                 >
-                    <Box
-                        sx={{
-                            overflow: "clip",
-                            width:
-                                variant === "material-card" ? "256px" : "auto",
-                            display: "flex",
-                        }}
+                    <StyledTooltip
+                        title={!disableTooltip ? displayName : ""}
+                        arrow
+                        placement="top"
                     >
-                        <RouterLink to={href}>
-                            <Image
-                                src={imgSrc}
-                                alt={name}
-                                id={`${id}-img`}
-                                style={mainImageStyle}
-                            />
-                        </RouterLink>
-                        {variant === "material-card" && materials && (
-                            <MaterialGrid materials={materials} />
-                        )}
-                    </Box>
-                </StyledTooltip>
-                {info && (
-                    <Stack
-                        sx={{
-                            position: "absolute",
-                            zIndex: 5,
-                            top: "-4px",
-                            left: "-12px",
-                            backgroundColor: theme.appbar.backgroundColor,
-                            borderRadius: "16px",
-                        }}
-                    >
-                        {info.element !== undefined && (
-                            <Image
-                                src={`elements/${info.element}`}
-                                alt={info.element}
-                                style={smallIconStyle}
-                                tooltip={info.element}
-                            />
-                        )}
-                        {info.weaponType !== undefined && (
-                            <Image
-                                src={`weapons/icons/${info.weaponType}`}
-                                alt={info.weaponType}
-                                style={smallIconStyle}
-                                tooltip={info.weaponType}
-                            />
-                        )}
-                        {info.sonata !== undefined &&
-                            info.sonata.map((sonata) => (
-                                <Image
-                                    key={sonata}
-                                    src={`echoes/sonata/${sonata}`}
-                                    alt={sonata}
-                                    style={smallIconStyle}
-                                    tooltip={sonata}
-                                />
-                            ))}
-                    </Stack>
-                )}
-                {infoSecondary && (
-                    <Stack
-                        sx={{
-                            position: "absolute",
-                            zIndex: 5,
-                            top: "-2%",
-                            right: "0",
-                            backgroundColor: theme.appbar.backgroundColor,
-                            borderRadius: "4px",
-                        }}
-                    >
-                        {infoSecondary.cost !== undefined && (
-                            <TextStyled
-                                sx={{
-                                    color: theme.appbar.color,
-                                    textAlign: "center",
-                                    width: `calc(${size} / 8 + 12px)`,
-                                }}
-                            >
-                                {infoSecondary.cost}
-                            </TextStyled>
-                        )}
-                    </Stack>
-                )}
-                {showName && (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            p: "8px",
-                            borderTop:
-                                variant === "icon"
-                                    ? "none"
-                                    : `calc(${imgSize} / 25) solid ${getRarityColor(
-                                          rarity
-                                      )}`,
-                        }}
-                    >
-                        <RouterLink to={href} sx={{ mx: "auto" }}>
-                            <TextStyled
-                                sx={{
-                                    color: theme.appbar.color,
-                                    textAlign: "center",
-                                }}
-                                variant={
+                        <Box
+                            sx={{
+                                overflow: "clip",
+                                width:
                                     variant === "material-card"
-                                        ? "body1-styled"
-                                        : "body2-styled"
-                                }
-                            >
-                                {showName && displayName}
-                            </TextStyled>
-                        </RouterLink>
-                    </Box>
-                )}
-            </Card>
+                                        ? "256px"
+                                        : "auto",
+                                display: "flex",
+                            }}
+                        >
+                            <RouterLink to={href}>
+                                <Image
+                                    src={imgSrc}
+                                    alt={name}
+                                    id={`${id}-img`}
+                                    style={mainImageStyle}
+                                />
+                            </RouterLink>
+                            {variant === "material-card" && materials && (
+                                <MaterialGrid materials={materials} />
+                            )}
+                        </Box>
+                    </StyledTooltip>
+                    {info && (
+                        <Stack
+                            sx={{
+                                position: "absolute",
+                                zIndex: 5,
+                                top: "-4px",
+                                left: "-12px",
+                                backgroundColor: theme.appbar.backgroundColor,
+                                borderRadius: "16px",
+                            }}
+                        >
+                            {info.element !== undefined && (
+                                <Image
+                                    src={`elements/${info.element}`}
+                                    alt={info.element}
+                                    style={smallIconStyle}
+                                    tooltip={info.element}
+                                />
+                            )}
+                            {info.weaponType !== undefined && (
+                                <Image
+                                    src={`weapons/icons/${info.weaponType}`}
+                                    alt={info.weaponType}
+                                    style={smallIconStyle}
+                                    tooltip={info.weaponType}
+                                />
+                            )}
+                            {info.sonata !== undefined &&
+                                info.sonata.map((sonata) => (
+                                    <Image
+                                        key={sonata}
+                                        src={`echoes/sonata/${sonata}`}
+                                        alt={sonata}
+                                        style={smallIconStyle}
+                                        tooltip={sonata}
+                                    />
+                                ))}
+                        </Stack>
+                    )}
+                    {infoSecondary && (
+                        <Stack
+                            sx={{
+                                position: "absolute",
+                                zIndex: 5,
+                                top: "-2%",
+                                right: "0",
+                                backgroundColor: theme.appbar.backgroundColor,
+                                borderRadius: "4px",
+                            }}
+                        >
+                            {infoSecondary.cost !== undefined && (
+                                <TextStyled
+                                    sx={{
+                                        color: theme.appbar.color,
+                                        textAlign: "center",
+                                        width: `calc(${size} / 8 + 12px)`,
+                                    }}
+                                >
+                                    {infoSecondary.cost}
+                                </TextStyled>
+                            )}
+                        </Stack>
+                    )}
+                    {showName && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                p: "8px",
+                                borderTop:
+                                    variant === "icon"
+                                        ? "none"
+                                        : `calc(${imgSize} / 25) solid ${getRarityColor(
+                                              rarity
+                                          )}`,
+                            }}
+                        >
+                            <RouterLink to={href} sx={{ mx: "auto" }}>
+                                <TextStyled
+                                    sx={{
+                                        color: theme.appbar.color,
+                                        textAlign: "center",
+                                    }}
+                                    variant={
+                                        variant === "material-card"
+                                            ? "body1-styled"
+                                            : "body2-styled"
+                                    }
+                                >
+                                    {showName && displayName}
+                                </TextStyled>
+                            </RouterLink>
+                        </Box>
+                    )}
+                </Card>
+            ) : (
+                <Skeleton variant="rounded" width={size} height={size} />
+            )}
         </Box>
     );
 }
