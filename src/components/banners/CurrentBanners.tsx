@@ -1,5 +1,3 @@
-import React from "react";
-
 // Component imports
 import MainContentBox from "custom/MainContentBox";
 import Image from "custom/Image";
@@ -14,6 +12,8 @@ import Grid from "@mui/material/Grid2";
 
 // Helper imports
 import { useAppSelector } from "helpers/hooks";
+import { selectCharacters } from "reducers/character";
+import { selectWeapons } from "reducers/weapon";
 import { selectCharacterBanners, selectWeaponBanners } from "reducers/banner";
 import { selectServer } from "reducers/settings";
 import { createDateObject, isCurrentBanner } from "helpers/dates";
@@ -28,6 +28,10 @@ function CurrentBanners() {
     const theme = useTheme();
 
     const region = useAppSelector(selectServer);
+
+    const characters = useAppSelector(selectCharacters);
+    const weapons = useAppSelector(selectWeapons);
+    const loading = [...characters, ...weapons].length === 0;
 
     const characterBanners = useAppSelector(selectCharacterBanners);
     const weaponBanners = useAppSelector(selectWeaponBanners);
@@ -44,21 +48,9 @@ function CurrentBanners() {
 
     const activeBanners =
         [...currentCharacterBanners, ...currentWeaponBanners].length > 0;
-    const [loading, setLoading] = React.useState(true);
 
     const getRarity = (name: string, rarity: Rarity) =>
         !isTBA(name) ? rarity : 1;
-
-    React.useEffect(() => {
-        if (!activeBanners) {
-            const timer = setTimeout(() => {
-                setLoading(false);
-                clearTimeout(timer);
-            }, 5000);
-        } else {
-            setLoading(false);
-        }
-    }, [activeBanners, setLoading]);
 
     return (
         <MainContentBox
@@ -103,6 +95,7 @@ function CurrentBanners() {
                                                         backgroundColor={theme.background(
                                                             0
                                                         )}
+                                                        loading={loading}
                                                     />
                                                 ))}
                                                 {createBannerItems(
@@ -131,6 +124,7 @@ function CurrentBanners() {
                                                         backgroundColor={theme.background(
                                                             0
                                                         )}
+                                                        loading={loading}
                                                     />
                                                 ))}
                                             </Grid>
@@ -181,6 +175,7 @@ function CurrentBanners() {
                                                     backgroundColor={theme.background(
                                                         0
                                                     )}
+                                                    loading={loading}
                                                 />
                                             ))}
                                             {createBannerItems(
@@ -209,6 +204,7 @@ function CurrentBanners() {
                                                     backgroundColor={theme.background(
                                                         0
                                                     )}
+                                                    loading={loading}
                                                 />
                                             ))}
                                         </Grid>
@@ -226,37 +222,23 @@ function CurrentBanners() {
                 </FlexBox>
             ) : (
                 <>
-                    <FlexBox>
-                        <Box
-                            sx={{
-                                display: loading ? "block" : "none",
-                                width: "100%",
-                                color: theme.text.selected,
-                            }}
-                        >
-                            <LinearProgress color="inherit" />
-                        </Box>
-                        <TextStyled
-                            sx={{
-                                display:
-                                    !loading && !activeBanners
-                                        ? "block"
-                                        : "none",
-                            }}
-                        >
-                            There are no active banners.
-                        </TextStyled>
-                    </FlexBox>
-                    <Image
-                        src="emotes/Error"
-                        alt="No banners"
-                        style={{
-                            display:
-                                !loading && !activeBanners ? "block" : "none",
-                            height: "128px",
-                            marginTop: "20px",
-                        }}
-                    />
+                    {loading ? (
+                        <LinearProgress color="info" />
+                    ) : (
+                        <>
+                            <TextStyled>
+                                There are no active banners.
+                            </TextStyled>
+                            <Image
+                                src="emotes/error5"
+                                alt="No banners"
+                                style={{
+                                    height: "128px",
+                                    marginTop: "24px",
+                                }}
+                            />
+                        </>
+                    )}
                 </>
             )}
         </MainContentBox>
