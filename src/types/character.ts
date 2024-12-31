@@ -28,6 +28,7 @@ export interface Character {
     birthday: string;
     gender: "Male" | "Female";
     nation: string;
+    outfits: CharacterOutfit[];
     voiceActors: {
         en: string;
         jp: string;
@@ -71,3 +72,10 @@ export type BonusStat = keyof typeof characterBonusStats;
 export type CharacterBonusStats = [BonusStat, BonusStat];
 
 export type CombatRole = keyof typeof combatRoles;
+
+export interface CharacterOutfit {
+    name: string;
+    displayName: string;
+    rarity: Rarity;
+    description: string;
+}
