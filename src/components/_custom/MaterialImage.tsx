@@ -1,11 +1,11 @@
-import React from "react";
+import { CSSProperties } from "react";
 
 // Component imports
 import Image from "./Image";
 import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, Box } from "@mui/material";
+import { useTheme, Box, Card } from "@mui/material";
 
 // Helper imports
 import { getRarityColor } from "helpers/rarityColors";
@@ -32,48 +32,47 @@ function MaterialImage({
 }: MaterialImageProps) {
     const theme = useTheme();
 
-    const cardStyle: React.CSSProperties = {
-        padding: "4px 4px 2px",
-        marginBottom: "4px",
-        backgroundColor: getRarityColor(rarity),
-        borderRadius: "12px",
-    };
-
-    const imgStyle: React.CSSProperties = {
-        width: `calc(${size} - 8px)`,
-        height: "auto",
-        padding: !imgSrc.endsWith(".gif") ? "4px" : "0px",
+    const cardStyle: CSSProperties = {
+        width: size,
         backgroundColor: theme.appbar.backgroundColor,
-        borderRadius: "12px",
     };
 
-    const labelStyle: React.CSSProperties = {
-        display: "block",
-        fontSize:
-            cost.toLocaleString().length < 10
-                ? `calc(${size} / 6) !important`
-                : `calc(${size} / 7) !important`,
-        width: "100%",
-        margin: "auto",
-        borderRadius: "12px",
-        padding: "2px",
+    const imgStyle: CSSProperties = {
+        width: size,
+        height: size,
+        backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
+        backgroundSize: "contain",
+        borderBottom: `2px solid ${getRarityColor(rarity)}`,
+    };
+
+    const labelStyle: CSSProperties = {
+        padding: "0px 2px 4px",
         textAlign: "center",
         backgroundColor: labelColor || theme.appbar.backgroundColor,
-        color: theme.appbar.color,
     };
 
     return (
-        <Box sx={{ width: size }}>
-            <Box sx={cardStyle}>
-                <Image
-                    src={`materials/${imgSrc}`}
-                    alt={name}
-                    style={imgStyle}
-                    tooltip={name}
-                />
+        <Card sx={cardStyle}>
+            <Image
+                src={`materials/${imgSrc}`}
+                alt={name}
+                style={imgStyle}
+                tooltip={name}
+            />
+            <Box sx={labelStyle}>
+                <TextStyled
+                    sx={{
+                        fontSize:
+                            cost.toLocaleString().length < 11
+                                ? `calc(${size} / 6) !important`
+                                : `calc(${size} / 7) !important`,
+                        color: theme.appbar.color,
+                    }}
+                >
+                    {cost.toLocaleString()}
+                </TextStyled>
             </Box>
-            <TextStyled sx={labelStyle}>{cost.toLocaleString()}</TextStyled>
-        </Box>
+        </Card>
     );
 }
 
