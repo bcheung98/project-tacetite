@@ -128,8 +128,7 @@ function PlannerCard({ data }: PlannerCardProps) {
                                 marginRight: "16px",
                                 backgroundColor: theme.background(1),
                                 backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
-                                backgroundSize: "100%",
-                                backgroundPosition: "center",
+                                backgroundSize: "contain",
                                 boxShadow:
                                     variant === "character"
                                         ? "none"

@@ -30,8 +30,7 @@ function WeaponImage({ weapon }: WeaponProps) {
                     weapon.rarity
                 )}`,
                 backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
-                backgroundSize: "100%",
-                backgroundPosition: "center",
+                backgroundSize: "contain",
             }}
         />
     );

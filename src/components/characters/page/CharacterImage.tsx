@@ -183,8 +183,7 @@ function CharacterImage({ character }: CharacterProps) {
                                                     theme.appbar
                                                         .backgroundColor,
                                                 backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${outfit.rarity}_Star.png)`,
-                                                backgroundSize: "100%",
-                                                backgroundPosition: "center",
+                                                backgroundSize: "contain",
                                             }}
                                         >
                                             <Image

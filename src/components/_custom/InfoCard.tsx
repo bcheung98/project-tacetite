@@ -1,4 +1,4 @@
-import React from "react";
+import { CSSProperties } from "react";
 
 // Component imports
 import Image from "./Image";
@@ -125,19 +125,17 @@ function InfoCard({
                 ? theme.border.color.primary
                 : getRarityColor(rarity),
         borderRadius: variant === "icon" ? "4px" : "16px",
-        backgroundColor: "transparent",
+        backgroundColor: backgroundColor || theme.appbar.backgroundColor,
     };
 
-    const mainImageStyle: React.CSSProperties = {
+    const mainImageStyle: CSSProperties = {
         width: imgSize,
         height: imgSize,
-        backgroundColor: backgroundColor || theme.background(2),
         backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
-        backgroundSize: "100%",
-        backgroundPosition: "center",
+        backgroundSize: "contain",
     };
 
-    const smallIconStyle: React.CSSProperties = {
+    const smallIconStyle: CSSProperties = {
         width: `calc(${imgSize} / 8 + 12px)`,
         height: `calc(${imgSize} / 8 + 12px)`,
         minWidth: "28px",
@@ -247,7 +245,6 @@ function InfoCard({
                         sx={{
                             display: "flex",
                             p: "8px",
-                            backgroundColor: theme.appbar.backgroundColor,
                             borderTop:
                                 variant === "icon"
                                     ? "none"
