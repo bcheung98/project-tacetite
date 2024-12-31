@@ -82,6 +82,7 @@ function CharacterImage({ character }: CharacterProps) {
             >
                 <Image
                     src={imgSrc}
+                    fallbackSrc={`characters/avatars/${character.name}`}
                     alt={character.name}
                     style={{
                         width: "100%",
@@ -192,6 +193,7 @@ function CharacterImage({ character }: CharacterProps) {
                                                         ? `characters/avatars/${character.name}`
                                                         : `characters/outfits/${outfit.name}`
                                                 }
+                                                fallbackSrc={`characters/avatars/${character.name}`}
                                                 alt={outfit.name}
                                                 style={{
                                                     width: "100%",
@@ -244,6 +246,7 @@ function CharacterImage({ character }: CharacterProps) {
                                         <Card elevation={0}>
                                             <Image
                                                 src={imgSrc}
+                                                fallbackSrc={`characters/avatars/${character.name}`}
                                                 alt={outfit.name}
                                                 style={{
                                                     width: "100%",
