@@ -31,7 +31,7 @@ function CharacterBonusStats({
     const theme = useTheme();
 
     return (
-        <Stack spacing={2}>
+        <Stack spacing={4}>
             {[0, 1].map((index) => (
                 <Stack key={index} spacing={2}>
                     <Stack spacing={2} direction="row" alignItems="center">
@@ -39,8 +39,8 @@ function CharacterBonusStats({
                             src={`stat_icons/${bonusStat}`}
                             alt={bonusStat}
                             style={{
-                                width: "36px",
-                                height: "36px",
+                                width: "40px",
+                                height: "40px",
                                 padding: "4px",
                                 border: `2px solid ${getElementColor(
                                     theme,
