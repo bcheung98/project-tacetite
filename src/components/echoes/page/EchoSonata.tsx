@@ -18,9 +18,18 @@ function EchoSonata({ echo }: EchoProps) {
 
     return (
         <MainContentBox title="Sonata Effect">
-            <Stack spacing={4}>
+            <Stack spacing={2}>
                 {echo.sonata.map((sonata, index) => (
-                    <Stack key={index} spacing={2}>
+                    <Stack
+                        key={index}
+                        spacing={2}
+                        sx={{
+                            p: 2,
+                            backgroundColor: theme.background(1, "light"),
+                            border: theme.mainContentBox.border,
+                            borderRadius: theme.mainContentBox.borderRadius,
+                        }}
+                    >
                         <Stack spacing={2} direction="row" alignItems="center">
                             <Image
                                 src={`echoes/sonata/${sonata}`}
