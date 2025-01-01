@@ -36,15 +36,21 @@ function CharacterStats({ character }: CharacterProps) {
         ["Level", ...levels],
         [
             "Base HP",
-            ...levels.map((_, index) => stats.hp[index].toLocaleString() || 0),
+            ...levels.map((_, index) =>
+                (stats.hp[index] || 0).toLocaleString()
+            ),
         ],
         [
             "Base ATK",
-            ...levels.map((_, index) => stats.atk[index].toLocaleString() || 0),
+            ...levels.map((_, index) =>
+                (stats.atk[index] || 0).toLocaleString()
+            ),
         ],
         [
             "Base DEF",
-            ...levels.map((_, index) => stats.def[index].toLocaleString() || 0),
+            ...levels.map((_, index) =>
+                (stats.def[index] || 0).toLocaleString()
+            ),
         ],
     ];
 

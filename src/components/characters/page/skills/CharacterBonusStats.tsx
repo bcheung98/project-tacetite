@@ -24,7 +24,7 @@ interface CharacterBonusStatsProps {
 }
 
 function CharacterBonusStats({
-    bonusStat,
+    bonusStat = "",
     element,
     materials,
 }: CharacterBonusStatsProps) {

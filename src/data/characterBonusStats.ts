@@ -1,4 +1,5 @@
 export const characterBonusStats = {
+    "": ["", ""],
     ATK: ["1.8%", "4.2%"],
     HP: ["1.8%", "4.2%"],
     DEF: ["2.28%", "5.32%"],
