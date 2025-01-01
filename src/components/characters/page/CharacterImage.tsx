@@ -66,10 +66,10 @@ function CharacterImage({ character }: CharacterProps) {
         },
     };
 
-    const imgSrc =
+    const imgSrcSplash =
         tabValue === 0
             ? `characters/avatars/${character.name}`
-            : `characters/outfits/${outfits[tabValue].name}`;
+            : `characters/outfits/splash/${outfits[tabValue].name}`;
 
     return (
         <>
@@ -81,7 +81,7 @@ function CharacterImage({ character }: CharacterProps) {
                 }}
             >
                 <Image
-                    src={imgSrc}
+                    src={imgSrcSplash}
                     fallbackSrc={`characters/avatars/${character.name}`}
                     alt={character.name}
                     style={{
@@ -173,35 +173,26 @@ function CharacterImage({ character }: CharacterProps) {
                                 <StyledTab
                                     key={outfit.name}
                                     icon={
-                                        <Card
-                                            elevation={0}
-                                            sx={{
-                                                width: "128px",
-                                                height: "auto",
-                                                aspectRatio: 1.5,
+                                        <Image
+                                            src={
+                                                index === 0
+                                                    ? `characters/icons/${character.name}`
+                                                    : `characters/outfits/icon/${outfit.name}`
+                                            }
+                                            fallbackSrc={`characters/icons/${character.name}`}
+                                            alt={outfit.name}
+                                            style={{
+                                                width: "96px",
+                                                height: "96px",
                                                 border: `2px solid ${theme.border.color.primary}`,
+                                                borderRadius: "4px",
                                                 backgroundColor:
                                                     theme.appbar
                                                         .backgroundColor,
                                                 backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${outfit.rarity}_Star.png)`,
                                                 backgroundSize: "contain",
                                             }}
-                                        >
-                                            <Image
-                                                src={
-                                                    index === 0
-                                                        ? `characters/avatars/${character.name}`
-                                                        : `characters/outfits/${outfit.name}`
-                                                }
-                                                fallbackSrc={`characters/avatars/${character.name}`}
-                                                alt={outfit.name}
-                                                style={{
-                                                    width: "100%",
-                                                    transform:
-                                                        "translate(0px, -32px)",
-                                                }}
-                                            />
-                                        </Card>
+                                        />
                                     }
                                 />
                             ))}
@@ -245,7 +236,7 @@ function CharacterImage({ character }: CharacterProps) {
                                     <Fade in={index === tabValue} timeout={500}>
                                         <Card elevation={0}>
                                             <Image
-                                                src={imgSrc}
+                                                src={imgSrcSplash}
                                                 fallbackSrc={`characters/avatars/${character.name}`}
                                                 alt={outfit.name}
                                                 style={{
