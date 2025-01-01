@@ -40,7 +40,7 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
         { id: "displayName", label: "Name" },
         { id: "rarity", label: "Rarity" },
         { id: "type", label: "Type" },
-        { id: "mainStat", label: "Base ATK" },
+        { id: "baseATK", label: "Base ATK" },
         { id: "subStat", label: "Substat" },
     ];
 
