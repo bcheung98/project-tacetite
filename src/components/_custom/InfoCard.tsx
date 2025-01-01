@@ -59,7 +59,7 @@ function InfoCard({
     type,
     rarity = 3,
     variant = "avatar",
-    size = variant === "avatar" ? "128px" : "64px",
+    size,
     showName = variant !== "icon",
     info,
     infoSecondary,
@@ -72,34 +72,33 @@ function InfoCard({
 }: InfoCardProps) {
     const theme = useTheme();
 
-    id = `${id.split(" ").join("")}-${variant}-displayCard`;
+    id = `${id.split(" ").join("")}-${variant}-infoCard`;
 
     const borderWidth = variant !== "icon" ? theme.displayCard.borderWidth : 2;
+    const borderRadius = variant === "icon" ? "4px" : "16px";
+    const borderColor =
+        variant === "icon"
+            ? getRarityColor(rarity)
+            : theme.border.color.primary;
+
+    size =
+        variant === "icon" ? "64px" : variant === "avatar" ? "128px" : "96px";
     const imgSize =
-        variant !== "material-card"
-            ? `calc(${size} - ${borderWidth * 2}px)`
-            : "96px";
+        variant === "icon" ? `calc(${size} - ${borderWidth * 2}px)` : size;
 
-    let imgSrc = "";
-    if (type === "character") {
-        imgSrc = `characters/icons/${name}`;
-    }
-    if (type === "weapon") {
-        imgSrc = `weapons/${name}`;
-    }
-    if (type === "echo") {
-        imgSrc = `echoes/icons/${name}`;
-    }
-
-    let route;
+    let imgSrc = "",
+        route;
     switch (type) {
         case "character":
+            imgSrc = `characters/icons/${name}`;
             route = "resonators";
             break;
         case "weapon":
+            imgSrc = `weapons/${name}`;
             route = "weapons";
             break;
         case "echo":
+            imgSrc = `echoes/icons/${name}`;
             route = "echoes";
             break;
     }
@@ -113,31 +112,39 @@ function InfoCard({
 
     const rootStyle: SxProps = {
         position: "relative",
+        overflow: "visible",
         width: variant !== "material-card" ? size : "auto",
         height: variant !== "icon" ? "auto" : size,
-        borderRadius: variant === "icon" ? "4px" : "16px",
-        backgroundColor: loading ? "transparent" : theme.appbar.backgroundColor,
+        borderRadius: borderRadius,
+        background: `linear-gradient(to bottom, transparent, ${
+            backgroundColor || theme.appbar.backgroundColor
+        })`,
     };
 
     const cardStyle: SxProps = {
-        border: "solid",
+        borderStyle: "solid",
         borderWidth: borderWidth,
-        borderColor:
-            variant !== "icon"
-                ? theme.border.color.primary
-                : getRarityColor(rarity),
-        borderRadius: variant === "icon" ? "4px" : "16px",
-        backgroundColor: backgroundColor || theme.appbar.backgroundColor,
+        borderColor: borderColor,
+        borderRadius: borderRadius,
+        backgroundColor: "transparent",
     };
 
-    const mainImageStyle: CSSProperties = {
-        width: imgSize,
-        height: imgSize,
+    const imageContainerStyle: SxProps = {
+        display: "flex",
+        overflow: "clip",
+        width:
+            variant === "material-card" ? `calc(${imgSize} * 8 / 3)` : "auto",
         backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
         backgroundSize: "contain",
+        // backgroundRepeat: "no-repeat",
     };
 
-    const smallIconStyle: CSSProperties = {
+    const imageStyle: CSSProperties = {
+        width: imgSize,
+        height: imgSize,
+    };
+
+    const infoIconStyle: CSSProperties = {
         width: `calc(${imgSize} / 8 + 12px)`,
         height: `calc(${imgSize} / 8 + 12px)`,
         minWidth: "28px",
@@ -146,42 +153,73 @@ function InfoCard({
     };
 
     return (
-        <Box sx={rootStyle}>
+        <Card sx={rootStyle} elevation={2}>
             {!loading ? (
-                <Card
-                    elevation={0}
-                    sx={cardStyle}
-                    onMouseEnter={() => handleHover("enter")}
-                    onMouseLeave={() => handleHover("leave")}
-                >
-                    <StyledTooltip
-                        title={!disableTooltip ? displayName : ""}
-                        arrow
-                        placement="top"
-                    >
-                        <Box
-                            sx={{
-                                overflow: "clip",
-                                width:
-                                    variant === "material-card"
-                                        ? "256px"
-                                        : "auto",
-                                display: "flex",
-                            }}
+                <>
+                    <Card elevation={0} sx={cardStyle}>
+                        <StyledTooltip
+                            title={!disableTooltip ? displayName : ""}
+                            arrow
+                            placement="top"
                         >
-                            <RouterLink to={href}>
-                                <Image
-                                    src={imgSrc}
-                                    alt={name}
-                                    id={`${id}-img`}
-                                    style={mainImageStyle}
-                                />
-                            </RouterLink>
-                            {variant === "material-card" && materials && (
-                                <MaterialGrid materials={materials} />
-                            )}
-                        </Box>
-                    </StyledTooltip>
+                            <Box
+                                onMouseEnter={() => handleHover("enter")}
+                                onMouseLeave={() => handleHover("leave")}
+                                sx={imageContainerStyle}
+                            >
+                                <RouterLink to={href}>
+                                    <Image
+                                        src={imgSrc}
+                                        alt={name}
+                                        id={`${id}-img`}
+                                        style={imageStyle}
+                                    />
+                                </RouterLink>
+                                {variant === "material-card" && materials && (
+                                    <MaterialGrid
+                                        materials={materials}
+                                        size={imgSize}
+                                    />
+                                )}
+                            </Box>
+                        </StyledTooltip>
+                        {showName && (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    p: "8px",
+                                    borderTop:
+                                        variant === "icon"
+                                            ? "none"
+                                            : `calc(${imgSize} / 25) solid ${getRarityColor(
+                                                  rarity
+                                              )}`,
+                                }}
+                            >
+                                <RouterLink to={href} sx={{ mx: "auto" }}>
+                                    <TextStyled
+                                        onMouseEnter={() =>
+                                            handleHover("enter")
+                                        }
+                                        onMouseLeave={() =>
+                                            handleHover("leave")
+                                        }
+                                        sx={{
+                                            color: theme.appbar.color,
+                                            textAlign: "center",
+                                        }}
+                                        variant={
+                                            variant === "material-card"
+                                                ? "body1-styled"
+                                                : "body2-styled"
+                                        }
+                                    >
+                                        {showName && displayName}
+                                    </TextStyled>
+                                </RouterLink>
+                            </Box>
+                        )}
+                    </Card>
                     {info && (
                         <Stack
                             sx={{
@@ -197,7 +235,7 @@ function InfoCard({
                                 <Image
                                     src={`elements/${info.element}`}
                                     alt={info.element}
-                                    style={smallIconStyle}
+                                    style={infoIconStyle}
                                     tooltip={info.element}
                                 />
                             )}
@@ -205,7 +243,7 @@ function InfoCard({
                                 <Image
                                     src={`weapons/icons/${info.weaponType}`}
                                     alt={info.weaponType}
-                                    style={smallIconStyle}
+                                    style={infoIconStyle}
                                     tooltip={info.weaponType}
                                 />
                             )}
@@ -215,7 +253,7 @@ function InfoCard({
                                         key={sonata}
                                         src={`echoes/sonata/${sonata}`}
                                         alt={sonata}
-                                        style={smallIconStyle}
+                                        style={infoIconStyle}
                                         tooltip={sonata}
                                     />
                                 ))}
@@ -245,47 +283,28 @@ function InfoCard({
                             )}
                         </Stack>
                     )}
-                    {showName && (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                p: "8px",
-                                borderTop:
-                                    variant === "icon"
-                                        ? "none"
-                                        : `calc(${imgSize} / 25) solid ${getRarityColor(
-                                              rarity
-                                          )}`,
-                            }}
-                        >
-                            <RouterLink to={href} sx={{ mx: "auto" }}>
-                                <TextStyled
-                                    sx={{
-                                        color: theme.appbar.color,
-                                        textAlign: "center",
-                                    }}
-                                    variant={
-                                        variant === "material-card"
-                                            ? "body1-styled"
-                                            : "body2-styled"
-                                    }
-                                >
-                                    {showName && displayName}
-                                </TextStyled>
-                            </RouterLink>
-                        </Box>
-                    )}
-                </Card>
+                </>
             ) : (
-                <Skeleton variant="rounded" width={size} height={size} />
+                <Skeleton
+                    variant="rounded"
+                    width={size}
+                    height={size}
+                    sx={{ borderRadius: borderRadius }}
+                />
             )}
-        </Box>
+        </Card>
     );
 }
 
 export default InfoCard;
 
-function MaterialGrid({ materials }: { materials: Materials }) {
+function MaterialGrid({
+    materials,
+    size,
+}: {
+    materials: Materials;
+    size: string;
+}) {
     const theme = useTheme();
 
     const { forgeryMat, commonMat, ascensionMat, bossMat, weeklyBossMat } =
@@ -309,7 +328,7 @@ function MaterialGrid({ materials }: { materials: Materials }) {
     ];
 
     return (
-        <Box sx={{ px: "16px", py: "8px", height: "96px" }}>
+        <Box sx={{ px: "16px", py: "8px", height: size }}>
             <Grid container spacing={1}>
                 {images.map((img) => (
                     <Image
@@ -317,7 +336,7 @@ function MaterialGrid({ materials }: { materials: Materials }) {
                         src={img.src}
                         alt={img.tag}
                         style={{
-                            width: "36px",
+                            width: `calc(${size} / (8/3))`,
                             border: `1px solid ${theme.border.color.primary}`,
                             borderRadius: "4px",
                             backgroundColor: theme.icon.backgroundColor,
