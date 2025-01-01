@@ -8,7 +8,7 @@ import { TextStyled } from "styled/StyledTypography";
 import { FlexBox } from "styled/StyledBox";
 
 // MUI imports
-import { useTheme, Box, Divider, Card } from "@mui/material";
+import { useTheme, Box, Divider, Card, Stack } from "@mui/material";
 
 // Type imports
 import { WeaponProps } from "types/weapon";
@@ -25,39 +25,40 @@ function WeaponInfo({ weapon }: WeaponProps) {
                 backgroundColor: theme.background(2),
             }}
         >
-            <FlexBox
-                sx={{ flexWrap: "wrap", columnGap: "16px", rowGap: "8px" }}
-            >
-                <Image
-                    src={`weapons/icons/${type}`}
-                    alt={type}
-                    style={{ width: "64px" }}
-                    tooltip={type}
-                />
-                <Box>
-                    <Box sx={{ mb: "8px" }}>
-                        <TextStyled variant="h4-styled">
-                            {displayName}
-                        </TextStyled>
+            <Stack spacing={2} divider={<Divider />}>
+                <FlexBox
+                    sx={{ flexWrap: "wrap", columnGap: "16px", rowGap: "8px" }}
+                >
+                    <Image
+                        src={`weapons/icons/${type}`}
+                        alt={type}
+                        style={{ width: "64px" }}
+                        tooltip={type}
+                    />
+                    <Box>
+                        <Box sx={{ mb: "8px" }}>
+                            <TextStyled variant="h4-styled">
+                                {displayName}
+                            </TextStyled>
+                        </Box>
+                        <FlexBox sx={{ flexWrap: "wrap", gap: "8px" }}>
+                            <InfoChip
+                                color="tertiary"
+                                label={
+                                    <RarityStars
+                                        rarity={rarity}
+                                        variant="h5-styled"
+                                    />
+                                }
+                                padding="0px"
+                            />
+                        </FlexBox>
                     </Box>
-                    <FlexBox sx={{ flexWrap: "wrap", gap: "8px" }}>
-                        <InfoChip
-                            color="tertiary"
-                            label={
-                                <RarityStars
-                                    rarity={rarity}
-                                    variant="h5-styled"
-                                />
-                            }
-                            padding="0px"
-                        />
-                    </FlexBox>
-                </Box>
-            </FlexBox>
-            <Divider sx={{ my: "16px" }} />
-            <TextStyled sx={{ fontStyle: "italic" }}>
-                {parse(description)}
-            </TextStyled>
+                </FlexBox>
+                <TextStyled variant="subtitle1-styled" sx={{ fontStyle: "italic" }}>
+                    {parse(description)}
+                </TextStyled>
+            </Stack>
         </Card>
     );
 }
