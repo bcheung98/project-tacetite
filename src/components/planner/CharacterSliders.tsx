@@ -170,7 +170,7 @@ function CharacterSliders({
                 >
                     {bonusStat}
                 </span>
-                {` increased by ${characterBonusStats[bonusStat][index]}`}
+                {` +${characterBonusStats[bonusStat][index]}`}
             </>
         );
     }
