@@ -67,10 +67,10 @@ function CharacterSkillTab({
                 <TextStyled variant="h5-styled" sx={{ mb: "16px" }}>
                     {skill.name}
                 </TextStyled>
-                <Text sx={{ color: theme.text.description, mb: "24px" }}>
+                <Text component="span" sx={{ color: theme.text.description }}>
                     {parseSkillDescription(skill.description)}
                 </Text>
-                <Stack spacing={2}>
+                <Stack spacing={2} sx={{ mt: "24px" }}>
                     {"scaling" in skill && (
                         <CharacterSkillScaling
                             mode={mode}

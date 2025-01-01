@@ -26,7 +26,7 @@ function CharacterResonanceChain({ character }: CharacterProps) {
                 {objectKeys(resonanceChain).map((key, index) => (
                     <Grid
                         key={key}
-                        size={{ xs: 12, sm: 6, md: 4 }}
+                        size={{ xs: 12, md: 6 }}
                         sx={{
                             p: 2,
                             backgroundColor: theme.background(1, "light"),
@@ -66,7 +66,7 @@ function CharacterResonanceChain({ character }: CharacterProps) {
                                 </TextStyled>
                             </Box>
                         </Stack>
-                        <Text sx={{ color: theme.text.description }}>
+                        <Text component="span" sx={{ color: theme.text.description }}>
                             {parseSkillDescription(
                                 resonanceChain[key].description
                             )}

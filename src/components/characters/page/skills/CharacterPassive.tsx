@@ -57,7 +57,10 @@ function CharacterPassive({
                             {passives[index].name}
                         </TextStyled>
                     </Stack>
-                    <Text sx={{ color: theme.text.description }}>
+                    <Text
+                        component="span"
+                        sx={{ color: theme.text.description }}
+                    >
                         {parseSkillDescription(passives[index].description)}
                     </Text>
                     <CharacterSkillLevelUpCost
