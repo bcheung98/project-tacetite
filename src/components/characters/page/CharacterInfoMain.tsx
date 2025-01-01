@@ -75,7 +75,7 @@ function CharacterInfoMain({ character }: CharacterProps) {
                     </Box>
                 </FlexBox>
                 <CharacterCombatRoles roles={combatRoles} />
-                <TextStyled sx={{ fontStyle: "italic" }}>
+                <TextStyled variant="subtitle1-styled" sx={{ fontStyle: "italic" }}>
                     {description}
                 </TextStyled>
             </Stack>
