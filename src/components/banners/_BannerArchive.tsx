@@ -50,8 +50,8 @@ function BannerArchive() {
     };
 
     const buttons: CustomToggleButtonProps[] = [
-        { value: "character", label: "Agent" },
-        { value: "weapon", label: "W-Engine" },
+        { value: "character", label: "Resonator" },
+        { value: "weapon", label: "Weapon" },
     ];
 
     return (
@@ -76,13 +76,13 @@ function BannerArchive() {
                 <Grid container spacing={4}>
                     <Grid size={{ xs: 12, lg: 6, xl: maxWidth }}>
                         <TextStyled variant="h6-styled" sx={{ mb: "20px" }}>
-                            Agent Banner
+                            Resonator Banner
                         </TextStyled>
                         {CharacterBannerList}
                     </Grid>
                     <Grid size={{ xs: 12, lg: 6, xl: maxWidth }}>
                         <TextStyled variant="h6-styled" sx={{ mb: "20px" }}>
-                            W-Engine Banner
+                            Weapon Banner
                         </TextStyled>
                         {WeaponBannerList}
                     </Grid>
