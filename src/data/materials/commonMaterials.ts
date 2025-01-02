@@ -27,6 +27,18 @@ export const commonMaterials = {
         "Whisperin Core3": "HF Whisperin Core",
         "Whisperin Core4": "FF Whisperin Core",
     },
+    "Polygon Core": {
+        "Polygon Core1": "LF Polygon Core",
+        "Polygon Core2": "MF Polygon Core",
+        "Polygon Core3": "HF Polygon Core",
+        "Polygon Core4": "FF Polygon Core",
+    },
+    "Tidal Residuum": {
+        "Tidal Residuum1": "LF Tidal Residuum",
+        "Tidal Residuum2": "MF Tidal Residuum",
+        "Tidal Residuum3": "HF Tidal Residuum",
+        "Tidal Residuum4": "FF Tidal Residuum",
+    },
 };
 
 export const formatCommonMaterials = (material: CommonMaterialKeys): string => {

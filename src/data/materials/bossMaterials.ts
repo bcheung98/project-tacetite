@@ -46,6 +46,18 @@ export const bossMaterials = <const>{
         displayName: "Topological Confinement",
         source: "Fallacy of No Return",
     },
+    "Cleansing Conch": {
+        displayName: "Cleansing Conch",
+        source: "Lorelei",
+    },
+    "Platinum Core": {
+        displayName: "Platinum Core",
+        source: "Sentry Construct",
+    },
+    "Blazing Bone": {
+        displayName: "Blazing Bone",
+        source: "Dragon of Dirge",
+    },
 };
 
 export const bossMatNames = objectKeys(bossMaterials);

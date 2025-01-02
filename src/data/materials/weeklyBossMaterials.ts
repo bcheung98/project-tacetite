@@ -18,6 +18,10 @@ export const weeklyBossMaterials = <const>{
         displayName: "Sentinel's Dagger",
         source: "Jué",
     },
+    "The Netherworld's Stare": {
+        displayName: "The Netherworld's Stare",
+        source: "Hecate",
+    },
 };
 
 export const weeklyBossMatNames = objectKeys(weeklyBossMaterials);

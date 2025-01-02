@@ -10,4 +10,8 @@ export const ascensionMaterials = [
     "Loong's Pearl",
     "Pavo Plum",
     "Nova",
+    "Golden Fleece",
+    "Sword Acorus",
+    "Firecracker Jewelweed",
+    "Seaside Cendrelis",
 ] as const;
