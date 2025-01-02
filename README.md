@@ -8,3 +8,4 @@ The Wuthering Waves branch of [Irminsul.GG](https://irminsul.gg/)
 - Weapon browser
 - Echo browser
 - Ascension planner
+- Banner archive
