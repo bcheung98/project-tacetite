@@ -1,16 +1,21 @@
 import { styled } from "@mui/material/styles"
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip"
 
-export const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+interface StyledTooltipProps extends TooltipProps {
+    fontSize?: number
+}
+
+export const StyledTooltip = styled(({ className, ...props }: StyledTooltipProps) => (
     <Tooltip {...props} arrow disableInteractive classes={{ popper: className }} />
-))(({ theme }) => ({
+))(({ theme, fontSize = 12 }) => ({
     [`& .${tooltipClasses.arrow}`]: {
-        color: theme.palette.common.black,
+        color: `black`
     },
     [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: theme.palette.common.black,
-        fontSize: theme.typography.pxToRem(12),
-        fontWeight: "500",
+        backgroundColor: `black`,
+        fontSize: theme.typography.pxToRem(fontSize),
+        fontFamily: theme.font.styled.family,
+        fontWeight: theme.font.styled.weight,
         maxWidth: "none",
     },
 }))

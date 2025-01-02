@@ -1,27 +1,34 @@
-import { Version } from "./version"
+import { echoes } from "data/common";
+import { sonataEffects } from "data/sonataEffects";
+import { Version } from "./version";
 
 export interface EchoProps {
-    echo: Echo
+    echo: Echo;
 }
 
 export interface Echo {
-    id: number,
-    name: string,
-    displayName?: string,
-    code: string,
-    class: "Calamity" | "Overlord" | "Elite" |  "Common",
-    cost: number,
-    skill: EchoSkill,
-    sonata: string[],
-    description: string,
-    hasPhantom: boolean,
-    type: string,
-    nation: string[],
-    release: Version
+    id: number;
+    name: string;
+    displayName: string;
+    code: string;
+    class: EchoClass;
+    cost: EchoCost;
+    skill: EchoSkill;
+    sonata: EchoSonata[];
+    description: string;
+    hasPhantom: boolean;
+    type: string;
+    nation: string[];
+    release: Version;
 }
 
+export type EchoClass = keyof typeof echoes;
+export type EchoCost = 4 | 3 | 1;
+
 export interface EchoSkill {
-    description: string,
-    cooldown: number,
-    scaling: string[][]
+    description: string;
+    cooldown: number;
+    scaling: string[][];
 }
+
+export type EchoSonata = keyof typeof sonataEffects;

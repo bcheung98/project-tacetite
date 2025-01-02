@@ -1,65 +1,101 @@
-import { ICharacterForte } from "./character"
-import { Materials } from "./materials"
+import { characterLevel, characterSkill, weaponLevel } from "data/levelUpCosts";
+import { NestedKeyOf } from "./_common";
+import { Character } from "./character";
+import { Weapon } from "./weapon";
+import {
+    AscensionMaterial,
+    BossMaterial,
+    CharacterXPMaterial,
+    CommonMaterial,
+    ForgeryMaterial,
+    WeaponXPMaterial,
+    WeeklyBossMaterial,
+} from "./materials";
 
 export interface CostArray {
-    [material: string]: number[]
+    [material: string]: number[];
 }
 
 export interface CostNumber {
-    [material: string]: number
+    [material: string]: number;
 }
 
-export type MaterialKeys = keyof TotalCostObject
+export type CostObjectKeys =
+    | NestedKeyOf<TotalCostObject>
+    | keyof ReturnType<typeof characterLevel>
+    | keyof typeof characterSkill
+    | keyof ReturnType<typeof weaponLevel>
+    | "Credit";
+
+export type TotalCostObjectKeys = keyof TotalCostObject;
 
 export interface TotalCostObject {
-    credits: number,
-    characterXP: CostNumber,
-    weaponXP: CostNumber,
-    bossMat: CostNumber,
-    weeklyBossMat: CostNumber,
-    ascensionMat: CostNumber,
-    forgeryMat: CostNumber,
-    commonMat: CostNumber
+    credits: Record<"Credit", number>;
+    characterXP: Record<CharacterXPMaterial, number>;
+    weaponXP: Record<WeaponXPMaterial, number>;
+    bossMat: Record<BossMaterial, number>;
+    weeklyBossMat: Record<WeeklyBossMaterial, number>;
+    ascensionMat: Record<AscensionMaterial, number>;
+    forgeryMat: Record<ForgeryMaterial, number>;
+    commonMat: Record<CommonMaterial, number>;
 }
 
-export interface CharacterCostObject {
-    name: string,
-    displayName?: string,
-    fullName?: string,
-    rarity: number,
-    element: string,
-    weapon: string,
-    forte: ICharacterForte,
-    materials: Materials
-    costs: CharacterCost
+export type PayloadCostObject = Record<
+    TotalCostObjectKeys,
+    Record<CostObjectKeys, number>
+>;
+
+export enum CostObjectSourceIndex {
+    level,
+    attack,
+    skill,
+    ultimate,
+    circuit,
+    intro,
+    passive1,
+    passive2,
+    bonusStat1,
+    bonusStat2,
+    bonusStat3,
+    bonusStat4,
+    bonusStat5,
+    bonusStat6,
+    bonusStat7,
+    bonusStat8,
+}
+
+export interface UpdateCostsPayload {
+    name: string;
+    type: keyof typeof CostObjectSourceIndex;
+    costs: PayloadCostObject;
 }
 
 export interface CharacterCost {
-    credits: number[],
-    characterXP: CostArray,
-    bossMat: CostArray,
-    weeklyBossMat: CostArray,
-    ascensionMat: CostArray,
-    forgeryMat: CostArray,
-    commonMat: CostArray
+    credits: Record<"Credit", number[]>;
+    characterXP: Record<CharacterXPMaterial, number[]>;
+    bossMat: Record<BossMaterial, number[]>;
+    weeklyBossMat: Record<WeeklyBossMaterial, number[]>;
+    ascensionMat: Record<AscensionMaterial, number[]>;
+    forgeryMat: Record<ForgeryMaterial, number[]>;
+    commonMat: Record<CommonMaterial, number[]>;
 }
 
-export interface WeaponCostObject {
-    name: string,
-    displayName?: string,
-    rarity: number,
-    type: string,
-    materials: Materials
-    costs: WeaponCost
+export interface CharacterCostObject
+    extends Pick<
+        Character,
+        "name" | "fullName" | "rarity" | "element" | "weapon"
+    > {
+    costs: CharacterCost;
 }
 
 export interface WeaponCost {
-    credits: number,
-    weaponXP: CostNumber,
-    forgeryMat: CostNumber,
-    commonMat: CostNumber
+    credits: Record<"Credit", number>;
+    weaponXP: Record<WeaponXPMaterial, number>;
+    forgeryMat: Record<ForgeryMaterial, number>;
+    commonMat: Record<CommonMaterial, number>;
 }
 
-export interface PayloadCostObject {
-    [material: string]: number | CostNumber
+export interface WeaponCostObject
+    extends Pick<Weapon, "name" | "displayName" | "rarity" | "type"> {
+    costs: WeaponCost;
 }

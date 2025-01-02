@@ -1,13 +1,6 @@
-import { styled } from "@mui/material/styles"
-import { Slider } from "@mui/material"
-import { SwitchColor } from "../../helpers/ElementColors"
+import { styled, Slider } from "@mui/material";
 
-interface CustomSliderProps {
-    element?: string
-}
-
-export const CustomSlider = styled(Slider)<CustomSliderProps>(({ element }) => ({
-    color: `${SwitchColor(element)}`,
+export const StyledSlider = styled(Slider)(() => ({
     height: 5,
     "& .MuiSlider-track": {
         border: "none",
@@ -19,5 +12,5 @@ export const CustomSlider = styled(Slider)<CustomSliderProps>(({ element }) => (
         "&:before": {
             display: "none",
         },
-    }
-}))
+    },
+}));

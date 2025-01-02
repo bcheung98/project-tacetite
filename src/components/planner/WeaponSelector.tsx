@@ -1,122 +1,161 @@
-import * as React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react";
 
 // Component imports
-import { CustomTooltip } from "../_styled/StyledTooltip"
-import { CustomMenuItem } from "../_styled/StyledMenu"
-import SearchBar from "../_custom/SearchBar"
+import Image from "custom/Image";
+import SearchBar from "custom/SearchBar";
+import { StyledMenuItem } from "styled/StyledMenu";
+import { TextStyled } from "styled/StyledTypography";
 
-// MUI Imports
-import { useTheme, useMediaQuery, Box, Typography, Autocomplete } from "@mui/material"
+// MUI imports
+import { useTheme, Autocomplete, Stack } from "@mui/material";
 
 // Helper imports
-import { GetBackgroundColor, GetRarityColor } from "../../helpers/RarityColors"
-import { setPlannerWeapons, updateTotalCosts } from "../../redux/reducers/AscensionPlannerReducer"
-import ErrorLoadingImage from "../../helpers/ErrorLoadingImage"
+import { useAppDispatch, useAppSelector } from "helpers/hooks";
+import { selectWeapons } from "reducers/weapon";
+import { getSelectedWeapons, setPlannerWeapons } from "reducers/planner";
+import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
 
 // Type imports
-import { RootState } from "../../redux/store"
-import { Weapon } from "../../types/weapon"
+import { Weapon } from "types/weapon";
+import { WeaponCostObject } from "types/costs";
+import { CommonMaterial, ForgeryMaterial } from "types/materials";
 
 function WeaponSelector() {
+    const theme = useTheme();
 
-    const theme = useTheme()
+    const dispatch = useAppDispatch();
 
-    const matches = useMediaQuery(theme.breakpoints.down("md"))
+    const weapons = [...useAppSelector(selectWeapons)].sort(
+        (a, b) =>
+            b.rarity - a.rarity || a.displayName.localeCompare(b.displayName)
+    );
+    const options = React.useMemo(
+        () => createOptions(weapons),
+        [JSON.stringify(weapons)]
+    );
+    const values = useAppSelector(getSelectedWeapons);
 
-    const dispatch = useDispatch()
-
-    const weapons = useSelector((state: RootState) => state.weapons.weapons)
-
-    const [values, setValues] = React.useState<Weapon[]>([])
-
-    React.useEffect(() => {
-        dispatch(setPlannerWeapons(values))
-        dispatch(updateTotalCosts())
-    }, [JSON.stringify(values)])
-
-    const smallIconStyles = {
-        width: "20px",
-        height: "20px",
-    }
+    const smallIconStyle = { width: "20px", height: "20px" };
 
     return (
-        <Box>
-            <Autocomplete
-                multiple
-                autoComplete
-                disableCloseOnSelect
-                options={[...weapons].sort((a, b) => a.rarity > b.rarity ? -1 : 1)} // Autocomplete options are read-only, so need spread operator to manipulate the array
-                getOptionLabel={(option) => option.displayName ? option.displayName : option.name}
-                filterSelectedOptions
-                noOptionsText="No Weapons"
-                value={values}
-                onChange={(event: any, newValue: Weapon[] | null) => {
-                    setValues(newValue as Weapon[])
-                }}
-                ChipProps={{
-                    sx: {
-                        color: `${theme.text.color}`,
-                        fontFamily: `${theme.font.styled.family}`,
-                        backgroundColor: `${theme.button.selected}`,
-                        "& .MuiChip-deleteIcon": {
-                            color: `${theme.text.color}`,
-                            ":hover": {
-                                color: `${theme.text.colorAlt}`
-                            }
-                        },
+        <Autocomplete
+            multiple
+            autoComplete
+            filterSelectedOptions
+            options={options}
+            getOptionLabel={(option) => option.displayName}
+            filterOptions={(options, { inputValue }) =>
+                options.filter(
+                    (option) =>
+                        option.name
+                            .toLocaleLowerCase()
+                            .includes(inputValue.toLocaleLowerCase()) ||
+                        option.displayName
+                            .toLocaleLowerCase()
+                            .includes(inputValue.toLocaleLowerCase())
+                )
+            }
+            noOptionsText="No Weapons"
+            value={values}
+            isOptionEqualToValue={(option, value) => option.name === value.name}
+            onChange={(_: any, newValue: WeaponCostObject[] | null) =>
+                dispatch(setPlannerWeapons(newValue as WeaponCostObject[]))
+            }
+            renderInput={(params) => (
+                <SearchBar
+                    params={params}
+                    placeholder="Weapons"
+                    inputIcon={
+                        <Image
+                            src="icons/Weapon"
+                            alt="Weapons"
+                            style={{
+                                width: "32px",
+                                marginLeft: "4px",
+                                backgroundColor: theme.appbar.backgroundColor,
+                                borderRadius: "64px",
+                            }}
+                        />
                     }
-                }}
-                ListboxProps={{
-                    sx: { backgroundColor: `${theme.paper.backgroundColor}`, p: 0 }
-                }}
-                renderInput={(params) => (
-                    <SearchBar params={params} placeholder="Weapons" />
-                )}
-                renderOption={(props, option) => (
-                    <CustomMenuItem
-                        {...props}
-                        key={option.name}
-                        sx={{
-                            "&:not(:last-child)": {
-                                borderBottom: `1px solid ${theme.border.color}`,
-                            },
-                        }}
-                    >
-                        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-                            <Box sx={{ mr: "10px", mt: "6px" }}>
-                                <CustomTooltip title={option.type} arrow placement="top">
-                                    <img style={smallIconStyles} src={`${process.env.REACT_APP_URL}/weapons/icons/${option.type}.png`} alt={option.type} onError={ErrorLoadingImage} />
-                                </CustomTooltip>
-                            </Box>
-                            <img
-                                src={`${process.env.REACT_APP_URL}/weapons/${option.name.split(" ").join("_")}.png`} alt={option.name}
-                                style={{
-                                    width: matches ? "42px" : "48px",
-                                    marginRight: "20px",
-                                    border: `2px solid ${GetRarityColor(option.rarity)}`,
-                                    borderRadius: "5px",
-                                    boxShadow: `inset 0 0 30px 5px ${GetBackgroundColor(option.rarity)}`
-                                }}
-                                onError={ErrorLoadingImage}
-                            />
-                            <Typography
-                                noWrap
-                                sx={{
-                                    fontFamily: `${theme.font.styled.family}`,
-                                    fontSize: { xs: "14px", md: "16px" },
-                                    color: `${theme.text.color}`
-                                }}
-                            >
-                                {option.displayName ? option.displayName : option.name}
-                            </Typography>
-                        </Box>
-                    </CustomMenuItem>
-                )}
-            />
-        </Box>
-    )
-
+                />
+            )}
+            renderOption={(props, option) => (
+                <StyledMenuItem
+                    {...props}
+                    key={option.displayName}
+                    sx={{
+                        "&:hover": {
+                            backgroundColor: theme.menu.selectedHover,
+                        },
+                        "&:not(:last-child)": {
+                            borderBottom: `1px solid ${theme.border.color.primary}`,
+                        },
+                    }}
+                >
+                    <Stack spacing={2} direction="row" alignItems="center">
+                        <Image
+                            src={`weapons/icons/${option.type}`}
+                            alt={option.type}
+                            style={smallIconStyle}
+                            tooltip={option.type}
+                        />
+                        <Image
+                            src={`weapons/${option.name}`}
+                            alt={option.name}
+                            style={{
+                                width: "48px",
+                                height: "48px",
+                                border: `2px solid ${getRarityColor(
+                                    option.rarity
+                                )}`,
+                                borderRadius: theme.mainContentBox.borderRadius,
+                                backgroundColor: theme.background(2),
+                                boxShadow: `inset 0 0 24px 16px ${getBackgroundColor(
+                                    option.rarity
+                                )}`,
+                            }}
+                        />
+                        <TextStyled noWrap>{option.displayName}</TextStyled>
+                    </Stack>
+                </StyledMenuItem>
+            )}
+        />
+    );
 }
 
-export default WeaponSelector
+export default WeaponSelector;
+
+function createOptions(weapons: Weapon[]) {
+    return weapons.map(
+        (wep) =>
+            ({
+                name: wep.name,
+                displayName: wep.displayName,
+                rarity: wep.rarity,
+                type: wep.type,
+                costs: {
+                    credits: {
+                        Credit: 0,
+                    },
+                    weaponXP: {
+                        WeaponXP1: 0,
+                        WeaponXP2: 0,
+                        WeaponXP3: 0,
+                        WeaponXP4: 0,
+                    },
+                    forgeryMat: {
+                        [`${wep.materials.forgeryMat}1` as ForgeryMaterial]: 0,
+                        [`${wep.materials.forgeryMat}2` as ForgeryMaterial]: 0,
+                        [`${wep.materials.forgeryMat}3` as ForgeryMaterial]: 0,
+                        [`${wep.materials.forgeryMat}4` as ForgeryMaterial]: 0,
+                    },
+                    commonMat: {
+                        [`${wep.materials.commonMat}1` as CommonMaterial]: 0,
+                        [`${wep.materials.commonMat}2` as CommonMaterial]: 0,
+                        [`${wep.materials.commonMat}3` as CommonMaterial]: 0,
+                        [`${wep.materials.commonMat}4` as CommonMaterial]: 0,
+                    },
+                },
+            } as WeaponCostObject)
+    );
+}

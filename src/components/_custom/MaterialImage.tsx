@@ -1,79 +1,79 @@
-// Compnent imports
-import Image from "./Image"
+import { CSSProperties } from "react";
+
+// Component imports
+import Image from "./Image";
+import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, SxProps, Box, Card, Typography } from "@mui/material"
+import { useTheme, Box, Card } from "@mui/material";
 
 // Helper imports
-import { GetRarityColor } from "../../helpers/RarityColors"
+import { getRarityColor } from "helpers/rarityColors";
+
+// Type imports
+import { Rarity } from "types/_common";
 
 interface MaterialImageProps {
-    name: string,
-    rarity: number,
-    cost: string | number,
-    img: string,
-    size?: string
+    name: string;
+    rarity: Rarity;
+    cost: number;
+    imgSrc: string;
+    size?: string;
+    labelColor?: string;
 }
 
 function MaterialImage({
     name,
-    rarity = 1,
+    rarity,
     cost,
-    img,
-    size = "72px"
+    imgSrc,
+    size = "72px",
+    labelColor,
 }: MaterialImageProps) {
+    const theme = useTheme();
 
-    const theme = useTheme()
-
-    const cardStyle: SxProps = {
+    const cardStyle: CSSProperties = {
         width: size,
-        height: "auto",
-        background: `rgb(31, 31, 33)`,
-        borderRadius: "5px",
-        containerType: "inline-size",
-        overflow: "hidden"
-    }
+        backgroundColor: theme.appbar.backgroundColor,
+    };
 
-    const cardImageStyle: React.CSSProperties = {
+    const imgStyle: CSSProperties = {
         width: size,
         height: size,
-        padding: "5px",
-        // background: `linear-gradient(rgb(43, 45, 49) 85%, ${GetBackgroundColor(rarity, 0.75)} 100%)`,
+        backgroundImage: `url(https://assets.irminsul.gg/wuwa/backgrounds/Background_${rarity}_Star.png)`,
         backgroundSize: "contain",
-        backgroundImage: `url(${process.env.REACT_APP_URL}/backgrounds/Background_${rarity}_Star.png)`
-    }
+        borderBottom: `2px solid ${getRarityColor(rarity)}`,
+    };
+
+    const labelStyle: CSSProperties = {
+        padding: "0px 2px 4px",
+        textAlign: "center",
+        backgroundColor: labelColor || theme.appbar.backgroundColor,
+    };
 
     return (
-        <Card sx={cardStyle} elevation={2}>
-            <Box sx={{ height: size, overflow: "hidden" }}>
-                <Image
-                    src={`materials/${img}`}
-                    alt={name}
-                    style={cardImageStyle}
-                    tooltip={{ title: name }}
-                />
-            </Box>
-            <Box
-                sx={{
-                    borderTop: `2px solid ${GetRarityColor(rarity)}`,
-                    textAlign: "right",
-                    pr: "2px",
-                    py: "1px"
-                }}
-            >
-                <Typography
+        <Card sx={cardStyle}>
+            <Image
+                src={`materials/${imgSrc}`}
+                alt={name}
+                style={imgStyle}
+                tooltip={name}
+            />
+            <Box sx={labelStyle}>
+                <TextStyled
                     sx={{
-                        color: `rgb(208, 208, 208)`,
-                        fontFamily: `${theme.font.styled.family}`,
-                        fontSize: cost.toLocaleString().length < 11 ? `calc(${size} / 5)` : `calc(${size} / 6)`,
+                        fontSize:
+                            cost.toLocaleString().length < 11
+                                ? `calc(${size} / 6) !important`
+                                : `calc(${size} / 7) !important`,
+                        color: theme.appbar.color,
                     }}
                 >
-                    {cost}
-                </Typography>
+                    {cost.toLocaleString()}
+                </TextStyled>
             </Box>
         </Card>
-    )
-
+    );
 }
 
-export default MaterialImage
+export default MaterialImage;

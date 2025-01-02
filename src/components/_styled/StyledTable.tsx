@@ -1,49 +1,40 @@
-import { styled } from "@mui/material/styles"
-import TableCell, { tableCellClasses } from "@mui/material/TableCell"
-import TableRow, { tableRowClasses } from "@mui/material/TableRow"
+import {
+    styled,
+    TableRow,
+    TableCell,
+    tableCellClasses,
+    tableRowClasses,
+} from "@mui/material";
+import { variantMap } from "themes/theme";
+import { ColorVariants } from "types/theme";
 
 interface CustomTableRowProps {
-    children?: React.ReactNode
+    color?: ColorVariants;
 }
 
-export const StyledTableRows = styled((props: CustomTableRowProps) => (
-    <TableRow hover {...props} />
-))(({ theme }) => ({
-    [`&.${tableRowClasses.hover}`]: {
-        "&:hover": {
-            backgroundColor: `${theme.table.body.hover}`,
+export const StyledTableRow = styled(TableRow)<CustomTableRowProps>(
+    ({ theme, color = "tertiary" }) => ({
+        backgroundColor: theme.background(
+            variantMap[color as keyof typeof variantMap]
+        ),
+        [`&.${tableRowClasses.hover}`]: {
+            "&:hover": {
+                backgroundColor: theme.background(
+                    variantMap[color as keyof typeof variantMap],
+                    "dark"
+                ),
+            },
         },
-    },
-    color: `${theme.text.color}`,
-}))
+        "&:last-child td, &:last-child th": {
+            border: 0,
+        },
+    })
+);
 
-interface CustomTableCellProps {
-    children?: React.ReactNode
-}
-
-export const StyledTableCell = styled((props: CustomTableCellProps) => (
-    <TableCell align="center" size="small" component="th" {...props} />
-))(({ theme }) => ({
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    borderColor: theme.border.color.primary,
+    padding: "8px 16px",
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: `${theme.table.header.backgroundColor}`,
-        color: `${theme.text.color}`,
-        fontSize: "16px",
-        fontFamily: theme.font.styled.family,
-        fontWeight: theme.font.styled.weight
+        backgroundColor: theme.appbar.backgroundColor,
     },
-    color: `${theme.text.color}`,
-    fontSize: "10pt",
-    border: `1px solid ${theme.border.color}`,
-}))
-
-export const StyledTableCellNoVert = styled((props: CustomTableCellProps) => (
-    <TableCell align="center" size="small" component="th" {...props} />
-))(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: `${theme.table.header.backgroundColor}`,
-        color: `${theme.text.color}`,
-    },
-    color: `${theme.text.color}`,
-    borderTop: `1px solid ${theme.border.color}`,
-    borderBottom: `1px solid ${theme.border.color}`,
-}))
+}));
