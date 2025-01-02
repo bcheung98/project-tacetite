@@ -7,7 +7,7 @@ import { Banner } from "types/banner";
 export type LoadingStatus = "idle" | "pending" | "success" | "error";
 
 // https://api.irminsul.gg/wuwa/characters.json
-const characterURL = "https://api.irminsul.gg/wuwa/characters.json";
+const characterURL = "https://api.irminsul.gg/wuwa/characters-v2.json";
 
 // https://api.irminsul.gg/wuwa/weapons.json
 const weaponURL = "https://api.irminsul.gg/wuwa/weapons.json";
