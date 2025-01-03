@@ -68,7 +68,12 @@ function EchoSkill({ echo }: EchoProps) {
                             backgroundColor: theme.icon.backgroundColor,
                         }}
                     />
-                    <TextStyled variant="h6-styled">Echo Skill</TextStyled>
+                    <TextStyled
+                        variant="h6-styled"
+                        sx={{ color: theme.appbar.color }}
+                    >
+                        Echo Skill
+                    </TextStyled>
                 </Stack>
             }
         >

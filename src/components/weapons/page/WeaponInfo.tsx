@@ -32,7 +32,11 @@ function WeaponInfo({ weapon }: WeaponProps) {
                     <Image
                         src={`weapons/icons/${type}`}
                         alt={type}
-                        style={{ width: "64px" }}
+                        style={{
+                            width: "64px",
+                            backgroundColor: theme.appbar.backgroundColor,
+                            borderRadius: "64px",
+                        }}
                         tooltip={type}
                     />
                     <Box>
@@ -55,7 +59,10 @@ function WeaponInfo({ weapon }: WeaponProps) {
                         </FlexBox>
                     </Box>
                 </FlexBox>
-                <TextStyled variant="subtitle1-styled" sx={{ fontStyle: "italic" }}>
+                <TextStyled
+                    variant="subtitle1-styled"
+                    sx={{ fontStyle: "italic" }}
+                >
                     {parse(description)}
                 </TextStyled>
             </Stack>
