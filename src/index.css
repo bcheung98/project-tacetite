@@ -28,9 +28,9 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(83, 71, 69);
+    background: rgb(100, 100, 100);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(141, 127, 114);
+    background: rgb(125, 125, 125);
 }
