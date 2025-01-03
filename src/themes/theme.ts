@@ -2,10 +2,12 @@ import type {} from "@mui/lab/themeAugmentation";
 import { createTheme, getContrastRatio, SxProps } from "@mui/material";
 import { darkTheme } from "./darkTheme";
 import { lightTheme } from "./lightTheme";
+import { wuwaTheme } from "./wuwaTheme";
 
 export const themeList = [
     { name: "Dark", label: "Classic", data: darkTheme },
     { name: "Light", label: "Light", data: lightTheme },
+    { name: "Styled", label: "Tacetite", data: wuwaTheme },
 ] as const;
 
 export const themeNames = themeList.map((t) => t.name);

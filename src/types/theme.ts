@@ -2,13 +2,15 @@ import { SxProps } from "@mui/material";
 import { themeNames } from "themes/theme";
 import { darkThemeData } from "themes/darkTheme";
 import { lightThemeData } from "themes/lightTheme";
+import { wuwaThemeData } from "themes/wuwaTheme";
 import { Variant } from "@mui/material/styles/createTypography";
 
 export type ThemeNames = (typeof themeNames)[number];
 
 type DarkTheme = typeof darkThemeData;
 type LightTheme = typeof lightThemeData;
-type ThemeData = DarkTheme & LightTheme;
+type StyledTheme = typeof wuwaThemeData;
+type ThemeData = DarkTheme & LightTheme & StyledTheme;
 
 export type CustomTheme = {
     [Key in keyof ThemeData]: ThemeData[Key];
