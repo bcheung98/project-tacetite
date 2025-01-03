@@ -43,16 +43,16 @@ function EchoSonata({ echo }: EchoProps) {
                         <Text>
                             {"2-Pc: "}
                             <span style={{ color: theme.text.description }}>
-                                {parseSkillDescription(
-                                    sonataEffects[sonata]["2pc"]
-                                )}
+                                {parseSkillDescription({
+                                    description: sonataEffects[sonata]["2pc"],
+                                })}
                             </span>
                             <br />
                             {"5-Pc: "}
                             <span style={{ color: theme.text.description }}>
-                                {parseSkillDescription(
-                                    sonataEffects[sonata]["5pc"]
-                                )}
+                                {parseSkillDescription({
+                                    description: sonataEffects[sonata]["5pc"],
+                                })}
                             </span>
                         </Text>
                     </Stack>

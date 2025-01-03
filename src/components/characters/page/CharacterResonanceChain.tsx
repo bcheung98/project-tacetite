@@ -66,10 +66,13 @@ function CharacterResonanceChain({ character }: CharacterProps) {
                                 </TextStyled>
                             </Box>
                         </Stack>
-                        <Text component="span" sx={{ color: theme.text.description }}>
-                            {parseSkillDescription(
-                                resonanceChain[key].description
-                            )}
+                        <Text
+                            component="span"
+                            sx={{ color: theme.text.description }}
+                        >
+                            {parseSkillDescription({
+                                description: resonanceChain[key].description,
+                            })}
                         </Text>
                     </Grid>
                 ))}

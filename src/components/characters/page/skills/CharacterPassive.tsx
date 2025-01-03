@@ -70,7 +70,7 @@ function CharacterPassive({
                             component="span"
                             sx={{ color: theme.text.description }}
                         >
-                            {parseSkillDescription(passives[index].description)}
+                            {parseSkillDescription({ description: passives[index].description })}
                         </Text>
                     </Box>
                     <CharacterSkillLevelUpCost

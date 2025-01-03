@@ -74,11 +74,11 @@ function EchoSkill({ echo }: EchoProps) {
         >
             <Stack spacing={2}>
                 <Text component="span" sx={{ color: theme.text.description }}>
-                    {parseSkillDescription(
-                        skill.description,
-                        "text-value",
-                        "echo-skill-value"
-                    )}
+                    {parseSkillDescription({
+                        description: skill.description,
+                        targetClassName: "text-value",
+                        newClassName: "echo-skill-value",
+                    })}
                 </Text>
                 <Text sx={{ color: theme.text.description }}>
                     {"Cooldown: "}

@@ -46,7 +46,10 @@ function EchoInfo({ echo }: EchoProps) {
                     variant="subtitle1-styled"
                     sx={{ fontStyle: "italic" }}
                 >
-                    {parseSkillDescription(description)}
+                    {parseSkillDescription({
+                        description: description,
+                        textVariant: "subtitle1-styled",
+                    })}
                 </TextStyled>
             </Stack>
         </Card>

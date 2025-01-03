@@ -68,7 +68,7 @@ function CharacterSkillTab({
                     {skill.name}
                 </TextStyled>
                 <Text component="span" sx={{ color: theme.text.description }}>
-                    {parseSkillDescription(skill.description)}
+                    {parseSkillDescription({ description: skill.description })}
                 </Text>
                 <Stack spacing={2} sx={{ mt: "24px" }}>
                     {"scaling" in skill && (

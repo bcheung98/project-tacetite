@@ -5,13 +5,19 @@ import parse, {
     DOMNode,
 } from "html-react-parser";
 import { Text } from "styled/StyledTypography";
-import { useTheme } from "@mui/material";
+import { useTheme, TypographyProps } from "@mui/material";
 
-export function parseSkillDescription(
-    description: string,
+export function parseSkillDescription({
+    description,
+    textVariant = "body1",
     targetClassName = "text-value",
-    newClassName?: string
-) {
+    newClassName,
+}: {
+    description: string;
+    textVariant?: TypographyProps["variant"];
+    targetClassName?: string;
+    newClassName?: string;
+}) {
     const theme = useTheme();
     const options: HTMLReactParserOptions = {
         replace: (domNode) => {
@@ -21,6 +27,7 @@ export function parseSkillDescription(
                     const tag = className.split("-")[1];
                     return (
                         <Text
+                            variant={textVariant}
                             component="span"
                             className={
                                 className === targetClassName

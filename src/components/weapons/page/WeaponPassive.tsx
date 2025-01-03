@@ -61,11 +61,11 @@ function WeaponPassive({ weapon }: WeaponProps) {
                 {stats.passive.name}
             </TextStyled>
             <Text sx={{ color: theme.text.description }}>
-                {parseSkillDescription(
-                    stats.passive.description,
-                    "text-refinement",
-                    "weapon-passive-value"
-                )}
+                {parseSkillDescription({
+                    description: stats.passive.description,
+                    targetClassName: "text-refinement",
+                    newClassName: "weapon-passive-value",
+                })}
             </Text>
             <Box sx={{ width: { xs: "90%", md: "30vw" }, mt: "16px" }}>
                 <StyledSlider
