@@ -12,14 +12,6 @@ import {
     WeeklyBossMaterial,
 } from "./materials";
 
-export interface CostArray {
-    [material: string]: number[];
-}
-
-export interface CostNumber {
-    [material: string]: number;
-}
-
 export type CostObjectKeys =
     | NestedKeyOf<TotalCostObject>
     | keyof ReturnType<typeof characterLevel>
