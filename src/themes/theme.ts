@@ -7,7 +7,7 @@ import { wuwaTheme } from "./wuwaTheme";
 export const themeList = [
     { name: "Dark", label: "Classic", data: darkTheme },
     { name: "Light", label: "Light", data: lightTheme },
-    { name: "Styled", label: "Tacetite", data: wuwaTheme },
+    { name: "Styled", label: "WuWa", data: wuwaTheme },
 ] as const;
 
 export const themeNames = themeList.map((t) => t.name);
