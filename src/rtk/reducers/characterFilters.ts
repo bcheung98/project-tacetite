@@ -29,7 +29,7 @@ const initialState: CharacterFilterState = {
     weapon: [],
     rarity: [],
     roles: [],
-    uniqueRoles: false,
+    uniqueRoles: true,
     forgeryMat: [],
     commonMat: [],
     ascensionMat: [],
@@ -53,8 +53,8 @@ export const characterFilterSlice = createSlice({
         setRoles: (state, action: PayloadAction<CombatRole[]>) => {
             state.roles = action.payload;
         },
-        setUniqueRoles: (state, action: PayloadAction<boolean>) => {
-            state.uniqueRoles = action.payload;
+        toggleUniqueRoles: (state) => {
+            state.uniqueRoles = !state.uniqueRoles;
         },
         setForgeryMat: (state, action: PayloadAction<ForgeryMaterial[]>) => {
             state.forgeryMat = action.payload;
@@ -97,7 +97,7 @@ export const {
     setWeapon,
     setRarity,
     setRoles,
-    setUniqueRoles,
+    toggleUniqueRoles,
     setForgeryMat,
     setCommonMat,
     setAscensionMat,

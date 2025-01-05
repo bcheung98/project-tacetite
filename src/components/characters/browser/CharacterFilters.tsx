@@ -5,11 +5,16 @@ import Dropdown from "custom/Dropdown";
 import Image from "custom/Image";
 import ToggleButtons from "custom/ToggleButtons";
 import RarityStars from "custom/RarityStars";
+import { FlexBox } from "styled/StyledBox";
+import { StyledSwitch } from "styled/StyledSwitch";
+import { TextStyled } from "styled/StyledTypography";
+import { StyledTooltip } from "styled/StyledTooltip";
 
 // MUI imports
 import { useTheme, List, IconButton, Toolbar, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import HelpIcon from "@mui/icons-material/Help";
 
 // Helper imports
 import { objectKeys } from "helpers/utils";
@@ -27,6 +32,7 @@ import {
     setRoles,
     setWeapon,
     setWeeklyBossMat,
+    toggleUniqueRoles,
 } from "reducers/characterFilters";
 import { elements, rarities, weapons } from "data/common";
 import { combatRoles } from "data/combatRoles";
@@ -69,6 +75,10 @@ function CharacterFilters({
     const filters = useAppSelector(selectCharacterFilters);
     const dispatch = useAppDispatch();
 
+    const handleSelect = () => {
+        dispatch(toggleUniqueRoles());
+    };
+
     const filterGroups = [
         {
             name: "Attribute",
@@ -100,6 +110,29 @@ function CharacterFilters({
             onChange: (_: React.BaseSyntheticEvent, newValues: CombatRole[]) =>
                 dispatch(setRoles(newValues)),
             buttons: createButtons<CombatRole>(objectKeys(combatRoles), "tags"),
+            toggle: (
+                <FlexBox
+                    sx={{ alignItems: "center", flexWrap: "wrap", mb: "8px" }}
+                >
+                    <StyledSwitch
+                        checked={filters.uniqueRoles}
+                        onChange={handleSelect}
+                        sx={{ mt: "4px" }}
+                    />
+                    <TextStyled variant="body2-styled">
+                        Toggle "AND" Filter
+                    </TextStyled>
+                    <StyledTooltip
+                        title="If toggled, will filter resonators that only contain all selected combat roles."
+                        arrow
+                        placement="top"
+                    >
+                        <IconButton disableRipple>
+                            <HelpIcon />
+                        </IconButton>
+                    </StyledTooltip>
+                </FlexBox>
+            ),
         },
         {
             name: "Forgery Material",
@@ -202,6 +235,7 @@ function CharacterFilters({
                         }
                         contentPadding="4px 0px 4px 24px"
                     >
+                        {"toggle" in filter && filter.toggle}
                         <ToggleButtons
                             color="secondary"
                             buttons={filter.buttons}
