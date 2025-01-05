@@ -19,7 +19,7 @@ export const sonataEffects = {
         "2pc": '<span class="text-spectro">Spectro DMG</span> + 10%.',
         "5pc": '<span class="text-spectro">Spectro DMG</span> + 30% for 15s after releasing Intro Skill.',
     },
-    "Sun-sinking Eclipse": {
+    "Havoc Eclipse": {
         "2pc": '<span class="text-havoc">Havoc DMG</span> +10%.',
         "5pc": '<span class="text-havoc">Havoc DMG</span> +7.5% after releasing Basic Attack or Heavy Attack. This effect stacks up to 4 times, each stack lasts 15s.',
     },
