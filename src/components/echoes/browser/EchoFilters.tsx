@@ -90,7 +90,7 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
                         Toggle "AND" Filter
                     </TextStyled>
                     <StyledTooltip
-                        title="If toggled, will filter banners that only contain all selected items."
+                        title="If toggled, will filter echoes that only include all selected sonata effects."
                         arrow
                         placement="top"
                     >
