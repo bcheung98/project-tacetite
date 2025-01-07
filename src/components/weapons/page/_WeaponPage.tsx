@@ -26,7 +26,7 @@ function WeaponPage() {
         const documentTitle = `${weapon.displayName} ${
             import.meta.env.VITE_DOCUMENT_TITLE
         }`;
-        const documentDesc = `${weapon.displayName} - ${weapon.rarity}★ ${weapon.type} | ${weapon.description}`;
+        const documentDesc = `${weapon.displayName} - ${weapon.rarity}★ ${weapon.type}`;
         document.title = documentTitle;
         document
             .querySelector('meta[property="og:title"]')

@@ -31,7 +31,7 @@ function CharacterPage() {
         const documentTitle = `${character.fullName} ${
             import.meta.env.VITE_DOCUMENT_TITLE
         }`;
-        const documentDesc = `${character.fullName} - ${character.rarity}-Rank ${character.element} ${character.weapon}`;
+        const documentDesc = `${character.fullName} - ${character.rarity}★ ${character.element} ${character.weapon}`;
         document.title = documentTitle;
         document
             .querySelector('meta[property="og:title"]')
