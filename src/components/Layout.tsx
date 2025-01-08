@@ -1,4 +1,4 @@
-import React from "react";
+import { useLayoutEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 
 // Component imports
@@ -9,7 +9,7 @@ import NavBottom from "./nav/NavBottom";
 // MUI imports
 import { Box } from "@mui/material";
 
-// Helper
+// Helper imports
 import { useAppSelector } from "helpers/hooks";
 import { selectWidth } from "reducers/settings";
 
@@ -17,7 +17,7 @@ function Layout() {
     const width = useAppSelector(selectWidth);
 
     const location = useLocation().pathname;
-    React.useEffect(() => {
+    useLayoutEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
 
