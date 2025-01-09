@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -34,8 +34,6 @@ interface LevelSliderProps {
     color?: string;
 }
 
-const threshold = "@250";
-
 function LevelSlider({
     mode,
     name,
@@ -52,14 +50,19 @@ function LevelSlider({
 
     const dispatch = useAppDispatch();
 
-    const [selected, setSelected] = React.useState(true);
+    let threshold = "@250";
+    if (dispatchProps.type === "level") {
+        threshold = "@400";
+    }
+
+    const [selected, setSelected] = useState(true);
     const handleSelect = () => {
         setSelected(!selected);
     };
 
     const minDistance = 1;
     const maxValue = levels.length;
-    const [sliderValue, setSliderValue] = React.useState([1, maxValue]);
+    const [sliderValue, setSliderValue] = useState([1, maxValue]);
     const handleSliderChange = (
         _: Event,
         newValue: number | number[],
@@ -98,7 +101,7 @@ function LevelSlider({
         ),
     }));
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (variant === "character") {
             dispatch(
                 updateCharacterCosts({
