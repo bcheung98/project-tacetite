@@ -119,15 +119,21 @@ function CharacterFilters({
                         onChange={handleSelect}
                         sx={{ mt: "4px" }}
                     />
-                    <TextStyled variant="body2-styled">
+                    <TextStyled
+                        variant="body2-styled"
+                        sx={{ color: theme.appbar.color }}
+                    >
                         Toggle "AND" Filter
                     </TextStyled>
                     <StyledTooltip
-                        title="If toggled, will filter resonators that only contain all selected combat roles."
+                        title="If toggled, will filter resonators that only have all selected combat roles."
                         arrow
                         placement="top"
                     >
-                        <IconButton disableRipple>
+                        <IconButton
+                            disableRipple
+                            sx={{ color: theme.appbar.color }}
+                        >
                             <HelpIcon />
                         </IconButton>
                     </StyledTooltip>

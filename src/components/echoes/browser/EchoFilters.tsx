@@ -86,15 +86,21 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
                         onChange={handleSelect}
                         sx={{ mt: "4px" }}
                     />
-                    <TextStyled variant="body2-styled">
+                    <TextStyled
+                        variant="body2-styled"
+                        sx={{ color: theme.appbar.color }}
+                    >
                         Toggle "AND" Filter
                     </TextStyled>
                     <StyledTooltip
-                        title="If toggled, will filter echoes that only include all selected sonata effects."
+                        title="If toggled, will filter echoes that only have all selected sonata effects."
                         arrow
                         placement="top"
                     >
-                        <IconButton disableRipple>
+                        <IconButton
+                            disableRipple
+                            sx={{ color: theme.appbar.color }}
+                        >
                             <HelpIcon />
                         </IconButton>
                     </StyledTooltip>
