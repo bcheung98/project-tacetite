@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent } from "react";
 
 // Component imports
 import Dropdown from "custom/Dropdown";
@@ -83,21 +83,21 @@ function CharacterFilters({
         {
             name: "Attribute",
             value: filters.element,
-            onChange: (_: React.BaseSyntheticEvent, newValues: Element[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: Element[]) =>
                 dispatch(setElement(newValues)),
             buttons: createButtons<Element>(elements, "elements"),
         },
         {
             name: "Weapon",
             value: filters.weapon,
-            onChange: (_: React.BaseSyntheticEvent, newValues: WeaponType[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: WeaponType[]) =>
                 dispatch(setWeapon(newValues)),
             buttons: createButtons<WeaponType>(weapons, "weapons/icons"),
         },
         {
             name: "Rarity",
             value: filters.rarity,
-            onChange: (_: React.BaseSyntheticEvent, newValues: Rarity[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: Rarity[]) =>
                 dispatch(setRarity(newValues)),
             buttons: rarities.slice(0, -3).map((rarity) => ({
                 value: rarity,
@@ -107,7 +107,7 @@ function CharacterFilters({
         {
             name: "Combat Roles",
             value: filters.roles,
-            onChange: (_: React.BaseSyntheticEvent, newValues: CombatRole[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: CombatRole[]) =>
                 dispatch(setRoles(newValues)),
             buttons: createButtons<CombatRole>(objectKeys(combatRoles), "tags"),
             toggle: (
@@ -144,7 +144,7 @@ function CharacterFilters({
             name: "Forgery Material",
             value: filters.forgeryMat,
             onChange: (
-                _: React.BaseSyntheticEvent,
+                _: BaseSyntheticEvent,
                 newValues: ForgeryMaterialKeys[]
             ) => dispatch(setForgeryMat(newValues)),
             buttons: createButtons<ForgeryMaterialKeys>(
@@ -156,7 +156,7 @@ function CharacterFilters({
             name: "Common Material",
             value: filters.commonMat,
             onChange: (
-                _: React.BaseSyntheticEvent,
+                _: BaseSyntheticEvent,
                 newValues: CommonMaterialKeys[]
             ) => dispatch(setCommonMat(newValues)),
             buttons: createButtons<CommonMaterialKeys>(
@@ -166,11 +166,9 @@ function CharacterFilters({
         },
         {
             name: "Ascension Material",
-            value: filters.forgeryMat,
-            onChange: (
-                _: React.BaseSyntheticEvent,
-                newValues: AscensionMaterial[]
-            ) => dispatch(setAscensionMat(newValues)),
+            value: filters.ascensionMat,
+            onChange: (_: BaseSyntheticEvent, newValues: AscensionMaterial[]) =>
+                dispatch(setAscensionMat(newValues)),
             buttons: createButtons<AscensionMaterial>(
                 ascensionMaterials,
                 "materials/ascension"
@@ -179,10 +177,8 @@ function CharacterFilters({
         {
             name: "Boss Material",
             value: filters.bossMat,
-            onChange: (
-                _: React.BaseSyntheticEvent,
-                newValues: BossMaterial[]
-            ) => dispatch(setBossMat(newValues)),
+            onChange: (_: BaseSyntheticEvent, newValues: BossMaterial[]) =>
+                dispatch(setBossMat(newValues)),
             buttons: createButtons<BossMaterial>(
                 bossMatNames.slice(1),
                 "materials/boss"
@@ -192,7 +188,7 @@ function CharacterFilters({
             name: "Weekly Boss Material",
             value: filters.weeklyBossMat,
             onChange: (
-                _: React.BaseSyntheticEvent,
+                _: BaseSyntheticEvent,
                 newValues: WeeklyBossMaterial[]
             ) => dispatch(setWeeklyBossMat(newValues)),
             buttons: createButtons<WeeklyBossMaterial>(
