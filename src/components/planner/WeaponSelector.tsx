@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -29,13 +29,13 @@ function WeaponSelector() {
         (a, b) =>
             b.rarity - a.rarity || a.displayName.localeCompare(b.displayName)
     );
-    const options = React.useMemo(
+    const options = useMemo(
         () => createOptions(weapons),
         [JSON.stringify(weapons)]
     );
     const values = useAppSelector(getSelectedWeapons);
 
-    const smallIconStyle = { width: "20px", height: "20px" };
+    const smallIconStyle = { width: "16px", height: "16px" };
 
     return (
         <Autocomplete
@@ -93,12 +93,21 @@ function WeaponSelector() {
                     }}
                 >
                     <Stack spacing={2} direction="row" alignItems="center">
-                        <Image
-                            src={`weapons/icons/${option.type}`}
-                            alt={option.type}
-                            style={smallIconStyle}
-                            tooltip={option.type}
-                        />
+                        <Stack
+                            spacing={1}
+                            sx={{
+                                p: "4px",
+                                borderRadius: "16px",
+                                backgroundColor: theme.appbar.backgroundColor,
+                            }}
+                        >
+                            <Image
+                                src={`weapons/icons/${option.type}`}
+                                alt={option.type}
+                                style={smallIconStyle}
+                                tooltip={option.type}
+                            />
+                        </Stack>
                         <Image
                             src={`weapons/${option.name}`}
                             alt={option.name}

@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -34,13 +34,13 @@ function CharacterSelector() {
     const characters = [...useAppSelector(selectCharacters)].sort((a, b) =>
         a.fullName.localeCompare(b.fullName)
     );
-    const options = React.useMemo(
+    const options = useMemo(
         () => createOptions(characters),
         [JSON.stringify(characters)]
     );
     const values = useAppSelector(getSelectedCharacters);
 
-    const smallIconStyle = { width: "20px", height: "20px" };
+    const smallIconStyle = { width: "16px", height: "16px" };
 
     return (
         <Autocomplete
@@ -100,7 +100,14 @@ function CharacterSelector() {
                     }}
                 >
                     <Stack spacing={2} direction="row" alignItems="center">
-                        <Stack spacing={1}>
+                        <Stack
+                            spacing={1}
+                            sx={{
+                                p: "4px",
+                                borderRadius: "16px",
+                                backgroundColor: theme.appbar.backgroundColor,
+                            }}
+                        >
                             <Image
                                 src={`elements/${option.element}`}
                                 alt={option.element}

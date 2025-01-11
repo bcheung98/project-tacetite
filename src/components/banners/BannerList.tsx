@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -56,35 +56,32 @@ function BannerList({ type }: BannerListProps) {
     const characters = useAppSelector(selectCharacters);
     const weapons = useAppSelector(selectWeapons);
 
-    const [rows, setRows] = React.useState<BannerRow[]>([]);
+    const [rows, setRows] = useState<BannerRow[]>([]);
 
-    const [values, setValue] = React.useState<BannerOption[]>([]);
+    const [values, setValue] = useState<BannerOption[]>([]);
     const options = createOptions(banners, type);
 
-    const [order, setOrder] = React.useState<Order>("desc");
-    const [orderBy, setOrderBy] = React.useState("subVersion");
+    const [order, setOrder] = useState<Order>("desc");
+    const [orderBy, setOrderBy] = useState("subVersion");
 
-    const handleRequestSort = (
-        _: React.BaseSyntheticEvent,
-        property: string
-    ) => {
+    const handleRequestSort = (_: BaseSyntheticEvent, property: string) => {
         const isAsc = orderBy === property && order === "asc";
         setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
     };
 
-    const [selected, setSelected] = React.useState(true);
+    const [selected, setSelected] = useState(true);
     const handleSelect = () => {
         setSelected(!selected);
     };
 
     const headColumns: HeadColumn[] = [{ id: "subVersion", label: "Version" }];
 
-    const smallIconStyle = { width: "20px", height: "20px" };
+    const smallIconStyle = { width: "16px", height: "16px" };
 
-    React.useEffect(() => {}, [characters, weapons]);
+    useEffect(() => {}, [characters, weapons]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setRows(createBannerRows(banners, values, selected));
     }, [banners, values, selected]);
 
@@ -166,7 +163,15 @@ function BannerList({ type }: BannerListProps) {
                         }}
                     >
                         <Stack spacing={2} direction="row" alignItems="center">
-                            <Stack spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    p: "4px",
+                                    borderRadius: "16px",
+                                    backgroundColor:
+                                        theme.appbar.backgroundColor,
+                                }}
+                            >
                                 {option.element && (
                                     <Image
                                         src={`elements/${option.element}`}
