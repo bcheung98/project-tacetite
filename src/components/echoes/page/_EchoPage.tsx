@@ -5,6 +5,7 @@ import EchoImage from "./EchoImage";
 import EchoInfo from "./EchoInfo";
 import EchoSkill from "./EchoSkill";
 import EchoSonata from "./EchoSonata";
+import BetaTag from "custom/BetaTag";
 import PageNotFound from "components/PageNotFound";
 
 // MUI Imports
@@ -44,7 +45,10 @@ function EchoPage() {
                         <EchoImage echo={echo} />
                     </Grid>
                     <Grid size="grow">
-                        <EchoInfo echo={echo} />
+                        <Stack spacing={2}>
+                            <BetaTag version={echo.release.version} />
+                            <EchoInfo echo={echo} />
+                        </Stack>
                     </Grid>
                 </Grid>
                 <EchoSkill echo={echo} />

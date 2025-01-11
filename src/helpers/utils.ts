@@ -1,3 +1,4 @@
+import { updates } from "data/versions";
 import { Shade } from "types/theme";
 
 export function range(len: number): number[];
@@ -48,6 +49,11 @@ export function isTBA(str: string) {
     return str === "TBA" || str === "To be announced";
 }
 
+export function isUnreleasedContent(version: string) {
+    const versions = updates.map((update) => update.version);
+    return versions.includes(version);
+}
+
 interface GetThemeBackgroundColorsProps {
     colors: Record<Shade, string>[];
     index: number;
@@ -67,4 +73,15 @@ export function getHoverColor(color: string, contrast = 20) {
         .split(",")
         .map((color) => Number(color));
     return `rgb(${r + contrast}, ${g + contrast}, ${b + contrast})`;
+}
+
+export function pxToInt(num: string | number) {
+    if (typeof num === "number") {
+        return num;
+    } else if (!num.endsWith("px")) {
+        console.warn("Recieved non-pixel unit");
+        return 0;
+    } else {
+        return Number(num.slice(0, -2));
+    }
 }

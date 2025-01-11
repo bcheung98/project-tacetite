@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isUnreleasedContent } from "helpers/utils";
 import { startAppListening } from "helpers/hooks";
 import { fetchEchoes, LoadingStatus } from "rtk/fetchData";
 import { RootState } from "rtk/store";
@@ -10,6 +11,9 @@ export interface EchoState {
 }
 
 const storedEchoes = localStorage.getItem("data/echoes") || "null";
+
+const storedSettings = localStorage.getItem("settings") || "{}";
+const { unreleasedContent = false } = JSON.parse(storedSettings);
 
 const initialState: EchoState = {
     status: "idle",
@@ -25,8 +29,14 @@ export const characterSlice = createSlice({
             state.status = "pending";
         });
         builder.addCase(fetchEchoes.fulfilled, (state, action) => {
-            if (JSON.stringify(action.payload) !== storedEchoes) {
-                state.echoes = action.payload;
+            let payload = action.payload;
+            if (!unreleasedContent) {
+                payload = payload.filter((item) =>
+                    isUnreleasedContent(item.release.version)
+                );
+            }
+            if (JSON.stringify(payload) !== storedEchoes) {
+                state.echoes = payload;
             }
             state.status = "success";
         });
@@ -43,7 +53,13 @@ export default characterSlice.reducer;
 startAppListening({
     actionCreator: fetchEchoes.fulfilled,
     effect: (action) => {
-        const data = JSON.stringify(action.payload);
+        let payload = action.payload;
+        if (!unreleasedContent) {
+            payload = payload.filter((item) =>
+                isUnreleasedContent(item.release.version)
+            );
+        }
+        const data = JSON.stringify(payload);
         if (data !== storedEchoes) {
             localStorage.setItem("data/echoes", data);
         }
