@@ -38,17 +38,7 @@ function CharacterBonusStats({
                         <Image
                             src={`stat_icons/${bonusStat}`}
                             alt={bonusStat}
-                            style={{
-                                width: "40px",
-                                height: "40px",
-                                padding: "4px",
-                                border: `2px solid ${getElementColor(
-                                    theme,
-                                    element
-                                )}`,
-                                borderRadius: "64px",
-                                backgroundColor: theme.appbar.backgroundColor,
-                            }}
+                            style={theme.styles.skillIcon(element, 40)}
                         />
                         <Box>
                             <TextStyled variant="h6-styled">

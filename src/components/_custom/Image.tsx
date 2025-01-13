@@ -4,7 +4,7 @@ import { CSSProperties, SyntheticEvent } from "react";
 import { StyledTooltip } from "styled/StyledTooltip";
 
 // MUI imports
-import { TooltipProps } from "@mui/material";
+import { SxProps, TooltipProps } from "@mui/material";
 import { combineStyles, zoomImageOnHover } from "helpers/utils";
 
 interface ImageProps {
@@ -13,7 +13,7 @@ interface ImageProps {
     alt?: string;
     id?: string;
     loading?: "lazy" | "eager";
-    style?: CSSProperties;
+    style?: CSSProperties | SxProps;
     tooltip?: React.ReactNode;
     tooltipArrow?: TooltipProps["placement"];
     zoomOnHover?: boolean;
@@ -46,7 +46,7 @@ function Image({
             .join("_")}${ext}`;
     }
 
-    const imgStyle = combineStyles(defaultImageStyle, style);
+    const imgStyle = combineStyles(defaultImageStyle, style as CSSProperties);
 
     const handleHover = (direction: "enter" | "leave") => {
         zoomOnHover && zoomImageOnHover(direction, id);

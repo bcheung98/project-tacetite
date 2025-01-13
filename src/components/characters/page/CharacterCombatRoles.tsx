@@ -8,12 +8,13 @@ import { Text, TextStyled } from "styled/StyledTypography";
 
 // MUI imports
 import {
+    useTheme,
+    useMediaQuery,
     Box,
     Dialog,
     Divider,
     IconButton,
     Stack,
-    useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -27,6 +28,7 @@ import { CombatRole } from "types/character";
 
 function CharacterCombatRoles({ roles }: { roles: CombatRole[] }) {
     const theme = useTheme();
+    const matches_sm_up = useMediaQuery(theme.breakpoints.up("sm"));
 
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -93,8 +95,12 @@ function CharacterCombatRoles({ roles }: { roles: CombatRole[] }) {
                                         src={`tags/${role}`}
                                         alt={role}
                                         style={{
-                                            width: "48px",
-                                            height: "48px",
+                                            width: matches_sm_up
+                                                ? "48px"
+                                                : "40px",
+                                            height: matches_sm_up
+                                                ? "48px"
+                                                : "40px",
                                             padding: "4px",
                                             border: `2px solid ${combatRoles[role].color}`,
                                             borderRadius: "4px",

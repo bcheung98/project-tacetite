@@ -189,7 +189,7 @@ function CharacterSliders({
                             key={index}
                             size={
                                 mode === "view"
-                                    ? { xs: 12, sm: 4 }
+                                    ? { xs: 6, sm: "grow", lg: 4 }
                                     : { xs: 12, md: 6 }
                             }
                         >

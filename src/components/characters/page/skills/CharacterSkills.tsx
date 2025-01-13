@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent, CSSProperties, useEffect, useState } from "react";
 
 // Component imports
 import CharacterSkillTab from "./CharacterSkillTab";
@@ -8,7 +8,7 @@ import ToggleButtons from "custom/ToggleButtons";
 import { StyledTab, StyledTabs, TabPanel } from "styled/StyledTabs";
 
 // MUI imports
-import { useMediaQuery, useTheme } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 // Helper imports
 import { getElementColor } from "helpers/elementColors";
@@ -36,24 +36,24 @@ function CharacterSkills({ character }: CharacterProps) {
 
     const elementColor = getElementColor(theme, element);
 
-    const [tabValue, setTabValue] = React.useState(0);
-    const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
+    const [tabValue, setTabValue] = useState(0);
+    const handleTabChange = (_: BaseSyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
 
     const currentSkillDisplay = useAppSelector(selectSkillDisplay);
-    const [mode, setMode] = React.useState<SkillDisplay>(currentSkillDisplay);
-    const handleMode = (_: React.BaseSyntheticEvent, newView: SkillDisplay) => {
+    const [mode, setMode] = useState<SkillDisplay>(currentSkillDisplay);
+    const handleMode = (_: BaseSyntheticEvent, newView: SkillDisplay) => {
         if (newView !== null) {
             setMode(newView);
         }
     };
 
-    const skillIcon = (index: number): React.CSSProperties => {
+    const skillIcon = (index: number): CSSProperties => {
         const selected = index === tabValue;
         return {
-            width: "48px",
-            height: "48px",
+            width: matches_sm_up ? "48px" : "40px",
+            height: matches_sm_up ? "48px" : "40px",
             margin: "4px 0",
             padding: "4px",
             backgroundColor: theme.appbar.backgroundColor,
@@ -66,7 +66,7 @@ function CharacterSkills({ character }: CharacterProps) {
         };
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         setMode(currentSkillDisplay);
     }, [currentSkillDisplay]);
 

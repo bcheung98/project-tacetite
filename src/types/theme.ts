@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { SxProps } from "@mui/material";
 import { themeNames } from "themes/theme";
 import { darkThemeData } from "themes/darkTheme";
@@ -19,7 +20,7 @@ export type CustomTheme = {
 declare module "@mui/material/styles" {
     interface Theme extends CustomTheme {
         styles: {
-            [key: string]: (...args: unknown[]) => SxProps;
+            [key: string]: (...args: unknown[]) => SxProps | CSSProperties;
         };
     }
     interface ThemeOptions extends Partial<CustomTheme> {}

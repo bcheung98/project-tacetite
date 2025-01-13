@@ -5,7 +5,7 @@ import Image from "./Image";
 import { TextStyled } from "styled/StyledTypography";
 
 // MUI imports
-import { useTheme, Box, Card } from "@mui/material";
+import { useTheme, useMediaQuery, Box, Card } from "@mui/material";
 
 // Helper imports
 import { pxToInt } from "helpers/utils";
@@ -32,6 +32,10 @@ function MaterialImage({
     labelColor,
 }: MaterialImageProps) {
     const theme = useTheme();
+
+    size = useMediaQuery(theme.breakpoints.up("sm"))
+        ? size
+        : `${pxToInt(size) - 8}px`;
 
     const intSize = pxToInt(size) / 4;
     const fontSize =

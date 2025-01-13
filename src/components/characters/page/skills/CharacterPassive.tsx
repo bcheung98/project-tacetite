@@ -8,7 +8,6 @@ import { useTheme, Stack, Box } from "@mui/material";
 
 // Helper imports
 import { parseSkillDescription } from "helpers/parseSkillDescription";
-import { getElementColor } from "helpers/elementColors";
 
 // Type imports
 import { Element } from "types/_common";
@@ -49,18 +48,7 @@ function CharacterPassive({
                                 alt={`${name.toLowerCase()}_passive${
                                     index - 1
                                 }`}
-                                style={{
-                                    width: "48px",
-                                    height: "48px",
-                                    padding: "4px",
-                                    border: `2px solid ${getElementColor(
-                                        theme,
-                                        element
-                                    )}`,
-                                    borderRadius: "64px",
-                                    backgroundColor:
-                                        theme.appbar.backgroundColor,
-                                }}
+                                style={theme.styles.skillIcon(element)}
                             />
                             <TextStyled variant="h6-styled">
                                 {passives[index].name}
@@ -70,7 +58,9 @@ function CharacterPassive({
                             component="span"
                             sx={{ color: theme.text.description }}
                         >
-                            {parseSkillDescription({ description: passives[index].description })}
+                            {parseSkillDescription({
+                                description: passives[index].description,
+                            })}
                         </Text>
                     </Box>
                     <CharacterSkillLevelUpCost

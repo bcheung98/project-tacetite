@@ -1,8 +1,15 @@
+import { CSSProperties } from "react";
 import type {} from "@mui/lab/themeAugmentation";
-import { createTheme, getContrastRatio, SxProps } from "@mui/material";
+import {
+    createTheme,
+    getContrastRatio,
+    SxProps,
+    useMediaQuery,
+} from "@mui/material";
 import { darkTheme } from "./darkTheme";
 import { lightTheme } from "./lightTheme";
 import { wuwaTheme } from "./wuwaTheme";
+import { Element } from "types/_common";
 
 export const themeList = [
     { name: "Dark", label: "Classic", data: darkTheme },
@@ -360,6 +367,25 @@ export function getTheme(name: string) {
                               maxHeight: "88%",
                           },
                       };
+            },
+            skillIcon: (element?: Element, size = 48): CSSProperties => {
+                size = useMediaQuery(theme.breakpoints.up("sm"))
+                    ? size
+                    : size - 8;
+                return {
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    padding: "4px",
+                    border: `2px solid ${
+                        element
+                            ? theme.text[
+                                  element.toLowerCase() as keyof typeof theme.text
+                              ]
+                            : theme.border.color.primary
+                    }`,
+                    borderRadius: "64px",
+                    backgroundColor: theme.appbar.backgroundColor,
+                };
             },
         },
     };
