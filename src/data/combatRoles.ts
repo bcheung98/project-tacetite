@@ -111,6 +111,30 @@ export const combatRoles = <const>{
         description: "Boost the interruption resistance of a specific teammate",
         color: "#77adff",
     },
+    "Aero Erosion": {
+        description: "Utilizes Aero Erosion for combat advantage",
+        color: "#77adff",
+    },
+    "Electro Flare": {
+        description: "Utilizes Electro Flare for combat advantage",
+        color: "#77adff",
+    },
+    "Glacio Chafe": {
+        description: "Utilizes Glacio Chafe for combat advantage",
+        color: "#77adff",
+    },
+    "Fusion Burst": {
+        description: "Utilizes Fusion Burst for combat advantage",
+        color: "#77adff",
+    },
+    "Spectro Frazzle": {
+        description: "Utilizes Spectro Frazzle for combat advantage",
+        color: "#77adff",
+    },
+    "Havoc Bane": {
+        description: "Utilizes Havoc Bane for combat advantage",
+        color: "#77adff",
+    },
 };
 
 export const characterCombatTags = objectKeys(combatRoles);
