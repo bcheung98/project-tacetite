@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent } from "react";
 
 // Component imports
 import Dropdown from "custom/Dropdown";
@@ -21,9 +21,11 @@ import {
     setCommonMat,
     setForgeryMat,
     setRarity,
+    setSubstats,
     setWeaponType,
 } from "reducers/weaponFilters";
 import { rarities, weapons } from "data/common";
+import { WeaponSubStat, weaponSubStats } from "data/weaponStats";
 import {
     forgeryMaterials,
     formatForgeryMaterials,
@@ -45,16 +47,16 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
 
     const filterGroups = [
         {
-            name: "Weapon Type",
+            name: "Weapon",
             value: filters.weaponType,
-            onChange: (_: React.BaseSyntheticEvent, newValues: WeaponType[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: WeaponType[]) =>
                 dispatch(setWeaponType(newValues)),
             buttons: createButtons<WeaponType>(weapons, "weapons/icons"),
         },
         {
             name: "Rarity",
             value: filters.rarity,
-            onChange: (_: React.BaseSyntheticEvent, newValues: Rarity[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: Rarity[]) =>
                 dispatch(setRarity(newValues)),
             buttons: rarities.map((rarity) => ({
                 value: rarity,
@@ -62,10 +64,17 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
             })),
         },
         {
+            name: "Substat",
+            value: filters.substats,
+            onChange: (_: BaseSyntheticEvent, newValues: WeaponSubStat[]) =>
+                dispatch(setSubstats(newValues)),
+            buttons: createButtons(weaponSubStats, "stat_icons"),
+        },
+        {
             name: "Forgery Material",
             value: filters.forgeryMat,
             onChange: (
-                _: React.BaseSyntheticEvent,
+                _: BaseSyntheticEvent,
                 newValues: ForgeryMaterialKeys[]
             ) => dispatch(setForgeryMat(newValues)),
             buttons: createButtons<ForgeryMaterialKeys>(
@@ -77,7 +86,7 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
             name: "Common Material",
             value: filters.commonMat,
             onChange: (
-                _: React.BaseSyntheticEvent,
+                _: BaseSyntheticEvent,
                 newValues: CommonMaterialKeys[]
             ) => dispatch(setCommonMat(newValues)),
             buttons: createButtons<CommonMaterialKeys>(
