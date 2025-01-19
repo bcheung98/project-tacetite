@@ -47,7 +47,7 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
             href: `/resonators/${row.name.split(" ").join("_").toLowerCase()}`,
         },
         {
-            label: <RarityStars rarity={row.rarity} variant="h4-styled" />,
+            label: <RarityStars rarity={row.rarity} variant="h5-styled" />,
         },
         {
             label: row.element,
@@ -56,6 +56,10 @@ function CharacterTableRow({ row }: { row: CharacterTableRowProps }) {
         {
             label: row.weapon,
             img: `weapons/icons/${row.weapon}`,
+            imgStyle: {
+                backgroundColor: theme.icon.backgroundColor,
+                borderRadius: "64px",
+            },
         },
         {
             label: `${

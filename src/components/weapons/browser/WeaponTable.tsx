@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent, useState } from "react";
 
 // Component imports
 import WeaponTableRow from "./WeaponTableRow";
@@ -13,7 +13,7 @@ import SortTableHead, {
 import { Table, TableContainer, TableBody } from "@mui/material";
 
 // Helper imports
-import { subStats } from "data/weaponStats";
+import { baseATKScaling, subStats } from "data/weaponStats";
 
 // Type imports
 import { Weapon } from "types/weapon";
@@ -24,13 +24,10 @@ export type WeaponRow = Pick<
 >;
 
 function WeaponTable({ weapons }: { weapons: Weapon[] }) {
-    const [order, setOrder] = React.useState<Order>("desc");
-    const [orderBy, setOrderBy] = React.useState("rarity");
+    const [order, setOrder] = useState<Order>("desc");
+    const [orderBy, setOrderBy] = useState("rarity");
 
-    const handleRequestSort = (
-        _: React.BaseSyntheticEvent,
-        property: string
-    ) => {
+    const handleRequestSort = (_: BaseSyntheticEvent, property: string) => {
         const isAsc = orderBy === property && order === "asc";
         setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
@@ -46,6 +43,7 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
 
     const rows = weapons.map((weapon) => {
         const baseATK = weapon.stats.atk;
+        const atk = baseATKScaling[baseATK].slice(-1)[0];
         const subStat = `${weapon.stats.subStat} ${
             subStats[baseATK][weapon.stats.subStat]?.slice(-1)[0]
         }`;
@@ -55,7 +53,7 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
             displayName: weapon.displayName,
             rarity: weapon.rarity,
             type: weapon.type,
-            baseATK: baseATK,
+            baseATK: atk.toString(),
             subStat: subStat,
         };
     });

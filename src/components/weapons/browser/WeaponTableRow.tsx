@@ -44,7 +44,7 @@ function WeaponTableRow({ row }: { row: WeaponTableRowProps }) {
             href: `/weapons/${row.name.split(" ").join("_").toLowerCase()}`,
         },
         {
-            label: <RarityStars rarity={row.rarity} variant="h4-styled" />,
+            label: <RarityStars rarity={row.rarity} variant="h5-styled" />,
         },
         {
             label: row.type,
@@ -61,6 +61,11 @@ function WeaponTableRow({ row }: { row: WeaponTableRowProps }) {
         {
             label: row.subStat,
             labelStyle: { marginLeft: "0px" },
+            img: `stat_icons/${row.subStat.split(" ").slice(0, -1).join(" ")}`,
+            imgStyle: {
+                backgroundColor: theme.icon.backgroundColor,
+                borderRadius: "64px",
+            },
         },
     ];
 
