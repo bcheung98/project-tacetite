@@ -14,13 +14,16 @@ export const baseATKScaling = {
     "20": [20, 52, 65, 99, 112, 129, 142, 159, 172, 189],
 };
 
-export type WeaponSubStat =
-    | "ATK"
-    | "Crit Rate"
-    | "Crit DMG"
-    | "HP"
-    | "Energy Regen"
-    | "DEF";
+export const weaponSubStats = [
+    "ATK",
+    "Crit Rate",
+    "Crit DMG",
+    "HP",
+    "Energy Regen",
+    "DEF",
+] as const;
+
+export type WeaponSubStat = (typeof weaponSubStats)[number];
 
 type WeaponSubStatInfo = Partial<Record<WeaponSubStat, string[]>>;
 
