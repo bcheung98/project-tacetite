@@ -48,11 +48,15 @@ function CharacterImage({ character }: CharacterProps) {
     const handleTabChangeLeft = () => {
         if (tabValue - 1 >= 0) {
             setTabValue(tabValue - 1);
+        } else {
+            setTabValue(outfits.length - 1);
         }
     };
     const handleTabChangeRight = () => {
         if (tabValue + 1 < outfits.length) {
             setTabValue(tabValue + 1);
+        } else {
+            setTabValue(0);
         }
     };
 
@@ -102,7 +106,6 @@ function CharacterImage({ character }: CharacterProps) {
                 >
                     <IconButton
                         onClick={handleTabChangeLeft}
-                        disabled={tabValue === 0}
                         sx={buttonStyle}
                         disableRipple
                     >
@@ -118,7 +121,6 @@ function CharacterImage({ character }: CharacterProps) {
                     </Button>
                     <IconButton
                         onClick={handleTabChangeRight}
-                        disabled={tabValue >= outfits.length - 1}
                         sx={buttonStyle}
                         disableRipple
                     >
@@ -129,7 +131,7 @@ function CharacterImage({ character }: CharacterProps) {
             <Dialog
                 open={dialogOpen}
                 onClose={handleDialogClose}
-                maxWidth="md"
+                maxWidth="lg"
                 fullWidth
                 keepMounted
             >
@@ -180,8 +182,9 @@ function CharacterImage({ character }: CharacterProps) {
                                             }
                                             alt={outfit.name}
                                             style={{
-                                                width: "96px",
-                                                height: "96px",
+                                                width: matches_sm_up
+                                                    ? "72px"
+                                                    : "64px",
                                                 border: `2px solid ${theme.border.color.primary}`,
                                                 borderRadius: "4px",
                                                 backgroundColor:
