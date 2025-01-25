@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link as RouterLink, useLocation } from "react-router";
 
 // Component imports
@@ -31,7 +31,7 @@ function NavMobile({ navItems, linkItems }: NavProps) {
     const location = useLocation().pathname;
     const styles = navStyles(location);
 
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer =
         (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
             if (
@@ -136,6 +136,28 @@ function NavMobile({ navItems, linkItems }: NavProps) {
                             </ButtonBase>
                         </Box>
                     ))}
+                </List>
+                <Divider variant="middle" />
+                <List>
+                    <Box sx={styles.listItem("_")}>
+                        <ButtonBase
+                            href="https://ko-fi.com/bcheung"
+                            target="_blank"
+                            rel="noopener"
+                            disableRipple
+                            disableTouchRipple
+                            sx={styles.listItemButton()}
+                        >
+                            <Image
+                                src="https://storage.ko-fi.com/cdn/brandasset/v2/kofi_symbol.png"
+                                alt="Ko-Fi"
+                                style={styles.navItem()}
+                            />
+                            <TextStyled sx={styles.listItemText()}>
+                                Buy me a Ko-Fi
+                            </TextStyled>
+                        </ButtonBase>
+                    </Box>
                 </List>
             </SwipeableDrawer>
         </>
