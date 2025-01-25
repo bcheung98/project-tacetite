@@ -50,7 +50,7 @@ function CharacterResonanceChain({ character }: CharacterProps) {
                                     {resonanceChain[key].name}
                                 </TextStyled>
                                 <TextStyled sx={{ fontStyle: "italic" }}>
-                                    {key.toUpperCase()}
+                                    S{index + 1}
                                 </TextStyled>
                             </Box>
                         </Stack>
