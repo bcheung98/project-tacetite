@@ -1,11 +1,14 @@
-import React from "react";
+import { BaseSyntheticEvent } from "react";
 
 // MUI imports
 import { useTheme, TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 interface SearchBarProps {
-    onChange?: (event: React.BaseSyntheticEvent) => void;
+    autoFocus?: boolean;
+    backgroundColor?: string;
+    textColor?: string;
+    onChange?: (event: BaseSyntheticEvent) => void;
     value?: string;
     placeholder?: string;
     inputIcon?: React.ReactNode;
@@ -17,6 +20,9 @@ interface SearchBarProps {
 }
 
 function SearchBar({
+    autoFocus,
+    backgroundColor,
+    textColor,
     onChange,
     value,
     placeholder = "Search",
@@ -32,17 +38,20 @@ function SearchBar({
     return (
         <TextField
             {...params}
+            autoFocus={autoFocus}
+            focused
             value={value}
             placeholder={placeholder}
             onChange={onChange}
             fullWidth
             autoComplete="off"
+            spellCheck={false}
             sx={{
                 "& .MuiOutlinedInput-root": {
                     width: size.width,
                     height: size.height,
-                    backgroundColor: theme.background(2),
-                    color: theme.text.primary,
+                    backgroundColor: backgroundColor || theme.background(2),
+                    color: textColor || theme.text.primary,
                     fontFamily: theme.font.styled.family,
                     fontWeight: theme.font.styled.weight,
                     borderRadius: "4px",
@@ -57,7 +66,7 @@ function SearchBar({
                         <>
                             <InputAdornment
                                 position="start"
-                                sx={{ color: theme.text.primary }}
+                                sx={{ color: textColor || theme.text.primary }}
                             >
                                 {inputIcon || <SearchIcon />}
                             </InputAdornment>
