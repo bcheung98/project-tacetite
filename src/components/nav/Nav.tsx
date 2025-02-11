@@ -68,7 +68,7 @@ export interface NavItem {
 
 const navItems: NavItem[] = [
     {
-        icon: "icons/Black_Shores",
+        icon: "icons/Home",
         text: "Home",
         link: "/",
     },
