@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -11,7 +11,7 @@ import { useAppDispatch } from "helpers/hooks";
 import { updateCharacterCosts } from "reducers/planner";
 
 // Type imports
-import { UpdateCostsPayload } from "types/costs";
+import { CostSliderData, UpdateCostsPayload } from "types/costs";
 import { CardMode } from "./PlannerCard";
 
 interface StatNodeProps {
@@ -20,10 +20,8 @@ interface StatNodeProps {
     name: string;
     title: React.ReactNode;
     icon: string;
-    dispatchProps: {
-        type: UpdateCostsPayload["type"];
-        getCost: Function;
-    };
+    type: UpdateCostsPayload["type"];
+    values: CostSliderData;
 }
 
 function StatNode({
@@ -32,16 +30,15 @@ function StatNode({
     name,
     title,
     icon,
-    dispatchProps,
+    type,
+    values,
 }: StatNodeProps) {
     const theme = useTheme();
     const matches_sm_dn = useMediaQuery(theme.breakpoints.down("sm"));
 
     const dispatch = useAppDispatch();
 
-    const { type } = dispatchProps;
-
-    const [selected, setSelected] = React.useState(true);
+    const [selected, setSelected] = useState(values.selected ?? true);
     const handleSelect = () => {
         setSelected(!selected);
     };
@@ -54,12 +51,15 @@ function StatNode({
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(
             updateCharacterCosts({
                 name: name,
-                type: dispatchProps.type,
-                costs: dispatchProps.getCost(node, selected),
+                type: type,
+                data: {
+                    node: node,
+                    selected,
+                },
             })
         );
     }, [selected]);

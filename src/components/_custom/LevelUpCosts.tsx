@@ -204,7 +204,13 @@ function getCosts({
     switch (skillKey) {
         case "level":
             if (type === "character") {
-                levelUpCost = getCharacterLevelCost(values, true, false, name);
+                levelUpCost = getCharacterLevelCost({
+                    start: values[0],
+                    stop: values[1],
+                    selected: true,
+                    withXP: false,
+                    name: name,
+                });
                 costs = {
                     credits: {
                         Credit: levelUpCost.credits.Credit,
@@ -229,7 +235,13 @@ function getCosts({
                     },
                 } as TotalCostObject;
             } else {
-                levelUpCost = getWeaponLevelCost(rarity, values, true, false);
+                levelUpCost = getWeaponLevelCost({
+                    start: values[0],
+                    stop: values[1],
+                    selected: true,
+                    withXP: false,
+                    rarity: rarity,
+                });
                 costs = {
                     credits: {
                         Credit: levelUpCost.credits.Credit,
@@ -262,7 +274,11 @@ function getCosts({
         case "ultimate":
         case "circuit":
         case "intro":
-            levelUpCost = getCharacterSkillCost(values, true);
+            levelUpCost = getCharacterSkillCost({
+                start: values[0],
+                stop: values[1],
+                selected: true,
+            });
             costs = {
                 credits: {
                     Credit: levelUpCost.credits.Credit,
@@ -295,10 +311,10 @@ function getCosts({
             break;
         case "passive1":
         case "passive2":
-            levelUpCost = getCharacterPassiveCost(
-                skillKey === "passive1" ? 1 : 2,
-                true
-            );
+            levelUpCost = getCharacterPassiveCost({
+                node: skillKey === "passive1" ? 1 : 2,
+                selected: true,
+            });
             costs = {
                 credits: {
                     Credit: levelUpCost.credits.Credit,
@@ -323,10 +339,10 @@ function getCosts({
             break;
         case "bonusStat1":
         case "bonusStat2":
-            levelUpCost = getCharacterBonusStatCost(
-                skillKey === "bonusStat1" ? 1 : 2,
-                true
-            );
+            levelUpCost = getCharacterBonusStatCost({
+                node: skillKey === "bonusStat1" ? 1 : 2,
+                selected: true,
+            });
             costs = {
                 credits: {
                     Credit: levelUpCost.credits.Credit,

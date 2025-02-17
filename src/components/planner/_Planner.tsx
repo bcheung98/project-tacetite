@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 
 // Component imports
 import CharacterSelector from "./CharacterSelector";
@@ -19,6 +19,7 @@ import {
     setPlannerWeapons,
 } from "reducers/planner";
 import { selectWidth } from "reducers/settings";
+import { isUnreleasedContent } from "helpers/utils";
 
 function Planner() {
     const documentTitle = `Ascension Planner ${
@@ -38,16 +39,28 @@ function Planner() {
 
     const dispatch = useAppDispatch();
 
-    const characters = useAppSelector(getSelectedCharacters);
-    const weapons = useAppSelector(getSelectedWeapons);
-
     const wideMode = useAppSelector(selectWidth) === "wide";
     const maxWidthLG = wideMode ? 6 : 8;
-    const maxWidthXL = wideMode ? 5 : 6;
+    const maxWidthXL = wideMode ? 5.5 : 6;
 
-    React.useEffect(() => {
-        dispatch(setPlannerCharacters([]));
-        dispatch(setPlannerWeapons([]));
+    const storedSettings = localStorage.getItem("settings") || "{}";
+    const { unreleasedContent = false } = JSON.parse(storedSettings);
+
+    let characters = useAppSelector(getSelectedCharacters);
+    let weapons = useAppSelector(getSelectedWeapons);
+
+    if (!unreleasedContent) {
+        characters = characters.filter((char) =>
+            isUnreleasedContent(char.release.version)
+        );
+        weapons = weapons.filter((wep) =>
+            isUnreleasedContent(wep.release.version)
+        );
+    }
+
+    useEffect(() => {
+        dispatch(setPlannerCharacters(characters));
+        dispatch(setPlannerWeapons(weapons));
     }, []);
 
     return (
@@ -81,7 +94,7 @@ function Planner() {
             >
                 {[...characters, ...weapons].map((item) => (
                     <Grid
-                        key={item.name}
+                        key={item.id}
                         size={{ xs: 12, lg: maxWidthLG, xl: maxWidthXL }}
                     >
                         <PlannerCard data={item} />

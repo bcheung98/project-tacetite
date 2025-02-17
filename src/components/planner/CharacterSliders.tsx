@@ -4,7 +4,7 @@ import StatNode from "./StatNode";
 import { FlexBox } from "styled/StyledBox";
 
 // MUI imports
-import { Stack, useTheme } from "@mui/material";
+import { Divider, Stack, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 // Helper imports
@@ -12,17 +12,15 @@ import { range } from "helpers/utils";
 import { elements } from "data/common";
 import { getElementColor } from "helpers/elementColors";
 import { characterBonusStats } from "data/characterBonusStats";
-import {
-    getCharacterBonusStatCost,
-    getCharacterLevelCost,
-    getCharacterPassiveCost,
-    getCharacterSkillCost,
-} from "helpers/getLevelUpCosts";
 import { useAppSelector } from "helpers/hooks";
 import { selectCharacters } from "reducers/character";
 
 // Type imports
-import { CharacterCostObject, UpdateCostsPayload } from "types/costs";
+import {
+    CharacterCostObject,
+    CostSliderData,
+    UpdateCostsPayload,
+} from "types/costs";
 import { CardMode } from "./PlannerCard";
 import { BonusStat, Character } from "types/character";
 import { Element } from "types/_common";
@@ -40,54 +38,55 @@ function CharacterSliders({
     const char = useAppSelector(selectCharacters).find(
         (c) => c.name === character.name
     ) as Character;
+    const values = character.values;
 
     const sliders: {
         title: string;
         icon?: string;
         levels: (string | number)[];
         type: UpdateCostsPayload["type"];
-        fn: Function;
+        values: CostSliderData;
     }[] = [
         {
             title: "Level",
             levels: charLevel,
             type: "level",
-            fn: getCharacterLevelCost,
+            values: values.level,
         },
         {
             title: "Normal Attack",
             icon: `characters/skills/basic_attacks/${character.weapon}`,
             levels: skillLevel,
             type: "attack",
-            fn: getCharacterSkillCost,
+            values: values.attack,
         },
         {
             title: "Resonance Skill",
             icon: `characters/skills/${name}_skill`,
             levels: skillLevel,
             type: "skill",
-            fn: getCharacterSkillCost,
+            values: values.skill,
         },
         {
             title: "Resonance Liberation",
             icon: `characters/skills/${name}_ultimate`,
             levels: skillLevel,
             type: "ultimate",
-            fn: getCharacterSkillCost,
+            values: values.ultimate,
         },
         {
             title: "Forte Circuit",
             icon: `characters/skills/${name}_circuit`,
             levels: skillLevel,
             type: "circuit",
-            fn: getCharacterSkillCost,
+            values: values.circuit,
         },
         {
             title: "Intro Skill",
             icon: `characters/skills/${name}_intro`,
             levels: skillLevel,
             type: "intro",
-            fn: getCharacterSkillCost,
+            values: values.intro,
         },
     ];
 
@@ -95,14 +94,14 @@ function CharacterSliders({
         icon: string;
         type: UpdateCostsPayload["type"];
         title: React.ReactNode;
-        fn: Function;
+        values: CostSliderData;
     }[][] = [
         [
             {
                 icon: `characters/skills/${name}_passive2`,
                 type: "passive2",
                 title: "Inherent Skill 2",
-                fn: getCharacterPassiveCost,
+                values: values.passive2,
             },
             ...[2, 4, 6, 8].map((node, index) => ({
                 icon: `stat_icons/${char.bonusStats[getStatIndex(index)]}`,
@@ -113,7 +112,9 @@ function CharacterSliders({
                         index={1}
                     />
                 ),
-                fn: getCharacterBonusStatCost,
+                values: values[
+                    `bonusStat${node}` as UpdateCostsPayload["type"]
+                ],
             })),
         ],
         [
@@ -121,7 +122,7 @@ function CharacterSliders({
                 icon: `characters/skills/${name}_passive1`,
                 type: "passive1",
                 title: "Inherent Skill 1",
-                fn: getCharacterPassiveCost,
+                values: values.passive1,
             },
             ...[1, 3, 5, 7].map((node, index) => ({
                 icon: `stat_icons/${char.bonusStats[getStatIndex(index)]}`,
@@ -132,7 +133,9 @@ function CharacterSliders({
                         index={0}
                     />
                 ),
-                fn: getCharacterBonusStatCost,
+                values: values[
+                    `bonusStat${node}` as UpdateCostsPayload["type"]
+                ],
             })),
         ],
     ];
@@ -147,11 +150,9 @@ function CharacterSliders({
                 title={slider.title}
                 icon={slider.icon}
                 levels={slider.levels}
+                values={slider.values}
                 color={getElementColor(theme, character.element)}
-                dispatchProps={{
-                    type: slider.type,
-                    getCost: slider.fn,
-                }}
+                type={slider.type}
             />
         )
     );
@@ -176,7 +177,7 @@ function CharacterSliders({
     }
 
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} divider={<Divider />}>
             <Grid
                 container
                 rowSpacing={1}
@@ -219,10 +220,8 @@ function CharacterSliders({
                                     name={character.name}
                                     title={node.title}
                                     icon={node.icon}
-                                    dispatchProps={{
-                                        type: node.type,
-                                        getCost: node.fn,
-                                    }}
+                                    type={node.type}
+                                    values={values[node.type]}
                                 />
                             ))}
                         </FlexBox>

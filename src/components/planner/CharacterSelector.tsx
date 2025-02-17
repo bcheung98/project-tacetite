@@ -10,6 +10,7 @@ import { TextStyled } from "styled/StyledTypography";
 import { useTheme, Autocomplete, Stack } from "@mui/material";
 
 // Helper imports
+import { range } from "helpers/utils";
 import { useAppDispatch, useAppSelector } from "helpers/hooks";
 import { selectCharacters } from "reducers/character";
 import { getSelectedCharacters, setPlannerCharacters } from "reducers/planner";
@@ -47,6 +48,7 @@ function CharacterSelector() {
             multiple
             autoComplete
             filterSelectedOptions
+            disableClearable
             options={options}
             getOptionLabel={(option) => option.fullName}
             filterOptions={(options, { inputValue }) =>
@@ -63,11 +65,24 @@ function CharacterSelector() {
             noOptionsText="No Resonators"
             value={values}
             isOptionEqualToValue={(option, value) => option.name === value.name}
-            onChange={(_: any, newValue: CharacterCostObject[] | null) =>
+            onChange={(
+                event,
+                newValue: CharacterCostObject[] | null,
+                reason
+            ) => {
+                if (
+                    event.type === "keydown" &&
+                    ((event as React.KeyboardEvent).key === "Backspace" ||
+                        (event as React.KeyboardEvent).key === "Delete") &&
+                    reason === "removeOption"
+                ) {
+                    return;
+                }
                 dispatch(
                     setPlannerCharacters(newValue as CharacterCostObject[])
-                )
-            }
+                );
+            }}
+            renderTags={() => null}
             renderInput={(params) => (
                 <SearchBar
                     params={params}
@@ -148,77 +163,79 @@ function CharacterSelector() {
 export default CharacterSelector;
 
 function createOptions(characters: Character[]) {
+    const costArray = range(0, 15, 0);
     return characters.map(
         (char) =>
             ({
+                id: `character_${char.id}`,
                 name: char.name,
                 fullName: char.fullName,
                 rarity: char.rarity,
                 element: char.element,
                 weapon: char.weapon,
+                release: char.release,
                 costs: {
                     // Source of each material is mapped to a specific index in the array:
                     // [Level, Basic Attack, Skill, Ultimate, Forte Circuit, Intro, Passive 1, Passive 2, Bonus Stat 1, Bonus Stat 2, Bonus Stat 3, Bonus Stat 4, Bonus Stat 5, Bonus Stat 6, Bonus Stat 7, Bonus Stat 8]
                     credits: {
-                        Credit: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
+                        Credit: costArray,
                     },
                     characterXP: {
-                        CharacterXP1: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        CharacterXP2: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        CharacterXP3: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        CharacterXP4: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
+                        CharacterXP1: costArray,
+                        CharacterXP2: costArray,
+                        CharacterXP3: costArray,
+                        CharacterXP4: costArray,
                     },
                     bossMat: {
-                        [`${char.materials.bossMat}` as BossMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
+                        [`${char.materials.bossMat}` as BossMaterial]:
+                            costArray,
                     },
                     weeklyBossMat: {
                         [`${char.materials.weeklyBossMat}` as WeeklyBossMaterial]:
-                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            costArray,
                     },
                     ascensionMat: {
                         [`${char.materials.ascensionMat}` as AscensionMaterial]:
-                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            costArray,
                     },
                     forgeryMat: {
-                        [`${char.materials.forgeryMat}1` as ForgeryMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.forgeryMat}2` as ForgeryMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.forgeryMat}3` as ForgeryMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.forgeryMat}4` as ForgeryMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
+                        [`${char.materials.forgeryMat}1` as ForgeryMaterial]:
+                            costArray,
+                        [`${char.materials.forgeryMat}2` as ForgeryMaterial]:
+                            costArray,
+                        [`${char.materials.forgeryMat}3` as ForgeryMaterial]:
+                            costArray,
+                        [`${char.materials.forgeryMat}4` as ForgeryMaterial]:
+                            costArray,
                     },
                     commonMat: {
-                        [`${char.materials.commonMat}1` as CommonMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.commonMat}2` as CommonMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.commonMat}3` as CommonMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
-                        [`${char.materials.commonMat}4` as CommonMaterial]: [
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        ],
+                        [`${char.materials.commonMat}1` as CommonMaterial]:
+                            costArray,
+                        [`${char.materials.commonMat}2` as CommonMaterial]:
+                            costArray,
+                        [`${char.materials.commonMat}3` as CommonMaterial]:
+                            costArray,
+                        [`${char.materials.commonMat}4` as CommonMaterial]:
+                            costArray,
                     },
+                },
+                values: {
+                    level: {},
+                    attack: {},
+                    skill: {},
+                    ultimate: {},
+                    circuit: {},
+                    intro: {},
+                    passive1: {},
+                    passive2: {},
+                    bonusStat1: {},
+                    bonusStat2: {},
+                    bonusStat3: {},
+                    bonusStat4: {},
+                    bonusStat5: {},
+                    bonusStat6: {},
+                    bonusStat7: {},
+                    bonusStat8: {},
                 },
             } as CharacterCostObject)
     );

@@ -9,12 +9,28 @@ import {
 } from "data/levelUpCosts";
 import { Rarity } from "types/_common";
 
-export function getCharacterLevelCost(
-    [start, stop]: number[],
-    selected: boolean,
-    withXP = true,
-    name: string
-) {
+export interface GetLevelUpCostsProps {
+    start?: number;
+    stop?: number;
+    selected?: boolean;
+    withXP?: boolean;
+    name?: string;
+    rarity: Rarity;
+    node?: number;
+}
+
+export function getCharacterLevelCost({
+    start,
+    stop,
+    selected,
+    name,
+    withXP,
+}: Required<
+    Pick<
+        GetLevelUpCostsProps,
+        "start" | "stop" | "selected" | "name" | "withXP"
+    >
+>) {
     const costs = { ...characterLevel(name) };
     if (!withXP) {
         objectKeys(costs).forEach((material) => {
@@ -76,10 +92,11 @@ export function getCharacterLevelCost(
     } as PayloadCostObject;
 }
 
-export function getCharacterSkillCost(
-    [start, stop]: number[],
-    selected: boolean
-) {
+export function getCharacterSkillCost({
+    start,
+    stop,
+    selected,
+}: Required<Pick<GetLevelUpCostsProps, "start" | "stop" | "selected">>) {
     const costs = { ...characterSkill };
     let [
         credits,
@@ -129,7 +146,10 @@ export function getCharacterSkillCost(
     } as PayloadCostObject;
 }
 
-export function getCharacterPassiveCost(node: number, selected: boolean) {
+export function getCharacterPassiveCost({
+    node,
+    selected,
+}: Required<Pick<GetLevelUpCostsProps, "node" | "selected">>) {
     const costs = { ...characterPassive[node - 1] };
     let {
         credits,
@@ -161,7 +181,10 @@ export function getCharacterPassiveCost(node: number, selected: boolean) {
     } as PayloadCostObject;
 }
 
-export function getCharacterBonusStatCost(node: number, selected: boolean) {
+export function getCharacterBonusStatCost({
+    node,
+    selected,
+}: Required<Pick<GetLevelUpCostsProps, "node" | "selected">>) {
     const costs = { ...characterBonusStat[node - 1] };
     let {
         credits,
@@ -193,12 +216,18 @@ export function getCharacterBonusStatCost(node: number, selected: boolean) {
     } as PayloadCostObject;
 }
 
-export function getWeaponLevelCost(
-    rarity: Rarity,
-    [start, stop]: number[],
-    selected: boolean,
-    withXP = true
-) {
+export function getWeaponLevelCost({
+    start,
+    stop,
+    selected,
+    rarity,
+    withXP,
+}: Required<
+    Pick<
+        GetLevelUpCostsProps,
+        "start" | "stop" | "selected" | "rarity" | "withXP"
+    >
+>) {
     const costs = { ...weaponLevel(rarity) };
     if (!withXP) {
         objectKeys(costs).forEach((material) => {
