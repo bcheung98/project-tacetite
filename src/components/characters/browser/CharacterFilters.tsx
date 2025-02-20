@@ -19,6 +19,7 @@ import HelpIcon from "@mui/icons-material/Help";
 // Helper imports
 import { objectKeys } from "helpers/utils";
 import { useAppDispatch, useAppSelector } from "helpers/hooks";
+import { selectUnreleasedContent } from "reducers/settings";
 import {
     activeCharacterFilters,
     clearFilters,
@@ -36,22 +37,20 @@ import {
 } from "reducers/characterFilters";
 import { elements, rarities, weapons } from "data/common";
 import { combatRoles } from "data/combatRoles";
+import { formatMaterialName, getMaterialKeyNames } from "helpers/materials";
 import {
     forgeryMaterials,
-    formatForgeryMaterials,
+    getForgeryMaterial,
 } from "data/materials/forgeryMaterials";
 import {
     commonMaterials,
-    formatCommonMaterials,
+    getCommonMaterial,
 } from "data/materials/commonMaterials";
 import { ascensionMaterials } from "data/materials/ascensionMaterials";
+import { bossMaterials, getBossMaterial } from "data/materials/bossMaterials";
 import {
-    bossMatNames,
-    formatBossMaterials,
-} from "data/materials/bossMaterials";
-import {
-    formatWeeklyBossMaterials,
-    weeklyBossMatNames,
+    getWeeklyBossMaterial,
+    weeklyBossMaterials,
 } from "data/materials/weeklyBossMaterials";
 
 // Type imports
@@ -60,8 +59,8 @@ import { CombatRole } from "types/character";
 import {
     AscensionMaterial,
     BossMaterial,
-    CommonMaterialKeys,
-    ForgeryMaterialKeys,
+    CommonMaterial,
+    ForgeryMaterial,
     WeeklyBossMaterial,
 } from "types/materials";
 
@@ -75,6 +74,8 @@ function CharacterFilters({
     const filters = useAppSelector(selectCharacterFilters);
     const dispatch = useAppDispatch();
 
+    const showUnreleased = useAppSelector(selectUnreleasedContent);
+
     const handleSelect = () => {
         dispatch(toggleUniqueRoles());
     };
@@ -85,14 +86,14 @@ function CharacterFilters({
             value: filters.element,
             onChange: (_: BaseSyntheticEvent, newValues: Element[]) =>
                 dispatch(setElement(newValues)),
-            buttons: createButtons<Element>(elements, "elements"),
+            buttons: createButtons(elements, "elements"),
         },
         {
             name: "Weapon",
             value: filters.weapon,
             onChange: (_: BaseSyntheticEvent, newValues: WeaponType[]) =>
                 dispatch(setWeapon(newValues)),
-            buttons: createButtons<WeaponType>(weapons, "weapons/icons"),
+            buttons: createButtons(weapons, "weapons/icons"),
         },
         {
             name: "Rarity",
@@ -109,7 +110,7 @@ function CharacterFilters({
             value: filters.roles,
             onChange: (_: BaseSyntheticEvent, newValues: CombatRole[]) =>
                 dispatch(setRoles(newValues)),
-            buttons: createButtons<CombatRole>(objectKeys(combatRoles), "tags"),
+            buttons: createButtons(objectKeys(combatRoles), "tags"),
             toggle: (
                 <FlexBox
                     sx={{ alignItems: "center", flexWrap: "wrap", mb: "8px" }}
@@ -143,24 +144,20 @@ function CharacterFilters({
         {
             name: "Forgery Material",
             value: filters.forgeryMat,
-            onChange: (
-                _: BaseSyntheticEvent,
-                newValues: ForgeryMaterialKeys[]
-            ) => dispatch(setForgeryMat(newValues)),
-            buttons: createButtons<ForgeryMaterialKeys>(
-                objectKeys(forgeryMaterials),
+            onChange: (_: BaseSyntheticEvent, newValues: ForgeryMaterial[]) =>
+                dispatch(setForgeryMat(newValues)),
+            buttons: createButtons(
+                getMaterialKeyNames([...forgeryMaterials], showUnreleased),
                 "materials/forgery"
             ),
         },
         {
             name: "Common Material",
             value: filters.commonMat,
-            onChange: (
-                _: BaseSyntheticEvent,
-                newValues: CommonMaterialKeys[]
-            ) => dispatch(setCommonMat(newValues)),
-            buttons: createButtons<CommonMaterialKeys>(
-                objectKeys(commonMaterials),
+            onChange: (_: BaseSyntheticEvent, newValues: CommonMaterial[]) =>
+                dispatch(setCommonMat(newValues)),
+            buttons: createButtons(
+                getMaterialKeyNames([...commonMaterials], showUnreleased),
                 "materials/common"
             ),
         },
@@ -169,8 +166,8 @@ function CharacterFilters({
             value: filters.ascensionMat,
             onChange: (_: BaseSyntheticEvent, newValues: AscensionMaterial[]) =>
                 dispatch(setAscensionMat(newValues)),
-            buttons: createButtons<AscensionMaterial>(
-                ascensionMaterials,
+            buttons: createButtons(
+                getMaterialKeyNames([...ascensionMaterials], showUnreleased),
                 "materials/ascension"
             ),
         },
@@ -179,8 +176,8 @@ function CharacterFilters({
             value: filters.bossMat,
             onChange: (_: BaseSyntheticEvent, newValues: BossMaterial[]) =>
                 dispatch(setBossMat(newValues)),
-            buttons: createButtons<BossMaterial>(
-                bossMatNames.slice(1),
+            buttons: createButtons(
+                getMaterialKeyNames([...bossMaterials], showUnreleased),
                 "materials/boss"
             ),
         },
@@ -191,8 +188,8 @@ function CharacterFilters({
                 _: BaseSyntheticEvent,
                 newValues: WeeklyBossMaterial[]
             ) => dispatch(setWeeklyBossMat(newValues)),
-            buttons: createButtons<WeeklyBossMaterial>(
-                weeklyBossMatNames,
+            buttons: createButtons(
+                getMaterialKeyNames([...weeklyBossMaterials], showUnreleased),
                 "materials/weekly"
             ),
         },
@@ -255,7 +252,7 @@ function CharacterFilters({
 
 export default CharacterFilters;
 
-function createButtons<T>(items: readonly T[], url: string) {
+function createButtons<T extends string>(items: readonly T[], url: string) {
     const padding = url.startsWith("materials/") ? "0px" : "4px";
     return items.map((item) => ({
         value: item,
@@ -274,16 +271,16 @@ function createButtons<T>(items: readonly T[], url: string) {
     }));
 }
 
-function getTooltip<T>(item: T, url: string) {
+function getTooltip<T extends string>(item: T, url: string) {
     let tooltip;
     if (url.startsWith("materials/boss")) {
-        tooltip = formatBossMaterials(item as BossMaterial);
+        tooltip = formatMaterialName(getBossMaterial({ tag: item }));
     } else if (url.startsWith("materials/weekly")) {
-        tooltip = formatWeeklyBossMaterials(item as WeeklyBossMaterial);
-    } else if (url.startsWith("materials/common")) {
-        tooltip = formatCommonMaterials(item as CommonMaterialKeys);
+        tooltip = formatMaterialName(getWeeklyBossMaterial({ tag: item }));
     } else if (url.startsWith("materials/forgery")) {
-        tooltip = formatForgeryMaterials(item as ForgeryMaterialKeys);
+        tooltip = formatMaterialName(getForgeryMaterial({ tag: item }));
+    } else if (url.startsWith("materials/common")) {
+        tooltip = formatMaterialName(getCommonMaterial({ tag: item }));
     } else {
         tooltip = `${item}`;
     }

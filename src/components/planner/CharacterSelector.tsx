@@ -15,17 +15,15 @@ import { useAppDispatch, useAppSelector } from "helpers/hooks";
 import { selectCharacters } from "reducers/character";
 import { getSelectedCharacters, setPlannerCharacters } from "reducers/planner";
 import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
+import { getBossMaterial } from "data/materials/bossMaterials";
+import { getWeeklyBossMaterial } from "data/materials/weeklyBossMaterials";
+import { getAscensionMaterial } from "data/materials/ascensionMaterials";
+import { getForgeryMaterial } from "data/materials/forgeryMaterials";
+import { getCommonMaterial } from "data/materials/commonMaterials";
 
 // Type imports
 import { Character } from "types/character";
 import { CharacterCostObject } from "types/costs";
-import {
-    AscensionMaterial,
-    BossMaterial,
-    CommonMaterial,
-    ForgeryMaterial,
-    WeeklyBossMaterial,
-} from "types/materials";
 
 function CharacterSelector() {
     const theme = useTheme();
@@ -187,36 +185,46 @@ function createOptions(characters: Character[]) {
                         CharacterXP4: costArray,
                     },
                     bossMat: {
-                        [`${char.materials.bossMat}` as BossMaterial]:
+                        [getBossMaterial({ tag: char.materials.bossMat })?.id!]:
                             costArray,
                     },
                     weeklyBossMat: {
-                        [`${char.materials.weeklyBossMat}` as WeeklyBossMaterial]:
-                            costArray,
+                        [getWeeklyBossMaterial({
+                            tag: char.materials.weeklyBossMat,
+                        })?.id!]: costArray,
                     },
                     ascensionMat: {
-                        [`${char.materials.ascensionMat}` as AscensionMaterial]:
-                            costArray,
+                        [getAscensionMaterial({
+                            tag: char.materials.ascensionMat,
+                        })?.id!]: costArray,
                     },
                     forgeryMat: {
-                        [`${char.materials.forgeryMat}1` as ForgeryMaterial]:
-                            costArray,
-                        [`${char.materials.forgeryMat}2` as ForgeryMaterial]:
-                            costArray,
-                        [`${char.materials.forgeryMat}3` as ForgeryMaterial]:
-                            costArray,
-                        [`${char.materials.forgeryMat}4` as ForgeryMaterial]:
-                            costArray,
+                        [getForgeryMaterial({
+                            tag: `${char.materials.forgeryMat}1`,
+                        })?.id!]: costArray,
+                        [getForgeryMaterial({
+                            tag: `${char.materials.forgeryMat}2`,
+                        })?.id!]: costArray,
+                        [getForgeryMaterial({
+                            tag: `${char.materials.forgeryMat}3`,
+                        })?.id!]: costArray,
+                        [getForgeryMaterial({
+                            tag: `${char.materials.forgeryMat}4`,
+                        })?.id!]: costArray,
                     },
                     commonMat: {
-                        [`${char.materials.commonMat}1` as CommonMaterial]:
-                            costArray,
-                        [`${char.materials.commonMat}2` as CommonMaterial]:
-                            costArray,
-                        [`${char.materials.commonMat}3` as CommonMaterial]:
-                            costArray,
-                        [`${char.materials.commonMat}4` as CommonMaterial]:
-                            costArray,
+                        [getCommonMaterial({
+                            tag: `${char.materials.commonMat}1`,
+                        })?.id!]: costArray,
+                        [getCommonMaterial({
+                            tag: `${char.materials.commonMat}2`,
+                        })?.id!]: costArray,
+                        [getCommonMaterial({
+                            tag: `${char.materials.commonMat}3`,
+                        })?.id!]: costArray,
+                        [getCommonMaterial({
+                            tag: `${char.materials.commonMat}4`,
+                        })?.id!]: costArray,
                     },
                 },
                 values: {
@@ -237,6 +245,7 @@ function createOptions(characters: Character[]) {
                     bonusStat7: {},
                     bonusStat8: {},
                 },
+                dataFormat: "v2",
             } as CharacterCostObject)
     );
 }

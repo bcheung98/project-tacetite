@@ -1,35 +1,64 @@
-import { objectKeys } from "helpers/utils";
-import { WeeklyBossMaterial } from "types/materials";
-
-export const weeklyBossMaterials = <const>{
-    "Dreamless Feather": {
+export const weeklyBossMaterials = [
+    {
+        id: "weeklyBossMat_0",
+        category: "weeklyBossMat",
+        tag: "Dreamless Feather",
+        name: "Dreamless Feather",
         displayName: "Dreamless Feather",
         source: "Dreamless",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Monument Bell": {
+    {
+        id: "weeklyBossMat_1",
+        category: "weeklyBossMat",
+        tag: "Monument Bell",
+        name: "Monument Bell",
         displayName: "Monument Bell",
         source: "Bell-Borne Geochelone",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Unending Destruction": {
+    {
+        id: "weeklyBossMat_2",
+        category: "weeklyBossMat",
+        tag: "Unending Destruction",
+        name: "Unending Destruction",
         displayName: "Unending Destruction",
         source: "Scar",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Sentinel's Dagger": {
+    {
+        id: "weeklyBossMat_3",
+        category: "weeklyBossMat",
+        tag: "Sentinel's Dagger",
+        name: "Sentinel's Dagger",
         displayName: "Sentinel's Dagger",
         source: "Jué",
+        rarity: 4,
+        release: { version: "1.1" },
     },
-    "The Netherworld's Stare": {
+    {
+        id: "weeklyBossMat_4",
+        category: "weeklyBossMat",
+        tag: "The Netherworld's Stare",
+        name: "The Netherworld's Stare",
         displayName: "The Netherworld's Stare",
         source: "Hecate",
+        rarity: 4,
+        release: { version: "2.0" },
     },
-};
+] as const;
 
-export const weeklyBossMatNames = objectKeys(weeklyBossMaterials);
+export const weeklyBossMatNames = weeklyBossMaterials.map((mat) => mat.tag);
 
-export const formatWeeklyBossMaterials = (material: WeeklyBossMaterial) => {
-    const mat = weeklyBossMaterials[material] || {
-        displayName: "",
-        source: "?",
-    };
-    return `${mat.displayName} (${mat.source})`;
-};
+export function getWeeklyBossMaterial({
+    id,
+    tag,
+}: {
+    id?: string;
+    tag: string;
+}) {
+    return weeklyBossMaterials.find((mat) => mat.id === id || mat.tag === tag);
+}
