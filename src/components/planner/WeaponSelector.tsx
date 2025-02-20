@@ -14,11 +14,12 @@ import { useAppDispatch, useAppSelector } from "helpers/hooks";
 import { selectWeapons } from "reducers/weapon";
 import { getSelectedWeapons, setPlannerWeapons } from "reducers/planner";
 import { getBackgroundColor, getRarityColor } from "helpers/rarityColors";
+import { getForgeryMaterial } from "data/materials/forgeryMaterials";
+import { getCommonMaterial } from "data/materials/commonMaterials";
 
 // Type imports
 import { Weapon } from "types/weapon";
 import { WeaponCostObject } from "types/costs";
-import { CommonMaterial, ForgeryMaterial } from "types/materials";
 
 function WeaponSelector() {
     const theme = useTheme();
@@ -165,21 +166,38 @@ function createOptions(weapons: Weapon[]) {
                         WeaponXP4: 0,
                     },
                     forgeryMat: {
-                        [`${wep.materials.forgeryMat}1` as ForgeryMaterial]: 0,
-                        [`${wep.materials.forgeryMat}2` as ForgeryMaterial]: 0,
-                        [`${wep.materials.forgeryMat}3` as ForgeryMaterial]: 0,
-                        [`${wep.materials.forgeryMat}4` as ForgeryMaterial]: 0,
+                        [getForgeryMaterial({
+                            tag: `${wep.materials.forgeryMat}1`,
+                        })?.id!]: 0,
+                        [getForgeryMaterial({
+                            tag: `${wep.materials.forgeryMat}2`,
+                        })?.id!]: 0,
+                        [getForgeryMaterial({
+                            tag: `${wep.materials.forgeryMat}3`,
+                        })?.id!]: 0,
+                        [getForgeryMaterial({
+                            tag: `${wep.materials.forgeryMat}4`,
+                        })?.id!]: 0,
                     },
                     commonMat: {
-                        [`${wep.materials.commonMat}1` as CommonMaterial]: 0,
-                        [`${wep.materials.commonMat}2` as CommonMaterial]: 0,
-                        [`${wep.materials.commonMat}3` as CommonMaterial]: 0,
-                        [`${wep.materials.commonMat}4` as CommonMaterial]: 0,
+                        [getCommonMaterial({
+                            tag: `${wep.materials.commonMat}1`,
+                        })?.id!]: 0,
+                        [getCommonMaterial({
+                            tag: `${wep.materials.commonMat}2`,
+                        })?.id!]: 0,
+                        [getCommonMaterial({
+                            tag: `${wep.materials.commonMat}3`,
+                        })?.id!]: 0,
+                        [getCommonMaterial({
+                            tag: `${wep.materials.commonMat}4`,
+                        })?.id!]: 0,
                     },
                 },
                 values: {
                     level: {},
                 },
+                dataFormat: "v2",
             } as WeaponCostObject)
     );
 }

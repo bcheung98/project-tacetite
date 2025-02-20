@@ -12,8 +12,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 // Helper imports
-import { objectKeys } from "helpers/utils";
 import { useAppDispatch, useAppSelector } from "helpers/hooks";
+import { selectUnreleasedContent } from "reducers/settings";
 import {
     activeWeaponFilters,
     clearFilters,
@@ -26,18 +26,19 @@ import {
 } from "reducers/weaponFilters";
 import { rarities, weapons } from "data/common";
 import { WeaponSubStat, weaponSubStats } from "data/weaponStats";
+import { formatMaterialName, getMaterialKeyNames } from "helpers/materials";
 import {
     forgeryMaterials,
-    formatForgeryMaterials,
+    getForgeryMaterial,
 } from "data/materials/forgeryMaterials";
 import {
     commonMaterials,
-    formatCommonMaterials,
+    getCommonMaterial,
 } from "data/materials/commonMaterials";
 
 // Type imports
 import { Rarity, WeaponType } from "types/_common";
-import { CommonMaterialKeys, ForgeryMaterialKeys } from "types/materials";
+import { CommonMaterial, ForgeryMaterial } from "types/materials";
 
 function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
     const theme = useTheme();
@@ -45,13 +46,15 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
     const filters = useAppSelector(selectWeaponFilters);
     const dispatch = useAppDispatch();
 
+    const showUnreleased = useAppSelector(selectUnreleasedContent);
+
     const filterGroups = [
         {
             name: "Weapon",
             value: filters.weaponType,
             onChange: (_: BaseSyntheticEvent, newValues: WeaponType[]) =>
                 dispatch(setWeaponType(newValues)),
-            buttons: createButtons<WeaponType>(weapons, "weapons/icons"),
+            buttons: createButtons(weapons, "weapons/icons"),
         },
         {
             name: "Rarity",
@@ -73,24 +76,20 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
         {
             name: "Forgery Material",
             value: filters.forgeryMat,
-            onChange: (
-                _: BaseSyntheticEvent,
-                newValues: ForgeryMaterialKeys[]
-            ) => dispatch(setForgeryMat(newValues)),
-            buttons: createButtons<ForgeryMaterialKeys>(
-                objectKeys(forgeryMaterials),
+            onChange: (_: BaseSyntheticEvent, newValues: ForgeryMaterial[]) =>
+                dispatch(setForgeryMat(newValues)),
+            buttons: createButtons(
+                getMaterialKeyNames([...forgeryMaterials], showUnreleased),
                 "materials/forgery"
             ),
         },
         {
             name: "Common Material",
             value: filters.commonMat,
-            onChange: (
-                _: BaseSyntheticEvent,
-                newValues: CommonMaterialKeys[]
-            ) => dispatch(setCommonMat(newValues)),
-            buttons: createButtons<CommonMaterialKeys>(
-                objectKeys(commonMaterials),
+            onChange: (_: BaseSyntheticEvent, newValues: CommonMaterial[]) =>
+                dispatch(setCommonMat(newValues)),
+            buttons: createButtons(
+                getMaterialKeyNames([...commonMaterials], showUnreleased),
                 "materials/common"
             ),
         },
@@ -152,7 +151,7 @@ function WeaponFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
 
 export default WeaponFilters;
 
-function createButtons<T>(items: readonly T[], url: string) {
+function createButtons<T extends string>(items: readonly T[], url: string) {
     const padding = url.startsWith("materials/") ? "0px" : "4px";
     return items.map((item) => ({
         value: item,
@@ -171,12 +170,12 @@ function createButtons<T>(items: readonly T[], url: string) {
     }));
 }
 
-function getTooltip<T>(item: T, url: string) {
+function getTooltip<T extends string>(item: T, url: string) {
     let tooltip;
-    if (url.startsWith("materials/common")) {
-        tooltip = formatCommonMaterials(item as CommonMaterialKeys);
-    } else if (url.startsWith("materials/forgery")) {
-        tooltip = formatForgeryMaterials(item as ForgeryMaterialKeys);
+    if (url.startsWith("materials/forgery")) {
+        tooltip = formatMaterialName(getForgeryMaterial({ tag: item }));
+    } else if (url.startsWith("materials/common")) {
+        tooltip = formatMaterialName(getCommonMaterial({ tag: item }));
     } else {
         tooltip = `${item}`;
     }

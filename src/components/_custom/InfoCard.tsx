@@ -13,19 +13,17 @@ import Grid from "@mui/material/Grid2";
 // Helper imports
 import { getRarityColor } from "helpers/rarityColors";
 import { zoomImageOnHover } from "helpers/utils";
-import { formatBossMaterials } from "data/materials/bossMaterials";
-import { formatWeeklyBossMaterials } from "data/materials/weeklyBossMaterials";
-import { formatCommonMaterials } from "data/materials/commonMaterials";
+import { formatMaterialName } from "helpers/materials";
+import { getForgeryMaterial } from "data/materials/forgeryMaterials";
+import { getBossMaterial } from "data/materials/bossMaterials";
+import { getWeeklyBossMaterial } from "data/materials/weeklyBossMaterials";
+import { getCommonMaterial } from "data/materials/commonMaterials";
+import { getAscensionMaterial } from "data/materials/ascensionMaterials";
 
 // Type imports
 import { Element, Rarity, WeaponType } from "types/_common";
 import { EchoCost, EchoSonata } from "types/echo";
-import {
-    BossMaterial,
-    CommonMaterialKeys,
-    Materials,
-    WeeklyBossMaterial,
-} from "types/materials";
+import { CharacterMaterials } from "types/materials";
 
 interface InfoCardProps {
     name: string;
@@ -44,7 +42,7 @@ interface InfoCardProps {
     infoSecondary?: {
         cost?: EchoCost;
     };
-    materials?: Materials;
+    materials?: CharacterMaterials;
     backgroundColor?: string;
     disableTooltip?: boolean;
     disableLink?: boolean;
@@ -302,7 +300,7 @@ function MaterialGrid({
     materials,
     size,
 }: {
-    materials: Materials;
+    materials: CharacterMaterials;
     size: string;
 }) {
     const theme = useTheme();
@@ -311,20 +309,30 @@ function MaterialGrid({
         materials;
 
     const images = [
-        { src: `materials/forgery/${forgeryMat}4`, tag: forgeryMat },
+        {
+            src: `materials/forgery/${forgeryMat}4`,
+            tag: formatMaterialName(getForgeryMaterial({ tag: forgeryMat })),
+        },
         {
             src: `materials/boss/${bossMat}`,
-            tag: formatBossMaterials(bossMat as BossMaterial),
+            tag: formatMaterialName(getBossMaterial({ tag: bossMat })),
         },
         {
             src: `materials/weekly/${weeklyBossMat}`,
-            tag: formatWeeklyBossMaterials(weeklyBossMat as WeeklyBossMaterial),
+            tag: formatMaterialName(
+                getWeeklyBossMaterial({ tag: weeklyBossMat })
+            ),
         },
         {
             src: `materials/common/${commonMat}4`,
-            tag: formatCommonMaterials(commonMat as CommonMaterialKeys),
+            tag: formatMaterialName(getCommonMaterial({ tag: commonMat })),
         },
-        { src: `materials/ascension/${ascensionMat}`, tag: ascensionMat },
+        {
+            src: `materials/ascension/${ascensionMat}`,
+            tag: formatMaterialName(
+                getAscensionMaterial({ tag: ascensionMat })
+            ),
+        },
     ];
 
     return (

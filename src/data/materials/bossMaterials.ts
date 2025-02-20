@@ -1,72 +1,147 @@
-import { objectKeys } from "helpers/utils";
-import { BossMaterial } from "types/materials";
-
-export const bossMaterials = <const>{
-    "Mysterious Code": {
+export const bossMaterials = [
+    {
+        id: "bossMat_0",
+        category: "bossMat",
+        tag: "Mysterious Code",
+        name: "Mysterious Code",
         displayName: "Mysterious Code",
-        source: "",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Elegy Tacet Core": {
+    {
+        id: "bossMat_1",
+        category: "bossMat",
+        tag: "Elegy Tacet Core",
+        name: "Elegy Tacet Core",
         displayName: "Elegy Tacet Core",
         source: "Mourning Aix",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Gold-Dissolving Feather": {
+    {
+        id: "bossMat_2",
+        category: "bossMat",
+        tag: "Gold-Dissolving Feather",
+        name: "Gold-Dissolving Feather",
         displayName: "Gold-Dissolving Feather",
         source: "Impermanence Heron",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Group Abomination Tacet Core": {
+    {
+        id: "bossMat_3",
+        category: "bossMat",
+        tag: "Group Abomination Tacet Core",
+        name: "Group Abomination Tacet Core",
         displayName: "Group Abomination Tacet Core",
         source: "Mech Abomination",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Hidden Thunder Tacet Core": {
+    {
+        id: "bossMat_4",
+        category: "bossMat",
+        tag: "Hidden Thunder Tacet Core",
+        name: "Hidden Thunder Tacet Core",
         displayName: "Hidden Thunder Tacet Core",
         source: "Tempest Mephis",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Rage Tacet Core": {
+    {
+        id: "bossMat_5",
+        category: "bossMat",
+        tag: "Rage Tacet Core",
+        name: "Rage Tacet Core",
         displayName: "Rage Tacet Core",
         source: "Inferno Rider",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Roaring Rock Fist": {
+    {
+        id: "bossMat_6",
+        category: "bossMat",
+        tag: "Roaring Rock Fist",
+        name: "Roaring Rock Fist",
         displayName: "Roaring Rock Fist",
         source: "Feilian Beringal",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Sound-Keeping Tacet Core": {
+    {
+        id: "bossMat_7",
+        category: "bossMat",
+        tag: "Sound-Keeping Tacet Core",
+        name: "Sound-Keeping Tacet Core",
         displayName: "Sound-Keeping Tacet Core",
         source: "Lampylumen Myriad",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Strife Tacet Core": {
+    {
+        id: "bossMat_8",
+        category: "bossMat",
+        tag: "Strife Tacet Core",
+        name: "Strife Tacet Core",
         displayName: "Strife Tacet Core",
         source: "Crownless",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Thundering Tacet Core": {
+    {
+        id: "bossMat_9",
+        category: "bossMat",
+        tag: "Thundering Tacet Core",
+        name: "Thundering Tacet Core",
         displayName: "Thundering Tacet Core",
         source: "Thundering Mephis",
+        rarity: 4,
+        release: { version: "1.0" },
     },
-    "Topological Confinement": {
+    {
+        id: "bossMat_10",
+        category: "bossMat",
+        tag: "Topological Confinement",
+        name: "Topological Confinement",
         displayName: "Topological Confinement",
         source: "Fallacy of No Return",
+        rarity: 4,
+        release: { version: "1.3" },
     },
-    "Cleansing Conch": {
+    {
+        id: "bossMat_11",
+        category: "bossMat",
+        tag: "Cleansing Conch",
+        name: "Cleansing Conch",
         displayName: "Cleansing Conch",
         source: "Lorelei",
+        rarity: 4,
+        release: { version: "2.0" },
     },
-    "Platinum Core": {
+    {
+        id: "bossMat_12",
+        category: "bossMat",
+        tag: "Platinum Core",
+        name: "Platinum Core",
         displayName: "Platinum Core",
         source: "Sentry Construct",
+        rarity: 4,
+        release: { version: "2.0" },
     },
-    "Blazing Bone": {
+    {
+        id: "bossMat_13",
+        category: "bossMat",
+        tag: "Blazing Bone",
+        name: "Blazing Bone",
         displayName: "Blazing Bone",
         source: "Dragon of Dirge",
+        rarity: 4,
+        release: { version: "2.0" },
     },
-};
+] as const;
 
-export const bossMatNames = objectKeys(bossMaterials);
+export const bossMatNames = bossMaterials.map((mat) => mat.tag);
 
-export const formatBossMaterials = (material: BossMaterial) => {
-    const mat = bossMaterials[material] || { displayName: "", source: "?" };
-    if (material === "Mysterious Code") {
-        return mat.displayName;
-    } else {
-        return `${mat.displayName} (${mat.source})`;
-    }
-};
+export function getBossMaterial({ id, tag }: { id?: string; tag: string }) {
+    return bossMaterials.find((mat) => mat.id === id || mat.tag === tag);
+}
