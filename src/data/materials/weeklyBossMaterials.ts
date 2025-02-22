@@ -49,6 +49,16 @@ export const weeklyBossMaterials = [
         rarity: 4,
         release: { version: "2.0" },
     },
+    {
+        id: "weeklyBossMat_5",
+        category: "weeklyBossMat",
+        tag: "When Irises Bloom",
+        name: "When Irises Bloom",
+        displayName: "When Irises Bloom",
+        source: "Fleurdelys",
+        rarity: 4,
+        release: { version: "2.2" },
+    },
 ] as const;
 
 export const weeklyBossMatNames = weeklyBossMaterials.map((mat) => mat.tag);
