@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 // Component imports
 import Image from "custom/Image";
@@ -30,7 +30,7 @@ function CharacterCombatRoles({ roles }: { roles: CombatRole[] }) {
     const theme = useTheme();
     const matches_sm_up = useMediaQuery(theme.breakpoints.up("sm"));
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -48,12 +48,12 @@ function CharacterCombatRoles({ roles }: { roles: CombatRole[] }) {
                             src={`tags/${role}`}
                             alt={role}
                             style={{
-                                width: "40px",
-                                height: "40px",
+                                width: matches_sm_up ? "40px" : "32px",
+                                height: matches_sm_up ? "40px" : "32px",
                                 padding: "4px",
                                 border: `2px solid ${combatRoles[role].color}`,
                                 borderRadius: "4px",
-                                backgroundColor: theme.appbar.backgroundColor,
+                                backgroundColor: theme.appbar.hover,
                             }}
                             tooltip={role}
                         />
@@ -65,7 +65,9 @@ function CharacterCombatRoles({ roles }: { roles: CombatRole[] }) {
                     placement="top"
                 >
                     <IconButton disableRipple onClick={handleClickOpen}>
-                        <InfoOutlinedIcon sx={{ fontSize: "32px" }} />
+                        <InfoOutlinedIcon
+                            sx={{ fontSize: matches_sm_up ? "32px" : "24px" }}
+                        />
                     </IconButton>
                 </StyledTooltip>
             </Stack>
