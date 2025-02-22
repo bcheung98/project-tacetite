@@ -72,8 +72,8 @@ function CharacterImage({ character }: CharacterProps) {
 
     const imgSrcSplash =
         tabValue === 0
-            ? `characters/avatars/${character.name}`
-            : `characters/outfits/splash/${outfits[tabValue].name}`;
+            ? `characters/portraits/${character.name}`
+            : `characters/outfits/portrait/${outfits[tabValue].name}`;
 
     return (
         <>
