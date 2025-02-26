@@ -1,10 +1,12 @@
-import { Character } from "../types/character";
-import { CharacterFilterState } from "rtk/reducers/characterFilters";
+import { Character } from "types/character";
+import { CharacterFilterState } from "reducers/characterFilters";
+import { BrowserSettings } from "reducers/browser";
 
 export function filterCharacters(
     characters: Character[],
     filters: CharacterFilterState,
-    searchValue: string
+    searchValue: string,
+    sortSettings: BrowserSettings
 ) {
     let chars = [...characters];
     if (filters.element.length > 0) {
@@ -59,5 +61,41 @@ export function filterCharacters(
                 char.fullName.toLowerCase().includes(searchValue.toLowerCase())
         );
     }
+
+    switch (sortSettings.sortBy) {
+        case "name":
+            chars = chars.sort((a, b) => a.fullName.localeCompare(b.fullName));
+            break;
+        case "rarity":
+            chars = chars.sort(
+                (a, b) =>
+                    b.rarity - a.rarity || a.fullName.localeCompare(b.fullName)
+            );
+            break;
+        case "element":
+            chars = chars.sort(
+                (a, b) =>
+                    a.element.localeCompare(b.element) ||
+                    a.fullName.localeCompare(b.fullName)
+            );
+            break;
+        case "weapon":
+            chars = chars.sort(
+                (a, b) =>
+                    a.weapon.localeCompare(b.weapon) ||
+                    a.fullName.localeCompare(b.fullName)
+            );
+            break;
+        case "release":
+            chars = chars.sort(
+                (a, b) => b.id - a.id || a.fullName.localeCompare(b.fullName)
+            );
+            break;
+    }
+
+    if (sortSettings.sortDirection === "desc") {
+        chars = chars.reverse();
+    }
+
     return chars;
 }
