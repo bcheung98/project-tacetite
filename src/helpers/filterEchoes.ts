@@ -1,10 +1,13 @@
-import { EchoFilterState } from "reducers/echoFilters";
 import { Echo } from "../types/echo";
+import { EchoFilterState } from "reducers/echoFilters";
+import { BrowserSettings } from "reducers/browser";
+import { echoes as echoData } from "data/common";
 
 export const filterEchoes = (
     echoes: Echo[],
     filters: EchoFilterState,
-    searchValue: string
+    searchValue: string,
+    sortSettings: BrowserSettings
 ) => {
     let echos = [...echoes];
     if (filters.class.length > 0) {
@@ -30,5 +33,34 @@ export const filterEchoes = (
                     .includes(searchValue.toLowerCase())
         );
     }
+
+    switch (sortSettings.sortBy) {
+        case "name":
+            echos = echos.sort((a, b) =>
+                a.displayName.localeCompare(b.displayName)
+            );
+            break;
+        case "rarity":
+            echos = echos.sort(
+                (a, b) =>
+                    echoData[b.class].rarity - echoData[a.class].rarity ||
+                    a.displayName.localeCompare(b.displayName)
+            );
+            break;
+        case "release":
+            echos = echos.sort(
+                (a, b) =>
+                    b.id - a.id || a.displayName.localeCompare(b.displayName)
+            );
+            break;
+        case "element":
+        case "weapon":
+            break;
+    }
+
+    if (sortSettings.sortDirection === "desc") {
+        echos = echos.reverse();
+    }
+
     return echos;
 };

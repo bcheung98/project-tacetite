@@ -1,6 +1,7 @@
-import React from "react";
+import { BaseSyntheticEvent } from "react";
 
 // Component imports
+import BrowserSort from "custom/BrowserSort";
 import Dropdown from "custom/Dropdown";
 import Image from "custom/Image";
 import ToggleButtons from "custom/ToggleButtons";
@@ -46,12 +47,16 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
         {
             name: "Echo Class",
             value: filters.class,
-            onChange: (_: React.BaseSyntheticEvent, newValues: EchoClass[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: EchoClass[]) =>
                 dispatch(setClass(newValues)),
             buttons: echoClasses.map((echoClass) => ({
                 value: echoClass,
                 label: (
-                    <TextStyled component="span" variant="body1-styled">
+                    <TextStyled
+                        component="span"
+                        variant="body1-styled"
+                        sx={{ mx: 1 }}
+                    >
                         {`${echoClass} (COST ${echoes[echoClass].cost})`}
                     </TextStyled>
                 ),
@@ -60,7 +65,7 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
         {
             name: "Sonata Effects",
             value: filters.sonata,
-            onChange: (_: React.BaseSyntheticEvent, newValues: EchoSonata[]) =>
+            onChange: (_: BaseSyntheticEvent, newValues: EchoSonata[]) =>
                 dispatch(setSonata(newValues)),
             buttons: objectKeys(sonataEffects).map((sonata) => ({
                 value: sonata,
@@ -125,6 +130,7 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
                             opacity: 0.35,
                             color: theme.appbar.color,
                         },
+                        border: `1px solid ${theme.border.color.primary}`,
                     }}
                 >
                     Reset
@@ -160,6 +166,10 @@ function EchoFilters({ handleClose }: { handleClose: (arg0: any) => void }) {
                     </Dropdown>
                 ))}
             </List>
+            <BrowserSort
+                type="echoes"
+                options={["release", "name", "rarity"]}
+            />
         </>
     );
 }

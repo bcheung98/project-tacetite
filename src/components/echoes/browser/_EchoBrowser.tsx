@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent, useEffect, useMemo, useState } from "react";
 
 // Component imports
 import EchoFilters from "./EchoFilters";
@@ -24,6 +24,7 @@ import { filterEchoes } from "helpers/filterEchoes";
 import { selectEchoes } from "reducers/echo";
 import { clearFilters, selectEchoFilters } from "reducers/echoFilters";
 import { isRightDrawerOpen, toggleRightDrawer } from "reducers/layout";
+import { selectBrowserSettings, setBrowserView, View } from "reducers/browser";
 
 function EchoBrowser() {
     const documentTitle = `Echoes ${import.meta.env.VITE_DOCUMENT_TITLE}`;
@@ -45,25 +46,22 @@ function EchoBrowser() {
 
     const dispatch = useAppDispatch();
 
-    const echoes = [...useAppSelector(selectEchoes)].sort(
-        (a, b) =>
-            echoData[b.class].rarity - echoData[a.class].rarity ||
-            a.displayName.localeCompare(b.displayName)
-    );
+    const echoes = [...useAppSelector(selectEchoes)];
     const filters = useAppSelector(selectEchoFilters);
+    const browserSettings = useAppSelector(selectBrowserSettings).echoes;
 
-    const [searchValue, setSearchValue] = React.useState("");
-    const handleInputChange = (event: React.BaseSyntheticEvent) => {
+    const [searchValue, setSearchValue] = useState("");
+    const handleInputChange = (event: BaseSyntheticEvent) => {
         setSearchValue(event.target.value);
     };
 
-    const currentEchoes = React.useMemo(
-        () => filterEchoes(echoes, filters, searchValue),
-        [echoes, filters, searchValue]
+    const currentEchoes = useMemo(
+        () => filterEchoes(echoes, filters, searchValue, browserSettings),
+        [echoes, filters, searchValue, browserSettings]
     );
 
     const drawerOpen = useAppSelector(isRightDrawerOpen);
-    const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
+    const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
     const toggleDrawerState = () => {
         dispatch(toggleRightDrawer());
     };
@@ -74,11 +72,12 @@ function EchoBrowser() {
         setMobileDrawerOpen(false);
     };
 
-    type View = "icon" | "table";
-    const [view, setView] = React.useState<View>("icon");
-    const handleView = (_: React.BaseSyntheticEvent, newView: View) => {
-        if (newView !== null) {
-            setView(newView);
+    const currentView = browserSettings.view;
+    const [view, setView] = useState<View>(currentView);
+    const handleView = (_: BaseSyntheticEvent, view: View) => {
+        if (view !== null) {
+            setView(view);
+            dispatch(setBrowserView({ type: "echoes", view }));
         }
     };
     const buttons: CustomToggleButtonProps[] = [
@@ -92,11 +91,11 @@ function EchoBrowser() {
         },
     ];
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(clearFilters());
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(toggleRightDrawer(matches_md_up));
     }, [matches_md_up]);
 

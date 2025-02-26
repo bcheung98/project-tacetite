@@ -1,4 +1,4 @@
-import React from "react";
+import { BaseSyntheticEvent, useEffect, useMemo, useState } from "react";
 
 // Component imports
 import WeaponFilters from "./WeaponFilters";
@@ -23,6 +23,7 @@ import { filterWeapons } from "helpers/filterWeapons";
 import { selectWeapons } from "reducers/weapon";
 import { clearFilters, selectWeaponFilters } from "reducers/weaponFilters";
 import { isRightDrawerOpen, toggleRightDrawer } from "reducers/layout";
+import { selectBrowserSettings, setBrowserView, View } from "reducers/browser";
 
 function WeaponBrowser() {
     const documentTitle = `Weapons ${import.meta.env.VITE_DOCUMENT_TITLE}`;
@@ -44,24 +45,22 @@ function WeaponBrowser() {
 
     const dispatch = useAppDispatch();
 
-    const weapons = [...useAppSelector(selectWeapons)].sort(
-        (a, b) =>
-            b.rarity - a.rarity || a.displayName.localeCompare(b.displayName)
-    );
+    const weapons = [...useAppSelector(selectWeapons)];
     const filters = useAppSelector(selectWeaponFilters);
+    const browserSettings = useAppSelector(selectBrowserSettings).weapons;
 
-    const [searchValue, setSearchValue] = React.useState("");
-    const handleInputChange = (event: React.BaseSyntheticEvent) => {
+    const [searchValue, setSearchValue] = useState("");
+    const handleInputChange = (event: BaseSyntheticEvent) => {
         setSearchValue(event.target.value);
     };
 
-    const currentWeapons = React.useMemo(
-        () => filterWeapons(weapons, filters, searchValue),
-        [weapons, filters, searchValue]
+    const currentWeapons = useMemo(
+        () => filterWeapons(weapons, filters, searchValue, browserSettings),
+        [weapons, filters, searchValue, browserSettings]
     );
 
     const drawerOpen = useAppSelector(isRightDrawerOpen);
-    const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
+    const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
     const toggleDrawerState = () => {
         dispatch(toggleRightDrawer());
     };
@@ -72,16 +71,17 @@ function WeaponBrowser() {
         setMobileDrawerOpen(false);
     };
 
-    type View = "card" | "table";
-    const [view, setView] = React.useState<View>("card");
-    const handleView = (_: React.BaseSyntheticEvent, newView: View) => {
-        if (newView !== null) {
-            setView(newView);
+    const currentView = browserSettings.view;
+    const [view, setView] = useState<View>(currentView);
+    const handleView = (_: BaseSyntheticEvent, view: View) => {
+        if (view !== null) {
+            setView(view);
+            dispatch(setBrowserView({ type: "weapons", view }));
         }
     };
     const buttons: CustomToggleButtonProps[] = [
         {
-            value: "card",
+            value: "icon",
             icon: <ViewCompactIcon />,
         },
         {
@@ -90,11 +90,11 @@ function WeaponBrowser() {
         },
     ];
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(clearFilters());
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(toggleRightDrawer(matches_md_up));
     }, [matches_md_up]);
 
@@ -153,7 +153,7 @@ function WeaponBrowser() {
                     </Button>
                 </Grid>
             </Grid>
-            {view === "card" && (
+            {view === "icon" && (
                 <Grid container spacing={3}>
                     {currentWeapons.map((weapon) => (
                         <InfoCard
